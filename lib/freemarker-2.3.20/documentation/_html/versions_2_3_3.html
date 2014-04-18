@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.3.3
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.3
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_2.html"><span class="hideA">Next page: </span>2.3.2</a></div><div class="pagerButton"><a href="versions_2_3_4.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_3_3"></a>2.3.3  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_170">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="#autoid_171">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="#autoid_172">Other changes</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Date of release: 2005-06-23</p><p>Some new features and lot of bugfixes.</p><p>Attention:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p>If you are using the Log4J logging, from now at least Log4J
+            1.2 is required. This is because of incompatible changes in the
+            Log4J API.</p>
+          </li>
+
+          <li>
+            <p>If you build FreeMarker yourself: from now at least JavaCC
+            3.2 (instead of JavaCC 2.1) and at least Ant 1.6.1 (instead of Ant
+            1.5.x) is required. This doesn't affect users who use the
+            <tt style="color: #A03D10">freemarker.jar</tt> comes with the
+            distribution.</p>
+          </li>
+        </ul>    </div>
+
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_170"></a>Changes on the FTL side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>New built-in for formatting numbers for ``computer
+              audience'' as opposed to human audience: <a href="ref_builtins_number.html#ref_builtin_c"><tt>c</tt></a>. It should
+              be used for numbers that must use Java language formatting
+              regardless of the number format and locale settings, like for a
+              database record ID used as the part of an URL or as invisible
+              field value in a HTML form, or for printing CSS/JavaScript
+              numerical literals.</p>
+            </li>
+
+            <li>
+              <p>New built-in for the columnar/tabular displaying of
+              sequences: <a href="ref_builtins_sequence.html#ref_builtin_chunk"><tt>chunk</tt></a>.</p>
+            </li>
+
+            <li>
+              <p>The <a href="dgui_template_exp.html#dgui_template_exp_seqenceop_slice">sequence
+              slice</a> and substring operators now allow the omitting of
+              the last index, in which case it defaults to the index of the
+              last sequence item or character. Example:
+              <tt style="color: #A03D10">products[2..]</tt>. (Also, <a href="dgui_template_exp.html#dgui_template_exp_direct_seuqence">numerical range
+              literals</a> now allow the omitting of the final number, in
+              which case it defaults to infinity. Example:
+              <tt style="color: #A03D10">5..</tt>.)</p>
+            </li>
+
+            <li>
+              <p>Bugfix: <tt style="color: #A03D10">?replace</tt> has worked forever if
+              the string to replace was <tt style="color: #A03D10">&quot;&quot;</tt>.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_171"></a>Changes on the Java side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>New template loader:
+              <tt style="color: #A03D10">freemarker.cache.StringTemplateLoader</tt>. It
+              uses a <tt style="color: #A03D10">Map</tt> with <tt style="color: #A03D10">Strings</tt> as
+              its source of templates. See more in the JavaDoc.</p>
+            </li>
+
+            <li>
+              <p>Experimental Rhino support: FreeMarker now comes with an
+              experimental object wrapper for Rhino (Java ECMAScript
+              implementation):
+              <tt style="color: #A03D10">freemarker.ext.rhino.RhinoWrapper</tt></p>
+            </li>
+
+            <li>
+              <p>Some new utility methods for
+              <tt style="color: #A03D10">Simple<i style="color: #DD4400">Xxx</i></tt> classes:
+              <tt style="color: #A03D10">SimpleHash.toMap()</tt>,
+              <tt style="color: #A03D10">SimpleSequence.toList()</tt>.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: FTL literals and any other
+              <tt style="color: #A03D10">SimpleSequnce</tt>-s, and
+              <tt style="color: #A03D10">SimpleHash</tt>-es now can be used as parameters
+              to the FreeMarker-unaware Java methods that are exposed by
+              <tt style="color: #A03D10">DefaultWrapper</tt> or
+              <tt style="color: #A03D10">BeansWrapper</tt>. That is, the method parameters
+              are automatically converted from
+              <tt style="color: #A03D10">Template<i style="color: #DD4400">Type</i>Model</tt>-s
+              to <tt style="color: #A03D10">java.util.Map</tt> and
+              <tt style="color: #A03D10">java.util.List</tt> respectively.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: The JSP support now works in JSP 2 compliant
+              containers as well. No, it doesn't support the new features of
+              JSP 2 yet, it's just that the JSP 1.2 taglib support has not
+              worked in JSP 2 containers.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: The
+              <tt style="color: #A03D10">Configuration.setOutputEncoding</tt> and
+              <tt style="color: #A03D10">setURLEscapingCharset</tt> methods died with
+              <tt style="color: #A03D10">NullPointerException</tt> when you tried to set
+              the setting value to <tt style="color: #A03D10">null</tt>, which is legal for
+              these settings.</p>
+            </li>
+
+            <li>
+              <p>Bugfix:
+              <tt style="color: #A03D10">freemarker.template.utility.StringUtil.replace(...)</tt>
+              has worked forever if the string to replace was
+              <tt style="color: #A03D10">&quot;&quot;</tt>.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: The Log4J logging was updated to be compatible
+              with the upcoming Log4J 1.3. Note that now FreeMarker will need
+              at least Log4J 1.2.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: FreeMarker didn't built from the source code on
+              J2SE 1.5, because of the introduction of the
+              <tt style="color: #A03D10">enum</tt> keyword.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: The return value of
+              <tt style="color: #A03D10">SimpleSequence.synchronizedWrapper()</tt> was not
+              properly synchronized. Same with
+              <tt style="color: #A03D10">SimpleHash.synchronizedWrapper()</tt>.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: Problem with <tt style="color: #A03D10">BeansWrapper</tt> and
+              overridden bean methods/properties. (Details: bug-tracker entry
+              <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1217661&amp;group_id=794&amp;atid=100794">#1217661</a>
+              and <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1166533&amp;group_id=794&amp;atid=100794">#1166533</a>)</p>
+            </li>
+
+            <li>
+              <p>Bugfix: Can't access JSP taglibs if
+              <tt style="color: #A03D10">Request</tt> attribute is defined in the
+              data-model (Details: bug-tracker entry <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1202918&amp;group_id=794&amp;atid=100794">#1202918</a>).</p>
+            </li>
+
+            <li>
+              <p>Bugfix: Various minor parser glitches were fixed.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_172"></a>Other changes  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Manual improvements, especially in the FAQ.</p>
+            </li>
+          </ul>    </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_2.html"><span class="hideA">Next page: </span>2.3.2</a></div><div class="pagerButton"><a href="versions_2_3_4.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.3
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

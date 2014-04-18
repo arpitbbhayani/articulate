@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - List of deprecated directives
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_deprecated.html">Deprecated FTL constructs</a>
+            <b>></b>
+          List of deprecated directives
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_depr_builtin.html"><span class="hideA">Next page: </span>List of deprecated built-ins</a></div><div class="pagerButton"><a href="ref_deprecated.html">Previous page</a></div><div class="pagerButton"><a href="ref_deprecated.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="ref_depr_directive"></a>List of deprecated directives  </h1>
+    
+    
+<p>The following directives are deprecated, but still
+        working:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p><a href="ref_depr_oldmacro.html#ref.directive.call"><tt>call</tt></a>: use
+            <a href="ref_directive_userDefined.html#ref.directive.userDefined">user-defined directive
+            call</a> instead</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">comment</tt>: This is the old format of
+            <tt style="color: #A03D10">&lt;#--<i style="color: #DD4400">...</i>--&gt;</tt>.
+            Anything between the <tt style="color: #A03D10">&lt;#comment&gt;</tt> and
+            <tt style="color: #A03D10">&lt;/#comment&gt;</tt> will be ignored.</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">foreach</tt>: it is a synonym of the
+            <tt style="color: #A03D10">list</tt> directive with slightly different
+            parameter syntax. The syntax is <tt style="color: #A03D10">&lt;#foreach
+            <i style="color: #DD4400">item</i> in
+            <i style="color: #DD4400">sequence</i>&gt;</tt> that is
+            equivalent with <tt style="color: #A03D10">&lt;#list
+            <i style="color: #DD4400">sequence</i> as
+            <i style="color: #DD4400">item</i>&gt;</tt>.</p>
+          </li>
+
+          <li>
+            <p><a href="ref_depr_transform.html#ref.directive.transform"><tt>transform</tt></a>:
+            use <a href="ref_directive_userDefined.html#ref.directive.userDefined">user-defined
+            directive call</a> instead</p>
+          </li>
+        </ul>    </div>
+<p>The following directives are not working anymore:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p>Legacy <tt style="color: #A03D10">function</tt>: Originally
+            <tt style="color: #A03D10">function</tt> was used to define macros, and was
+            deprecated in favor of the <tt style="color: #A03D10">macro</tt> directive. As
+            of FreeMarker 2.3, this directive is reintroduced with different
+            meaning: it is used to define methods.</p>
+          </li>
+        </ul>    </div>
+  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_depr_builtin.html"><span class="hideA">Next page: </span>List of deprecated built-ins</a></div><div class="pagerButton"><a href="ref_deprecated.html">Previous page</a></div><div class="pagerButton"><a href="ref_deprecated.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_deprecated.html">Deprecated FTL constructs</a>
+            <b>></b>
+          List of deprecated directives
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

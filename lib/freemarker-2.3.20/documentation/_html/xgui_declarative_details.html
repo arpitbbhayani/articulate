@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Details
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="xgui.html">XML Processing Guide</a>
+            <b>></b>
+          <a href="xgui_declarative.html">Declarative XML Processing</a>
+            <b>></b>
+          Details
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref.html"><span class="hideA">Next page: </span>Reference</a></div><div class="pagerButton"><a href="xgui_declarative_basics.html">Previous page</a></div><div class="pagerButton"><a href="xgui_declarative.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="xgui_declarative_details"></a>Details  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li>
+        <a href="#autoid_76">Default handlers</a>
+      </li>
+      <li>
+        <a href="#autoid_77">Visiting a single node</a>
+      </li>
+      <li>
+        <a href="#autoid_78">XML namespaces</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_76"></a>Default handlers  </h2>
+
+
+          <p>For some XML node types, there is a default handler, which
+          will handle the node if you haven't defined a handler for the node
+          (i.e. if there is no user-defined directive available with name
+          identical to the node name). Here are these node types, and what the
+          default handler does:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Text node: prints the text as it. Note, that in most
+              applications, this will not be good for you, because you should
+              escape the text before you send it to the output (with
+              <tt style="color: #A03D10">?html</tt> or <tt style="color: #A03D10">?xml</tt> or
+              <tt style="color: #A03D10">?rtf</tt>, ...etc. depends on the output
+              format).</p>
+            </li>
+
+            <li>
+              <p>Processing instruction node: call handler called
+              <tt style="color: #A03D10">@pi</tt> if you have created such user-defined
+              directive, otherwise do nothing (ignore the node).</p>
+            </li>
+
+            <li>
+              <p>Comment node, document type node: Do nothing (ignore the
+              node).</p>
+            </li>
+
+            <li>
+              <p>Document node: Call <tt style="color: #A03D10">recurse</tt>, that is,
+              visit all children of the document node.</p>
+            </li>
+          </ul>    </div>
+
+
+          <p>Element and attribute nodes will be handled according to the
+          usual, XML independent mechanism. That is,
+          <tt style="color: #A03D10">@<i style="color: #DD4400">node_type</i></tt> will be
+          called as handler, and if that's not defined, then an error stops
+          template processing.</p>
+
+          <p>In the case of element nodes, this means that if you define a
+          macro (or other kind of user-defined directive) called
+          <tt style="color: #A03D10">@element</tt>, that will catch all element nodes,
+          which has no more specific handler. If you have no
+          <tt style="color: #A03D10">@element</tt> handler, then you
+          <i>must</i> define a handler for all possible
+          elements.</p>
+
+          <p>Attribute nodes are not visited by the
+          <tt style="color: #A03D10">recurse</tt> directive, so you don't need to write
+          handlers for them.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_77"></a>Visiting a single node  </h2>
+
+
+          <p>With the <a href="ref_directive_visit.html#ref.directive.visit"><tt>visit</tt>
+          directive</a> you can visit a single node, instead of the
+          children of the node:
+          <tt style="color: #A03D10">&lt;#visit <i style="color: #DD4400">nodeToVisist</i>&gt;</tt>.
+          This can be useful sometimes.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_78"></a>XML namespaces  </h2>
+
+
+          
+
+          <p>We said that the name of the handler user-defined directive
+          (like a macro) for an element is the name of the element. In fact,
+          it is the full-qualified name of the element:
+          <tt style="color: #A03D10"><i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">elementName</i></tt>.
+          The rules regarding the usage of
+          <tt style="color: #A03D10"><i style="color: #DD4400">prefix</i></tt>-es is the same
+          as with imperative processing. Thus, the user-defined
+          <tt style="color: #A03D10">book</tt> directive handles only element
+          <tt style="color: #A03D10">book</tt> that does not belong to any XML namespace
+          (unless you have specified a default XML namespace). So if the
+          example XML would use XML namespace
+          <tt style="color: #A03D10">http://example.com/ebook</tt>:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;book xmlns=&quot;http://example.com/ebook&quot;&gt;
+<i>...</i>&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Then the FTL should look as this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+<b>&lt;#ftl ns_prefixes={&quot;e&quot;:&quot;http://example.com/ebook&quot;}&gt;</b>
+
+&lt;#recurse doc&gt;
+
+&lt;#macro &quot;<b>e:</b>book&quot;&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;title&gt;&lt;#recurse .node[&quot;<b>e:</b>title&quot;]&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;h1&gt;&lt;#recurse .node[&quot;<b>e:</b>title&quot;]&gt;&lt;/h1&gt;
+      &lt;#recurse&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+&lt;/#macro&gt;
+
+&lt;#macro &quot;<b>e:</b>chapter&quot;&gt;
+  &lt;h2&gt;&lt;#recurse .node[&quot;<b>e:</b>title&quot;]&gt;&lt;/h2&gt;
+  &lt;#recurse&gt;
+&lt;/#macro&gt;
+
+&lt;#macro &quot;<b>e:</b>para&quot;&gt;
+  &lt;p&gt;&lt;#recurse&gt;
+&lt;/#macro&gt;
+
+&lt;#macro &quot;<b>e:</b>title&quot;&gt;
+  &lt;#--
+    We have handled this element imperatively,
+    so we do nothing here.
+  --&gt;
+&lt;/#macro&gt;
+
+&lt;#macro @text&gt;${.node?html}&lt;/#macro&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Or, you can define a default XML namespace, and then the
+          further part of the template remains the same as in the original XML
+          namespace free example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#ftl ns_prefixes={&quot;<b>D</b>&quot;:&quot;http://example.com/ebook&quot;}&gt;
+
+&lt;#recurse doc&gt;
+
+&lt;#macro book&gt;
+<i>...</i>&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>But in this case don't forge that in XPath expressions (we
+          didn't used any in the example) the default XML namespace must be
+          accessed with an explicit <tt style="color: #A03D10">D:</tt> since names without
+          prefix always refer to nodes with no XML namespace in XPath. Also
+          note that with the same logic as with imperative XML processing, the
+          name of handlers for elements that has no XML namespace is
+          <tt style="color: #A03D10">N:<i style="color: #DD4400">elementName</i></tt> if (and
+          only if) there is a default XML namespace. However, for nodes that
+          are not of type element (such as text nodes), you never use the
+          <tt style="color: #A03D10">N</tt> prefix in the handler name, because those nodes
+          are free of the idea of XML namespaces. So for example, the handler
+          for text nodes is always just <tt style="color: #A03D10">@text</tt>.</p>
+
+          <p>For more detailed information, please read <a href="ref_directive_visit.html">the reference of
+          <tt>recurse</tt> and <tt>visit</tt></a>
+          directives.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref.html"><span class="hideA">Next page: </span>Reference</a></div><div class="pagerButton"><a href="xgui_declarative_basics.html">Previous page</a></div><div class="pagerButton"><a href="xgui_declarative.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="xgui.html">XML Processing Guide</a>
+            <b>></b>
+          <a href="xgui_declarative.html">Declarative XML Processing</a>
+            <b>></b>
+          Details
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,534 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Built-ins for dates
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_builtins.html">Built-in Reference</a>
+            <b>></b>
+          Built-ins for dates
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_builtins_boolean.html"><span class="hideA">Next page: </span>Built-ins for booleans</a></div><div class="pagerButton"><a href="ref_builtins_number.html">Previous page</a></div><div class="pagerButton"><a href="ref_builtins.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="ref_builtins_date"></a>Built-ins for dates  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li>
+        <a href="#ref_builtin_string_for_date">string (when used with a date value)</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_date_datetype">date, time, datetime (when used with a date value)</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_date_iso">iso_...</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_string_for_date"></a>string (when used with a date value)  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <p>This built-in converts a date to a string, with the specified
+          formatting. (when the default format dictated by the
+          <tt style="color: #A03D10">date_format</tt>, <tt style="color: #A03D10">time_format</tt> and
+          <tt style="color: #A03D10">datetime_format</tt> <a href="ref_directive_setting.html#ref.directive.setting">settings</a> of FreeMarker are
+          good for you, then you do not need this built-in.)</p>
+
+          <p>The format can be one of the predefined formats, or you can
+          specify the formatting pattern explicitly.</p>
+
+          <p>The predefined formats are <tt style="color: #A03D10">short</tt>,
+          <tt style="color: #A03D10">medium</tt>, <tt style="color: #A03D10">long</tt>, and
+          <tt style="color: #A03D10">full</tt> which define how verbose the resulting text
+          will be. For example, if the locale of the output is U.S. English,
+          and the time zone is the U.S. Pacific Time zone, then this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${openingTime?string.short}
+${openingTime?string.medium}
+${openingTime?string.long}
+${openingTime?string.full}
+
+${nextDiscountDay?string.short}
+${nextDiscountDay?string.medium}
+${nextDiscountDay?string.long}
+${nextDiscountDay?string.full}
+
+${lastUpdated?string.short}
+${lastUpdated?string.medium}
+${lastUpdated?string.long}
+${lastUpdated?string.full}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will prints something like this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+12:45 PM
+12:45:09 PM
+12:45:09 PM CEST
+12:45:09 PM CEST
+
+4/20/07
+Apr 20, 2007
+April 20, 2007
+Friday, April 20, 2007
+
+4/20/07 12:45 PM
+Apr 20, 2007 12:45:09 PM
+April 20, 2007 12:45:09 PM CEST
+Friday, April 20, 2007 12:45:09 PM CEST&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The exact meaning of <tt style="color: #A03D10">short</tt>,
+          <tt style="color: #A03D10">medium</tt>, <tt style="color: #A03D10">long</tt>, and
+          <tt style="color: #A03D10">full</tt> depends on the current locale (language).
+          Furthermore, it is specified not by FreeMarker, but the Java
+          platform implementation you run FreeMarker on.</p>
+
+          <p>For dates that contains both date and time part, you can
+          specify the length of the date and time part independently:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${lastUpdated?string.short_long} &lt;#-- short date, long time --&gt;
+${lastUpdated?string.medium_short} &lt;#-- medium date, short time --&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+4/8/03 9:24:44 PM PDT
+Apr 8, 2003 9:24 PM&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note that <tt style="color: #A03D10">?string.short</tt> is the same as
+          <tt style="color: #A03D10">?string.short_short</tt>,
+          <tt style="color: #A03D10">?string.medium</tt> is the same as
+          <tt style="color: #A03D10">?string.medium_medium</tt>, etc.</p>
+
+          <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+  <p class="rank_note">Warning!</p>
+
+            <p>Unfortunately, because of the limitations of the Java
+            platform, it can happen that you have date variables in the
+            data-model, where FreeMarker can't decide if the variable stores
+            only date part (year, month, day), only time part (hour, minute,
+            second, millisecond) or both. In this case, FreeMarker don't know
+            how to display the date when you write something like
+            <tt style="color: #A03D10">${lastUpdated?string.short}</tt> or simply
+            <tt style="color: #A03D10">${lastUpdated}</tt>, and thus it will stop with
+            error. To prevent this, you can help FreeMarker with the <a href="#ref_builtin_date_datetype"><tt>?date</tt>,
+            <tt>?time</tt> and <tt>?datetime</tt>
+            built-ins</a>. For example:
+            <tt style="color: #A03D10">${lastUpdated?datetime?string.short}</tt>. Ask the
+            programmer if certain variables of the data-model has this
+            problem, or always use <tt style="color: #A03D10">?date</tt>,
+            <tt style="color: #A03D10">?time</tt> and <tt style="color: #A03D10">?datetime</tt>
+            built-ins.</p>
+          </div>            
+
+
+          <p>Instead of using the predefined formats, you can specify the
+          formatting pattern explicitly with
+          <tt style="color: #A03D10">?string(<i style="color: #DD4400">pattern_string</i>)</tt>.
+          The pattern uses <a href="http://java.sun.com/j2se/1.4/docs/api/java/text/SimpleDateFormat.html">Java
+          date format syntax</a>. Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${lastUpdated?string(&quot;yyyy-MM-dd HH:mm:ss zzzz&quot;)}
+${lastUpdated?string(&quot;EEE, MMM d, ''yy&quot;)}
+${lastUpdated?string(&quot;EEEE, MMMM dd, yyyy, hh:mm:ss a '('zzz')'&quot;)}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+2003-04-08 21:24:44 Pacific Daylight Time
+Tue, Apr 8, '03
+Tuesday, April 08, 2003, 09:24:44 PM (PDT)&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>Unlike with the predefined formats, you never need to use
+            <tt style="color: #A03D10">?date</tt>, <tt style="color: #A03D10">?time</tt> and
+            <tt style="color: #A03D10">?datetime</tt> with explicitly given patterns, since
+            with the pattern you tell FreeMarker what parts of the date to
+            show. However, FreeMarker will trust you blindly, so you can show
+            &quot;noise&quot; if you display parts that are actually not stored in the
+            variable. For example, <tt style="color: #A03D10">${openingTime?string(&quot;yyyy-MM-dd
+            hh:mm:ss a&quot;)}</tt>, where <tt style="color: #A03D10">openingTime</tt>
+            stores only time, will display <tt style="color: #A03D10">1970-01-01 09:24:44
+            PM</tt>.</p>
+          </div>
+
+
+          <p>The pattern string also can be <tt style="color: #A03D10">&quot;short&quot;</tt>,
+          <tt style="color: #A03D10">&quot;medium&quot;</tt>, ..., <tt style="color: #A03D10">&quot;short_medium&quot;</tt>,
+          ...etc. These are the same as if you would use the predefined
+          formats with the dot syntax:
+          <tt style="color: #A03D10">someDate?string(&quot;short&quot;)</tt> and
+          <tt style="color: #A03D10">someDate?string.short</tt> are equivalent.</p>
+
+          <p>See also: <a href="dgui_template_valueinsertion.html#dgui_template_valueinserion_universal_date">the
+          interpolation of dates</a></p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_date_datetype"></a>date, time, datetime (when used with a date value)  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <p>These built-ins can be used to specify which parts of the date
+          variable are in use:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><tt style="color: #A03D10">date</tt>: Only the year, month and day
+              parts are used.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">time</tt>: Only the hour, minute, second and
+              millisecond parts are used.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">datetime</tt>: Both the date and the time
+              parts are used.</p>
+            </li>
+          </ul>    </div>
+
+
+          <p>In optimal case, you do not need to use these built-ins.
+          Unfortunately, because of the technical limitations of the Java
+          platform, FreeMarker sometimes can't find out which parts of the
+          date are in use (i.e. only the year+month+day, or only
+          hour+minute+second+millisecond, or both); ask the programmers which
+          variables has this problem. If FreeMarker has to execute an
+          operation where this information is needed -- such as displaying the
+          date as text -- but it does not know which parts are in use, it will
+          stop with error. This is when you have to use these built-ins. For
+          example, assume <tt style="color: #A03D10">openingTime</tt> is a such problematic
+          variable:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign x = openingTime&gt; &lt;#-- no problem can occur here --&gt;
+${openingTime?time} &lt;#-- without ?time it would fail --&gt;
+&lt;#-- For the sake of better understanding, consider this: --&gt;
+&lt;#assign openingTime = openingTime?time&gt;
+${openingTime} &lt;#-- this will work now --&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>There is another usage of these built-ins: to truncate dates.
+          For example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Last updated: ${lastUpdated} &lt;#-- assume that lastUpdated is a date-time value --&gt;
+Last updated date: ${lastUpdated?date}
+Last updated time: ${lastUpdated?time}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output something like:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Last updated: 04/25/2003 08:00:54 PM
+Last updated date: 04/25/2003
+Last updated time: 08:00:54 PM&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>If the left side of the <tt style="color: #A03D10">?</tt> is string, then
+          these built-ins <a href="ref_builtins_string.html#ref_builtin_string_date">convert
+          strings to date variable</a>.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_date_iso"></a>iso_...  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <p>These built-ins convert a date, time or date-time value to
+          string that follows ISO 8601 &quot;extended&quot; format. This built-in has
+          several variations: <tt style="color: #A03D10">iso_utc</tt>,
+          <tt style="color: #A03D10">iso_local</tt>, <tt style="color: #A03D10">iso_utc_nz</tt>,
+          <tt style="color: #A03D10">iso_local_nz</tt>, <tt style="color: #A03D10">iso_utc_m</tt>,
+          <tt style="color: #A03D10">iso_utc_m_nz</tt>, etc. The name is constructed from
+          the following words in this order, each separated with a
+          <tt style="color: #A03D10">_</tt> from the next:</p>
+
+          <div class="orderedlist"><ol type="1">
+            <li>
+              <p><tt style="color: #A03D10">iso</tt> (required)</p>
+            </li>
+
+            <li>
+              <p>Either <tt style="color: #A03D10">utc</tt> or <tt style="color: #A03D10">local</tt>
+              (required (except when it's given with a parameter, but see that
+              later)): Specifies whether you want to print the date according
+              to UTC or according the current time zone. The current time zone
+              is decided by the <tt style="color: #A03D10">time_zone</tt> FreeMarker
+              setting and is normally configured by the programmers outside
+              the templates (but it can also be set in a template, like
+              <tt style="color: #A03D10">&lt;#setting time_zone=&quot;America/New_York&quot;&gt;</tt>
+              for example).</p>
+            </li>
+
+            <li>
+              <p>Either <tt style="color: #A03D10">h</tt> or <tt style="color: #A03D10">m</tt> or
+              <tt style="color: #A03D10">ms</tt> (optional): The accuracy of the time part.
+              When omitted, it defaults to seconds accuracy (like
+              <tt style="color: #A03D10">12:30:18</tt>). <tt style="color: #A03D10">h</tt> means hours
+              accuracy (like <tt style="color: #A03D10">12</tt>), <tt style="color: #A03D10">m</tt>
+              means minutes accuracy (<tt style="color: #A03D10">12:30</tt>), and
+              <tt style="color: #A03D10">ms</tt> means milliseconds accuracy
+              (<tt style="color: #A03D10">12:30:18.25</tt>, where we have 250 ms). Note
+              that when using <tt style="color: #A03D10">ms</tt>, the milliseconds are
+              displayed as fraction seconds (following the standard) and will
+              not have trailing <tt style="color: #A03D10">0</tt>-s. Thus, if the the
+              millisecond part happens to be <tt style="color: #A03D10">0</tt>, the whole
+              fraction second part will be omitted. Also note that the
+              fraction seconds are always separated with a dot , not with
+              comma (to follow the Web conventions and the XML Schema
+              date/time format).</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">nz</tt> (optional): When present, the time
+              zone offset (like <tt style="color: #A03D10">+02:00</tt> or or
+              <tt style="color: #A03D10">-04:30</tt> or <tt style="color: #A03D10">Z</tt>) will not be
+              displayed. Otherwise it will be displayed, except for date-only
+              values (as dates with zone offset doesn't appear in ISO
+              8601:2004). Since FreeMarker 2.3.19, the offset always contains
+              the minutes for XML Schema date/time format compliance.</p>
+            </li>
+          </ol></div>
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign aDateTime = .now&gt;
+&lt;#assign aDate = aDateTime?date&gt;
+&lt;#assign aTime = aDateTime?time&gt;
+
+Basic formats:
+${aDate?iso_utc}
+${aTime?iso_utc}
+${aDateTime?iso_utc}
+
+Different accuracies:
+${aTime?iso_utc_ms}
+${aDateTime?iso_utc_m}
+
+Local time zone:
+${aDateTime?iso_local}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>A possible output (depends on current time and time
+          zone):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Basic formats:
+2011-05-16
+21:32:13Z
+2011-05-16T21:32:13Z
+
+Different accuracies:
+21:32:13.868Z
+2011-05-16T21:32Z
+
+Local time zone:
+2011-05-16T23:32:13+02:00&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>There is yet another group of <tt style="color: #A03D10">iso_...</tt>
+          built-in variants, where you omit the <tt style="color: #A03D10">local</tt> or
+          <tt style="color: #A03D10">utc</tt> word from the name and instead specify the
+          time zone as a parameter to the built-in. Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign aDateTime = .now&gt;
+${aDateTime?iso(&quot;UTC&quot;)}
+${aDateTime?iso(&quot;GMT-02:30&quot;)}
+${aDateTime?iso(&quot;Europe/Rome&quot;)}
+
+The usual variations are supported:
+${aDateTime?iso_m(&quot;GMT+02&quot;)}
+${aDateTime?iso_m_nz(&quot;GMT+02&quot;)}
+${aDateTime?iso_nz(&quot;GMT+02&quot;)}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>A possible output (depends on current time and time
+          zone):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+2011-05-16T21:43:58Z
+2011-05-16T19:13:58-02:30
+2011-05-16T23:43:58+02:00
+
+The usual variations are supported:
+2011-05-16T23:43+02:00
+2011-05-16T23:43
+2011-05-16T23:43:58&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>If the time zone parameter can't be interpreted, the template
+          processing will be terminated with error.</p>
+
+          <p style="color:#333399; font-style:italic">The parameter can be a
+          <tt style="color: #A03D10">java.util.TimeZone</tt> object too (which is possibly
+          the return value of a Java method, or it's in the data-model), not
+          just a string.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_builtins_boolean.html"><span class="hideA">Next page: </span>Built-ins for booleans</a></div><div class="pagerButton"><a href="ref_builtins_number.html">Previous page</a></div><div class="pagerButton"><a href="ref_builtins.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_builtins.html">Built-in Reference</a>
+            <b>></b>
+          Built-ins for dates
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

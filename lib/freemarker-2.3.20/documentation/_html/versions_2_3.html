@@ -1,0 +1,1856 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.3
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_2_8.html"><span class="hideA">Next page: </span>2.2.8</a></div><div class="pagerButton"><a href="versions_2_3_1.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_3"></a>2.3  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_180">Non backward-compatible changes!</a>
+      </li>
+      <li>
+        <a href="#autoid_181">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="#autoid_182">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="#autoid_183">Other changes</a>
+      </li>
+      <li>
+        <a href="#autoid_184">The history of the releases before the final version</a>
+  <ul >
+      <li>
+        <a href="#autoid_185">Differences between the final release and Release Candidate
+            4</a>
+      </li>
+      <li>
+        <a href="#autoid_186">Differences between the Release Candidate 4 and Release
+            Candidate 3</a>
+      </li>
+      <li>
+        <a href="#autoid_187">Differences between the Release Candidate 3 and Release
+            Candidate 2</a>
+      </li>
+      <li>
+        <a href="#autoid_188">Differences between the Release Candidate 2 and Release
+            Candidate 1</a>
+      </li>
+      <li>
+        <a href="#autoid_189">Differences between the Release Candidate 1 and Preview 16
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_190">Differences between the Preview 16 and Preview 15
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_191">Differences between the Preview 15 and Preview 14
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_192">Differences between the Preview 14 and Preview 13
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_193">Differences between the Preview 13 and Preview 12
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_194">Differences between the Preview 12 and Preview 11
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_195">Differences between the Preview 11 and Preview 10
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_196">Differences between the Preview 10 and Preview 9
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_197">Differences between the Preview 9 and Preview 8
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_198">Differences between the Preview 8 and Preview 7
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_199">Differences between the Preview 7 and Preview 6
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_200">Differences between the Preview 6 and Preview 5
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_201">Differences between the Preview 5 and Preview 4
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_202">Differences between the Preview 4 and Preview 3
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_203">Differences between the Preview 3 and Preview 2
+            releases</a>
+      </li>
+      <li>
+        <a href="#autoid_204">Differences between the Preview 2 and Preview 1
+            releases</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Date of release: 2004-June-15</p><p>FreeMarker 2.3 introduces numerous little new features and
+        quality improvements compared to the 2.2.x series. The most notable
+        improvements are the ability to define functions (methods) in
+        templates, the ability to interpolate variables in string literals,
+        the support for a variable number of macro parameters, and the more
+        intelligent default object wrapper. Although none of the improvements
+        is a drastic change, the 2.3.x series is not backward compatible with
+        the 2.2.x series (see the list below), so you may choose to use it for
+        new projects only.</p><p>Probably the most ``loudly promoted'' new feature is the totally
+        redesigned XML wrapper. With the new XML wrapper FreeMarker targets a
+        new application domain, which is similar to the application domain of
+        XSLT: transforming complex XML to whatever textual output. Although
+        this subproject is young, it is definitely usable in practice. See the
+        <a href="xgui.html">XML Processing Guide</a> for more
+        details.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_180"></a>Non backward-compatible changes!  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Since interpolations (<tt style="color: #A03D10">${...}</tt> and
+              <tt style="color: #A03D10">#{...}</tt>) now work inside string literals, the
+              character sequence <tt style="color: #A03D10">${</tt> and
+              <tt style="color: #A03D10">#{</tt> in string literals are reserved for that.
+              So if you have something like <tt style="color: #A03D10">&lt;#set x =
+              &quot;${foo}&quot;&gt;</tt>, then you have to replace it with
+              <tt style="color: #A03D10">&lt;#set x = r&quot;${foo}&quot;&gt;</tt> -- beware, escapes
+              such as <tt style="color: #A03D10">\n</tt> will not work in raw
+              (<tt style="color: #A03D10">r</tt>) strings.</p>
+            </li>
+
+            <li>
+              <p>The default (initial) value of the
+              <tt style="color: #A03D10">strict_syntax</tt> setting has been changed from
+              <tt style="color: #A03D10">false</tt> to <tt style="color: #A03D10">true</tt>. When
+              <tt style="color: #A03D10">strict_syntax</tt> is <tt style="color: #A03D10">true</tt>,
+              tags with old syntax as <tt style="color: #A03D10">&lt;include
+              &quot;foo.ftl&quot;&gt;</tt> will be considered as static text (so
+              they go to the output as-is, like HTML tags do), and not as FTL
+              tags. Such tags have to be rewritten to <tt style="color: #A03D10">&lt;#include
+              &quot;foo.ftl&quot;&gt;</tt>, since only parts that starts with
+              <tt style="color: #A03D10">&lt;#</tt>, <tt style="color: #A03D10">&lt;/#</tt>,
+              <tt style="color: #A03D10">&lt;@</tt>, or <tt style="color: #A03D10">&lt;/@</tt> count as
+              FTL tags. Or, to recover the old transitional behavior, where
+              both legacy and new tag syntax was recognized, you have to
+              explicitly set <tt style="color: #A03D10">strict_syntax</tt> to
+              <tt style="color: #A03D10">false</tt>:
+              <tt style="color: #A03D10">cfg.setStrictSyntaxMode(false)</tt>. Also, for
+              individual templates you can force the old behavior by starting
+              the template with <tt style="color: #A03D10">&lt;#ftl
+              strict_syntax=false&gt;</tt>. (For more information about
+              why strict syntax is better than old syntax <a href="ref_depr_oldsyntax.html">read this...</a>)</p>
+            </li>
+
+            <li>
+              <p>Several classes were moved from the
+              <tt style="color: #A03D10">freemarker.template</tt> package, to the new
+              <tt style="color: #A03D10">freemarker.core</tt> package:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  &quot;Normal&quot; classes: <tt style="color: #A03D10">ArithmeticEngine</tt>,
+                  <tt style="color: #A03D10">Configurable</tt>,
+                  <i><tt style="color: #A03D10">Environment</tt></i>
+                </li>
+
+                <li>
+                  Exceptions:
+                  <tt style="color: #A03D10">InvalidReferenceException</tt>,
+                  <tt style="color: #A03D10">NonBooleanException</tt>,
+                  <tt style="color: #A03D10">NonNumericalException</tt>,
+                  <tt style="color: #A03D10">NonStringException</tt>,
+                  <tt style="color: #A03D10">ParseException</tt>,
+                  <tt style="color: #A03D10">StopException</tt>
+                </li>
+
+                <li>
+                  Errors: <tt style="color: #A03D10">TokenMgrError</tt>
+                </li>
+              </ul>    </div>
+
+
+              <p>The main reason of the splitting of
+              <tt style="color: #A03D10">freemarker.template</tt> package was that the
+              amount of &quot;expert&quot; public classes and interfaces grows too much,
+              as we introduce API-s for third-party tools, such as debugging
+              API.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">freemarker.template.TemplateMethodModel.exec</tt>
+              now returns <tt style="color: #A03D10">Object</tt> instead of
+              <tt style="color: #A03D10">TemplateModel</tt>.</p>
+            </li>
+
+            <li>
+              <p>White-space stripping is now more aggressive as before: it
+              always removes leading and trailing white-space if the line only
+              contains FTL tags. (Earlier the white-space was not removed if
+              the tag was <tt style="color: #A03D10">&lt;#include
+              <i style="color: #DD4400">...</i>&gt;</tt> or user-defined
+              directive tag with empty directive syntax as
+              <tt style="color: #A03D10">&lt;@myMacro/&gt;</tt> (or its equivalents:
+              <tt style="color: #A03D10">&lt;@myMacro&gt;&lt;/@myMacro&gt;</tt> and
+              <tt style="color: #A03D10">&lt;@myMacro&gt;&lt;/@&gt;</tt>). Now white-space
+              is removed in these cases as well.) Also, white-space sandwiched
+              between two non-outputting elements, such as macro definitions,
+              assignments, imports, or property settings, is now ignored. More
+              information: <a href="dgui_misc_whitespace.html#dgui_misc_whitespace_stripping">Template Author's Guide/Miscellaneous/White-space handling/White-space stripping</a></p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">function</tt> directive is now used for
+              defining methods. You should replace <tt style="color: #A03D10">function</tt>
+              with <tt style="color: #A03D10">macro</tt> in your old templates. Note,
+              however, that old <tt style="color: #A03D10">function</tt>-s will still work
+              if you don't use the <tt style="color: #A03D10">return</tt> directive in
+              them, and you invoke them with the deprecated the
+              <tt style="color: #A03D10">call</tt> directive.</p>
+            </li>
+
+            <li>
+              <p>The expressions <tt style="color: #A03D10">as</tt>,
+              <tt style="color: #A03D10">in</tt>, and <tt style="color: #A03D10">using</tt> are now
+              keywords in the template language and cannot be used as
+              top-level variable names without square-bracket syntax. If, by
+              some chance, you have top-level variables that use one of these
+              names, you will have to rename them, or use the square-bracket
+              syntax with the <tt style="color: #A03D10">.vars</tt> special variable:
+              <tt style="color: #A03D10">.vars[&quot;in&quot;]</tt>.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">?new</tt> built-in, as it was
+              implemented, was a security hole. Now, it only allows you to
+              instantiate a java object that implements the
+              <tt style="color: #A03D10">freemarker.template.TemplateModel</tt> interface.
+              If you want the functionality of the <tt style="color: #A03D10">?new</tt>
+              built-in as it existed in prior versions, make available an
+              instance of the
+              <tt style="color: #A03D10">freemarker.template.utility.ObjectConstructor</tt>
+              class to your template. (For example:
+              <tt style="color: #A03D10">myDataModel.put(&quot;objConstructor&quot;, new
+              ObjectConstructor());</tt>, and then in the template you
+              can do this: <tt style="color: #A03D10">&lt;#assign aList =
+              objConstructor(&quot;java.util.ArrayList&quot;, 100)&gt;</tt>)</p>
+            </li>
+
+            <li>
+              <p>Changes to the
+              <tt style="color: #A03D10">FreemarkerServlet</tt>:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>The <tt style="color: #A03D10">FreemarkerServlet</tt> uses
+                  <tt style="color: #A03D10">ObjectWrapper.DEFAULT_WRAPPER</tt> by default
+                  instead of <tt style="color: #A03D10">ObjectWrapper.BEANS_WRAPPER</tt>.
+                  What this means is that, by default, objects of type
+                  <tt style="color: #A03D10">java.lang.String</tt>,
+                  <tt style="color: #A03D10">java.lang.Number</tt>,
+                  <tt style="color: #A03D10">java.util.List</tt>, and
+                  <tt style="color: #A03D10">java.util.Map</tt> will be wrapped as
+                  <tt style="color: #A03D10">TemplateModels</tt> via the classes
+                  <tt style="color: #A03D10">SimpleScalar</tt>,
+                  <tt style="color: #A03D10">SimpleNumber</tt>,
+                  <tt style="color: #A03D10">SimpleSequence</tt>, and
+                  <tt style="color: #A03D10">SimpleHash</tt> respectively. Thus, the java
+                  methods on those objects will not be available. The default
+                  wrapper implementation in FreeMarker 2.3 automatically knows
+                  how to wrap Jython objects, and also wraps
+                  <tt style="color: #A03D10">org.w3c.dom.Node</tt> objects into instances
+                  of <tt style="color: #A03D10">freemarker.ext.dom.NodeModel</tt>.</p>
+                </li>
+
+                <li>
+                  <p>The <tt style="color: #A03D10">FreemarkerServlet</tt> base
+                  implementation no longer deduces the locale used for
+                  templates with <tt style="color: #A03D10">HttpRequest.getLocale()</tt>.
+                  Rather, it simply delegates to the new protected method,
+                  <tt style="color: #A03D10">deduceLocale</tt>. The default implementation
+                  of this method simply returns the value of configuration the
+                  <tt style="color: #A03D10">locale</tt> setting.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_181"></a>Changes on the FTL side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Interpolation in string literals. For convenience,
+              interpolations are now supported in string literals. For
+              example: <tt style="color: #A03D10">&lt;@message &quot;Hello ${user}!&quot; /&gt;</tt>
+              is the same as <tt style="color: #A03D10">&lt;@message &quot;Hello &quot; + user + &quot;!&quot;
+              /&gt;</tt></p>
+            </li>
+
+            <li>
+              <p>Raw string literals: In string literals prefixed with
+              <tt style="color: #A03D10">r</tt>, interpolations and escape sequences will
+              not be interpreted as special tokens. For example:
+              <tt style="color: #A03D10">r&quot;\n${x}&quot;</tt> will be simply interpreted as the
+              character sequence <tt style="color: #A03D10">'\'</tt>,
+              <tt style="color: #A03D10">'n'</tt>, <tt style="color: #A03D10">'$'</tt>,
+              <tt style="color: #A03D10">'{'</tt>, <tt style="color: #A03D10">'x'</tt>,
+              <tt style="color: #A03D10">'}'</tt>, and not as line-feed and the value of
+              the <tt style="color: #A03D10">x</tt> variable.</p>
+            </li>
+
+            <li>
+              <p>Method variables can be defined in FTL, with the <a href="ref_directive_function.html#ref.directive.function"><tt>function</tt></a>
+              directive.</p>
+            </li>
+
+            <li>
+              <p>Support for a variable number of macro parameters. If the
+              last parameter in a macro declaration ends with
+              <tt style="color: #A03D10">...</tt>, all extra parameters passed to the macro
+              will be available via that parameter. For macros called with
+              positional parameters, the parameter will be a sequence. For
+              named parameters, the parameter will be a hash. Note that it all
+              works with the new <tt style="color: #A03D10">function</tt> directive as
+              well.</p>
+            </li>
+
+            <li>
+              <p>A new header parameter, <tt style="color: #A03D10">strip_text</tt>,
+              that removes all top-level text from a template. This is useful
+              for ``include files'' to suppress newlines that separate the
+              macro definitions. See <a href="ref_directive_ftl.html#ref.directive.ftl"><tt>ftl</tt>
+              directive</a></p>
+            </li>
+
+            <li>
+              <p>New <a href="ref_specvar.html">special variable</a>:
+              <tt style="color: #A03D10">.vars</tt>. This is useful to read top-level
+              variables with square bracket syntax, for example
+              <tt style="color: #A03D10">.vars[&quot;name-with-hyphens&quot;]</tt> and
+              <tt style="color: #A03D10">.vars[dynamicName]</tt>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">macro</tt> and assignment directives now
+              accept arbitrary destination variable name with quoted syntax.
+              For example: <tt style="color: #A03D10">&lt;#macro
+              &quot;name-with-hyphens&quot;&gt;<i style="color: #DD4400">...</i></tt>
+              or <tt style="color: #A03D10">&lt;#assign &quot;foo bar&quot; = 123&gt;</tt>.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">?keys</tt> and
+              <tt style="color: #A03D10">?values</tt> hash built-ins now return sequences.
+              In practical terms this means you can access their sizes or
+              retrieve their subvariables by index, and use all of the <a href="ref_builtins_sequence.html">sequence built-ins</a>. (Note
+              for the programmers: The <tt style="color: #A03D10">TemplateHashModelEx</tt>
+              interface has not been changed. Your old code will work. See the
+              API documentation to see why.)</p>
+            </li>
+
+            <li>
+              <p>Existence built-ins (<tt style="color: #A03D10">?default</tt>,
+              <tt style="color: #A03D10">?exists</tt>, etc.) are now working with sequence
+              subvariables as well. Read the documentation of the
+              <tt style="color: #A03D10">default</tt> built-in for more information.</p>
+            </li>
+
+            <li>
+              <p>White-space stripping is now more aggressive as before: it
+              always removes leading and trailing white-space if the line only
+              contains FTL tags. (Earlier the white-space was not removed if
+              the tag was <tt style="color: #A03D10">&lt;#include
+              <i style="color: #DD4400">...</i>&gt;</tt> or user-defined
+              directive tag with empty directive syntax as
+              <tt style="color: #A03D10">&lt;@myMacro/&gt;</tt> (or its equivalents:
+              <tt style="color: #A03D10">&lt;@myMacro&gt;&lt;/@myMacro&gt;</tt> and
+              <tt style="color: #A03D10">&lt;@myMacro&gt;&lt;/@&gt;</tt>). Now white-space
+              is removed in these cases as well.) Also, top-level white-space
+              that separates macro definitions and/or assignments is now
+              ignored. More information: <a href="dgui_misc_whitespace.html#dgui_misc_whitespace_stripping">Template Author's Guide/Miscellaneous/White-space handling/White-space stripping</a></p>
+            </li>
+
+            <li>
+              <p>White-space stripping can be disabled for a single line
+              with the <a href="ref_directive_nt.html#ref.directive.nt"><tt>nt</tt></a>
+              directive (for No Trim).</p>
+            </li>
+
+            <li>
+              <p>Hashes can be concatenated using the <tt style="color: #A03D10">+</tt>
+              operator. The keys in the hash on the right-hand side take
+              precedence.</p>
+            </li>
+
+            <li>
+              <p>New built-ins for Java and JavaScript string escaping:
+              <a href="ref_builtins_string.html#ref_builtin_j_string">j_string</a> and <a href="ref_builtins_string.html#ref_builtin_js_string">js_string</a></p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">replace</tt> and
+              <tt style="color: #A03D10">split</tt> built-ins now support case-insensitive
+              comparsion and regular expressions (J2SE 1.4+ only), and some
+              other new options. More information can be found <a href="ref_builtins_string.html#ref_builtin_string_flags">here</a>.</p>
+            </li>
+
+            <li>
+              <p>New built-in for regular expression matching (J2SE 1.4+
+              only): <a href="ref_builtins_string.html#ref_builtin_matches"><tt>matches</tt></a></p>
+            </li>
+
+            <li>
+              <p>New built-in, <tt style="color: #A03D10">eval</tt>, to evaluate a
+              string as FTL expression. For example
+              <tt style="color: #A03D10">&quot;1+2&quot;?eval</tt> returns the number 3.</p>
+            </li>
+
+            <li>
+              <p>New built-ins for Java and JavaScript string escaping:
+              <a href="ref_builtins_string.html#ref_builtin_j_string">j_string</a> and <a href="ref_builtins_string.html#ref_builtin_js_string">js_string</a></p>
+            </li>
+
+            <li>
+              <p>New special variables to read the value of the locale
+              setting: <tt style="color: #A03D10">locale</tt>, <tt style="color: #A03D10">lang</tt>. See
+              more <a href="ref_specvar.html">in the
+              reference...</a></p>
+            </li>
+
+            <li>
+              <p>New special variable to read the FreeMarker version
+              number: <tt style="color: #A03D10">version</tt>. See more <a href="ref_specvar.html">in the reference...</a></p>
+            </li>
+
+            <li>
+              <p>Tree new directives, <tt style="color: #A03D10">recurse</tt>,
+              <tt style="color: #A03D10">visit</tt> and <tt style="color: #A03D10">fallback</tt>, were
+              introduced to support declarative node-tree processing. These
+              are meant to be used typically (though not exclusively) for
+              processing XML input. Together with this, a new variable type
+              has been introduced, the node type. See the <a href="xgui_declarative.html">chapter on declarative XML
+              processing</a> for more details.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">?new</tt> built-in, as it was
+              implemented, was a security hole. Now, it only allows you to
+              instantiate a java object that implements the
+              <tt style="color: #A03D10">freemarker.template.TemplateModel</tt> interface.
+              <span style="color:#333399; font-style:italic">If you want the functionality of
+              the <tt style="color: #A03D10">?new</tt> built-in as it existed in prior
+              versions, make available an instance of the
+              <tt style="color: #A03D10">freemarker.template.utility.ObjectConstructor</tt>
+              class to your template. (For example:
+              <tt style="color: #A03D10">myDataModel.put(&quot;objConstructor&quot;, new
+              ObjectConstructor());</tt>, and then in the template you
+              can do this: <tt style="color: #A03D10">&lt;#assign aList =
+              objConstructor(&quot;java.util.ArrayList&quot;,
+              100)&gt;</tt>)</span></p>
+            </li>
+
+            <li>
+              <p>Variable names can contain <tt style="color: #A03D10">@</tt> anywhere
+              (without using quote-bracket syntax). For example:
+              <tt style="color: #A03D10">&lt;#assign x@@@ = 123&gt;</tt> is valid.</p>
+            </li>
+
+            <li>
+              <p>The expressions <tt style="color: #A03D10">as</tt>,
+              <tt style="color: #A03D10">in</tt>, and <tt style="color: #A03D10">using</tt> are now
+              keywords in the template language and cannot be used as
+              top-level variable names without square-bracket syntax (as
+              <tt style="color: #A03D10">.vars[&quot;in&quot;]</tt>).</p>
+            </li>
+
+            <li>
+              <p>New parameter to the <a href="ref_directive_ftl.html"><tt>ftl</tt>
+              directive</a>: <tt style="color: #A03D10">attributes</tt>. The value of
+              this attribute is a hash that associates arbitrary attributes
+              (name-value pairs) to the template. The values of the attributes
+              can be of any type (string, number, sequence... etc.).
+              FreeMarker doesn't try to understand the meaning of the
+              attributes. It's up to the application that encapsulates
+              FreeMarker (as a Web application framework). Thus, the set of
+              allowed attributes and their semantic is application (Web
+              application framework) dependent.</p>
+            </li>
+
+            <li>
+              <p>Other minor quality improvements...</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_182"></a>Changes on the Java side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Smarter default object wrapping: The default object
+              wrapper is now
+              <tt style="color: #A03D10">freemarker.template.DefaultObjectWrapper</tt>,
+              which falls back on wrapping arbitrary objects as beans using
+              the <tt style="color: #A03D10">freemarker.ext.beans.BeansWrapper</tt>. Also,
+              it will wrap <tt style="color: #A03D10">org.w3c.dom.Node</tt> objects with
+              the new DOM wrapper. Also, it is aware of Jython objects, and
+              will use <tt style="color: #A03D10">freemarker.ext.jython.JythonWrapper</tt>
+              if the object passed in is a Jython object. (We count it as a
+              backward compatible change, since this new object wrapper wraps
+              differently only those objects that the old wrapper was not able
+              to wrap, so it has thrown exception.)</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">freemarker.template.TemplateMethodModel.exec</tt>
+              now returns <tt style="color: #A03D10">Object</tt> instead of
+              <tt style="color: #A03D10">TemplateModel</tt>.</p>
+            </li>
+
+            <li>
+              <p>The default (initial) value of the
+              <tt style="color: #A03D10">strict_syntax</tt> setting has been changed from
+              <tt style="color: #A03D10">false</tt> to <tt style="color: #A03D10">true</tt>. When
+              <tt style="color: #A03D10">strict_syntax</tt> is <tt style="color: #A03D10">true</tt>,
+              tags with old syntax as <tt style="color: #A03D10">&lt;include
+              &quot;foo.ftl&quot;&gt;</tt> will be considered as static text (so
+              they go to the output as-is, like HTML tags do), and not as FTL
+              tags. Such tags have to be rewritten to <tt style="color: #A03D10">&lt;#include
+              &quot;foo.ftl&quot;&gt;</tt>, since only parts that starts with
+              <tt style="color: #A03D10">&lt;#</tt>, <tt style="color: #A03D10">&lt;/#</tt>,
+              <tt style="color: #A03D10">&lt;@</tt>, or <tt style="color: #A03D10">&lt;/@</tt> count as
+              FTL tags. Or, to recover the old transitional behavior, where
+              both legacy and new tag syntax was recognized, you have to
+              explicitly set <tt style="color: #A03D10">strict_syntax</tt> to
+              <tt style="color: #A03D10">false</tt>:
+              <tt style="color: #A03D10">cfg.setStrictSyntaxMode(false)</tt>. Also, for
+              individual templates you can force the old behavior by starting
+              the template with <tt style="color: #A03D10">&lt;#ftl
+              strict_syntax=false&gt;</tt>. (For more information about
+              why strict syntax is better than old syntax <a href="ref_depr_oldsyntax.html">read this...</a>)</p>
+            </li>
+
+            <li>
+              <p>New <tt style="color: #A03D10">CacheStorage</tt> implementation:
+              <tt style="color: #A03D10">freemarker.cache.MruCacheStorage</tt>. This cache
+              storage implements a two-level Most Recently Used cache. In the
+              first level, items are strongly referenced up to the specified
+              maximum. When the maximum is exceeded, the least recently used
+              item is moved into the second level cache, where they are softly
+              referenced, up to another specified maximum.
+              <tt style="color: #A03D10">freemarker.cache.SoftCachseStorage</tt> and
+              <tt style="color: #A03D10">StrongCachseStorage</tt> are deprected,
+              <tt style="color: #A03D10">MruCachseStorage</tt> is used everywhere instead.
+              The default cache storage is now an
+              <tt style="color: #A03D10">MruCachseStorage</tt> object with 0 strong size,
+              and infinite soft size.
+              <tt style="color: #A03D10">Configuration.setSetting</tt> for
+              <tt style="color: #A03D10">cache_storage</tt> now understands string values
+              as <tt style="color: #A03D10">&quot;strong:200, soft:2000&quot;</tt>.</p>
+            </li>
+
+            <li>
+              <p>For <tt style="color: #A03D10">BeansWrapper</tt> generated models, you
+              can now use the <tt style="color: #A03D10">${obj.method(args)}</tt> syntax to
+              invoke methods whose return type is <tt style="color: #A03D10">void</tt>.
+              <tt style="color: #A03D10">void</tt> methods now return
+              <tt style="color: #A03D10">TemplateModel.NOTHING</tt> as their return
+              value.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">freemarker.template.SimpleHash</tt> now can
+              wrap read-only <tt style="color: #A03D10">Map</tt>-s, such as the map of HTTP
+              request parameters in Servlet API.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">TemplateNodeModel</tt> interface was
+              introduced to support recursive processing of trees of nodes.
+              Typically, this will be used in relation to XML.</p>
+            </li>
+
+            <li>
+              <p>New package: <tt style="color: #A03D10">freemarker.ext.dom</tt>. This
+              contains the new XML wrapper, that supports the processing of
+              XML documents using the visitor pattern (i.e. with
+              <tt style="color: #A03D10">&lt;#visit <i style="color: #DD4400">...</i>&gt;</tt>
+              and similar directives), and to provide more convenient XML
+              traversing as the legacy wrapper. See the <a href="xgui.html">XML processing guide</a> for more
+              details.</p>
+            </li>
+
+            <li>
+              <p>New package: <tt style="color: #A03D10">freemarker.core</tt>. Classes
+              used by mostly power-users was moved here from the
+              <tt style="color: #A03D10">freemarker.template</tt> package. The main reason
+              of the splitting of <tt style="color: #A03D10">freemarker.template</tt>
+              package was that the amount of &quot;expert&quot; public classes and
+              interfaces grows too much, as we introduce API-s for third-party
+              tools, such as debugging API.</p>
+            </li>
+
+            <li>
+              <p>New package: <tt style="color: #A03D10">freemarker.debug</tt>. This
+              provides a debugging API, by which you can debug executing
+              templates through network (RMI). You have to write the front-end
+              (client), as the API is just the server side. For more
+              information please read the JavaDoc of the
+              <tt style="color: #A03D10">freemarker.debug</tt> package.</p>
+            </li>
+
+            <li>
+              <p>You can query the FreeMarker version number with static
+              method <tt style="color: #A03D10">Configuration.getVersionNumber()</tt>.
+              Also, the <tt style="color: #A03D10">Manifest.mf</tt> included in
+              <tt style="color: #A03D10">freemarker.jar</tt> now contains the FreeMarker
+              version number, furthermore, executing it with <tt style="color: #A03D10">java
+              -jar freemarker.jar</tt> will print the version number to
+              the stdout.</p>
+            </li>
+
+            <li>
+              <p>Added a new protected <tt style="color: #A03D10">FreemarkerServlet</tt>
+              method: <tt style="color: #A03D10">Configuration
+              getConfiguration()</tt>.</p>
+            </li>
+
+            <li>
+              <p>Date support is now labeled as final. (It was experimental
+              earlier.)</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">BeansWrapper</tt> has been improved to
+              prevent some security exceptions when introspecting.</p>
+            </li>
+
+            <li>
+              <p>Other minor quality improvements and extensions...</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_183"></a>Other changes  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Fixes and improvements in the Manual and in the API
+              JavaDoc.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_184"></a>The history of the releases before the final version  </h2>
+
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_185"></a>Differences between the final release and Release Candidate
+            4  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Added a new special variable to print the FreeMarker
+                version number: <tt style="color: #A03D10">version</tt>. See more <a href="ref_specvar.html">in the reference...</a></p>
+              </li>
+
+              <li>
+                <p>Minor documentation fixes and improvements.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_186"></a>Differences between the Release Candidate 4 and Release
+            Candidate 3  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>The <tt style="color: #A03D10">BeansWrapper</tt> has been improved to
+                prevent some security exceptions when introspecting.</p>
+              </li>
+
+              <li>
+                <p>The <tt style="color: #A03D10">FreemarkerXmlTask</tt> has two new
+                sub-tasks that can be used to prepare template execution with
+                Jython scripts: <tt style="color: #A03D10">prepareModel</tt> and
+                <tt style="color: #A03D10">prepareEnvironment</tt>. The
+                <tt style="color: #A03D10">jython</tt> sub-task is now deprecated, and does
+                the same as <tt style="color: #A03D10">prepareEnvironment</tt>. See the
+                Java API documentation for more details.</p>
+              </li>
+
+              <li>
+                <p>New special variable to read the FreeMarker version
+                number: <tt style="color: #A03D10">version</tt>. See more <a href="ref_specvar.html">in the reference...</a></p>
+              </li>
+
+              <li>
+                <p>Bugfix: Greater-than sign doesn't confuse the
+                <tt style="color: #A03D10">eval</tt> built-in anymore.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: The <tt style="color: #A03D10">BeansWrapper</tt> now wrapps
+                the <tt style="color: #A03D10">null</tt> return values of methods
+                appropriately.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: The <tt style="color: #A03D10">FreemarkerXmlTask</tt> doesn't
+                need Jython classes anymore, unless you really use Jython
+                scripts. Several other bugfixes in the Jython related
+                features.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: If the template exception handler has ignored
+                the exception, errors occurring in interpolations inside FTL
+                tags (e.g. <tt style="color: #A03D10">&lt;#if &quot;foo${badVar}&quot; !=
+                &quot;foobar&quot;&gt;</tt>) were handled in the same way as errors
+                occuring in interpolations outside FTL tags. Thus, the
+                directive call was not skipped, and the problematic
+                interpolation was replaced with an empty string. (This was
+                inconsistent with the behavior of <tt style="color: #A03D10">&lt;#if
+                &quot;foo&quot;+badVar != &quot;foobar&quot;&gt;</tt>, which should be 100%
+                equivalent with the previous example.)</p>
+              </li>
+
+              <li>
+                <p>Bugfix: The <tt style="color: #A03D10">FileTemplateLoader</tt> is now
+                more robust when it receives paths that are malformed
+                according the native file system. In the earlier version such
+                paths sometimes caused unexpected
+                <tt style="color: #A03D10">IOException</tt> that aborted the searching for
+                the template in further
+                <tt style="color: #A03D10">FileTemplateLoader</tt>-s when you use the
+                <tt style="color: #A03D10">MultiTemplateLoader</tt>.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_187"></a>Differences between the Release Candidate 3 and Release
+            Candidate 2  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Bugfix: Fixing a fatal bug in the template cache that
+                was introduced with the latest cache ``bugfix''. The template
+                cache has always reloaded the unchanged template when the
+                update delay has been elapsed, until the template has been
+                actually changed, in which case it has never reloaded the
+                template anymore.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_188"></a>Differences between the Release Candidate 2 and Release
+            Candidate 1  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Bugfix: The template cache didn't reload the template
+                when it was replaced with an older version.</p>
+              </li>
+
+              <li>
+                <p>API JavaDoc fix: date/time related classes/interfaces
+                were marked as experimental. They are not experimental.</p>
+              </li>
+
+              <li>
+                <p>Minor site improvements.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_189"></a>Differences between the Release Candidate 1 and Preview 16
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p><i>Warning! Non-backward-compatible
+                change!</i> The default (initial) value of the
+                <tt style="color: #A03D10">strict_syntax</tt> setting has been changed from
+                <tt style="color: #A03D10">false</tt> to <tt style="color: #A03D10">true</tt>. When
+                <tt style="color: #A03D10">strict_syntax</tt> is <tt style="color: #A03D10">true</tt>,
+                tags with old syntax as <tt style="color: #A03D10">&lt;include
+                &quot;foo.ftl&quot;&gt;</tt> will be considered as static text (so
+                they go to the output as-is, like HTML tags do), and not as
+                FTL tags. Such tags have to be rewritten to
+                <tt style="color: #A03D10">&lt;#include &quot;foo.ftl&quot;&gt;</tt>, since only
+                parts that starts with <tt style="color: #A03D10">&lt;#</tt>,
+                <tt style="color: #A03D10">&lt;/#</tt>, <tt style="color: #A03D10">&lt;@</tt>, or
+                <tt style="color: #A03D10">&lt;/@</tt> count as FTL tags. Or, to recover
+                the old transitional behavior, where both legacy and new tag
+                syntax was recognized, you have to explicitly set
+                <tt style="color: #A03D10">strict_syntax</tt> to <tt style="color: #A03D10">false</tt>:
+                <tt style="color: #A03D10">cfg.setStrictSyntaxMode(false)</tt>. Also, for
+                individual templates you can force the old behavior by
+                starting the template with <tt style="color: #A03D10">&lt;#ftl
+                strict_syntax=false&gt;</tt>. (For more information about
+                why strict syntax is better than old syntax <a href="ref_depr_oldsyntax.html">read this...</a>)</p>
+              </li>
+
+              <li>
+                <p>New parameter to the <a href="ref_directive_ftl.html"><tt>ftl</tt>
+                directive</a>: <tt style="color: #A03D10">attributes</tt>. The value of
+                this attribute is a hash that associates arbitrary attributes
+                (name-value pairs) to the template. The values of the
+                attributes can be of any type (string, number, sequence...
+                etc.). FreeMarker doesn't try to understand the meaning of the
+                attributes. It's up to the application that encapsulates
+                FreeMarker (as a Web application framework). Thus, the set of
+                allowed attributes and their semantic is application (Web
+                application framework) dependent.</p>
+              </li>
+
+              <li>
+                <p>Bugfix:
+                <tt style="color: #A03D10">freemarker.template.utility.DeepUnwrap</tt>
+                unwrapped sequences to empty
+                <tt style="color: #A03D10">ArrayList</tt>-s.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: If you included/imported a template with
+                <tt style="color: #A03D10">*/</tt> in path (acquisition), and that template
+                in turn itself included/imported another template with
+                <tt style="color: #A03D10">*/</tt> in path, it may failed.</p>
+              </li>
+
+              <li>
+                <p>New methods to the
+                <tt style="color: #A03D10">freemarker.core.Environment</tt>:
+                <tt style="color: #A03D10">importLib(Template loadedTemplate, java.lang.String
+                namespace)</tt>,
+                <tt style="color: #A03D10">getTemplateForImporting(...)</tt>,
+                <tt style="color: #A03D10">getTemplateForInclusion(...)</tt>.</p>
+              </li>
+
+              <li>
+                <p>Improvements in the
+                <tt style="color: #A03D10">java.io.IOException</tt> related error messages
+                of the <tt style="color: #A03D10">include</tt> and
+                <tt style="color: #A03D10">import</tt> directives.</p>
+              </li>
+
+              <li>
+                <p>Minor improvements in the documentation.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_190"></a>Differences between the Preview 16 and Preview 15
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>New package: <tt style="color: #A03D10">freemarker.debug</tt>. This
+                provides a debugging API, by which you can debug executing
+                templates through network (RMI). You have to write the
+                front-end (client), as the API is just the server side. For
+                more information please read the JavaDoc of the
+                <tt style="color: #A03D10">freemarker.debug</tt> package. (The debugging
+                API is present for a while, just I forgot to announce it in
+                the version history. Sorry for that.)</p>
+              </li>
+
+              <li>
+                <p>Bugfix: With the new XML wrapper,
+                <tt style="color: #A03D10">@@markup</tt> and similar special keys:</p>
+
+                    <div class="itemizedlist">
+<ul>
+                  <li>
+                    <p>have returned
+                    <tt style="color: #A03D10">&lt;foo&gt;&lt;/foo&gt;</tt> for empty
+                    elements instead of <tt style="color: #A03D10">&lt;foo /&gt;</tt>.
+                    Other than it was needlessly verbose, it has confused
+                    browsers if you generate HTML.</p>
+                  </li>
+
+                  <li>
+                    <p>have showed the attributes that have no explicitly
+                    given value in the original document, just a default value
+                    coming form the DTD.</p>
+                  </li>
+
+                  <li>
+                    <p>have forgot to put space before the system
+                    identifier in the <tt style="color: #A03D10">&lt;!DOCTYPE
+                    <i style="color: #DD4400">...</i>&gt;</tt>.</p>
+                  </li>
+                </ul>    </div>
+
+              </li>
+
+              <li>
+                <p>Bugfix: XPath with Jaxen has died with
+                <tt style="color: #A03D10">NullPointerException</tt> if the context was an
+                empty node set.</p>
+              </li>
+
+              <li>
+                <p>A bit more intelligent Xalan XPath error
+                messages.</p>
+              </li>
+
+              <li>
+                <p>Revoked fallback-to-classloader logic from the template
+                cache.</p>
+              </li>
+
+              <li>
+                <p>From now, if no XPath engine is available, and the hash
+                key in an ``XML query'' can't be interpreted without XPath, an
+                error will tell this clearly, rather than silently returning
+                undefined variable (null).</p>
+              </li>
+
+              <li>
+                <p>Bugfix: Some templates have caused the parser to
+                die.</p>
+              </li>
+
+              <li>
+                <p>Some other minor improvements here and there...</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_191"></a>Differences between the Preview 15 and Preview 14
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Bugfix: The new default template cache storage
+                (<tt style="color: #A03D10">MruCacheStorage</tt>) has started to
+                continually fail with <tt style="color: #A03D10">NullPointerException</tt>
+                from a random point of time, usually when the memory usage was
+                high in the JVM.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: In error messages, when the quoted FTL directive
+                had nested content, that was quoted as well, so the quotation
+                could be very long and expose nested lines needlessly.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_192"></a>Differences between the Preview 14 and Preview 13
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p><tt style="color: #A03D10">freemarker.template.TemplateMethodModel.exec</tt>
+                now returns <tt style="color: #A03D10">Object</tt> instead of
+                <tt style="color: #A03D10">TemplateModel</tt>.</p>
+              </li>
+
+              <li>
+                <p>Fixes and improvements for XPath with Jaxen (not Xalan).
+                Non-node-set XPath expressions are now working. FreeMarker
+                variables are accessible in XPath expressions with XPath
+                variable references (e.g.
+                <tt style="color: #A03D10">doc[&quot;book/chapter[title=$currentTitle]&quot;]</tt>).</p>
+              </li>
+
+              <li>
+                <p><tt style="color: #A03D10">freemarker.cache.SoftCachseStorage</tt>
+                and <tt style="color: #A03D10">StrongCachseStorage</tt> is deprected. The
+                more flexible <tt style="color: #A03D10">MruCachseStorage</tt> is used
+                instead everywhere. The default cache storage is now an
+                <tt style="color: #A03D10">MruCachseStorage</tt> object with 0 strong size,
+                and infinite soft size.
+                <tt style="color: #A03D10">Configuration.setSetting</tt> for
+                <tt style="color: #A03D10">cache_storage</tt> now understands string values
+                as <tt style="color: #A03D10">&quot;strong:200, soft:2000&quot;</tt>.</p>
+              </li>
+
+              <li>
+                <p>Bugfix:
+                <tt style="color: #A03D10">freemarker.cache.MruCachseStorage</tt> has died
+                with <tt style="color: #A03D10">ClassCastException</tt> sometimes.</p>
+              </li>
+
+              <li>
+                <p>New built-ins for Java and JavaScript string escaping:
+                <a href="ref_builtins_string.html#ref_builtin_j_string">j_string</a> and <a href="ref_builtins_string.html#ref_builtin_js_string">js_string</a></p>
+              </li>
+
+              <li>
+                <p><tt style="color: #A03D10">freemarker.template.TemplateExceptionHandler.HTML_DEBUG_HANDLER</tt>
+                now prints more HTML-context-proof messages.</p>
+              </li>
+
+              <li>
+                <p>You can query the FreeMarker version number with static
+                method <tt style="color: #A03D10">Configuration.getVersionNumber()</tt>.
+                Also, the <tt style="color: #A03D10">Manifest.mf</tt> included in
+                <tt style="color: #A03D10">freemarker.jar</tt> now contains the FreeMarker
+                version number, furthermore, executing it with <tt style="color: #A03D10">java
+                -jar freemarker.jar</tt> will print the version number to
+                the stdout.</p>
+              </li>
+
+              <li>
+                <p>Added a new protected
+                <tt style="color: #A03D10">FreemarkerServlet</tt> method:
+                <tt style="color: #A03D10">Configuration getConfiguration()</tt>.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: FreeMarker has frozen on empty conditional
+                blocks in certain contexts.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: Methods called twice on an object using the
+                <tt style="color: #A03D10">list</tt> directive, as
+                <tt style="color: #A03D10">parent.getChildren()</tt> with
+                <tt style="color: #A03D10">&lt;#list parent.children as child&gt;
+                ...&lt;/#list&gt;</tt></p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_193"></a>Differences between the Preview 13 and Preview 12
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>White-space stripping is now more aggressive as before:
+                it always removes leading and trailing white-space if the line
+                only contains FTL tags. (Earlier the white-space was not
+                removed if the tag was <tt style="color: #A03D10">&lt;#include
+                <i style="color: #DD4400">...</i>&gt;</tt> or user-defined
+                directive tag with empty directive syntax as
+                <tt style="color: #A03D10">&lt;@myMacro/&gt;</tt> (or its equivalents:
+                <tt style="color: #A03D10">&lt;@myMacro&gt;&lt;/@myMacro&gt;</tt> and
+                <tt style="color: #A03D10">&lt;@myMacro&gt;&lt;/@&gt;</tt>). Now
+                white-space is removed in these cases as well.) Also,
+                top-level white-space that separates macro definitions and/or
+                assignments is now ignored. More information: <a href="dgui_misc_whitespace.html#dgui_misc_whitespace_stripping">Template Author's Guide/Miscellaneous/White-space handling/White-space stripping</a></p>
+              </li>
+
+              <li>
+                <p>White-space stripping can be disabled for a single line
+                with the <a href="ref_directive_nt.html#ref.directive.nt"><tt>nt</tt></a>
+                directive (for No Trim).</p>
+              </li>
+
+              <li>
+                <p>A new directive for the declarative XML processing:
+                <a href="ref_directive_visit.html#ref.directive.fallback"><tt>fallback</tt></a></p>
+              </li>
+
+              <li>
+                <p><tt style="color: #A03D10">freemarker.template.SimpleHash</tt> now
+                can wrap read-only <tt style="color: #A03D10">Map</tt>-s, such as the map
+                of HTTP request parameters in Servlet API.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_194"></a>Differences between the Preview 12 and Preview 11
+            releases  </h3>
+
+
+            <p>The only change between this and the previous preview
+            release is that Preview 11 had a bug where DOM trees would
+            <i>never</i> be garbage-collected.</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_195"></a>Differences between the Preview 11 and Preview 10
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Many XML related changes. Some of them are incompatible
+                with the previous preview releases! For a more detailed
+                explanation of how XML related features now work, see: <a href="xgui.html">XML Processing Guide</a></p>
+
+                    <div class="itemizedlist">
+<ul>
+                  <li>
+                    <p>Attention! Attribute queries such as
+                    <tt style="color: #A03D10">foo.@bar</tt> now return sequences
+                    (similarly to child element queries and XPath queries),
+                    not single nodes. Because of the rule with node sequences
+                    of size 1, it is still good to write
+                    <tt style="color: #A03D10">${foo.@bar}</tt>, but built-ins such as
+                    <tt style="color: #A03D10">?exists</tt>, <tt style="color: #A03D10">?if_exists</tt>
+                    or <tt style="color: #A03D10">?default</tt> don't work as before. For
+                    example, instead of
+                    <tt style="color: #A03D10">foo.@bar?default('black')</tt>, you now have
+                    to write <tt style="color: #A03D10">foo.@bar[0]?default('black')</tt>.
+                    So if you have used existence built-ins with attributes,
+                    you have to find those occurrences in the templates and
+                    add that <tt style="color: #A03D10">[0]</tt>.</p>
+                  </li>
+
+                  <li>
+                    <p>Attention! XML name-space handling has been totally
+                    reworked and is absolutely incompatible with pre 10. Don't
+                    worry about this if none of your XML input documents use
+                    you use <tt style="color: #A03D10">xmlns</tt> attributes. Worry,
+                    though, if you have utilized the ``loose mode'', where
+                    only the local name of elements were compared, because
+                    that's now gone. Sorry...</p>
+                  </li>
+
+                  <li>
+                    <p>Attention! Special-keys <tt style="color: #A03D10">@@</tt> and
+                    <tt style="color: #A03D10">@*</tt> now return a sequence of attribute
+                    nodes instead of the hash of them.</p>
+                  </li>
+
+                  <li>
+                    <p>Several hash keys are now working for node sequences
+                    that store multiple nodes. For example, to get the list of
+                    all <tt style="color: #A03D10">para</tt> elements of all
+                    <tt style="color: #A03D10">chapter</tt>-s, just write
+                    <tt style="color: #A03D10">doc.book.chapter.para</tt>. Or, to get list
+                    of title attributes of all <tt style="color: #A03D10">chapter</tt>-s
+                    write <tt style="color: #A03D10">doc.book.chapter.@title</tt>.</p>
+                  </li>
+
+                  <li>
+                    <p>New special hash keys: <tt style="color: #A03D10">**</tt>,
+                    <tt style="color: #A03D10">@@start_tag</tt>,
+                    <tt style="color: #A03D10">@@end_tag</tt>,
+                    <tt style="color: #A03D10">@@attribute_markup</tt>,
+                    <tt style="color: #A03D10">@@text</tt>,
+                    <tt style="color: #A03D10">@@qname</tt>.</p>
+                  </li>
+
+                  <li>
+                    <p><tt style="color: #A03D10">?parent</tt> for attribute nodes now
+                    returns the element node the attribute node belongs
+                    to.</p>
+                  </li>
+
+                  <li>
+                    <p>You can use Jaxen instead of Xalan for XPath
+                    expressions, if you call the static
+                    <tt style="color: #A03D10">freemarker.ext.dom.NodeModel.useJaxenXPathSupport()</tt>
+                    method once. We plan to use Jaxen automatically instead of
+                    Xalan if it is available, just the Jaxen support is not
+                    fully functional yet.</p>
+                  </li>
+                </ul>    </div>
+
+              </li>
+
+              <li>
+                <p>New special variable: <tt style="color: #A03D10">.vars</tt>. This is
+                useful to read top-level variables with square bracket syntax,
+                for example <tt style="color: #A03D10">.vars[&quot;name-with-hyphens&quot;]</tt> and
+                <tt style="color: #A03D10">.vars[dynamicName]</tt>.</p>
+              </li>
+
+              <li>
+                <p>New built-in, <tt style="color: #A03D10">eval</tt>, to evaluate a
+                string as FTL expression. For example
+                <tt style="color: #A03D10">&quot;1+2&quot;?eval</tt> returns the number 3.</p>
+              </li>
+
+              <li>
+                <p><tt style="color: #A03D10">FreemarkerServlet</tt> now uses the
+                configuration's <tt style="color: #A03D10">locale</tt> setting, rather than
+                <tt style="color: #A03D10">Locale.getDefault()</tt>, to set the locale of
+                the templates. Also, the signature of the
+                <tt style="color: #A03D10">deduceLocale</tt> method has been
+                changed.</p>
+              </li>
+
+              <li>
+                <p>We have a new (beta status)
+                <tt style="color: #A03D10">CacheStorage</tt> implementation:
+                <tt style="color: #A03D10">freemarker.cache.MruCacheStorage</tt>. This
+                cache storage implements a two-level Most Recently Used cache.
+                In the first level, items are strongly referenced up to the
+                specified maximum. When the maximum is exceeded, the least
+                recently used item is moved into the second level cache, where
+                they are softly referenced, up to another specified maximum.
+                You can plug to try it with <tt style="color: #A03D10">cfg.setCacheStorage(new
+                freemarker.cache.MruCacheStorage(maxStrongSize,
+                maxSoftSize))</tt>.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_196"></a>Differences between the Preview 10 and Preview 9
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>The special key <tt style="color: #A03D10">@@xmlns</tt> was removed
+                in favor of a new FTL directive for the same purpose,
+                <tt style="color: #A03D10">&lt;#xmlns...&gt;</tt>.</p>
+              </li>
+
+              <li>
+                <p>By default, the system is stricter about the use of
+                namespace prefixes. In general, you must use a prefix to
+                qualify subelements that are associated with an XML
+                nampespace. You can do this with the new
+                <tt style="color: #A03D10">&lt;#xmlns...&gt;</tt> directive, but prefixes
+                declared in the input XML doc will actually work with no
+                declaration.</p>
+              </li>
+
+              <li>
+                <p>Introduced a new special key called
+                <tt style="color: #A03D10">@@text</tt> that returns all the text nodes
+                contained (recursively) in an element all concatenated
+                together.</p>
+              </li>
+
+              <li>
+                <p>Either Jaxen or Xalan can be used to provide XPath
+                functionality. Prior versions only worked with Xalan.</p>
+              </li>
+
+              <li>
+                <p>The <tt style="color: #A03D10">FreemarkerServlet</tt> uses
+                <tt style="color: #A03D10">ObjectWrapper.DEFAULT_WRAPPER</tt> by default
+                instead of <tt style="color: #A03D10">ObjectWrapper.BEANS_WRAPPER</tt>.
+                What this means is that, by default, objects of type
+                <tt style="color: #A03D10">java.lang.String</tt>,
+                <tt style="color: #A03D10">java.lang.Number</tt>,
+                <tt style="color: #A03D10">java.util.List</tt>, and
+                <tt style="color: #A03D10">java.util.Map</tt> will be wrapped as
+                <tt style="color: #A03D10">TemplateModels</tt> via the classes
+                <tt style="color: #A03D10">SimpleScalar</tt>,
+                <tt style="color: #A03D10">SimpleNumber</tt>,
+                <tt style="color: #A03D10">SimpleSequence</tt>, and
+                <tt style="color: #A03D10">SimpleHash</tt> respectively. Thus, the java
+                methods on those objects will not be available. The default
+                wrapper implementation in FreeMarker 2.3 automatically knows
+                how to wrap Jython objects, and also wraps
+                <tt style="color: #A03D10">org.w3c.dom.Node</tt> objects into instances of
+                <tt style="color: #A03D10">freemarker.ext.dom.NodeModel</tt>.</p>
+              </li>
+
+              <li>
+                <p>The <tt style="color: #A03D10">FreemarkerServlet</tt> base
+                implementation no longer deduces the locale to use from the
+                HttpRequest.getLocale() hook. Rather, it simply delegates to a
+                <tt style="color: #A03D10">deduceLocale()</tt> hook that is overridable in
+                subclasses. The base implementation simply uses
+                <tt style="color: #A03D10">Locale.getDefault()</tt></p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_197"></a>Differences between the Preview 9 and Preview 8
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Fixed bugs introduced with Preview 8: XPath,
+                <tt style="color: #A03D10">@@markup</tt> and
+                <tt style="color: #A03D10">@@nested_markup</tt> now works with the document
+                node.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_198"></a>Differences between the Preview 8 and Preview 7
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p><tt style="color: #A03D10">macro</tt> and assignment directives now
+                accept arbitrary destination variable name with quoted syntax.
+                For example: <tt style="color: #A03D10">&lt;#macro
+                &quot;foo-bar&quot;&gt;<i style="color: #DD4400">...</i></tt> or
+                <tt style="color: #A03D10">&lt;#assign &quot;this+that&quot; = 123&gt;</tt>. This is
+                important, because XML element names can contain hyphen, and
+                it was not possible to define a handler macro for those
+                elements, till now.</p>
+              </li>
+
+              <li>
+                <p>Special key <tt style="color: #A03D10">@@content</tt> was renamed to
+                <tt style="color: #A03D10">@@nested_markup</tt>.</p>
+              </li>
+
+              <li>
+                <p>Fixed outdated XML related Manual parts (that were
+                outdated even in Preview 7).</p>
+              </li>
+
+              <li>
+                <p>Better parse-error messages.</p>
+              </li>
+
+              <li>
+                <p>Minor bugfixes here and there...</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_199"></a>Differences between the Preview 7 and Preview 6
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Caching of XPath queries should lead to significant
+                performance improvements for XML processing, at least when
+                XPath is heavily used.</p>
+              </li>
+
+              <li>
+                <p>Refinements in handling of XML namespaces in the XML
+                processing functionality. The new
+                <tt style="color: #A03D10">strict_namespace_handling</tt> setting
+                introduced in 2.3pre6 was removed. A general-purpose solution
+                was arrived at that should make that configuration setting
+                unnecessary.</p>
+              </li>
+
+              <li>
+                <p>Special key <tt style="color: #A03D10">@xmlns</tt> was renamed to
+                @@xmlns. Reserved namespace prefix <tt style="color: #A03D10">default</tt>
+                was renamed to <tt style="color: #A03D10">@@default</tt>.</p>
+              </li>
+
+              <li>
+                <p>The <tt style="color: #A03D10">ftl</tt> directive now accepts
+                non-string types.</p>
+              </li>
+
+              <li>
+                <p>New special keys were introduced for XML node wrappers
+                in the freemarker.ext.dom package. The
+                <tt style="color: #A03D10">@@markup</tt> key returns the literal markup
+                that make up that element and the <tt style="color: #A03D10">@@content</tt>
+                key returns all the element's markup excluding the opening and
+                closing tags.</p>
+              </li>
+
+              <li>
+                <p>Minor bugfixes here and there...</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_200"></a>Differences between the Preview 6 and Preview 5
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Existence built-ins (<tt style="color: #A03D10">?default</tt>,
+                <tt style="color: #A03D10">?exists</tt>, etc.) now work with sequence
+                subvariables as well. Read the <a href="ref_directive_switch.html#ref.directive.default">documentation of the
+                <tt>default</tt> built-in</a> for more
+                information.</p>
+              </li>
+
+              <li>
+                <p>The <tt style="color: #A03D10">matches</tt> built-in now returns a
+                sequence instead of a collection.</p>
+              </li>
+
+              <li>
+                <p>Refinements in handling of XML namespaces in the XML
+                processing functionality. A new setting,
+                <tt style="color: #A03D10">strict_namespace_handling</tt> was introduced.
+                If this is set (it is off by default) any node-handling macro
+                used in with the visit/recurse machinery must be from a macro
+                library that declares in its ftl header that it handles the
+                namespace in question.</p>
+              </li>
+
+              <li>
+                <p>Minor bugfixes here and there...</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_201"></a>Differences between the Preview 5 and Preview 4
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>The <tt style="color: #A03D10">replace</tt> and
+                <tt style="color: #A03D10">split</tt> built-ins now support
+                case-insensitive comparison and regular expressions (J2SE 1.4+
+                only), and some other new options. More information can be
+                found <a href="ref_builtins_string.html#ref_builtin_string_flags">here</a>.</p>
+              </li>
+
+              <li>
+                <p>New butilt-in for regular expression matching (J2SE 1.4+
+                only): <a href="ref_builtins_string.html#ref_builtin_matches"><tt>matches</tt></a></p>
+              </li>
+
+              <li>
+                <p>Minor bugfixes here and there...</p>
+              </li>
+
+              <li>
+                <p>Manual: More browser-safe HTML-s. More updated
+                content.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_202"></a>Differences between the Preview 4 and Preview 3
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Bugfix: with multi-type variables, <tt style="color: #A03D10">+</tt>
+                operator overload for hash type had higher precedence than the
+                precedence of some older overloads.</p>
+              </li>
+
+              <li>
+                <p>The API documentation was missing from the distribution
+                <tt style="color: #A03D10">tar.gz</tt>.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_203"></a>Differences between the Preview 3 and Preview 2
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>XML processing: Many various bugfixes, especially with
+                the declarative processing.</p>
+              </li>
+
+              <li>
+                <p>XML processing: the <tt style="color: #A03D10">namespace_uri</tt>
+                built-in, the <tt style="color: #A03D10">xmlnsuri</tt> header parameter,
+                and the <tt style="color: #A03D10">TemplateNodeModel.getNodeNamespace</tt>
+                method were renamed to <tt style="color: #A03D10">node_namespace</tt> and
+                <tt style="color: #A03D10">getNodeNamespace</tt> respectively.</p>
+              </li>
+
+              <li>
+                <p>XML processing: Better documentation. Especially, note:
+                <a href="xgui.html">XML Processing Guide</a></p>
+              </li>
+
+              <li>
+                <p>A new header parameter, <tt style="color: #A03D10">strip_text</tt>,
+                that removes all top-level text from a template. See <a href="ref_directive_ftl.html#ref.directive.ftl"><tt>ftl</tt>
+                directive</a></p>
+              </li>
+
+              <li>
+                <p>Support for a variable number of macro parameters. If
+                the last parameter in a macro declaration ends with
+                <tt style="color: #A03D10">...</tt>, all extra parameters passed to the
+                macro will be available via that parameter. For macros called
+                with positional parameters, the parameter will be a sequence.
+                For named parameters, the parameter will be a hash.</p>
+              </li>
+
+              <li>
+                <p>For <tt style="color: #A03D10">BeansWrapper</tt> generated models,
+                you can now use the <tt style="color: #A03D10">${obj.method(args)}</tt>
+                syntax to invoke methods whose return type is
+                <tt style="color: #A03D10">void</tt>. <tt style="color: #A03D10">void</tt> methods now
+                return <tt style="color: #A03D10">TemplateModel.NOTHING</tt> as their
+                return value.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_204"></a>Differences between the Preview 2 and Preview 1
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>The <tt style="color: #A03D10">freemarker.ext.dom.NodeModel</tt> API
+                changed slightly. The <tt style="color: #A03D10">setDocumentBuilder()</tt>
+                method was changed to
+                <tt style="color: #A03D10">setDocumentBuilderFactory()</tt> because the
+                older scheme was not thread-safe. The
+                <tt style="color: #A03D10">stripComments</tt> and
+                <tt style="color: #A03D10">stripPIs</tt> methods are renamed to The
+                <tt style="color: #A03D10">removeComments</tt> and
+                <tt style="color: #A03D10">removePIs</tt>, and are fixed now. A new method,
+                <tt style="color: #A03D10">simplify</tt> has been added.</p>
+              </li>
+
+              <li>
+                <p>The expressions <tt style="color: #A03D10">as</tt>,
+                <tt style="color: #A03D10">in</tt>, and <tt style="color: #A03D10">using</tt> are now
+                keywords in the template language and cannot be used as
+                top-level variable names without square-bracket syntax (as
+                <tt style="color: #A03D10">.vars[&quot;in&quot;]</tt>). If, by some chance, you have
+                top-level variables that use one of these names, you will have
+                to rename them (or use the square-bracket syntax). Sorry for
+                the inconvenience.</p>
+              </li>
+
+              <li>
+                <p>The <tt style="color: #A03D10">?new</tt> built-in, as it was
+                implemented, was a security hole. Now, it only allows you to
+                instantiate a java object that implements the
+                <tt style="color: #A03D10">freemarker.template.TemplateModel</tt>
+                interface. If you want the functionality of the
+                <tt style="color: #A03D10">?new</tt> built-in as it existed in prior
+                versions, make available an instance of the new
+                <tt style="color: #A03D10">freemarker.template.utility.ObjectConstructor</tt>
+                class to your template.</p>
+              </li>
+
+              <li>
+                <p>The <tt style="color: #A03D10">&lt;#recurse&gt;</tt> directive was
+                broken. It did not work with a <tt style="color: #A03D10">using</tt>
+                clause. This is now fixed.</p>
+              </li>
+            </ul>    </div>
+
+          
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_2_8.html"><span class="hideA">Next page: </span>2.2.8</a></div><div class="pagerButton"><a href="versions_2_3_1.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

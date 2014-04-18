@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - setting
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_directives.html">Directive Reference</a>
+            <b>></b>
+          setting
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_directive_userDefined.html"><span class="hideA">Next page: </span>User-defined directive (&lt;@...&gt;)</a></div><div class="pagerButton"><a href="ref_directive_local.html">Previous page</a></div><div class="pagerButton"><a href="ref_directives.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="ref_directive_setting"></a>setting  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li>
+        <a href="#autoid_101">Synopsis</a>
+      </li>
+      <li>
+        <a href="#autoid_102">Description</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<a name="ref.directive.setting"></a>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_101"></a>Synopsis  </h2>
+
+
+          <pre class="metaTemplate">
+<tt style="color: #A03D10">&lt;#setting <i style="color: #DD4400">name</i>=<i style="color: #DD4400">value</i>&gt;</tt>
+</pre>
+
+
+          <p>Where:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <tt style="color: #A03D10"><i style="color: #DD4400">name</i></tt>: name
+              of the setting. It is not expression!
+            </li>
+
+            <li>
+              <tt style="color: #A03D10"><i style="color: #DD4400">value</i></tt>: New
+              value of the setting. Expression
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_102"></a>Description  </h2>
+
+
+          <p>Sets a setting for the further part of processing. Settings
+          are values that influence the behavior of FreeMarker. The new value
+          will be present only in the template processing where it was set,
+          and does not touch the template itself. The initial value of
+          settings is set by the programmer <span style="color:#333399; font-style:italic">(see: <a href="pgui_config_settings.html">Programmer's Guide/The Configuration/Settings</a>)</span>.</p>
+
+          <p>The supported settings are:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><tt style="color: #A03D10">locale</tt>: The locale (language)
+              of the output. It can influence the presentation format of
+              numbers, dates, etc. The value is a string which consist of a
+              language code (lowercase two-letter ISO-639 code) plus optional
+              county code (uppercase two-letter ISO-3166 code) separated from
+              the language code with underscore, and if we have specified the
+              country then an optional variant code (not standardized)
+              separated from the country with underscore. Examples of valid
+              values: <tt style="color: #A03D10">en</tt>, <tt style="color: #A03D10">en_US</tt>,
+              <tt style="color: #A03D10">en_US_MAC</tt>. FreeMarker will try to use the
+              most specific available locale, so if you specify
+              <tt style="color: #A03D10">en_US_MAC</tt> but that is not known, then it will
+              try <tt style="color: #A03D10">en_US</tt>, and then <tt style="color: #A03D10">en</tt>,
+              and then the default locale of the computer (which is may set by
+              the programmer).</p>
+            </li>
+
+            <li>
+              <p><a name="ref.setting.number_format"></a><tt style="color: #A03D10">number_format</tt>: The number
+              format that is used to convert numbers to strings when no
+              explicit format is specified. Can be one of predefined values
+              <tt style="color: #A03D10">number</tt> (the default),
+              <tt style="color: #A03D10">computer</tt>, <tt style="color: #A03D10">currency</tt>, or
+              <tt style="color: #A03D10">percent</tt>. Additionally, arbitrary format
+              pattern written in <a href="http://java.sun.com/j2se/1.4/docs/api/java/text/DecimalFormat.html">Java
+              decimal number format syntax</a> can also be specified. More
+              information about format patterns:<a href="ref_builtins_number.html#ref_builtin_string_for_number"><tt>string</tt>
+              built-in</a>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">boolean_format</tt>: The
+              comma-separated pair of strings for representing true and false
+              values respectively that is used to convert booleans to strings
+              when no explicit format is specified. Default value is
+              <tt style="color: #A03D10">&quot;true,false&quot;</tt>. See also:<a href="ref_builtins_boolean.html#ref_builtin_string_for_boolean"><tt>string</tt>
+              built-in</a>.</p>
+            </li>
+
+            <li>
+              <p> <tt style="color: #A03D10">date_format</tt>,
+              <tt style="color: #A03D10">time_format</tt>,
+              <tt style="color: #A03D10">datetime_format</tt>: The date/time format used to
+              convert dates to strings when no explicit format is specified,
+              as in the case of <tt style="color: #A03D10">${someDate}</tt>.
+              <tt style="color: #A03D10">date_format</tt> affects only the formatting of
+              date-only dates (year, month, day),
+              <tt style="color: #A03D10">time_format</tt> affects only the formatting of
+              time-only dates (hour,minute, second, millisecond),
+              <tt style="color: #A03D10">datetime_format</tt> affects only the formatting
+              of date-time dates (year, month, day, hour, minute, second,
+              millisecond). The possible values of the settings are similar to
+              the parameters of <a href="ref_builtins_date.html#ref_builtin_string_for_date"><tt>string</tt>
+              built-in</a> of dates; see more explanation there. Examples:
+              <tt style="color: #A03D10">&quot;short&quot;</tt>, <tt style="color: #A03D10">&quot;long_medium&quot;</tt>,
+              <tt style="color: #A03D10">&quot;MM/dd/yyyy&quot;</tt>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">time_zone</tt>: The name of the time
+              zone used to format times for display. By default, the system
+              time zone is used. Can be any value that is accepted by <a href="http://java.sun.com/j2se/1.4/docs/api/java/util/TimeZone.html">Java
+              TimeZone API</a>. Examples: <tt style="color: #A03D10">&quot;GMT&quot;</tt>,
+              <tt style="color: #A03D10">&quot;GMT+2&quot;</tt>, <tt style="color: #A03D10">&quot;GMT-1:30&quot;</tt>,
+              <tt style="color: #A03D10">&quot;CET&quot;</tt>, <tt style="color: #A03D10">&quot;PST&quot;</tt>,
+              <tt style="color: #A03D10">&quot;America/Los_Angeles&quot;</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">url_escaping_charset</tt>: The
+              charset used for URL escaping (e.g. for
+              <tt style="color: #A03D10">${foo?url}</tt>) to calculate the escaped
+              (<tt style="color: #A03D10">%<i style="color: #DD4400">XX</i></tt>) parts.
+              Usually the framework that encloses FreeMarker should set it, so
+              you hardly ever should set this setting in templates. <span style="color:#333399; font-style:italic">(Programmers can read more about this
+              <a href="pgui_misc_charset.html">here...</a>)</span></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">classic_compatible</tt>: This is for
+              experts. Its value should be a boolean. See the documentation of
+              <tt style="color: #A03D10">freemarker.template.Configurable</tt> for more
+              information.</p>
+            </li>
+          </ul>    </div>
+
+
+          <p>Example: Assume that the initial locale of template is hu
+          (Hungarian). Then this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${1.2}
+&lt;#setting locale=&quot;en_US&quot;&gt;
+${1.2}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+1,2
+1.2&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>because Hungarian people use the comma as their decimal
+          separator, while US people use the dot.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_directive_userDefined.html"><span class="hideA">Next page: </span>User-defined directive (&lt;@...&gt;)</a></div><div class="pagerButton"><a href="ref_directive_local.html">Previous page</a></div><div class="pagerButton"><a href="ref_directives.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_directives.html">Directive Reference</a>
+            <b>></b>
+          setting
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

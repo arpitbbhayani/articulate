@@ -1,0 +1,591 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="preface.html"><span class="hideA">Next page: </span>Preface</a></div><div class="pagerButton"><span class="disabledPager">Previous page</span></div><div class="pagerButton"><span class="disabledPager">Parent page</span></div><div class="pagerButton"><span class="disabledPager">Contents</span></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_book"
+        id="pageTopTitle">
+<a name="autoid_1"></a>FreeMarker Manual      <span style="font-size: 50%"><br>For FreeMarker 2.3.20</span>
+  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+              Table of Contents
+        </b>
+&nbsp;&nbsp;<font size="-1">[<a href="detailed-toc.html">Show detailed...</a>]</font>      </p>
+      
+  <ul class="noMargin">
+      <li>
+        <a href="preface.html">Preface</a>
+      </li>
+      <li>
+        I   <a href="dgui.html">Template Author's Guide</a>
+  <ul >
+      <li>
+        1   <a href="dgui_quickstart.html">Getting Started</a>
+  <ul >
+      <li>
+        <a href="dgui_quickstart_basics.html">Template + data-model = output</a>
+      </li>
+      <li>
+        <a href="dgui_quickstart_datamodel.html">The data-model at a glance</a>
+      </li>
+      <li>
+        <a href="dgui_quickstart_template.html">The template at a glance</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        2   <a href="dgui_datamodel.html">Values, Types</a>
+  <ul >
+      <li>
+        <a href="dgui_datamodel_basics.html">Basics</a>
+      </li>
+      <li>
+        <a href="dgui_datamodel_types.html">The types</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        3   <a href="dgui_template.html">The Template</a>
+  <ul >
+      <li>
+        <a href="dgui_template_overallstructure.html">Overall structure</a>
+      </li>
+      <li>
+        <a href="dgui_template_directives.html">Directives</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html">Expressions</a>
+      </li>
+      <li>
+        <a href="dgui_template_valueinsertion.html">Interpolations</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        4   <a href="dgui_misc.html">Miscellaneous</a>
+  <ul >
+      <li>
+        <a href="dgui_misc_userdefdir.html">Defining your own directives</a>
+      </li>
+      <li>
+        <a href="dgui_misc_var.html">Defining variables in the template</a>
+      </li>
+      <li>
+        <a href="dgui_misc_namespace.html">Namespaces</a>
+      </li>
+      <li>
+        <a href="dgui_misc_whitespace.html">White-space handling</a>
+      </li>
+      <li>
+        <a href="dgui_misc_alternativesyntax.html">Alternative (square bracket) syntax</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        II   <a href="pgui.html">Programmer's Guide</a>
+  <ul >
+      <li>
+        1   <a href="pgui_quickstart.html">Getting Started</a>
+  <ul >
+      <li>
+        <a href="pgui_quickstart_createconfiguration.html">Create a configuration instance</a>
+      </li>
+      <li>
+        <a href="pgui_quickstart_createdatamodel.html">Create a data-model</a>
+      </li>
+      <li>
+        <a href="pgui_quickstart_gettemplate.html">Get the template</a>
+      </li>
+      <li>
+        <a href="pgui_quickstart_merge.html">Merging the template with the data-model</a>
+      </li>
+      <li>
+        <a href="pgui_quickstart_all.html">Putting all together</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        2   <a href="pgui_datamodel.html">The Data Model</a>
+  <ul >
+      <li>
+        <a href="pgui_datamodel_basics.html">Basics</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_scalar.html">Scalars</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_parent.html">Containers</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_method.html">Methods</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_directive.html">Directives</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_node.html">Node variables</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_objectWrapper.html">Object wrappers</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        3   <a href="pgui_config.html">The Configuration</a>
+  <ul >
+      <li>
+        <a href="pgui_config_basics.html">Basics</a>
+      </li>
+      <li>
+        <a href="pgui_config_sharedvariables.html">Shared variables</a>
+      </li>
+      <li>
+        <a href="pgui_config_settings.html">Settings</a>
+      </li>
+      <li>
+        <a href="pgui_config_templateloading.html">Template loading</a>
+      </li>
+      <li>
+        <a href="pgui_config_errorhandling.html">Error handling</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        4   <a href="pgui_misc.html">Miscellaneous</a>
+  <ul >
+      <li>
+        <a href="pgui_misc_var.html">Variables</a>
+      </li>
+      <li>
+        <a href="pgui_misc_charset.html">Charset issues</a>
+      </li>
+      <li>
+        <a href="pgui_misc_multithreading.html">Multithreading</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html">Bean wrapper</a>
+      </li>
+      <li>
+        <a href="pgui_misc_logging.html">Logging</a>
+      </li>
+      <li>
+        <a href="pgui_misc_servlet.html">Using FreeMarker with servlets</a>
+      </li>
+      <li>
+        <a href="pgui_misc_secureenv.html">Configuring security policy for FreeMarker</a>
+      </li>
+      <li>
+        <a href="pgui_misc_xml_legacy.html">Legacy XML wrapper implementation</a>
+      </li>
+      <li>
+        <a href="pgui_misc_ant.html">Using FreeMarker with Ant</a>
+      </li>
+      <li>
+        <a href="pgui_misc_jythonwrapper.html">Jython wrapper</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        III   <a href="xgui.html">XML Processing Guide</a>
+  <ul >
+      <li>
+        <a href="xgui_preface.html">Preface</a>
+      </li>
+      <li>
+        1   <a href="xgui_expose.html">Exposing XML documents</a>
+  <ul >
+      <li>
+        <a href="xgui_expose_dom.html">The DOM tree</a>
+      </li>
+      <li>
+        <a href="xgui_expose_put.html">Putting the XML into the data-model</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        2   <a href="xgui_imperative.html">Imperative XML processing</a>
+  <ul >
+      <li>
+        <a href="xgui_imperative_learn.html">Learning by example</a>
+      </li>
+      <li>
+        <a href="xgui_imperative_formal.html">Formal description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        3   <a href="xgui_declarative.html">Declarative XML Processing</a>
+  <ul >
+      <li>
+        <a href="xgui_declarative_basics.html">Basics</a>
+      </li>
+      <li>
+        <a href="xgui_declarative_details.html">Details</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        IV   <a href="ref.html">Reference</a>
+  <ul >
+      <li>
+        1   <a href="ref_builtins.html">Built-in Reference</a>
+  <ul >
+      <li>
+        <a href="ref_builtins_alphaidx.html">Alphabetical index</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html">Built-ins for strings</a>
+      </li>
+      <li>
+        <a href="ref_builtins_number.html">Built-ins for numbers</a>
+      </li>
+      <li>
+        <a href="ref_builtins_date.html">Built-ins for dates</a>
+      </li>
+      <li>
+        <a href="ref_builtins_boolean.html">Built-ins for booleans</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html">Built-ins for sequences</a>
+      </li>
+      <li>
+        <a href="ref_builtins_hash.html">Built-ins for hashes</a>
+      </li>
+      <li>
+        <a href="ref_builtins_node.html">Built-ins for nodes (for XML)</a>
+      </li>
+      <li>
+        <a href="ref_builtins_expert.html">Seldom used and expert built-ins</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        2   <a href="ref_directives.html">Directive Reference</a>
+  <ul >
+      <li>
+        <a href="ref_directive_alphaidx.html">Alphabetical index</a>
+      </li>
+      <li>
+        <a href="ref_directive_if.html">if, else, elseif</a>
+      </li>
+      <li>
+        <a href="ref_directive_switch.html">switch, case, default, break</a>
+      </li>
+      <li>
+        <a href="ref_directive_list.html">list, break</a>
+      </li>
+      <li>
+        <a href="ref_directive_include.html">include</a>
+      </li>
+      <li>
+        <a href="ref_directive_import.html">import</a>
+      </li>
+      <li>
+        <a href="ref_directive_noparse.html">noparse</a>
+      </li>
+      <li>
+        <a href="ref_directive_compress.html">compress</a>
+      </li>
+      <li>
+        <a href="ref_directive_escape.html">escape, noescape</a>
+      </li>
+      <li>
+        <a href="ref_directive_assign.html">assign</a>
+      </li>
+      <li>
+        <a href="ref_directive_global.html">global</a>
+      </li>
+      <li>
+        <a href="ref_directive_local.html">local</a>
+      </li>
+      <li>
+        <a href="ref_directive_setting.html">setting</a>
+      </li>
+      <li>
+        <a href="ref_directive_userDefined.html">User-defined directive (&lt;@...&gt;)</a>
+      </li>
+      <li>
+        <a href="ref_directive_macro.html">macro, nested, return</a>
+      </li>
+      <li>
+        <a href="ref_directive_function.html">function, return</a>
+      </li>
+      <li>
+        <a href="ref_directive_flush.html">flush</a>
+      </li>
+      <li>
+        <a href="ref_directive_stop.html">stop</a>
+      </li>
+      <li>
+        <a href="ref_directive_ftl.html">ftl</a>
+      </li>
+      <li>
+        <a href="ref_directive_t.html">t, lt, rt</a>
+      </li>
+      <li>
+        <a href="ref_directive_nt.html">nt</a>
+      </li>
+      <li>
+        <a href="ref_directive_attempt.html">attempt, recover</a>
+      </li>
+      <li>
+        <a href="ref_directive_visit.html">visit, recurse, fallback</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        3   <a href="ref_specvar.html">Special Variable Reference</a>
+      </li>
+      <li>
+        4   <a href="ref_reservednames.html">Reserved names in FTL</a>
+      </li>
+      <li>
+        5   <a href="ref_deprecated.html">Deprecated FTL constructs</a>
+  <ul >
+      <li>
+        <a href="ref_depr_directive.html">List of deprecated directives</a>
+      </li>
+      <li>
+        <a href="ref_depr_builtin.html">List of deprecated built-ins</a>
+      </li>
+      <li>
+        <a href="ref_depr_oldmacro.html">Old-style macro and call directives</a>
+      </li>
+      <li>
+        <a href="ref_depr_transform.html">Transform directive</a>
+      </li>
+      <li>
+        <a href="ref_depr_oldsyntax.html">Old FTL syntax</a>
+      </li>
+      <li>
+        <a href="ref_depr_numerical_interpolation.html">#{...}: Numerical interpolation</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        V   <a href="app.html">Appendixes</a>
+  <ul >
+      <li>
+        A   <a href="app_faq.html">FAQ</a>
+      </li>
+      <li>
+        B   <a href="app_install.html">Installing FreeMarker</a>
+      </li>
+      <li>
+        C   <a href="app_build.html">Building FreeMarker</a>
+      </li>
+      <li>
+        D   <a href="app_versions.html">Versions</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_20.html">2.3.20</a>
+      </li>
+      <li>
+        <a href="versions_2_3_19.html">2.3.19</a>
+      </li>
+      <li>
+        <a href="versions_2_3_18.html">2.3.18</a>
+      </li>
+      <li>
+        <a href="versions_2_3_17.html">2.3.17</a>
+      </li>
+      <li>
+        <a href="versions_2_3_16.html">2.3.16</a>
+      </li>
+      <li>
+        <a href="versions_2_3_15.html">2.3.15</a>
+      </li>
+      <li>
+        <a href="versions_2_3_14.html">2.3.14</a>
+      </li>
+      <li>
+        <a href="versions_2_3_13.html">2.3.13</a>
+      </li>
+      <li>
+        <a href="versions_2_3_12.html">2.3.12</a>
+      </li>
+      <li>
+        <a href="versions_2_3_11.html">2.3.11</a>
+      </li>
+      <li>
+        <a href="versions_2_3_10.html">2.3.10</a>
+      </li>
+      <li>
+        <a href="versions_2_3_9.html">2.3.9</a>
+      </li>
+      <li>
+        <a href="versions_2_3_8.html">2.3.8</a>
+      </li>
+      <li>
+        <a href="versions_2_3_7.html">2.3.7</a>
+      </li>
+      <li>
+        <a href="versions_2_3_7rc1.html">2.3.7 RC1</a>
+      </li>
+      <li>
+        <a href="versions_2_3_6.html">2.3.6</a>
+      </li>
+      <li>
+        <a href="versions_2_3_5.html">2.3.5</a>
+      </li>
+      <li>
+        <a href="versions_2_3_4.html">2.3.4</a>
+      </li>
+      <li>
+        <a href="versions_2_3_3.html">2.3.3</a>
+      </li>
+      <li>
+        <a href="versions_2_3_2.html">2.3.2</a>
+      </li>
+      <li>
+        <a href="versions_2_3_1.html">2.3.1</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html">2.3</a>
+      </li>
+      <li>
+        <a href="versions_2_2_8.html">2.2.8</a>
+      </li>
+      <li>
+        <a href="versions_2_2_7.html">2.2.7</a>
+      </li>
+      <li>
+        <a href="versions_2_2_6.html">2.2.6</a>
+      </li>
+      <li>
+        <a href="versions_2_2_5.html">2.2.5</a>
+      </li>
+      <li>
+        <a href="versions_2_2_4.html">2.2.4</a>
+      </li>
+      <li>
+        <a href="versions_2_2_3.html">2.2.3</a>
+      </li>
+      <li>
+        <a href="versions_2_2_2.html">2.2.2</a>
+      </li>
+      <li>
+        <a href="versions_2_2_1.html">2.2.1</a>
+      </li>
+      <li>
+        <a href="versions_2_2.html">2.2</a>
+      </li>
+      <li>
+        <a href="versions_2_1_5.html">2.1.5</a>
+      </li>
+      <li>
+        <a href="versions_2_1_4.html">2.1.4</a>
+      </li>
+      <li>
+        <a href="versions_2_1_3.html">2.1.3</a>
+      </li>
+      <li>
+        <a href="versions_2_1_2.html">2.1.2</a>
+      </li>
+      <li>
+        <a href="versions_2_1_1.html">2.1.1</a>
+      </li>
+      <li>
+        <a href="versions_2_1.html">2.1</a>
+      </li>
+      <li>
+        <a href="versions_2_01.html">2.01</a>
+      </li>
+      <li>
+        <a href="versions_2_0.html">2.0</a>
+      </li>
+      <li>
+        <a href="versions_2_0RC3.html">2.0 RC3</a>
+      </li>
+      <li>
+        <a href="versions_2_0RC2.html">2.0 RC2</a>
+      </li>
+      <li>
+        <a href="versions_2_0RC1.html">2.0 RC1</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        E   <a href="app_license.html">License</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="gloss.html">Glossary</a>
+      </li>
+      <li>
+        <a href="alphaidx.html">Alphabetical Index</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="preface.html"><span class="hideA">Next page: </span>Preface</a></div><div class="pagerButton"><span class="disabledPager">Previous page</span></div><div class="pagerButton"><span class="disabledPager">Parent page</span></div><div class="pagerButton"><span class="disabledPager">Contents</span></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

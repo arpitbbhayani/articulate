@@ -1,0 +1,2249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Expressions
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_template.html">The Template</a>
+            <b>></b>
+          Expressions
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_template_valueinsertion.html"><span class="hideA">Next page: </span>Interpolations</a></div><div class="pagerButton"><a href="dgui_template_directives.html">Previous page</a></div><div class="pagerButton"><a href="dgui_template.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="dgui_template_exp"></a>Expressions  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#exp_cheatsheet">Quick overview (cheat sheet)</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_direct">Specify values directly</a>
+  <ul >
+      <li>
+        <a href="#dgui_template_exp_direct_string">Strings</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_direct_number">Numbers</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_direct_boolean">Booleans</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_direct_seuqence">Sequences</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_direct_hash">Hashes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_var">Retrieving variables</a>
+  <ul >
+      <li>
+        <a href="#dgui_template_exp_var_toplevel">Top-level variables</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_var_hash">Retrieving data from a hash</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_var_sequence">Retrieving data from a sequence</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_var_special">Special variables</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_stringop">String operations</a>
+  <ul >
+      <li>
+        <a href="#dgui_template_exp_stringop_interpolation">Interpolation (or concatenation)</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_get_character">Getting a character</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_sequenceop">Sequence operations</a>
+  <ul >
+      <li>
+        <a href="#dgui_template_exp_sequenceop_cat">Concatenation</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_seqenceop_slice">Sequence slice</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_hashop">Hash operations</a>
+  <ul >
+      <li>
+        <a href="#dgui_template_exp_hashop_cat">Concatenation</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_arit">Arithmetical calculations</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_comparison">Comparison</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_logicalop">Logical operations</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_builtin">Built-ins</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_methodcall">Method call</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_missing">Handling missing values</a>
+  <ul >
+      <li>
+        <a href="#dgui_template_exp_missing_default">Default value operator</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_missing_test">Missing value test operator</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_parentheses">Parentheses</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_whitespace">White-space in expressions</a>
+      </li>
+      <li>
+        <a href="#dgui_template_exp_precedence">Operator precedence</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>When you supply values for interpolations or directive
+        parameters you can use variables or more complex expressions. For
+        example, if x is the number 8 and y is 5, the value of <tt style="color: #A03D10">(x +
+        y)/2</tt> resolves to the numerical value 6.5.</p><p>Before we go into details, let's see some concrete
+        examples:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p>When you supply value for interpolations: The usage of
+            interpolations is
+            <tt style="color: #A03D10">${<i style="color: #DD4400">expression</i>}</tt> where
+            expression gives the value you want to insert into the output as
+            text. So <tt style="color: #A03D10">${(5 + 8)/2}</tt> prints ``6.5'' to the
+            output (or possibly ``6,5'' if the language of your output is not
+            US English).</p>
+          </li>
+
+          <li>
+            <p>When you supply a value for the directive parameter: You
+            have already seen the <tt style="color: #A03D10">if</tt> directive in the
+            Getting Started section. The syntax of this directive is:
+            <tt style="color: #A03D10">&lt;#if
+            <i style="color: #DD4400">expression</i>&gt;<i style="color: #DD4400">...</i>&lt;/#if&gt;</tt>.
+            The expression here must evaluate to a boolean value. For example
+            in <tt style="color: #A03D10">&lt;#if 2 &lt; 3&gt;</tt> the <tt style="color: #A03D10">2 &lt;
+            3</tt> (2 is less than 3) is an expression which evaluates to
+            <tt style="color: #A03D10">true</tt>.</p>
+          </li>
+        </ul>    </div>
+
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="exp_cheatsheet"></a>Quick overview (cheat sheet)  </h2>
+
+
+          <p>This is a reminder for those of you who already know
+          FreeMarker or are just experienced programmers:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <a href="#dgui_template_exp_direct">Specify values
+              directly</a>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <a href="#dgui_template_exp_direct_string">Strings</a>:
+                  <tt style="color: #A03D10">&quot;Foo&quot;</tt> or <tt style="color: #A03D10">'Foo'</tt> or
+                  <tt style="color: #A03D10">&quot;It's \&quot;quoted\&quot;&quot;</tt> or
+                  <tt style="color: #A03D10">r&quot;C:\raw\string&quot;</tt>
+                </li>
+
+                <li>
+                  <a href="#dgui_template_exp_direct_number">Numbers</a>:
+                  <tt style="color: #A03D10">123.45</tt>
+                </li>
+
+                <li>
+                  <a href="#dgui_template_exp_direct_boolean">Booleans</a>:
+                  <tt style="color: #A03D10">true</tt>, <tt style="color: #A03D10">false</tt>
+                </li>
+
+                <li>
+                  <a href="#dgui_template_exp_direct_seuqence">Sequences</a>:
+                  <tt style="color: #A03D10">[&quot;foo&quot;, &quot;bar&quot;, 123.45]</tt>,
+                  <tt style="color: #A03D10">1..100</tt>
+                </li>
+
+                <li>
+                  <a href="#dgui_template_exp_direct_hash">Hashes</a>:
+                  <tt style="color: #A03D10">{&quot;name&quot;:&quot;green mouse&quot;,
+                  &quot;price&quot;:150}</tt>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <a href="#dgui_template_exp_var">Retrieving
+              variables</a>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <a href="#dgui_template_exp_var_toplevel">Top-level
+                  variables</a>: <tt style="color: #A03D10">user</tt>
+                </li>
+
+                <li>
+                  <a href="#dgui_template_exp_var_hash">Retrieving
+                  data from a hash</a>: <tt style="color: #A03D10">user.name</tt>,
+                  <tt style="color: #A03D10">user[&quot;name&quot;]</tt>
+                </li>
+
+                <li>
+                  <a href="#dgui_template_exp_var_sequence">Retrieving data
+                  from a sequence</a>:
+                  <tt style="color: #A03D10">products[5]</tt>
+                </li>
+
+                <li>
+                  <a href="#dgui_template_exp_var_special">Special
+                  variable</a>: <tt style="color: #A03D10">.main</tt>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <a href="#dgui_template_exp_stringop">String
+              operations</a>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <a href="#dgui_template_exp_stringop_interpolation">Interpolation
+                  (or concatenation)</a>:
+                  <tt style="color: #A03D10">&quot;Hello ${user}!&quot;</tt> (or
+                  <tt style="color: #A03D10">&quot;Free&quot; + &quot;Marker&quot;</tt>)
+                </li>
+
+                <li>
+                  <a href="#dgui_template_exp_get_character">Getting a
+                  character</a>: <tt style="color: #A03D10">name[0]</tt>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <a href="#dgui_template_exp_sequenceop">Sequence
+              operations</a>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <a href="#dgui_template_exp_sequenceop_cat">Concatenation</a>:
+                  <tt style="color: #A03D10">users + [&quot;guest&quot;]</tt>
+                </li>
+
+                <li>
+                  <a href="#dgui_template_exp_seqenceop_slice">Sequence
+                  slice</a>: <tt style="color: #A03D10">products[10..19]</tt> or
+                  <tt style="color: #A03D10">products[5..]</tt>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <a href="#dgui_template_exp_hashop">Hash
+              operations</a>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <a href="#dgui_template_exp_hashop_cat">Concatenation</a>:
+                  <tt style="color: #A03D10">passwords + {&quot;joe&quot;:&quot;secret42&quot;}</tt>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <a href="#dgui_template_exp_arit">Arithmetical
+              calculations</a>: <tt style="color: #A03D10">(x * 1.5 + 10) / 2 - y %
+              100</tt>
+            </li>
+
+            <li>
+              <a href="#dgui_template_exp_comparison">Comparison</a>:
+              <tt style="color: #A03D10">x == y</tt>, <tt style="color: #A03D10">x != y</tt>,
+              <tt style="color: #A03D10">x &lt; y</tt>, <tt style="color: #A03D10">x &gt; y</tt>,
+              <tt style="color: #A03D10">x &gt;= y</tt>, <tt style="color: #A03D10">x &lt;= y</tt>,
+              <tt style="color: #A03D10">x &amp;lt; y</tt>, ...etc.
+            </li>
+
+            <li>
+              <a href="#dgui_template_exp_logicalop">Logical
+              operations</a>: <tt style="color: #A03D10">!registered &amp;&amp; (firstVisit
+              || fromEurope)</tt>
+            </li>
+
+            <li>
+              <a href="#dgui_template_exp_builtin">Built-ins</a>:
+              <tt style="color: #A03D10">name?upper_case</tt>
+            </li>
+
+            <li>
+              <a href="#dgui_template_exp_methodcall">Method
+              call</a>: <tt style="color: #A03D10">repeat(&quot;What&quot;, 3)</tt>
+            </li>
+
+            <li>
+              <a href="#dgui_template_exp_missing">Missing value
+              handler operators</a>:
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <a href="#dgui_template_exp_missing_default">Default
+                  value</a>: <tt style="color: #A03D10">name!&quot;unknown&quot;</tt> or
+                  <tt style="color: #A03D10">(user.name)!&quot;unknown&quot;</tt> or
+                  <tt style="color: #A03D10">name!</tt> or
+                  <tt style="color: #A03D10">(user.name)!</tt>
+                </li>
+
+                <li>
+                  <a href="#dgui_template_exp_missing_test">Missing
+                  value test</a>: <tt style="color: #A03D10">name??</tt> or
+                  <tt style="color: #A03D10">(user.name)??</tt>
+                </li>
+              </ul>    </div>
+
+            </li>
+          </ul>    </div>
+
+
+          <p>See also: <a href="#dgui_template_exp_precedence">Operator
+          precedence</a></p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_direct"></a>Specify values directly  </h2>
+
+
+          
+
+          
+
+          <p>Often you want to specify a value directly and not as a result
+          of some calculations.</p>
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_direct_string"></a>Strings  </h3>
+
+
+            
+
+            <p>To specify a string value directly you give the text in
+            quotation marks, e.g.: <tt style="color: #A03D10">&quot;some text&quot;</tt> or in
+            apostrophe-quote, e.g. <tt style="color: #A03D10">'some text'</tt>. The two
+            forms are equivalent. If the text itself contains the character
+            used for the quoting (either <tt style="color: #A03D10">&quot;</tt> or
+            <tt style="color: #A03D10">'</tt>) or backslashes, you have to precede them
+            with a backslash; this is called escaping. You can type any other
+            character, including <a href="gloss.html#gloss.lineBreak">line
+            breaks</a>, in the text directly. Example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${&quot;It's \&quot;quoted\&quot; and
+this is a backslash: \\&quot;}
+
+${'It\'s &quot;quoted&quot; and
+this is a backslash: \\'}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>will print:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+It's &quot;quoted&quot; and
+this is a backslash: \
+
+It's &quot;quoted&quot; and
+this is a backslash: \&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+              <p>Of course, you could simply type the above text into the
+              template, without using
+              <tt style="color: #A03D10">${<i style="color: #DD4400">...</i>}</tt>. But we do
+              it here just for the sake of example, to demonstrate
+              expressions.</p>
+            </div>
+
+
+            <a name="topic.escapeSequence"></a>
+
+            
+
+            <p>This is the list of all supported escape sequences. All
+            other usage of backlash in string literals is an error and any
+            attempt to use the template will fail.</p>
+
+               <div class="informaltable">
+      <table border="1" cellpadding="4">
+
+              <thead>
+                <tr>
+                  <th>Escape sequence</th>
+
+
+                  <th>Meaning</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+                <tr>
+                  <td><tt style="color: #A03D10">\&quot;</tt></td>
+
+
+                  <td>Quotation mark (u0022)</td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\'</tt></td>
+
+
+                  <td>Apostrophe (a.k.a. apostrophe-quote) (u0027)</td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\\</tt></td>
+
+
+                  <td>Back slash (u005C)</td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\n</tt></td>
+
+
+                  <td>Line feed (u000A)</td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\r</tt></td>
+
+
+                  <td>Carriage return (u000D)</td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\t</tt></td>
+
+
+                  <td>Horizontal tabulation (a.k.a. tab) (u0009)</td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\b</tt></td>
+
+
+                  <td>Backspace (u0008)</td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\f</tt></td>
+
+
+                  <td>Form feed (u000C)</td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\l</tt></td>
+
+
+                  <td>Less-than sign: <tt style="color: #A03D10">&lt;</tt></td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\g</tt></td>
+
+
+                  <td>Greater-than sign: <tt style="color: #A03D10">&gt;</tt></td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\a</tt></td>
+
+
+                  <td>Ampersand: <tt style="color: #A03D10">&amp;</tt></td>
+
+                </tr>
+
+
+                <tr>
+                  <td><tt style="color: #A03D10">\x<i style="color: #DD4400">Code</i></tt></td>
+
+
+                  <td>Character given with its hexadecimal <a href="gloss.html#gloss.unicode">Unicode</a> code (<a href="gloss.html#gloss.UCS">UCS</a> code)</td>
+
+                </tr>
+
+              </tbody>
+
+                  </table>
+   </div>
+
+
+            <p>The <tt style="color: #A03D10"><i style="color: #DD4400">Code</i></tt> after
+            the <tt style="color: #A03D10">\x</tt> is 1 to 4 hexadecimal digits. For
+            example this all put a copyright sign into the string:
+            <tt style="color: #A03D10">&quot;\xA9 1999-2001&quot;</tt>,
+            <tt style="color: #A03D10">&quot;\x0A9 1999-2001&quot;</tt>,
+            <tt style="color: #A03D10">&quot;\x00A9 1999-2001&quot;</tt>. When the character directly
+            after the last hexadecimal digit can be interpreted as hexadecimal
+            digit, you must use all 4 digits or else FreeMarker will be
+            confused.</p>
+
+            <p>Note that the character sequence <tt style="color: #A03D10">${</tt> (and
+            <tt style="color: #A03D10">#{</tt>) has special meaning. It's used to insert
+            the value of expressions (typically: the value of variables, as in
+            <tt style="color: #A03D10">&quot;Hello ${user}!&quot;</tt>). This will be explained <a href="#dgui_template_exp_stringop_interpolation">later</a>.
+            If you want to print <tt style="color: #A03D10">${</tt>, you should use raw
+            string literals as explained below.</p>
+
+            
+
+            <p>A special kind of string literals is the raw string
+            literals. In raw string literals, backslash and
+            <tt style="color: #A03D10">${</tt> have no special meaning, they are considered
+            as plain characters. To indicate that a string literal is a raw
+            string literal, you have to put an <tt style="color: #A03D10">r</tt> directly
+            before the opening quotation mark or apostrophe-quote.
+            Example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${r&quot;${foo}&quot;}
+${r&quot;C:\foo\bar&quot;}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>will print:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${foo}
+C:\foo\bar&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_direct_number"></a>Numbers  </h3>
+
+
+            
+
+            <p>To specify a numerical value directly you type the number
+            without quotation marks. You have to use the dot as your decimal
+            separator and must not use any grouping separator symbols. You can
+            use <tt style="color: #A03D10">-</tt> or <tt style="color: #A03D10">+</tt> to indicate the
+            sign (<tt style="color: #A03D10">+</tt> is redundant). Scientific notation is
+            not yet supported (so <tt style="color: #A03D10">1E3</tt> is wrong). Also, you
+            cannot omit the 0 before the decimal separator (so
+            <tt style="color: #A03D10">.5</tt> is wrong).</p>
+
+            <p>Examples of valid number literals: <tt style="color: #A03D10">0.08</tt>,
+            <tt style="color: #A03D10">-5.013</tt>, <tt style="color: #A03D10">8</tt>,
+            <tt style="color: #A03D10">008</tt>, <tt style="color: #A03D10">11</tt>,
+            <tt style="color: #A03D10">+11</tt></p>
+
+            <p>Note that numerical literals like <tt style="color: #A03D10">08</tt>,
+            <tt style="color: #A03D10">+8</tt>, <tt style="color: #A03D10">8.00</tt> and
+            <tt style="color: #A03D10">8</tt> are totally equivalent as they all symbolize
+            the number eight. Thus, <tt style="color: #A03D10">${08}</tt>,
+            <tt style="color: #A03D10">${+8}</tt>, <tt style="color: #A03D10">${8.00}</tt> and
+            <tt style="color: #A03D10">${8}</tt> will all print exactly same.</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_direct_boolean"></a>Booleans  </h3>
+
+
+            
+
+            
+
+            <p>To specify a boolean value you write <tt style="color: #A03D10">true</tt>
+            or <tt style="color: #A03D10">false</tt>. Don't use quotation marks.</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_direct_seuqence"></a>Sequences  </h3>
+
+
+            
+
+            
+
+            
+
+            
+
+            <p>To specify a literal sequence, you list the <a href="dgui_quickstart_datamodel.html#topic.dataModel.subVar">subvariables</a> separated by
+            commas, and put the whole list into square brackets. For
+            example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#list <b>[&quot;winter&quot;, &quot;spring&quot;, &quot;summer&quot;, &quot;autumn&quot;]</b> as x&gt;
+${x}
+&lt;/#list&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>will print:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+winter
+spring
+summer
+autumn
+ &nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>The items in the list are expressions, so you can do this
+            for example: <tt style="color: #A03D10">[2 + 2, [1, 2, 3, 4], &quot;whatnot&quot;]</tt>.
+            Here the first subvariable will be the number 4, the second will
+            be another sequence, and the third subvariable will be the string
+            &quot;whatnot&quot;.</p>
+
+            <p>You can define sequences that store a numerical range with
+            <tt style="color: #A03D10"><i style="color: #DD4400">start</i>..<i style="color: #DD4400">end</i></tt>,
+            where <tt style="color: #A03D10"><i style="color: #DD4400">start</i></tt> and
+            <tt style="color: #A03D10"><i style="color: #DD4400">end</i></tt> are expressions
+            that resolve to numerical values. For example
+            <tt style="color: #A03D10">2..5</tt> is the same as <tt style="color: #A03D10">[2, 3, 4,
+            5]</tt>, but the former is much more efficient (occupies less
+            memory and faster). Note that the square brackets are missing. You
+            can define decreasing numerical ranges too, e.g.:
+            <tt style="color: #A03D10">5..2</tt>. (Furthermore, you can omit the
+            <tt style="color: #A03D10"><i style="color: #DD4400">end</i></tt>, for example
+            <tt style="color: #A03D10">5..</tt>, in which case the sequence will contain 5,
+            6, 7, 8, ...etc up to the infinity.)</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_direct_hash"></a>Hashes  </h3>
+
+
+            
+
+            
+
+            <p>To specify a hash in a template, you list the key/value
+            pairs separated by commas, and put the list into curly brackets.
+            The key and value within a key/value pair are separated with a
+            colon. Here is an example: <tt style="color: #A03D10">{&quot;name&quot;:&quot;green mouse&quot;,
+            &quot;price&quot;:150}</tt>. Note that both the names and the values
+            are expressions. However, the lookup names must be strings.</p>
+          
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_var"></a>Retrieving variables  </h2>
+
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_var_toplevel"></a>Top-level variables  </h3>
+
+
+            
+
+            <p>To access a top-level variable, you simply use the variable
+            name. For example, the expression <tt style="color: #A03D10">user</tt> will
+            evaluate to the value of variable stored with name ``user'' in the
+            root. So this will print what you store there:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${user}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>If there is no such top-level variable, then an error will
+            result when FreeMarker tries to evaluate the expression, and it
+            aborts template processing (unless programmers has configured
+            FreeMarker differently).</p>
+
+            <p>In this expression the variable name can contain only
+            letters (including non-Latin letters), digits (including non-Latin
+            digits), underline (_), dollar ($), at sign (@) and hash (#).
+            Furthermore, the name must not start with digit.</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_var_hash"></a>Retrieving data from a hash  </h3>
+
+
+            
+
+            
+
+            <p>If we already have a hash as a result of an expression, then
+            we can get its subvariable with a dot and the name of the
+            subvariable. Assume that we have this data-model:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#99CCFF" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#99CCFF" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+(root)
+ |
+ +- book
+ |   |
+ |   +- title = &quot;Breeding green mouses&quot;
+ |   |
+ |   +- author
+ |       |
+ |       +- name = &quot;Julia Smith&quot;
+ |       |
+ |       +- info = &quot;Biologist, 1923-1985, Canada&quot;
+ |
+ +- test = &quot;title&quot;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Now we can read the <tt style="color: #A03D10">title</tt> with
+            <tt style="color: #A03D10">book.title</tt>, since the book expression will
+            return a hash (as explained in the last chapter). Applying this
+            logic further, we can read the name of the author with this
+            expression: <tt style="color: #A03D10">book.author.name</tt>.</p>
+
+            <p>There is an alternative syntax if we want to specify the
+            subvariable name with an expression:
+            <tt style="color: #A03D10">book[&quot;title&quot;]</tt>. In the square brackets you can
+            give any expression as long as it evaluates to a string. So with
+            this data-model you can also read the title with
+            <tt style="color: #A03D10">book[test]</tt>. More examples; these are all
+            equivalent: <tt style="color: #A03D10">book.author.name</tt>,
+            <tt style="color: #A03D10">book[&quot;author&quot;].name</tt>,
+            <tt style="color: #A03D10">book.author.[&quot;name&quot;]</tt>,
+            <tt style="color: #A03D10">book[&quot;author&quot;][&quot;name&quot;]</tt>.</p>
+
+            <p>When you use the dot syntax, the same restrictions apply
+            regarding the variable name as with top-level variables (name can
+            contain only letters, digits, _, $, @, etc.). There are no such
+            restrictions when you use the square bracket syntax, since the
+            name is the result of an arbitrary expression. (Note, that to help
+            the FreeMarker XML support, if the subvariable name is
+            <tt style="color: #A03D10">*</tt> (asterisk) or <tt style="color: #A03D10">**</tt>, then you
+            do not have to use square bracket syntax.)</p>
+
+            <p>As with the top-level variables, trying to access a
+            non-existent subvariable causes an error and aborts the processing
+            of the template (unless programmers has configured FreeMarker
+            differently).</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_var_sequence"></a>Retrieving data from a sequence  </h3>
+
+
+            
+
+            
+
+            <p>This is the same as for hashes, but you can use the square
+            bracket syntax only, and the expression in the brackets must
+            evaluate to a number, not a string. For example to get the name of
+            the first animal of the <a href="dgui_datamodel_basics.html#example.stdDataModel">example data-model</a> (remember
+            that the number of the first item is 0, not 1):
+            <tt style="color: #A03D10">animals[0].name</tt></p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_var_special"></a>Special variables  </h3>
+
+
+            
+
+            <p>Special variables are variables defined by the FreeMarker
+            engine itself. To access them, you use the
+            <tt style="color: #A03D10">.<i style="color: #DD4400">variable_name</i></tt>
+            syntax.</p>
+
+            <p>Normally you don't need to use special variables. They are
+            for expert users. The complete list of special variables can be
+            found in the <a href="ref_specvar.html">reference</a>.</p>
+          
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_stringop"></a>String operations  </h2>
+
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_stringop_interpolation"></a>Interpolation (or concatenation)  </h3>
+
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            <p>If you want to insert the value of an expression into a
+            string, you can use
+            <tt style="color: #A03D10">${<i style="color: #DD4400">...</i>}</tt> (and
+            <tt style="color: #A03D10">#{<i style="color: #DD4400">...</i>}</tt>) in string
+            literals. <tt style="color: #A03D10">${<i style="color: #DD4400">...</i>}</tt>
+            behaves similarly as in <span style="background-color:#8acbfa">text</span>
+            sections. For example (assume that user is ``Big Joe''):</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${&quot;Hello ${user}!&quot;}
+${&quot;${user}${user}${user}${user}&quot;}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>will print:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Hello Big Joe!
+Big JoeBig JoeBig JoeBig Joe&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Alternatively, you can use the <tt style="color: #A03D10">+</tt> operator
+            to achieve similar result. This is the old method, and it is
+            called string concatenation. Example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${&quot;Hello &quot; + user + &quot;!&quot;}
+${user + user + user + user}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>This will print the same as the example with the
+            <tt style="color: #A03D10">${<i style="color: #DD4400">...</i>}</tt>-s.</p>
+
+            <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+  <p class="rank_note">Warning!</p>
+
+              <p>A frequent mistake of users is the usage of interpolations
+              in places where it shouldn't/can't be used. Interpolations work
+              <i>only</i> in <a href="dgui_template_overallstructure.html"><span style="background-color:#8acbfa">text</span> sections</a> (e.g.
+              <tt style="color: #A03D10">&lt;h1&gt;Hello ${name}!&lt;/h1&gt;</tt>) and in
+              string literals (e.g. <tt style="color: #A03D10">&lt;#include
+              &quot;/footer/${company}.html&quot;&gt;</tt>). A typical bad usage is
+              <tt style="color: #A03D10">&lt;#if ${isBig}&gt;Wow!&lt;/#if&gt;</tt>, which
+              is syntactically <i>WRONG</i>. You should simply
+              write <tt style="color: #A03D10">&lt;#if isBig&gt;Wow!&lt;/#if&gt;</tt>.
+              Also, <tt style="color: #A03D10">&lt;#if &quot;${isBig}&quot;&gt;Wow!&lt;/#if&gt;</tt>
+              is <i>WRONG</i> too, since the parameter value
+              will be a string, and the <tt style="color: #A03D10">if</tt> directive wants
+              a boolean value, so it will cause a runtime error.</p>
+            </div>            
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_get_character"></a>Getting a character  </h3>
+
+
+            
+
+            
+
+            <p>You can get a single character of a string at a given index
+            similarly as you can <a href="#dgui_template_exp_var_sequence">read the subvariable of a
+            sequence</a>, e.g. <tt style="color: #A03D10">user[0]</tt>. The result will
+            be a string whose length is 1; FTL doesn't have a separate
+            character type. As with sequence subvariables, the index must be a
+            number that is at least 0 and less than the length of the string,
+            or else an error will abort the template processing.</p>
+
+            <p>Since the sequence subvariable syntax and the character
+            getter syntax clashes, you can use the character getter syntax
+            only if the variable is not a sequence as well (which is possible
+            because FTL supports multi-typed values), since in that case the
+            sequence behavior prevails. (To work this around, you can use
+            <a href="ref_builtins_string.html#ref_builtin_string_for_string">the
+            <tt>string</tt> built-in</a>, e.g.
+            <tt style="color: #A03D10">user?string[0]</tt>. Don't worry if you don't
+            understand this yet; built-ins will be discussed later.)</p>
+
+            <p>Example (assume that user is ``Big Joe''):</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${user[0]}
+${user[4]}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>will print (note that the index of the first character is
+            0):</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+B
+J&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+              <p>You can get a range of characters in the same way as you
+              <a href="#dgui_template_exp_seqenceop_slice">get a sequence
+              slice</a>, e.g <tt style="color: #A03D10">${user[1..4]}</tt> and
+              <tt style="color: #A03D10">${user[4..]}</tt>. However, it's now depreacted to
+              utilize this, and instead you should use <a href="ref_builtins_string.html#ref_builtin_substring">the <tt>substring</tt>
+              built-in</a>; built-ins will be discussed later.</p>
+            </div>
+
+          
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_sequenceop"></a>Sequence operations  </h2>
+
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_sequenceop_cat"></a>Concatenation  </h3>
+
+
+            
+
+            
+
+            
+
+            
+
+            <p>You can concatenate sequences in the same way as strings,
+            with <tt style="color: #A03D10">+</tt>. Example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#list [&quot;Joe&quot;, &quot;Fred&quot;] + [&quot;Julia&quot;, &quot;Kate&quot;] as user&gt;
+- ${user}
+&lt;/#list&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>will print:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+- Joe
+- Fred
+- Julia
+- Kate
+ &nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Note that sequence concatenation is not to be used for many
+            repeated concatenations, like for appending items to a sequence
+            inside a loop. It's just for things like <tt style="color: #A03D10">&lt;#list users
+            + admins as person&gt;</tt>. Although concatenating sequences
+            is fast and its speed is independently of the size of the
+            concatenated sequences, the resulting sequence will be always a
+            little bit slower to read than the original two sequences were.
+            This way the result of many repeated concatenations is a sequence
+            that is slow to read.</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_seqenceop_slice"></a>Sequence slice  </h3>
+
+
+            
+
+            
+
+            
+
+            <p>With
+            <tt style="color: #A03D10">[<i style="color: #DD4400">firstindex</i>..<i style="color: #DD4400">lastindex</i>]</tt>
+            you can get a slice of a sequence, where
+            <tt style="color: #A03D10"><i style="color: #DD4400">firstindex</i></tt> and
+            <tt style="color: #A03D10"><i style="color: #DD4400">lastindex</i></tt> are
+            expressions evaluate to number. For example, if
+            <tt style="color: #A03D10">seq</tt> stores the sequence <tt style="color: #A03D10">&quot;a&quot;</tt>,
+            <tt style="color: #A03D10">&quot;b&quot;</tt>, <tt style="color: #A03D10">&quot;c&quot;</tt>,
+            <tt style="color: #A03D10">&quot;d&quot;</tt>, <tt style="color: #A03D10">&quot;e&quot;</tt>,
+            <tt style="color: #A03D10">&quot;f&quot;</tt> then the expression
+            <tt style="color: #A03D10">seq[1..4]</tt> will evaluate to a sequence that
+            contains <tt style="color: #A03D10">&quot;b&quot;</tt>, <tt style="color: #A03D10">&quot;c&quot;</tt>,
+            <tt style="color: #A03D10">&quot;d&quot;</tt>, <tt style="color: #A03D10">&quot;e&quot;</tt> (since the item at
+            index 1 is <tt style="color: #A03D10">&quot;b&quot;</tt>, and the item at index 4 is
+            <tt style="color: #A03D10">&quot;e&quot;</tt>).</p>
+
+            <p>The <tt style="color: #A03D10"><i style="color: #DD4400">lastindex</i></tt>
+            can be omitted, in which case it defaults to the index of the last
+            item of the sequence. For example, if <tt style="color: #A03D10">seq</tt>
+            stores the sequence <tt style="color: #A03D10">&quot;a&quot;</tt>,
+            <tt style="color: #A03D10">&quot;b&quot;</tt>, <tt style="color: #A03D10">&quot;c&quot;</tt>,
+            <tt style="color: #A03D10">&quot;d&quot;</tt>, <tt style="color: #A03D10">&quot;e&quot;</tt>,
+            <tt style="color: #A03D10">&quot;f&quot;</tt> again, then <tt style="color: #A03D10">seq[3..]</tt>
+            will evaluate to a sequence that contains <tt style="color: #A03D10">&quot;d&quot;</tt>,
+            <tt style="color: #A03D10">&quot;e&quot;</tt>, <tt style="color: #A03D10">&quot;f&quot;</tt>.</p>
+
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+              <p><tt style="color: #A03D10"><i style="color: #DD4400">lastindex</i></tt>
+              can be omitted only since FreeMarker 2.3.3.</p>
+            </div>
+
+
+            <p>An attempt to access a subvariable past the last subvariable
+            or before the first subvariable of the sequence will cause an
+            error and abort the processing of the template.</p>
+          
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_hashop"></a>Hash operations  </h2>
+
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_hashop_cat"></a>Concatenation  </h3>
+
+
+            
+
+            
+
+            
+
+            
+
+            <p>You can concatenate hashes in the same way as strings, with
+            <tt style="color: #A03D10">+</tt>. If both hashes contain the same key, the
+            hash on the right-hand side of the <tt style="color: #A03D10">+</tt> takes
+            precedence. Example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign ages = {&quot;Joe&quot;:23, &quot;Fred&quot;:25} + {&quot;Joe&quot;:30, &quot;Julia&quot;:18}&gt;
+- Joe is ${ages.Joe}
+- Fred is ${ages.Fred}
+- Julia is ${ages.Julia}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>will print:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+- Joe is 30
+- Fred is 25
+- Julia is 18&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Note that hash concatenation is not to be used for many
+            repeated concatenations, like for adding items to a hash inside a
+            loop. It's the same as with the <a href="#dgui_template_exp_sequenceop_cat">sequence
+            concatenation</a>.</p>
+          
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_arit"></a>Arithmetical calculations  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <p>This is the basic 4-function calculator arithmetic plus the
+          modulus operator. So the operators are:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              Addition: <tt style="color: #A03D10">+</tt>
+            </li>
+
+            <li>
+              Subtraction: <tt style="color: #A03D10">-</tt>
+            </li>
+
+            <li>
+              Multiplication: <tt style="color: #A03D10">*</tt>
+            </li>
+
+            <li>
+              Division: <tt style="color: #A03D10">/</tt>
+            </li>
+
+            <li>
+              Modulus (remainder): <tt style="color: #A03D10">%</tt>
+            </li>
+          </ul>    </div>
+
+
+          
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${100 - x * x}
+${x / 2}
+${12 % 10}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Assuming that <tt style="color: #A03D10">x</tt> is 5, it will print:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+75
+2.5
+2&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Both operands must be expressions which evaluate to a
+          numerical value. So the example below will cause an error when
+          FreeMarker tries to evaluate it, since <tt style="color: #A03D10">&quot;5&quot;</tt> is a
+          string and not the number 5:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${3 * &quot;5&quot;} &lt;#-- WRONG! --&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>There is an exception to the above rule. The
+          <tt style="color: #A03D10">+</tt> operator, is used to <a href="#dgui_template_exp_stringop_interpolation">concatenate
+          strings</a> as well. If on one side of <tt style="color: #A03D10">+</tt> is a
+          string and on the other side of <tt style="color: #A03D10">+</tt> is a numerical
+          value, then it will convert the numerical value to string (using the
+          format appropriate for language of the page) and then use the
+          <tt style="color: #A03D10">+</tt> as string concatenation operator.
+          Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${3 + &quot;5&quot;}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+35&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Generally, FreeMarker never converts a string to a number
+          automatically, but it may convert a number to a string
+          automatically.</p>
+
+          <p> People often want only the integer part of the result
+          of a division (or of other calculations). This is possible with the
+          <tt style="color: #A03D10">int</tt> built-in. (Built-ins are explained <a href="#dgui_template_exp_builtin">later</a>):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${(x/2)?int}
+${1.1?int}
+${1.999?int}
+${-1.1?int}
+${-1.999?int}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Assuming that <tt style="color: #A03D10">x</tt> is 5, it will print:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+2
+1
+1
+-1
+-1&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_comparison"></a>Comparison  </h2>
+
+
+          
+
+          <p>Sometimes you want to know if two values are equal or not, or
+          which value is the greater.</p>
+
+          <p>To show concrete examples I will use the <tt style="color: #A03D10">if</tt>
+          directive here. The usage of <tt style="color: #A03D10">if</tt> directive is:
+          <tt style="color: #A03D10">&lt;#if
+          <i style="color: #DD4400">expression</i>&gt;...&lt;/#if&gt;</tt>,
+          where expression must evaluate to a boolean value or else an error
+          will abort the processing of the template. If the value of
+          expression is <tt style="color: #A03D10">true</tt> then the things between the
+          begin and end-tag will be processed, otherwise they will be
+          skipped.</p>
+
+          <p>To test two values for equality you use <tt style="color: #A03D10">=</tt>
+          (or <tt style="color: #A03D10">==</tt> as in Java or C; the two are absolutely
+          equivalent.) To test two values for inequality you use
+          <tt style="color: #A03D10">!=</tt>. For example, assume that
+          <tt style="color: #A03D10">user</tt> is ``Big Joe'':</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if <b>user = &quot;Big Joe&quot;</b>&gt;
+  It is Big Joe
+&lt;/#if&gt;
+&lt;#if <b>user != &quot;Big Joe&quot;</b>&gt;
+  It is not Big Joe
+&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The <tt style="color: #A03D10">user = &quot;Big Joe&quot;</tt> expression in the
+          <tt style="color: #A03D10">&lt;#if ...&gt;</tt> will evaluate to the boolean
+          <tt style="color: #A03D10">true</tt>, so the above will say ``It is Big
+          Joe''.</p>
+
+          <p>The expressions on both sides of the <tt style="color: #A03D10">=</tt> or
+          <tt style="color: #A03D10">!=</tt> must evaluate to a scalar. Furthermore, the
+          two scalars must have the same type (i.e. strings can only be
+          compared to strings and numbers can only be compared to numbers,
+          etc.) or else an error will abort template processing. For example
+          <tt style="color: #A03D10">&lt;#if 1 = &quot;1&quot;&gt;</tt> will cause an error. Note
+          that FreeMarker does exact comparison, so string comparisons are
+          case and white-space sensitive: <tt style="color: #A03D10">&quot;x&quot;</tt> and
+          <tt style="color: #A03D10">&quot;x &quot;</tt> and <tt style="color: #A03D10">&quot;X&quot;</tt> are not equal
+          values.</p>
+
+          <p>For numerical and date values you can also use
+          <tt style="color: #A03D10">&lt;</tt>, <tt style="color: #A03D10">&lt;=</tt>,
+          <tt style="color: #A03D10">&gt;=</tt> and <tt style="color: #A03D10">&gt;</tt>. You can't use
+          them for strings! Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if x <b>&lt;=</b> 12&gt;
+  x is less or equivalent with 12
+&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>There is a little problem with <tt style="color: #A03D10">&gt;=</tt> and
+          <tt style="color: #A03D10">&gt;</tt>. FreeMarker interprets the
+          <tt style="color: #A03D10">&gt;</tt> as the closing character of the FTL tag. To
+          prevent this, you have to put the expression into <a href="#dgui_template_exp_parentheses">parentheses</a>:
+          <tt style="color: #A03D10">&lt;#if (x &gt; y)&gt;</tt>. Or, you can use
+          <tt style="color: #A03D10">&amp;gt;</tt> and <tt style="color: #A03D10">&amp;lt;</tt> on the
+          place of the problematic relation marks: <tt style="color: #A03D10">&lt;#if x &amp;gt;
+          y&gt;</tt>. (Note that in general FTL does not support entity
+          references (those
+          <tt style="color: #A03D10">&amp;<i style="color: #DD4400">...</i>;</tt> things) in
+          FTL tags; it is just an exception with the arithmetical
+          comparisons.). Also, as an alternative you can use
+          <tt style="color: #A03D10">lt</tt> instead of <tt style="color: #A03D10">&lt;</tt>,
+          <tt style="color: #A03D10">lte</tt> instead of <tt style="color: #A03D10">&lt;=</tt>,
+          <tt style="color: #A03D10">gt</tt> instead of <tt style="color: #A03D10">&gt;</tt> and
+          <tt style="color: #A03D10">gte</tt> instead of <tt style="color: #A03D10">&gt;=</tt>. And, for
+          historical reasons FTL also understands <tt style="color: #A03D10">\lt</tt>,
+          <tt style="color: #A03D10">\lte</tt>, <tt style="color: #A03D10">\gt</tt> and
+          <tt style="color: #A03D10">\gte</tt> which are the same as the ones without the
+          backslash.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_logicalop"></a>Logical operations  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <p>Just the usual logical operators:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              Logical or: <tt style="color: #A03D10">||</tt>
+            </li>
+
+            <li>
+              Logical and: <tt style="color: #A03D10">&amp;&amp;</tt>
+            </li>
+
+            <li>
+              Logical not: <tt style="color: #A03D10">!</tt>
+            </li>
+          </ul>    </div>
+
+
+          <p>The operators will work with boolean values only. Otherwise an
+          error will abort the template processing.</p>
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if x &lt; 12 <b>&amp;&amp;</b> color = &quot;green&quot;&gt;
+  We have less than 12 things, and they are green.
+&lt;/#if&gt;
+&lt;#if <b>!</b>hot&gt; &lt;#-- here hot must be a boolean --&gt;
+  It's not hot.
+&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_builtin"></a>Built-ins  </h2>
+
+
+          
+
+          <p>Built-ins provide, as the name suggest, certain built-in
+          functionality that is always available. Typically, a built-in
+          provides a different version of a variable, or some information
+          about the variable in question. The syntax for accessing a built-in
+          is like that of accessing a subvariable in a hash, except that you
+          use the question mark instead of a dot. For example, to get the
+          upper case version of a string:
+          <tt style="color: #A03D10">user?upper_case</tt>.</p>
+
+          <p>You can find the complete <a href="ref_builtins.html">list of
+          built-ins in the Reference</a>. For now, just a few of the more
+          important ones:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Built-ins to use with strings:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p><tt style="color: #A03D10">html</tt>: The string with all special
+                  HTML characters replaced with entity references (E.g.
+                  <tt style="color: #A03D10">&lt;</tt> with
+                  <tt style="color: #A03D10">&amp;lt;</tt>).</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">cap_first</tt>: The string with the
+                  first letter converted to upper case</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">lower_case</tt>: The lowercase version
+                  of the string</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">upper_case</tt>: The uppercase version
+                  of the string</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">trim</tt>: The string without leading
+                  and trailing <a href="gloss.html#gloss.whiteSpace">white-spaces</a></p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Built-ins to use with sequences:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p><tt style="color: #A03D10">size</tt>: The number of elements in the
+                  sequence</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Built-ins to use with numbers:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p><tt style="color: #A03D10">int</tt>: The integer part of a number
+                  (e.g. <tt style="color: #A03D10">-1.9?int</tt> is
+                  <tt style="color: #A03D10">-1</tt>)</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+          </ul>    </div>
+
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${test?html}
+${test?upper_case?html}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Assuming that <tt style="color: #A03D10">test</tt> stores the string ``Tom
+          &amp; Jerry'', the output will be:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Tom &amp;amp; Jerry
+TOM &amp;amp; JERRY&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note the <tt style="color: #A03D10">test?upper_case?html</tt>. Since the
+          result of <tt style="color: #A03D10">test?upper_case</tt> is a string, you can
+          use the <tt style="color: #A03D10">html</tt> built-in with it.</p>
+
+          <p>Another example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${seasons?size}
+${seasons[1]?cap_first} &lt;#-- left side can by any expression --&gt;
+${&quot;horse&quot;?cap_first}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Assuming that <tt style="color: #A03D10">seasons</tt> stores the sequence
+          <tt style="color: #A03D10">&quot;winter&quot;</tt>, <tt style="color: #A03D10">&quot;spring&quot;</tt>,
+          <tt style="color: #A03D10">&quot;summer&quot;</tt>, <tt style="color: #A03D10">&quot;autumn&quot;</tt>, the output
+          will be:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+4
+Spring
+Horse&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_methodcall"></a>Method call  </h2>
+
+
+          
+
+          
+
+          <p>If you have a method then you can use the method call
+          operation on it. The method call operation is a comma-separated list
+          of expressions in parentheses. These values are called parameters.
+          The method call operation passes these values to the method which
+          will in turn return a result. This result will be the value of the
+          whole method call expression.</p>
+
+          <p>For example, assume the programmers have made available a
+          method variable called <tt style="color: #A03D10">repeat</tt>. You give a string
+          as the first parameter, and a number as the second parameter, and it
+          returns a string which repeats the first parameter the number of
+          times specified by the second parameter.</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${repeat(&quot;What&quot;, 3)}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will print:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+WhatWhatWhat&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Here <tt style="color: #A03D10">repeat</tt> was evaluated to the method
+          variable (according to how you <a href="#dgui_template_exp_var_toplevel">access top-level
+          variables</a>) and then <tt style="color: #A03D10">(&quot;What&quot;, 3)</tt> invoked
+          that method.</p>
+
+          <p>I would like to emphasize that method calls are just plain
+          expressions, like everything else. So this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${repeat(repeat(&quot;x&quot;, 2), 3) + repeat(&quot;What&quot;, 4)?upper_case}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will print this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+xxxxxxWHATWHATWHATWHAT&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_missing"></a>Handling missing values  </h2>
+
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>These operators exist since FreeMarker 2.3.7 (replacing the
+            <tt style="color: #A03D10">default</tt>, <tt style="color: #A03D10">exists</tt> and
+            <tt style="color: #A03D10">if_exists</tt> built-ins).</p>
+          </div>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <p>As we explained earlier, an error will occur and abort the
+          template processing if you try to access a missing variable. However
+          two special operators can suppress this error, and handle the
+          problematic situation. The handled variable can be top-level
+          variable, hash subvariable, or sequence subvariable as well.
+          Furthermore these operators handle the situation when a method call
+          doesn't return a value <span style="color:#333399; font-style:italic">(from the
+          viewpoint of Java programmers: it returns <tt style="color: #A03D10">null</tt> or
+          it's return type is <tt style="color: #A03D10">void</tt>)</span>, so it's more
+          correct to say that these operators handle missing values in
+          general, rather than just missing variables.</p>
+
+          <p><span style="color:#333399; font-style:italic">For those who know what's Java
+          <tt style="color: #A03D10">null</tt>, FreeMarker 2.3.<i>x</i>
+          treats them as missing values. Simply, the template language doesn't
+          know the concept of <tt style="color: #A03D10">null</tt>. For example, if you
+          have a bean that has a <tt style="color: #A03D10">maidenName</tt> property, and
+          the value of that property is <tt style="color: #A03D10">null</tt>, then that's
+          the same as if there were no such property at all, as far as the
+          template is concerned (assuming you didn't configured FreeMarker to
+          use some extreme object wrapper, that is). The result of a method
+          call that returns <tt style="color: #A03D10">null</tt> is also treated as a
+          missing variable (again, assuming that you use some usual object
+          wrapper). See more <a href="app_faq.html#faq_null">in the
+          FAQ</a>.</span></p>
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>If you wonder why is FreeMarker so picky about missing
+            variables, <a href="app_faq.html#faq_picky_about_missing_vars">read this
+            FAQ entry</a>.</p>
+          </div>
+
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_missing_default"></a>Default value operator  </h3>
+
+
+            
+
+            <p>Synopsis:
+            <tt style="color: #A03D10"><i style="color: #DD4400">unsafe_expr</i>!<i style="color: #DD4400">default_expr</i></tt>
+            or <tt style="color: #A03D10"><i style="color: #DD4400">unsafe_expr</i>!</tt> or
+            <tt style="color: #A03D10">(<i style="color: #DD4400">unsafe_expr</i>)!<i style="color: #DD4400">default_expr</i></tt>
+            or
+            <tt style="color: #A03D10">(<i style="color: #DD4400">unsafe_expr</i>)!</tt></p>
+
+            <p>This operator allows you to specify a default value for the
+            case when the value is missing.</p>
+
+            <p>Example. Assume no variable called <tt style="color: #A03D10">mouse</tt>
+            is present:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${mouse!&quot;No mouse.&quot;}
+&lt;#assign mouse=&quot;Jerry&quot;&gt;
+${mouse!&quot;No mouse.&quot;}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>The output will be:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+No mouse.
+Jerry&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>The default value can be any kind of expression, so it
+            doesn't have to be a string. For example you can write
+            <tt style="color: #A03D10">hits!0</tt> or <tt style="color: #A03D10">colors![&quot;red&quot;, &quot;green&quot;,
+            &quot;blue&quot;]</tt>. There is no restriction regarding the
+            complexity of the expression that specifies the default value, for
+            example you can write: <tt style="color: #A03D10">cargo.weight!(item.weight *
+            itemCount + 10)</tt>.</p>
+
+            <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+  <p class="rank_note">Warning!</p>
+
+              <p>If you have a composite expression after the
+              <tt style="color: #A03D10">!</tt>, like <tt style="color: #A03D10">1 + x</tt>,
+              <i>always</i> use parenthesses, like
+              <tt style="color: #A03D10">${x!(1 + y)}</tt> or <tt style="color: #A03D10">${(x!1) +
+              y)}</tt>, depending on which interpretation you meant.
+              That's needed because due to a programming mistake in FreeMarker
+              2.3.x, the precedence of <tt style="color: #A03D10">!</tt> (when it's used as
+              default value operator) is very low at its right side. This
+              means that, for example, <tt style="color: #A03D10">${x!1 + y}</tt> is
+              misinterpreted by FreeMarker as <tt style="color: #A03D10">${x!(1 + y)}</tt>
+              while it should mean <tt style="color: #A03D10">${(x!1) + y}</tt>. This
+              programming error will be fixed in FreeMarker 2.4, so you should
+              not utilize this wrong behavior, or else your templates will
+              break with FreeMarker 2.4!</p>
+            </div>            
+
+
+            <p>If the default value is omitted, then it will be empty
+            string and empty sequence and empty hash at the same time. (This
+            is possible because FreeMarker allows multi-type values.) Note the
+            consequence that you can't omit the default value if you want it
+            to be <tt style="color: #A03D10">0</tt> or <tt style="color: #A03D10">false</tt>.
+            Example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+(${mouse!})
+&lt;#assign mouse = &quot;Jerry&quot;&gt;
+(${mouse!})&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>The output will be:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+()
+(Jerry)&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+  <p class="rank_note">Warning!</p>
+
+              <p>Due to syntactical ambiguities <tt style="color: #A03D10">&lt;@something
+              a=x! b=y /&gt;</tt> will be interpreted as
+              <tt style="color: #A03D10">&lt;@something a=x!(b=y) /&gt;</tt>, that is, the
+              <tt style="color: #A03D10">b=y</tt> will be interpreted as a comparison that
+              gives the default value for <tt style="color: #A03D10">x</tt>, rather than
+              the specification of the <tt style="color: #A03D10">b</tt> parameter. To
+              prevent this, write: <tt style="color: #A03D10">&lt;@something a=(x!) b=y
+              /&gt;</tt></p>
+            </div>            
+
+
+            <p>You can use this operator in two ways with non-top-level
+            variables:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+product.color!&quot;red&quot;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>This will handle if <tt style="color: #A03D10">color</tt> is missing
+            inside <tt style="color: #A03D10">product</tt> (and returns
+            <tt style="color: #A03D10">&quot;red&quot;</tt> if so), but will not handle if
+            <tt style="color: #A03D10">product</tt> is missing. That is, the
+            <tt style="color: #A03D10">product</tt> variable itself must exist, otherwise
+            the template processing will die with error.</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+(product.color)!&quot;red&quot;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>This will handle if <tt style="color: #A03D10">product.color</tt> is
+            missing. That is, if <tt style="color: #A03D10">product</tt> is missing, or
+            <tt style="color: #A03D10">product</tt> exists but it does not contain
+            <tt style="color: #A03D10">color</tt>, the result will be
+            <tt style="color: #A03D10">&quot;red&quot;</tt>, and no error will occur. The important
+            difference between this and the previous example is that when
+            surrounded with parentheses, it is allowed for any component of
+            the expression to be undefined, while without parentheses only the
+            last component of the expression is allowed to be
+            undefined.</p>
+
+            <p>Of course, the default value operator can be used with
+            sequence subvariables as well:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign seq = ['a', 'b']&gt;
+${seq[0]!'-'}
+${seq[1]!'-'}
+${seq[2]!'-'}
+${seq[3]!'-'}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>the outpur will be:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+a
+b
+-
+-&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>A negative sequence index (as
+            <tt style="color: #A03D10">seq[-1]!'-'</tt>) will always cause an error, you
+            can't suppress that with this or any other operator.</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="dgui_template_exp_missing_test"></a>Missing value test operator  </h3>
+
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            <p>Synopsis:
+            <tt style="color: #A03D10"><i style="color: #DD4400">unsafe_expr</i>??</tt> or
+            <tt style="color: #A03D10">(<i style="color: #DD4400">unsafe_expr</i>)??</tt></p>
+
+            <p>This operator tells if a value is missing or not. Depending
+            on that, the result is either <tt style="color: #A03D10">true</tt> or
+            <tt style="color: #A03D10">false</tt>.</p>
+
+            <p>Example. Assume no variable called <tt style="color: #A03D10">mouse</tt>
+            is present:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if mouse??&gt;
+  Mouse found
+&lt;#else&gt;
+  No mouse found
+&lt;/#if&gt;
+Creating mouse...
+&lt;#assign mouse = &quot;Jerry&quot;&gt;
+&lt;#if mouse??&gt;
+  Mouse found
+&lt;#else&gt;
+  No mouse found
+&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>The output will be:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+  No mouse found
+Creating mouse...
+  Mouse found&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>With non-top-level variables the rules are the same as with
+            the default value operator, that is, you can write
+            <tt style="color: #A03D10">product.color??</tt> and
+            <tt style="color: #A03D10">(product.color)??</tt>.</p>
+          
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_parentheses"></a>Parentheses  </h2>
+
+
+          
+
+          <p>Parentheses can be used to group any expressions. Some
+          examples:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+                                   &lt;#-- Output will be: --&gt;
+${3 * 2 + 2}                       &lt;#-- 8 --&gt;
+${3 * (2 + 2)}                     &lt;#-- 12 --&gt;
+${3 * ((2 + 2) * (1 / 2))}         &lt;#-- 6 --&gt;
+${&quot;green &quot; + &quot;mouse&quot;?upper_case}   &lt;#-- green MOUSE --&gt;
+${(&quot;green &quot; + &quot;mouse&quot;)?upper_case} &lt;#-- GREEN MOUSE --&gt;
+&lt;#if !( color = &quot;red&quot; || color = &quot;green&quot;)&gt;
+  The color is nor red nor green
+&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note that the parentheses of a <a href="#dgui_template_exp_methodcall">method call
+          expressions</a> have nothing to do with the parentheses used for
+          grouping.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_whitespace"></a>White-space in expressions  </h2>
+
+
+          <p>FTL ignores superfluous <a href="gloss.html#gloss.whiteSpace">white-space</a> in expressions. So
+          these are totally equivalent:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${x + &quot;:&quot; + book.title?upper_case}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>and</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${x+&quot;:&quot;+book.title?upper_case}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>and</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${
+   x
+ + &quot;:&quot;   +  book   .   title
+   ?   upper_case
+      }&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="dgui_template_exp_precedence"></a>Operator precedence  </h2>
+
+
+          
+
+          
+
+          <p>The following table shows the precedence assigned to the
+          operators. The operators in this table are listed in precedence
+          order: the higher in the table an operator appears, the higher its
+          precedence. Operators with higher precedence are evaluated before
+          operators with a relatively lower precedence. Operators on the same
+          line have equal precedence. When binary operators (operators with
+          two ``parameters'', as <tt style="color: #A03D10">+</tt> and
+          <tt style="color: #A03D10">-</tt>) of equal precedence appear next to each other,
+          they are evaluated in left-to-right order.</p>
+
+             <div class="informaltable">
+      <table border="1" cellpadding="4">
+
+            <thead>
+              <tr>
+                <th>Operator group</th>
+
+
+                <th>Operators</th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+              <tr>
+                <td>highest precedence operators</td>
+
+
+                <td><tt style="color: #A03D10">[<i style="color: #DD4400">subvarName</i>]
+                [<i style="color: #DD4400">subStringRange</i>] . ?
+                (<i style="color: #DD4400">methodParams</i>)
+                <i style="color: #DD4400">expr</i>!
+                <i style="color: #DD4400">expr</i>??</tt></td>
+
+              </tr>
+
+
+              <tr>
+                <td>unary prefix operators</td>
+
+
+                <td><tt style="color: #A03D10">+<i style="color: #DD4400">expr</i>
+                -<i style="color: #DD4400">expr</i> !expr</tt></td>
+
+              </tr>
+
+
+              <tr>
+                <td>multiplicative</td>
+
+
+                <td><tt style="color: #A03D10">* / %</tt></td>
+
+              </tr>
+
+
+              <tr>
+                <td>additive</td>
+
+
+                <td><tt style="color: #A03D10">+ -</tt></td>
+
+              </tr>
+
+
+              <tr>
+                <td>relational</td>
+
+
+                <td><tt style="color: #A03D10">&lt; &gt; &lt;= &gt;=</tt> (and quivalents:
+                <tt style="color: #A03D10">gt</tt>, <tt style="color: #A03D10">lt</tt>, etc.)</td>
+
+              </tr>
+
+
+              <tr>
+                <td>equality</td>
+
+
+                <td><tt style="color: #A03D10">== !=</tt> (and equivalents:
+                <tt style="color: #A03D10">=</tt>)</td>
+
+              </tr>
+
+
+              <tr>
+                <td>logical AND</td>
+
+
+                <td><tt style="color: #A03D10">&amp;&amp;</tt></td>
+
+              </tr>
+
+
+              <tr>
+                <td>logical OR</td>
+
+
+                <td><tt style="color: #A03D10">||</tt></td>
+
+              </tr>
+
+
+              <tr>
+                <td>numerical range</td>
+
+
+                <td><tt style="color: #A03D10">..</tt></td>
+
+              </tr>
+
+            </tbody>
+
+                </table>
+   </div>
+
+
+          <p>For those of you who master C, Java language or JavaScript,
+          note that the precedence rules are the same as in those languages,
+          except that FTL has some operators that do not exist in those
+          languages.</p>
+
+          <p>The default value operator
+          (<tt style="color: #A03D10"><i style="color: #DD4400">exp</i>!<i style="color: #DD4400">exp</i></tt>)
+          is not yet in the table because of a programming mistake, which will
+          be only fixed in FreeMarker 2.4 due to backward compatibility
+          constraints. It meant to be a &quot;highest precedence operator&quot;, but in
+          FreeMarker 2.3.x the precedence on its right side is very low by
+          accident. So if you have a composite expression on the right side,
+          always use paranthesses, etiher like <tt style="color: #A03D10">x!(y + 1)</tt> or
+          like <tt style="color: #A03D10">(x!y) + 1</tt>. Never write just <tt style="color: #A03D10">x!y +
+          1</tt>.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_template_valueinsertion.html"><span class="hideA">Next page: </span>Interpolations</a></div><div class="pagerButton"><a href="dgui_template_directives.html">Previous page</a></div><div class="pagerButton"><a href="dgui_template.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_template.html">The Template</a>
+            <b>></b>
+          Expressions
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

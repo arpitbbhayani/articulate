@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Directives
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_template.html">The Template</a>
+            <b>></b>
+          Directives
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_template_exp.html"><span class="hideA">Next page: </span>Expressions</a></div><div class="pagerButton"><a href="dgui_template_overallstructure.html">Previous page</a></div><div class="pagerButton"><a href="dgui_template.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="dgui_template_directives"></a>Directives  </h1>
+    
+    
+<a name="term.designer.directive"></a><p>You use FTL tags to call <b>directives</b>. In the example you have called the
+        <tt style="color: #A03D10">list</tt> directive. Syntactically you have done it with
+        two tags: <tt style="color: #A03D10">&lt;#list animals as being&gt;</tt> and
+        <tt style="color: #A03D10">&lt;/#list&gt;</tt>.</p><p>There are two kind of FTL tags:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p>Start-tag:
+            <tt style="color: #A03D10">&lt;#<i style="color: #DD4400">directivename</i>
+            <i style="color: #DD4400">parameters</i>&gt;</tt></p>
+          </li>
+
+          <li>
+            <p>End-tag:
+            <tt style="color: #A03D10">&lt;/#<i style="color: #DD4400">directivename</i>&gt;</tt></p>
+          </li>
+        </ul>    </div>
+<p>This is similar to HTML or XML syntax, except that the tag name
+        starts with <tt style="color: #A03D10">#</tt>. If the directive doesn't have nested
+        content (content between the start-tag and the end-tag), you must use
+        the start-tag with no end-tag. For example you write <tt style="color: #A03D10">&lt;#if
+        <i style="color: #DD4400">something</i>&gt;<i style="color: #DD4400">...</i>&lt;/#if&gt;</tt>,
+        but just <tt style="color: #A03D10">&lt;#include
+        <i style="color: #DD4400">something</i>&gt;</tt> as FreeMarker knows
+        that the <tt style="color: #A03D10">include</tt> directive can't have nested
+        content.</p><p>The format of the
+        <tt style="color: #A03D10"><i style="color: #DD4400">parameters</i></tt> depends on
+        the
+        <tt style="color: #A03D10"><i style="color: #DD4400">directivename</i></tt>.</p><p>In fact there are two types of directives: <a href="gloss.html#gloss.predefinedDirective">predefined directives</a> and
+        <a href="gloss.html#gloss.userDefinedDirective">user-defined
+        directives</a>. For user-defined directives you use
+        <tt style="color: #A03D10">@</tt> instead of <tt style="color: #A03D10">#</tt>, for example
+        <tt style="color: #A03D10">&lt;@mydirective
+        <i style="color: #DD4400">parameters</i>&gt;<i style="color: #DD4400">...</i>&lt;/@mydirective&gt;</tt>.
+        Further difference is that if the directive has no nested content, you
+        must use a tag like <tt style="color: #A03D10">&lt;@mydirective
+        <i style="color: #DD4400">parameters</i> /&gt;</tt>, similarly as in
+        XML (e.g. <tt style="color: #A03D10">&lt;img <i style="color: #DD4400">...</i>
+        /&gt;</tt>). But user-defined directives is an advanced topic
+        that will be discussed <a href="dgui_misc_userdefdir.html">later</a>.</p><p>FTL tags, like HTML tags, must be properly nested. So the code
+        below is wrong, as the <tt style="color: #A03D10">if</tt> directive is both inside
+        and outside of the nested content of the <tt style="color: #A03D10">list</tt>
+        directive:</p><div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;ul&gt;
+<b>&lt;#list animals as being&gt;</b>
+  &lt;li&gt;${being.name} for ${being.price} Euros
+  <b>&lt;#if user == &quot;Big Joe&quot;&gt;</b>
+     (except for you)
+<b>&lt;/#list&gt;</b> &lt;#-- WRONG! The &quot;if&quot; has to be closed first. --&gt;
+<b>&lt;/#if&gt;</b>
+&lt;/ul&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>Note that FreeMarker doesn't care about the nesting of HTML
+        tags, only about the nesting of FTL tags. It just sees HTML as flat
+        text, it doesn't interpret it in any way.</p><p>If you try to use a non-existing directive (e.g., you mistype
+        the directive name), FreeMarker will decline to use the template and
+        produce an error message.</p><p>FreeMarker ignores superfluous <a href="gloss.html#gloss.whiteSpace">white-space</a> inside FTL tags. So you
+        can write this:</p><div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+<span style="background-color:#8acbfa"><span style="background-color:#dbfe5e">&lt;#list<i><span style="color: #999999 ;background-color:#dbfe5e">[BR]</span></i>
+  animals       as<i><span style="color: #999999 ;background-color:#dbfe5e">[BR]</span></i>
+     being<i><span style="color: #999999 ;background-color:#dbfe5e">[BR]</span></i>
+&gt;</span><i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+<span style="background-color:#ffb85d">${being.name}</span> for <span style="background-color:#ffb85d">${being.price}</span> Euros<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+<span style="background-color:#dbfe5e">&lt;/#list    &gt;</span></span>&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>You may not, however, insert white-space between the
+        <tt style="color: #A03D10">&lt;</tt> or <tt style="color: #A03D10">&lt;/</tt> and the directive
+        name.</p><p>The complete list and description of all directives can be found
+        in the <a href="ref_directives.html">Reference/Directive Reference</a> (but I recommend that you look
+        at the chapter about expressions first).</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+          <p>FreeMarker can be configured to use <tt style="color: #A03D10">[</tt> and
+          <tt style="color: #A03D10">]</tt> instead of <tt style="color: #A03D10">&lt;</tt> and
+          <tt style="color: #A03D10">&gt;</tt> in the FTL tags and FTL comments, like
+          <tt style="color: #A03D10">[#if user == &quot;Big
+          Joe&quot;]<i style="color: #DD4400">...</i>[/#if]</tt>. For more
+          information read: <a href="dgui_misc_alternativesyntax.html">Miscellaneous/Alternative (square bracket) syntax</a>.</p>
+        </div>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+          <p>FreeMarker can be configured so that it understands predefined
+          directives without <tt style="color: #A03D10">#</tt> (like <tt style="color: #A03D10">&lt;if user
+          == &quot;Big
+          Joe&quot;&gt;<i style="color: #DD4400">...</i>&lt;/if&gt;</tt>).
+          However we don't recommend the usage of this mode. For more
+          information read: <a href="ref_depr_oldsyntax.html">Reference/Deprecated FTL constructs/Old FTL syntax</a></p>
+        </div>
+  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_template_exp.html"><span class="hideA">Next page: </span>Expressions</a></div><div class="pagerButton"><a href="dgui_template_overallstructure.html">Previous page</a></div><div class="pagerButton"><a href="dgui_template.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_template.html">The Template</a>
+            <b>></b>
+          Directives
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Overall structure
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_template.html">The Template</a>
+            <b>></b>
+          Overall structure
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_template_directives.html"><span class="hideA">Next page: </span>Directives</a></div><div class="pagerButton"><a href="dgui_template.html">Previous page</a></div><div class="pagerButton"><a href="dgui_template.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="dgui_template_overallstructure"></a>Overall structure  </h1>
+    
+    
+<p>Templates are in fact programs you write in a language called
+        <b>FTL</b> (for FreeMarker
+        Template Language). This is a quite simple programming language
+        designed for writing templates and nothing else.</p><p>A template (= FTL program) is a mix of the following
+        sections:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p><b>Text</b>: Text that will be printed to the output as
+            is.</p>
+          </li>
+
+          <li>
+            <p><b>Interpolation</b>: These sections will be replaced with a calculated
+            value in the output. Interpolations are delimited by
+            <tt style="color: #A03D10">${</tt> and <tt style="color: #A03D10">}</tt> (or with
+            <tt style="color: #A03D10">#{</tt> and <tt style="color: #A03D10">}</tt>, but that shouldn't
+            be used anymore; <a href="ref_depr_numerical_interpolation.html">see more
+            here</a>).</p>
+          </li>
+
+          <li>
+            <p><b>FTL tags</b>: FTL tags are a bit similar to HTML tags, but they
+            are instructions to FreeMarker and will not be printed to the
+            output.</p>
+          </li>
+
+          <li>
+            <p><b>Comments</b>: Comments are similar to HTML comments, but they
+            are delimited by <tt style="color: #A03D10">&lt;#--</tt> and
+            <tt style="color: #A03D10">--&gt;</tt>. Comments will be ignored by FreeMarker,
+            and will not be written to the output.</p>
+          </li>
+        </ul>    </div>
+<p>Let's see a concrete template. I have marked the template's
+        components with colors: <span style="background-color:#8acbfa">text</span>,
+        <span style="background-color:#ffb85d">interpolation</span>, <span style="background-color:#dbfe5e">FTL tag</span>, <span style="background-color:#6af666">comment</span>. With the <i><span style="color: #999999 ">[BR]</span></i>-s I intend to visualize the
+        <a href="gloss.html#gloss.lineBreak">line breaks</a>.</p><div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+<span style="background-color:#8acbfa">&lt;html&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+&lt;head&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+  &lt;title&gt;Welcome!&lt;/title&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+&lt;/head&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+&lt;body&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+  <span style="background-color:#6af666">&lt;#-- Greet the user with his/her name --&gt;</span><i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+  &lt;h1&gt;Welcome <span style="background-color:#ffb85d">${user}</span>!&lt;/h1&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+  &lt;p&gt;We have these animals:<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+  &lt;ul&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+  <span style="background-color:#dbfe5e">&lt;#list animals as being&gt;</span><i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+    &lt;li&gt;<span style="background-color:#ffb85d">${being.name}</span> for <span style="background-color:#ffb85d">${being.price}</span> Euros<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+  <span style="background-color:#dbfe5e">&lt;/#list&gt;</span><i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+  &lt;/ul&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+&lt;/body&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+&lt;/html&gt;</span>&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>FTL distinguishes upper case and lower case letters. So
+        <tt style="color: #A03D10">list</tt> is good directive name, while
+        <tt style="color: #A03D10">List</tt> is not. Similarly <tt style="color: #A03D10">${name}</tt>
+        is not the same as <tt style="color: #A03D10">${Name}</tt> or
+        <tt style="color: #A03D10">${NAME}</tt></p><p>It is important to realize that <span style="background-color:#ffb85d">interpolations</span> can be used in
+        <span style="background-color:#8acbfa">text</span> (and in string literal
+        expressions; see <a href="dgui_template_exp.html#dgui_template_exp_stringop_interpolation">later</a>)
+        only.</p><p>An <span style="background-color:#dbfe5e">FTL tag</span> can't be inside
+        another <span style="background-color:#dbfe5e">FTL tag</span> nor inside an
+        <span style="background-color:#ffb85d">interpolation</span>. For example
+        this is <i>WRONG</i>: <tt style="color: #A03D10">&lt;#if &lt;#include
+        'foo'&gt;='bar'&gt;...&lt;/#if&gt;</tt></p><p><span style="background-color:#6af666">Comments</span> can be placed
+        inside <span style="background-color:#dbfe5e">FTL tags</span> and <span style="background-color:#ffb85d">interpolations</span>. For
+        example:</p><div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+<span style="background-color:#8acbfa">&lt;h1&gt;Welcome <span style="background-color:#ffb85d">${user <span style="background-color:#6af666">&lt;#-- The name of user --&gt;</span>}</span>!&lt;/h1&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+&lt;p&gt;We have these animals:<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+&lt;ul&gt;<i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i>
+<span style="background-color:#dbfe5e">&lt;#list <span style="background-color:#6af666">&lt;#-- some comment... --&gt;</span> animals as <span style="background-color:#6af666">&lt;#-- again... --&gt;</span> being&gt;</span><i><span style="color: #999999 ;background-color:#8acbfa">[BR]</span></i></span>
+<i>...</i>&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+          <p>For those of you who have tried the above examples: You may
+          notice that some of spaces, tabs and line breaks are missing from
+          the template output, even though we said that <span style="background-color:#8acbfa">text</span> is printed as is. Don't bother with
+          it now. This is because the feature called ''white-space stripping''
+          is turned on, and that automatically removes some superfluous
+          spaces, tabs and line breaks. This will be explained <a href="dgui_misc_whitespace.html">later</a>.</p>
+        </div>
+  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_template_directives.html"><span class="hideA">Next page: </span>Directives</a></div><div class="pagerButton"><a href="dgui_template.html">Previous page</a></div><div class="pagerButton"><a href="dgui_template.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_template.html">The Template</a>
+            <b>></b>
+          Overall structure
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

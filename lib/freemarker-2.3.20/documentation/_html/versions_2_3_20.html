@@ -1,0 +1,748 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.3.20
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.20
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_19.html"><span class="hideA">Next page: </span>2.3.19</a></div><div class="pagerButton"><a href="app_versions.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_3_20"></a>2.3.20  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_134">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="#autoid_135">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="#autoid_136">Other changes</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Date of release: 2013-06-27</p><p>If you are IDE/tools author, <a href="#version_2_3_20_ide">note these changes</a>.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_134"></a>Changes on the FTL side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Error message quality improvements:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>Many error messages are now more helpful, especially
+                  for users who are not experienced with FreeMarker. For
+                  example, some of the most common user mistakes are
+                  recognized and tips are shown to fix them, reducing support
+                  costs or the time employees spend to figure them out.</p>
+                </li>
+
+                <li>
+                  <p>It's now ensured that the error location in the
+                  template is included in the message returned by
+                  <tt style="color: #A03D10">TemplateException.getMessage()</tt>. The stack
+                  trace always showed this information anyway, but some users
+                  only see the "message", not the stack trace,
+                  and that often didn't contained the location.</p>
+                </li>
+
+                <li>
+                  <p>The template language part of the stack trace is now
+                  more detailed, and easier to understand. This is especially
+                  helpful in applications that use a complex library of macros
+                  and functions.</p>
+                </li>
+
+                <li>
+                  <p>Several smaller bugs were fixed that made the error
+                  information wrong or lacking.</p>
+                </li>
+
+                <li>
+                  <p>The layout of the error messages is now more
+                  consistent, and generally easier to read.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Changes regarding boolean to string conversions and
+              formatting:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p><tt style="color: #A03D10">?c</tt> (computer-language formatting)
+                  now works with booleans too, always giving
+                  <tt style="color: #A03D10">&quot;true&quot;</tt> or <tt style="color: #A03D10">&quot;false&quot;</tt>
+                  regardless of the <tt style="color: #A03D10">boolean_format</tt>. This
+                  way it's safe for generating JavaScript in a context where
+                  human-readable text is also rendered.</p>
+                </li>
+
+                <li>
+                  <p>If the <tt style="color: #A03D10">boolean_format</tt> setting is
+                  set to anything but the default
+                  <tt style="color: #A03D10">&quot;true,false&quot;</tt> value, boolean values will
+                  be automatically converted to string where a string value is
+                  expected by the template language, instead of giving an
+                  error. This helps you spare
+                  those<tt style="color: #A03D10">?string</tt>-s after boolean values. This
+                  is the same logic as with numbers and dates, which were
+                  always automatically converted to string, according the
+                  corresponding format setting. Except, the provided default
+                  boolean format is useless for automatic conversion (but it's
+                  still there for <tt style="color: #A03D10">?string</tt>, for backward
+                  compatibility), hence it must be set manually. (We certainly
+                  couldn't come up with a sensible default anyway, as for
+                  booleans it depends too much on the application, not to
+                  mention the localisation issues.)</p>
+
+                  <p>Exactly like with numbers and dates, automatic
+                  conversion doesn't happen in these cases:</p>
+
+                      <div class="itemizedlist">
+<ul>
+                    <li>
+                      <p>Comparisons, i.e., <tt style="color: #A03D10">someBoolean ==
+                      'true'</tt> is still an error</p>
+                    </li>
+
+                    <li>
+                      <p>Method calls where the declared type of the
+                      parameter is <tt style="color: #A03D10">String</tt> but the actual
+                      value is a boolean; still an error</p>
+                    </li>
+
+                    <li>
+                      <p>When the boolean value is used as key in
+                      <tt style="color: #A03D10"><i style="color: #DD4400">expr</i>[<i style="color: #DD4400">key</i>]</tt>,
+                      it's still an error (there was no automatic conversion
+                      there for other types either, as numerical and string
+                      keys have different meaning)</p>
+                    </li>
+
+                    <li>
+                      <p>The opposite direction, i.e., string to boolean
+                      conversion; won't happen</p>
+                    </li>
+                  </ul>    </div>
+
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>New built-ins for numbers: <a href="ref_builtins_number.html#ref_builtin_abs"><tt>abs</tt></a>, <a href="ref_builtins_number.html#ref_builtin_is_nan"><tt>is_nan</tt></a>,
+              <a href="ref_builtins_number.html#ref_builtin_is_infinite"><tt>is_infinite</tt></a>.
+              Like <tt style="color: #A03D10">n?abs</tt> will give the absolute value of
+              <tt style="color: #A03D10">n</tt>.</p>
+            </li>
+
+            <li>
+              <p>New built-in for sequences: <a href="ref_builtins_sequence.html#ref_builtin_join"><tt>join</tt></a>. Like
+              <tt style="color: #A03D10">[1, 2, 3]?join(&quot;, &quot;)</tt> will give the string
+              <tt style="color: #A03D10">&quot;1, 2, 3&quot;</tt>.</p>
+            </li>
+
+            <li>
+              <p>If you set the
+              <tt style="color: #A03D10">incompatible_improvements</tt> setting (see <a href="http://freemarker.org/docs/api/freemarker/template/Configuration.html#setIncompatibleImprovements%28freemarker.core.Version%29">here</a>)
+              to <tt style="color: #A03D10">2.3.20</tt> or higher, <tt style="color: #A03D10">?html</tt>
+              will escape apostrophe-quotes just like
+              <tt style="color: #A03D10">?xhtml</tt> does. Utilizing this is highly
+              recommended, because otherwise if interpolations are used inside
+              attribute values that use apostrophe-quotation (<tt style="color: #A03D10">&lt;foo
+              bar='${val}'&gt;</tt>) instead of plain quotation mark
+              (<tt style="color: #A03D10">&lt;foo bar=&quot;${val}&quot;&gt;</tt>), they might
+              produce HTML/XML that's not well-formed. Note that
+              <tt style="color: #A03D10">?html</tt> didn't do this because long ago there
+              was no cross-browser way of doing this, but it's not a real
+              concern anymore. Also note that this will be the default
+              behavior starting from 2.4.</p>
+            </li>
+
+            <li>
+              <p>Bug fix [<a href="https://sourceforge.net/p/freemarker/bugs/390/">390</a>]
+              (and other improvements): <tt style="color: #A03D10">?js_string</tt> and
+              <tt style="color: #A03D10">?json_string</tt> didn't escape the
+              <tt style="color: #A03D10">u2028</tt>-<tt style="color: #A03D10">u2029</tt> line
+              terminators (problem for JavaScript) and the
+              <tt style="color: #A03D10">u007F</tt>-<tt style="color: #A03D10">u009F</tt> control
+              characters (maybe a problem in JSON, depending on
+              implementation). Furthermore, the escaping of
+              <tt style="color: #A03D10">\</tt>, <tt style="color: #A03D10">&lt;</tt>, and
+              <tt style="color: #A03D10">&gt;</tt> become safer in that now they are
+              escaped whenever it can't be guaranteed that they won't be part
+              of <tt style="color: #A03D10">&lt;!</tt>, <tt style="color: #A03D10">]]&gt;</tt> or
+              <tt style="color: #A03D10">&lt;/</tt>. Earlier they were only escaped when it
+              was known that they are part of these patterns, thus it was
+              possible to assemble these patterns from two adjacent
+              interpolations. Additionally, from now on
+              <tt style="color: #A03D10">&lt;?</tt> and <tt style="color: #A03D10">--&gt;</tt> also
+              count as dangerous patterns, and will trigger
+              <tt style="color: #A03D10">&lt;</tt> and <tt style="color: #A03D10">&gt;</tt>
+              escaping.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: The following string built-ins didn't coerce
+              the numerical, date (and now the boolean) left-values to string,
+              instead they threw a type error: contains,
+              <tt style="color: #A03D10">index_of</tt>, <tt style="color: #A03D10">last_index_of</tt>,
+              <tt style="color: #A03D10">left_pad</tt>, <tt style="color: #A03D10">right_pad</tt>,
+              <tt style="color: #A03D10">matches</tt>, <tt style="color: #A03D10">replace</tt>,
+              <tt style="color: #A03D10">split</tt>, <tt style="color: #A03D10">new</tt>. The other
+              string built-ins already did this conversion for a long time;
+              this was an accidental inconsistency.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: With the default arithmetic engine, it's now
+              supported to compare infinite (positive or negative) with 0, to
+              decide its sign.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_135"></a>Changes on the Java side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><tt style="color: #A03D10">BeansWrapper</tt> introspection cache
+              improvements:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>Added public API to <tt style="color: #A03D10">BeansWrapper</tt>
+                  for clearing the class cache:
+                  <tt style="color: #A03D10">clearClassIntrospecitonCache()</tt>,
+                  <tt style="color: #A03D10">removeFromClassIntrospectionCache(Class)</tt></p>
+                </li>
+
+                <li>
+                  <p>Significantly improved multi-core performance:</p>
+
+                      <div class="itemizedlist">
+<ul>
+                    <li>
+                      <p>Uses <tt style="color: #A03D10">ConcurrentHashMap</tt> when
+                      running on Java 5 or later.</p>
+                    </li>
+
+                    <li>
+                      <p>The cache won't block readers while introspecting
+                      a class after a cache miss</p>
+                    </li>
+
+                    <li>
+                      <p>If multiple threads need to introspect the same
+                      class that's not in the cache yet, only one of them will
+                      do it, the others will wait for its results.</p>
+                    </li>
+                  </ul>    </div>
+
+                </li>
+
+                <li>
+                  <p>Bug fix [<a href="https://sourceforge.net/p/freemarker/bugs/361/">361</a>]:
+                  There was a small chance of deadlock when class-reloading
+                  was detected. Locking was redesigned to prevent such
+                  oversights in the future.</p>
+                </li>
+
+                <li>
+                  <p>The internal package-visible
+                  <tt style="color: #A03D10">freemarker.ext.beans</tt> API was slightly
+                  changed as the result of internal cleanup. Nobody but the
+                  FreeMarker developers should define classes in that package,
+                  so it shouldn't break anything. But if somebody did some
+                  in-house hacks there, re-compile to see if it still
+                  works.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Nameless templates (those directly created with
+              <tt style="color: #A03D10">new Template(null,
+              <i style="color: #DD4400">...</i>)</tt> instead of loaded
+              through <tt style="color: #A03D10">Configuration</tt>) couldn't include or
+              import other templates, and thrown a
+              <tt style="color: #A03D10">NullPointerException</tt> when they tried to. Now
+              they resolve relative paths as if they were in the template root
+              directory.</p>
+            </li>
+
+            <li>
+              <p>Bug fix: Regular expression built-ins and some logger
+              libraries (most importantly Log4J) were unavailable on the
+              Google App Engine platform. This fix is only present in the
+              GAE-compatible build, 2.3.20-gae.</p>
+            </li>
+
+            <li>
+              <p>Added new method to <tt style="color: #A03D10">Configuration</tt>:
+              <tt style="color: #A03D10">CacheStorage getCacheStorage()</tt></p>
+            </li>
+
+            <li>
+              <p>Added new methods to <tt style="color: #A03D10">Environment</tt> to
+              make comparisons among <tt style="color: #A03D10">TemplateModel</tt>-s
+              according the rules of the template language operators:
+              <tt style="color: #A03D10">applyEqualsOperator</tt>,
+              <tt style="color: #A03D10">applyEqualsOperatorLenient</tt>,
+              <tt style="color: #A03D10">applyLessThanOperator</tt>,
+              <tt style="color: #A03D10">applyLessThanOrEqualsOperator</tt>,
+              <tt style="color: #A03D10">applyGreaterThanOperator</tt>,
+              <tt style="color: #A03D10">applyWithGreaterThanOrEqualsOperator</tt></p>
+            </li>
+
+            <li>
+              <p>Added new method,
+              <tt style="color: #A03D10">Environment.isInAttemptBlock()</tt> to check if we
+              are within an <tt style="color: #A03D10">#attempt</tt> block. This can be
+              useful for <tt style="color: #A03D10">TemplateExceptionHandler</tt>-s, as
+              then they don't need to print the error to the output since
+              <tt style="color: #A03D10">#attempt</tt> will roll it back anyway. This is
+              already utilized by the built-in
+              <tt style="color: #A03D10">TemplateExceptionHandler</tt>-s
+              (<tt style="color: #A03D10">DEBUG_HANDLER</tt> and
+              <tt style="color: #A03D10">HTML_DEBUG_HANDLER</tt>).</p>
+            </li>
+
+            <li>
+              <p>Added convenience constructor <tt style="color: #A03D10">Template(String
+              name, String sourceCode, Configuration cfg)</tt>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">TemplateException</tt>-s and
+              <tt style="color: #A03D10">TemplateModelExcepton</tt>-s now can have
+              <tt style="color: #A03D10">Throwable</tt> cause, not just
+              <tt style="color: #A03D10">Exception</tt> (it was an old oversight that
+              somehow wasn't fixed so far).</p>
+            </li>
+
+            <li>
+              <p>Parsing error messages under the JBoss Tools FreeMarker
+              IDE now doesn't contain the usual location line, so that the
+              actual error description is immediately visible in the Eclipse
+              "Problems" view. (It's a "hack" in
+              FreeMarler itself; it tries to detect if it runs under the
+              plugin and then changes its behavior.)</p>
+            </li>
+
+            <li><a name="version_2_3_20_ide"></a>
+              <p>Mostly concerning tool (like IDE plugin) authors:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>The error message formats (what
+                  <tt style="color: #A03D10">Throwable.getMessage()</tt> returns) were
+                  heavily changed for <tt style="color: #A03D10">TemplateException</tt>-s,
+                  and somewhat for <tt style="color: #A03D10">ParseException</tt>-s. It's
+                  unlikely that anybody depends on these, but if you tried to
+                  parse these messages, be aware of this.</p>
+                </li>
+
+                <li>
+                  <p>Fixed bug where <tt style="color: #A03D10">ParseException</tt> has
+                  contained 0 as line and column number for lexical errors.
+                  Now it contains the correct information.</p>
+                </li>
+
+                <li>
+                  <p>Added
+                  <tt style="color: #A03D10">ParseException.getEditorMessage()</tt>: As in
+                  IDE-s the error markers show the error location to the user
+                  already, the location should not be repeated in the error
+                  message. So in IDE-s you should use this method instead of
+                  <tt style="color: #A03D10">getMessage()</tt>. (Under JBoss Tools:
+                  FreeMarker now <i>tries</i> to detect that it
+                  runs under the plugin, and then it already does this, except
+                  that it still shows the column number as that's missing from
+                  the error marker location.)</p>
+                </li>
+
+                <li>
+                  <p>Added
+                  <tt style="color: #A03D10">ParseException.getTemplateName()</tt></p>
+                </li>
+
+                <li>
+                  <p>Added
+                  <tt style="color: #A03D10">Configuration.getSupportedBuiltInNames()</tt>.
+                  As new built-ins
+                  (<tt style="color: #A03D10"><i style="color: #DD4400">expr</i>?<i style="color: #DD4400">builtin_name</i></tt>)
+                  are very often added to new FreeMarker versions,
+                  auto-completion or syntax highlighting should use this set
+                  instead of a fixed set of a names.</p>
+                </li>
+
+                <li>
+                  <p>The format returned by
+                  <tt style="color: #A03D10">TemplateElement.getDescription()</tt> was
+                  heavily changed. It's what FTL stack traces and maybe some
+                  outline views (tree-views) show. It was always for human
+                  reading (and till now was too inconsistent for anything
+                  else), so it's unlikely that this breaks anything.</p>
+                </li>
+
+                <li>
+                  <p>There were some smaller changes in
+                  <tt style="color: #A03D10">freemarker.debug</tt>, and it's expected that
+                  there will be more, so it was marked as experimental. As far
+                  as we know, nobody used it, so it shouldn't break
+                  anything.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>In <i>experimental status only</i>, but
+              <tt style="color: #A03D10">freemarker.jar</tt> is now an OSGi bundle (see
+              <tt style="color: #A03D10">freemarker.jar/META-INF/MANIFEST.MF</tt>).
+              Depending on user feedback, the bundle description may change in
+              the future. So please give feedback, especially if you are an
+              OSGi expert!</p>
+            </li>
+
+            <li>
+              <p>Improved the HTML generated by
+              <tt style="color: #A03D10">HTML_DEBUG_HANDLER</tt> (the
+              red-on-yellow-background error message). Most importantly, now
+              it will word-wrap. Other changes are minor, like now it can
+              break out of CDATA sections, or now it has less intense
+              colors.</p>
+            </li>
+
+            <li>
+              <p>New <tt style="color: #A03D10">Template</tt> method,
+              <tt style="color: #A03D10">getActualTagSyntax()</tt>: Tells if the template
+              is using traditional or square-bracket syntax. As the syntax can
+              be overridden in the template, also it's possibly decided by
+              auto-detection, it wasn't trivial to it tell till now.</p>
+            </li>
+
+            <li>
+              <p>Added some utility methods that are useful for generating
+              error messages in custom directives:
+              <tt style="color: #A03D10">ClassUtil.getFTLTypeDescription(TemplateModel)</tt>,
+              <tt style="color: #A03D10">getShortClassName</tt>,
+              <tt style="color: #A03D10">getShortClassNameOfObject</tt></p>
+            </li>
+
+            <li>
+              <p>Bug fix [<a href="https://sourceforge.net/p/freemarker/bugs/364/">364</a>]:
+              <tt style="color: #A03D10">freemarker.template.EmptyMap</tt> (which is passed
+              to <tt style="color: #A03D10">TemplateDirectiveModel</tt>-s if there are no
+              parameters) now allows <tt style="color: #A03D10">remove(key)</tt>,
+              <tt style="color: #A03D10">clear()</tt> and
+              <tt style="color: #A03D10">putAll(anyEmptyMap)</tt> as these do nothing
+              anyway.</p>
+            </li>
+
+            <li>
+              <p>Bug fix [<a href="https://sourceforge.net/p/freemarker/bugs/375/">375</a>]:
+              <tt style="color: #A03D10">NullPointerException</tt> on IBM J9 VM (not on the
+              Sun/Oracle implementation) in <tt style="color: #A03D10">BeansWrapper</tt>
+              when the Java implementation legally returns
+              <tt style="color: #A03D10">null</tt> for some <tt style="color: #A03D10">BeanInfo</tt>
+              getters.</p>
+            </li>
+
+            <li>
+              <p>Bug fix: Cloning a <tt style="color: #A03D10">Configuration</tt> didn't
+              deep-clone the data structures storing the
+              <tt style="color: #A03D10">auto_imports</tt> and
+              <tt style="color: #A03D10">auto_includes</tt> settings, hence possibly
+              leading to aliasing problems.</p>
+            </li>
+
+            <li>
+              <p>Bug fix [<a href="https://sourceforge.net/p/freemarker/bugs/377/">377</a>]:
+              After a failed method call the exception handler could fail in
+              the rare occasion when
+              <tt style="color: #A03D10">targetObject.toString()</tt> fails, raising a
+              runtime exception that not even the <tt style="color: #A03D10">attempt</tt>
+              directive will catch.</p>
+            </li>
+
+            <li>
+              <p>Bug fix [<a href="https://sourceforge.net/p/freemarker/bugs/391/">391</a>]:
+              If a template name has contained <tt style="color: #A03D10">*</tt> that was
+              not the only character in the path step, it threw
+              <tt style="color: #A03D10">NegativeArraySizeException</tt> instead of
+              <tt style="color: #A03D10">FileNotFoundException</tt>.</p>
+            </li>
+
+            <li>
+              <p>With default arithmetic engine, performance optimizations
+              of comparison operations when some of the numbers is 0, and when
+              the sign of the numbers differ.</p>
+            </li>
+
+            <li>
+              <p>Some smaller fixes in
+              <tt style="color: #A03D10">TemplateElement.getCanonicalForm()</tt>, also some
+              quality improvements there.</p>
+            </li>
+
+            <li>
+              <p>Bug fixes in <tt style="color: #A03D10">classic_compatible</tt> mode
+              (this mode is to help migrating from FreeMarker 1), thanks to
+              Information Mosaic:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>When a macro was called with a
+                  <tt style="color: #A03D10">null</tt>/missing parameter value, it has
+                  caused error like in FreeMarker 2.3</p>
+                </li>
+
+                <li>
+                  <p>When a hash literal contained reference to a
+                  <tt style="color: #A03D10">null</tt>/missing variable, like in <tt style="color: #A03D10">{
+                  'a': missingVar }</tt>, it has caused an error like in
+                  2.3</p>
+                </li>
+
+                <li>
+                  <p>When a sequence literal contained reference to a
+                  <tt style="color: #A03D10">null</tt>/missing variable, like in
+                  <tt style="color: #A03D10">[1, missingVar]</tt>, it has caused an error
+                  like in 2.3</p>
+                </li>
+
+                <li>
+                  <p>When a the left-side of the <tt style="color: #A03D10">.</tt> (dot)
+                  or <tt style="color: #A03D10">[<i style="color: #DD4400">key</i>]</tt>
+                  operator was <tt style="color: #A03D10">null</tt> or missing variable,
+                  like in <tt style="color: #A03D10">missingVar.subVar</tt>, it has caused
+                  an error like in 2.3</p>
+                </li>
+
+                <li>
+                  <p>When <tt style="color: #A03D10">BeanModel</tt>-s are tried to be
+                  treated as strings, for most subclasses it has failed with
+                  type error, like in 2.3. In FreeMarker 1 all
+                  <tt style="color: #A03D10">BeanModel</tt>-s were
+                  <tt style="color: #A03D10">TemplateScalarModel</tt>-s, so it should
+                  succeed. The fix for this only works where FreeMarker
+                  <i>coerces</i> to string (string built-ins on
+                  the left-side and concatenation (<tt style="color: #A03D10">+</tt>) and
+                  interpolation
+                  (<tt style="color: #A03D10">${<i style="color: #DD4400">...</i>}</tt>) do
+                  that), otherwise unfortunately it will still fail.</p>
+                </li>
+
+                <li>
+                  <p>The <tt style="color: #A03D10">classic_compatible</tt> setting now
+                  accepts value <tt style="color: #A03D10">2</tt> along
+                  <tt style="color: #A03D10">true</tt> (alias <tt style="color: #A03D10">1</tt>) and
+                  <tt style="color: #A03D10">false</tt> (alias <tt style="color: #A03D10">0</tt>).
+                  <tt style="color: #A03D10">2</tt> means <tt style="color: #A03D10">true</tt> but with
+                  emulating bugs in early 2.x classic-compatibility mode.
+                  Currently this only affects how booleans are converted to
+                  string; with <tt style="color: #A03D10">1</tt> it's always
+                  <tt style="color: #A03D10">&quot;true&quot;</tt>/<tt style="color: #A03D10">&quot;&quot;</tt>, but with
+                  <tt style="color: #A03D10">2</tt> it's <tt style="color: #A03D10">&quot;true&quot;/&quot;false&quot;</tt>
+                  for values wrapped by <tt style="color: #A03D10">BeansWrapper</tt> as
+                  then <tt style="color: #A03D10">Boolean.toString()</tt> prevails. Note
+                  that
+                  <tt style="color: #A03D10"><i style="color: #DD4400">someBoolean</i>?string</tt>
+                  will always consistently format the boolean according the
+                  <tt style="color: #A03D10">boolean_format</tt> setting, just like in
+                  FreeMarker 2.3.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Improved the performance of
+              <tt style="color: #A03D10">(thisVarIsMissing.foo)!default</tt> and similar
+              <i>parenthetical</i> existence operators and
+              existence built-ins in the case when the
+              <tt style="color: #A03D10">null</tt>/missing variable is not the last step
+              inside the parenthesis. In that case it's about 30 times faster
+              now, measured on Java 6. In other cases (when all variables
+              exists, or the the last step is missing) the performance is
+              about the same (relatively fast) as before.</p>
+            </li>
+
+            <li>
+              <p>Version and build information changes:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>The form of the nightly build version numbers has
+                  changed to be Maven/JSR 277 compliant. What earlier was
+                  <tt style="color: #A03D10">2.3.19mod</tt> is now something like
+                  <tt style="color: #A03D10">2.3.20-nightly_20130605T130506Z</tt> (note how
+                  the last points to the target release version instead of the
+                  last release version).</p>
+                </li>
+
+                <li>
+                  <p>The form of the Release Candidate and Preview version
+                  numbers where changed to be Maven/JSP 277 compliant:
+                  <tt style="color: #A03D10">2.4pre2</tt> is now
+                  <tt style="color: #A03D10">2.4.0-pre02</tt>, <tt style="color: #A03D10">2.4rc1</tt> is
+                  now <tt style="color: #A03D10">2.4.0-rc01</tt>.</p>
+                </li>
+
+                <li>
+                  <p>Added new static method to
+                  <tt style="color: #A03D10">Configuration</tt> to query build date:
+                  <tt style="color: #A03D10">getBuildDate()</tt>. This is also printed by
+                  the main command line class.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Various internal code cleanups.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_136"></a>Other changes  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Many JavaDoc improvements, mostly in the documentation of
+              the basic (most frequently used) classes.</p>
+            </li>
+
+            <li>
+              <p>FreeMarker source code has moved to GitHub (<a href="???">https://github.com/freemarker/freemarker</a>),
+              other project resources has remained on sourceforge.net.</p>
+            </li>
+
+            <li>
+              <p>Project structure cleanup, Ivy-based build script.</p>
+            </li>
+          </ul>    </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_19.html"><span class="hideA">Next page: </span>2.3.19</a></div><div class="pagerButton"><a href="app_versions.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.20
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

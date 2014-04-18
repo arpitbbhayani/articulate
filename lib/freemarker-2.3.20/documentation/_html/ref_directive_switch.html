@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - switch, case, default, break
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_directives.html">Directive Reference</a>
+            <b>></b>
+          switch, case, default, break
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_directive_list.html"><span class="hideA">Next page: </span>list, break</a></div><div class="pagerButton"><a href="ref_directive_if.html">Previous page</a></div><div class="pagerButton"><a href="ref_directives.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="ref_directive_switch"></a>switch, case, default, break  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li>
+        <a href="#autoid_81">Synopsis</a>
+      </li>
+      <li>
+        <a href="#autoid_82">Description</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<a name="ref.directive.switch"></a><a name="ref.directive.case"></a><a name="ref.directive.default"></a><a name="ref.directive.switch.break"></a>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_81"></a>Synopsis  </h2>
+
+
+          <pre class="metaTemplate">
+<tt style="color: #A03D10">&lt;#switch <i style="color: #DD4400">value</i>&gt;
+  &lt;#case <i style="color: #DD4400">refValue1</i>&gt;
+    <i style="color: #DD4400">...</i>
+    &lt;#break&gt;
+  &lt;#case <i style="color: #DD4400">refValue2</i>&gt;
+    <i style="color: #DD4400">...</i>
+    &lt;#break&gt;
+  <i style="color: #DD4400">...</i>
+  &lt;#case <i style="color: #DD4400">refValueN</i>&gt;
+    <i style="color: #DD4400">...</i>
+    &lt;#break&gt;
+  &lt;#default&gt;
+    <i style="color: #DD4400">...</i>
+&lt;/#switch&gt;
+</tt>
+</pre>
+
+
+          <p>Where:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <tt style="color: #A03D10"><i style="color: #DD4400">value</i></tt>,
+              <tt style="color: #A03D10"><i style="color: #DD4400">refValue1</i></tt>, etc.:
+              Expressions evaluates to scalars of the same type.
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_82"></a>Description  </h2>
+
+
+          <p>The usage of this directive is not recommended, as it is
+          error-prone because of the fall-through behavior. Use <a href="ref_directive_if.html#ref.directive.elseif"><tt>elseif</tt></a>-s
+          instead unless you want to exploit the fall-through behavior.</p>
+
+          <p>Switch is used to choose a fragment of template depending on
+          the value of an expression:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#switch being.size&gt;
+  &lt;#case &quot;small&quot;&gt;
+     This will be processed if it is small
+     &lt;#break&gt;
+  &lt;#case &quot;medium&quot;&gt;
+     This will be processed if it is medium
+     &lt;#break&gt;
+  &lt;#case &quot;large&quot;&gt;
+     This will be processed if it is large
+     &lt;#break&gt;
+  &lt;#default&gt;
+     This will be processed if it is neither
+&lt;/#switch&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Inside the <tt style="color: #A03D10">switch</tt> must be one or more
+          <tt style="color: #A03D10">&lt;#case <i style="color: #DD4400">value</i>&gt;</tt>,
+          and after all such <tt style="color: #A03D10">case</tt> tags optionally one
+          <tt style="color: #A03D10">&lt;#default&gt;</tt>. When FM reaches the
+          <tt style="color: #A03D10">switch</tt> directive, it chooses a
+          <tt style="color: #A03D10">case</tt> directive where
+          <tt style="color: #A03D10"><i style="color: #DD4400">refValue</i></tt> equals with
+          <tt style="color: #A03D10"><i style="color: #DD4400">value</i></tt> and continues
+          the processing of the template there. If there is no
+          <tt style="color: #A03D10">case</tt> directive with appropriate value then it
+          continues processing at the <tt style="color: #A03D10">default</tt> directive if
+          that exists, otherwise it continues the processing after the end-tag
+          of <tt style="color: #A03D10">switch</tt>. And now comes the confusing thing:
+          when it has chosen a <tt style="color: #A03D10">case</tt> directive, it will
+          continue the processing there, and will go ahead until it reaches a
+          <tt style="color: #A03D10">break</tt> directive. That is, it will not
+          automatically leave the <tt style="color: #A03D10">switch</tt> directive when it
+          reaches another <tt style="color: #A03D10">case</tt> directive or the
+          <tt style="color: #A03D10">&lt;#default&gt;</tt> tag. Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#switch x&gt;
+  &lt;#case 1&gt;
+    1
+  &lt;#case 2&gt;
+    2
+  &lt;#default&gt;
+    d
+&lt;/#switch&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>If <tt style="color: #A03D10">x</tt> is 1, then it will print 1 2 d; if
+          <tt style="color: #A03D10">x</tt> is 2 then it will print 2 d; if
+          <tt style="color: #A03D10">x</tt> is 3 then it will print d. This is the
+          mentioned fall-through behavior. The <tt style="color: #A03D10">break</tt> tag
+          instructs FM to immediately skip past the <tt style="color: #A03D10">switch</tt>
+          end-tag.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_directive_list.html"><span class="hideA">Next page: </span>list, break</a></div><div class="pagerButton"><a href="ref_directive_if.html">Previous page</a></div><div class="pagerButton"><a href="ref_directives.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_directives.html">Directive Reference</a>
+            <b>></b>
+          switch, case, default, break
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

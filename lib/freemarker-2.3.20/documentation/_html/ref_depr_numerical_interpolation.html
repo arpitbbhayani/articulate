@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - #{...}: Numerical interpolation
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_deprecated.html">Deprecated FTL constructs</a>
+            <b>></b>
+          #{...}: Numerical interpolation
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="app.html"><span class="hideA">Next page: </span>Appendixes</a></div><div class="pagerButton"><a href="ref_depr_oldsyntax.html">Previous page</a></div><div class="pagerButton"><a href="ref_deprecated.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="ref_depr_numerical_interpolation"></a>#{...}: Numerical interpolation  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_132">Synopsis</a>
+      </li>
+      <li>
+        <a href="#autoid_133">Description</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Deprecated: Use the <a href="ref_directive_setting.html#ref.setting.number_format"><tt>number_format</tt>
+        setting</a> and <a href="ref_builtins_number.html#ref_builtin_string_for_number">the
+        <tt>string</tt> built-in</a> instead. For formatting for
+        computer audience (i.e., no localized formatting) use the <a href="ref_builtins_number.html#ref_builtin_c"><tt>c</tt> built-in</a> (like
+        <tt style="color: #A03D10"><i style="color: #DD4400">number</i>?c</tt>).</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_132"></a>Synopsis  </h2>
+
+
+          <pre class="metaTemplate"><tt style="color: #A03D10">#{<i style="color: #DD4400">expression</i>}</tt>
+or
+<tt style="color: #A03D10">#{<i style="color: #DD4400">expression</i>; <i style="color: #DD4400">format</i>}</tt></pre>
+
+
+          <p>Where:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <tt style="color: #A03D10"><i style="color: #DD4400">expression</i></tt>:
+              expression that can be evaluated as a number.
+            </li>
+
+            <li>
+              <tt style="color: #A03D10"><i style="color: #DD4400">format</i></tt>:
+              optional format specifier.
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_133"></a>Description  </h2>
+
+
+          <p>The numerical interpolation is used to output a number value.
+          If the expression doesn't evaluate to a number, the evaluation ends
+          with an error.</p>
+
+          <p>The optional format specifier specifies the minimum and the
+          maximum number of displayed fractional digits using syntax
+          <tt style="color: #A03D10">m<i style="color: #DD4400">min</i>M<i style="color: #DD4400">max</i></tt>.
+          For example, <tt style="color: #A03D10">m2M5</tt> means &quot;at least two, at most
+          five fractional digits&quot;. The minimum or the maximum specifier part
+          can be omitted. If only the minimum is specified, the maximum is
+          equal to the minimum. If only maximum is specified, the minimum is
+          0.</p>
+
+          <p>The decimal separator character of the output is
+          internationalized (according the current locale setting), which
+          means that it is not necessarily a dot.</p>
+
+          <p>Unlike <tt style="color: #A03D10">${...}</tt>, <tt style="color: #A03D10">#{...}</tt>
+          ignores the <a href="ref_directive_setting.html#ref.setting.number_format"><tt>number_format</tt>
+          setting</a>. This is actually a backward compatibility quirk, but
+          it can be useful when you print numbers in situations like
+          <tt style="color: #A03D10">&lt;a href=&quot;quertyDatabase?id=#{id}&quot;&gt;</tt>, where
+          you surely don't want grouping separators or something fancy like
+          that. However, starting from FreeMarker 2.3.3 rather use the <a href="ref_builtins_number.html#ref_builtin_c"><tt>?c</tt> built-in</a> for
+          this purpose, like <tt style="color: #A03D10">&lt;a
+          href=&quot;quertyDatabase?id=${id?c}&quot;&gt;</tt>.</p>
+
+          <p>Examples. Assume that <tt style="color: #A03D10">x</tt> is
+          <tt style="color: #A03D10">2.582</tt> and <tt style="color: #A03D10">y</tt> is
+          <tt style="color: #A03D10">4</tt>:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+           &lt;#-- If the language is US English the output is: --&gt;
+#{x}       &lt;#-- 2.582 --&gt;
+#{y}       &lt;#-- 4 --&gt;
+#{x; M2}   &lt;#-- 2.58 --&gt;
+#{y; M2}   &lt;#-- 4    --&gt;
+#{x; m1}   &lt;#-- 2.6 --&gt;
+#{y; m1}   &lt;#-- 4.0 --&gt;
+#{x; m1M2} &lt;#-- 2.58 --&gt;
+#{y; m1M2} &lt;#-- 4.0  --&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="app.html"><span class="hideA">Next page: </span>Appendixes</a></div><div class="pagerButton"><a href="ref_depr_oldsyntax.html">Previous page</a></div><div class="pagerButton"><a href="ref_deprecated.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_deprecated.html">Deprecated FTL constructs</a>
+            <b>></b>
+          #{...}: Numerical interpolation
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

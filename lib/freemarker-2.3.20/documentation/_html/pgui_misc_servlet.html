@@ -1,0 +1,651 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Using FreeMarker with servlets
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Using FreeMarker with servlets
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_secureenv.html"><span class="hideA">Next page: </span>Configuring security policy for FreeMarker</a></div><div class="pagerButton"><a href="pgui_misc_logging.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_misc_servlet"></a>Using FreeMarker with servlets  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#pgui_misc_servlet_model2">Using FreeMarker for ``Model 2''</a>
+      </li>
+      <li>
+        <a href="#pgui_misc_servlet_include">Including content from other web application
+          resources</a>
+      </li>
+      <li>
+        <a href="#autoid_56">Using JSP custom tags in FTL</a>
+      </li>
+      <li>
+        <a href="#autoid_57">Embed FTL into JSP pages</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<a name="topic.servlet"></a><p>In a fundamental sense, using FreeMarker in the web application
+        space is no different from anywhere else; FreeMarker writes its output
+        to a <tt style="color: #A03D10">Writer</tt> that you pass to the
+        <tt style="color: #A03D10">Template.process</tt> method, and it does not care if
+        that <tt style="color: #A03D10">Writer</tt> prints to the console or to a file or
+        to the output stream of <tt style="color: #A03D10">HttpServletResponse</tt>.
+        FreeMarker knows nothing about servlets and Web; it just merges Java
+        object with template files and generates text output from them. From
+        here, it is up to you how to build a Web application around
+        this.</p><p>But, probably you want to use FreeMarker with some already
+        existing Web application framework. Many frameworks rely on the
+        ``Model 2'' architecture, where JSP pages handle presentation. If you
+        use such a framework (for example, <a href="http://jakarta.apache.org/struts">Apache Struts</a>),
+        then read on. For other frameworks please refer to the documentation
+        of the framework.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="pgui_misc_servlet_model2"></a>Using FreeMarker for ``Model 2''  </h2>
+
+
+          <p>Many frameworks follow the strategy that the HTTP request is
+          dispatched to user-defined ``action'' classes that put data into
+          <tt style="color: #A03D10">ServletContext</tt>, <tt style="color: #A03D10">HttpSession</tt>
+          and <tt style="color: #A03D10">HttpServletRequest</tt> objects as attributes, and
+          then the request is forwarded by the framework to a JSP page (the
+          view) that will generate the HTML page using the data sent with the
+          attributes. This is often referred as Model 2.</p>
+
+                    <p align="center"><img src="figures/model2sketch.png" alt="figure"></p>
+
+
+          <p>With these frameworks you can simply use FTL files instead of
+          JSP files. But, since your servlet container (Web application
+          server), unlike with JSP files, does not know out-of-the-box what to
+          do with FTL files, a little extra configuring is needed for your Web
+          application:</p>
+
+          <div class="orderedlist"><ol type="1">
+            <li>
+              <p>Copy <tt style="color: #A03D10">freemarker.jar</tt> (from the
+              <tt style="color: #A03D10">lib</tt> directory of the FreeMarker distribution)
+              into the <tt style="color: #A03D10">WEB-INF/lib</tt> directory of your Web
+              application.</p>
+            </li>
+
+            <li>
+              <p>Insert the following section to the
+              <tt style="color: #A03D10">WEB-INF/web.xml</tt> file of your Web application
+              (and adjust it if required):</p>
+            </li>
+          </ol></div>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;servlet&gt;
+  &lt;servlet-name&gt;freemarker&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;<b>freemarker.ext.servlet.FreemarkerServlet</b>&lt;/servlet-class&gt;
+    
+  &lt;!-- FreemarkerServlet settings: --&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;TemplatePath&lt;/param-name&gt;
+    &lt;param-value&gt;/&lt;/param-value&gt;
+  &lt;/init-param&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;NoCache&lt;/param-name&gt;
+    &lt;param-value&gt;true&lt;/param-value&gt;
+  &lt;/init-param&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;ContentType&lt;/param-name&gt;
+    &lt;param-value&gt;text/html; charset=UTF-8&lt;/param-value&gt; &lt;!-- Forces UTF-8 output encoding! --&gt;
+  &lt;/init-param&gt;
+    
+  &lt;!-- FreeMarker settings: --&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;template_update_delay&lt;/param-name&gt;
+    &lt;param-value&gt;0&lt;/param-value&gt; &lt;!-- 0 is for development only! Use higher value otherwise. --&gt;
+  &lt;/init-param&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;default_encoding&lt;/param-name&gt;
+    &lt;param-value&gt;ISO-8859-1&lt;/param-value&gt; &lt;!-- The encoding of the template files. --&gt;
+  &lt;/init-param&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;number_format&lt;/param-name&gt;
+    &lt;param-value&gt;0.##########&lt;/param-value&gt;
+  &lt;/init-param&gt;
+
+  &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;freemarker&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;<b>*.ftl</b>&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+
+<i>...</i>
+
+&lt;!--
+  Prevent the visiting of MVC Views from outside the servlet container.
+  RequestDispatcher.forward/include should and will still work.
+  Removing this may open security holes!
+--&gt;
+&lt;security-constraint&gt;
+  &lt;web-resource-collection&gt;
+    &lt;web-resource-name&gt;FreeMarker MVC Views&lt;/web-resource-name&gt;
+    &lt;url-pattern&gt;*.ftl&lt;/url-pattern&gt;
+  &lt;/web-resource-collection&gt;
+  &lt;auth-constraint&gt;
+    &lt;!-- Nobody is allowed to visit these --&gt;
+  &lt;/auth-constraint&gt;
+&lt;/security-constraint&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>After this, you can use FTL files (<tt style="color: #A03D10">*.ftl</tt>)
+          in the same manner as JSP (<tt style="color: #A03D10">*.jsp</tt>) files. (Of
+          course you can choose another extension besides
+          <tt style="color: #A03D10">ftl</tt>; it is just the convention)</p>
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>How does it work? Let's examine how JSP-s work. Many servlet
+            container handles JSP-s with a servlet that is mapped to the
+            <tt style="color: #A03D10">*.jsp</tt> request URL pattern. That servlet will
+            receive all requests where the request URL ends with
+            <tt style="color: #A03D10">.jsp</tt>, find the JSP file based on the request
+            URL, and internally compiles it to a <tt style="color: #A03D10">Servlet</tt>,
+            and then call the generated servlet to generate the page. The
+            <tt style="color: #A03D10">FreemarkerServlet</tt> mapped here to the
+            <tt style="color: #A03D10">*.ftl</tt> URL pattern does the same, except that
+            FTL files are not compiled to <tt style="color: #A03D10">Servlet</tt>-s, but to
+            <tt style="color: #A03D10">Template</tt> objects, and then the
+            <tt style="color: #A03D10">process</tt> method of <tt style="color: #A03D10">Template</tt>
+            will be called to generate the page.</p>
+          </div>
+
+
+          <p><a name="topic.servlet.scopeAttr"></a>For example, instead
+          of this JSP file (note that it heavily uses Struts tag-libs to save
+          designers from embedded Java monsters):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;%@ taglib uri=&quot;/WEB-INF/struts-bean.tld&quot; prefix=&quot;bean&quot; %&gt;
+&lt;%@ taglib uri=&quot;/WEB-INF/struts-logic.tld&quot; prefix=&quot;logic&quot; %&gt;
+
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Acmee Products International&lt;/title&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello &lt;bean:write name=&quot;user&quot;/&gt;!&lt;/h1&gt;
+  &lt;p&gt;These are our latest offers:
+  &lt;ul&gt;
+    &lt;logic:iterate name=&quot;latestProducts&quot; id=&quot;prod&quot;&gt;
+      &lt;li&gt;&lt;bean:write name=&quot;prod&quot; property=&quot;name&quot;/&gt;
+        for &lt;bean:write name=&quot;prod&quot; property=&quot;price&quot;/&gt; Credits.
+    &lt;/logic:iterate&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>you can use this FTL file (use <tt style="color: #A03D10">ftl</tt> file
+          extension instead of <tt style="color: #A03D10">jsp</tt>):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Acmee Products International&lt;/title&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello ${user}!&lt;/h1&gt;
+  &lt;p&gt;These are our latest offers:
+  &lt;ul&gt;
+    &lt;#list latestProducts as prod&gt;
+      &lt;li&gt;${prod.name} for ${prod.price} Credits.
+    &lt;/#list&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+  <p class="rank_note">Warning!</p>
+
+            <p>In FreeMarker <tt style="color: #A03D10">&lt;html:form
+            action=&quot;/query&quot;&gt;<i style="color: #DD4400">...</i>&lt;/html:form&gt;</tt>
+            is just static text, so it is printed to the output as is, like
+            any other XML or HTML markup. JSP tags are just FreeMarker
+            directives, nothing special, so you <i>use FreeMarker
+            syntax</i> for calling them, not JSP syntax:
+            <tt style="color: #A03D10">&lt;@html.form
+            action=&quot;/query&quot;&gt;<i style="color: #DD4400">...</i>&lt;/@html.form&gt;</tt>.
+            Note that in the FreeMarker syntax you <i>don't use
+            <tt style="color: #A03D10">${<i style="color: #DD4400">...</i>}</tt> in
+            parameters</i> as in JSP, and you <i>don't quote the
+            parameter values</i>. So this is
+            <i>WRONG</i>:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#-- WRONG: --&gt;
+&lt;@my.jspTag color=&quot;${aVariable}&quot; name=&quot;aStringLiteral&quot;
+            width=&quot;100&quot; height=${a+b} /&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>and this is good:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#-- Good: --&gt;
+&lt;@my.jspTag color=aVariable name=&quot;aStringLiteral&quot;
+            width=100 height=a+b /&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          </div>            
+
+
+          <p>In both templates, when you refer to <tt style="color: #A03D10">user</tt>
+          and <tt style="color: #A03D10">latestProduct</tt>, it will first try to find a
+          variable with that name that was created in the template (like
+          <tt style="color: #A03D10">prod</tt>; if you master JSP: a page scope attribute).
+          If that fails, it will try to look up an attribute with that name in
+          the <tt style="color: #A03D10">HttpServletRequest</tt>, and if it is not there
+          then in the <tt style="color: #A03D10">HttpSession</tt>, and if it still doesn't
+          find it then in the <tt style="color: #A03D10">ServletContext</tt>. In the case
+          of FTL this works because <tt style="color: #A03D10">FreemarkerServlet</tt>
+          builds the data-model from the attributes of the mentioned 3
+          objects. That is, in this case the root hash is not a
+          <tt style="color: #A03D10">java.util.Map</tt> (as it was in some example codes in
+          this manual), but
+          <tt style="color: #A03D10">ServletContext</tt>+<tt style="color: #A03D10">HttpSession</tt>+<tt style="color: #A03D10">HttpServletRequest</tt>;
+          FreeMarker is pretty flexible about what the data-model is. So if
+          you want to put variable <tt style="color: #A03D10">&quot;name&quot;</tt> into the
+          data-model, then you call
+          <tt style="color: #A03D10">servletRequest.setAttribute(&quot;name&quot;, &quot;Fred&quot;)</tt>; this
+          is the logic of Model 2, and FreeMarker adapts itself to it.</p>
+
+          <p><tt style="color: #A03D10">FreemarkerServlet</tt> also puts 3 hashes into
+          the data-model, by which you can access the attributes of the 3
+          objects directly. The hash variables are:
+          <tt style="color: #A03D10">Request</tt>, <tt style="color: #A03D10">Session</tt>,
+          <tt style="color: #A03D10">Application</tt> (corresponds to
+          <tt style="color: #A03D10">ServletContext</tt>). It also exposes another hash
+          named <tt style="color: #A03D10">RequestParameters</tt> that provides access to
+          the parameters of the HTTP request.</p>
+
+          <p><tt style="color: #A03D10">FreemarkerServlet</tt> has various init-params.
+          It can be set up to load templates from an arbitrary directory, from
+          the classpath, or relative to the Web application directory. You can
+          set the charset used for templates. You can set up what object
+          wrapper do you want to use. Etc.</p>
+
+          <p><tt style="color: #A03D10">FreemarkerServlet</tt> is easily tailored to
+          special needs through subclassing. Say, if you need to have
+          additional variables available in your data-model for all templates,
+          subclass the servlet and override the
+          <tt style="color: #A03D10">preTemplateProcess()</tt> method to shove any
+          additional data you need into the model before the template gets
+          processed. Or subclass the servlet, and set these globally available
+          variables as <a href="pgui_config_sharedvariables.html">shared
+          variables</a> in the <tt style="color: #A03D10">Configuration</tt>.</p>
+
+          <p>For more information please read the Java API documentation of
+          the class.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="pgui_misc_servlet_include"></a>Including content from other web application
+          resources  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          <p>You can use the <tt style="color: #A03D10">&lt;@include_page
+          path=&quot;...&quot;/&gt;</tt> custom directive provided by the
+          <tt style="color: #A03D10">FreemarkerServlet</tt> (since 2.3.15) to include the
+          contents of another web application resource into the output; this
+          is often useful to integrate output of JSP pages (living alongside
+          the FreeMarker templates in the same web server) into the FreeMarker
+          template output. Using:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;@include_page path=&quot;path/to/some.jsp&quot;/&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>is identical to using this tag in JSP:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;jsp:include page=&quot;path/to/some.jsp&quot;&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p><tt style="color: #A03D10">&lt;@include_page ...&gt;</tt> is not to be
+            confused with <tt style="color: #A03D10">&lt;#include ...&gt;</tt>, as the last
+            is for including FreeMarker templates without involving the
+            Servlet container. An <tt style="color: #A03D10">&lt;#include ...&gt;</tt>-ed
+            template shares the template processing state with the including
+            template, such as the data-model and the template-language
+            variables, while <tt style="color: #A03D10">&lt;@include_page ...&gt;</tt>
+            starts an independent HTTP request processing.</p>
+          </div>
+
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>Some Web Application Frameworks provide their own solution
+            for this, in which case you possibly should use that instead. Also
+            some Web Application Frameworks don't use
+            <tt style="color: #A03D10">FreemarkerServlet</tt>, so
+            <tt style="color: #A03D10">include_page</tt> is not available.</p>
+          </div>
+
+
+          <p>The path can be relative or absolute. Relative paths are
+          interpreted relative to the URL of the current HTTP request (one
+          that triggered the template processing), while absolute paths are
+          absolute in the current servlet context (current web application).
+          You can not include pages from outside the current web application.
+          Note that you can include any page, not just a JSP page; we just
+          used page with path ending in <tt style="color: #A03D10">.jsp</tt> as an
+          illustration.</p>
+
+          <p>In addition to the <tt style="color: #A03D10">path</tt> parameter, you can
+          also specify an optional parameter named
+          <tt style="color: #A03D10">inherit_params</tt> with a boolean value (defaults to
+          true when not specified) that specifies whether the included page
+          will see the HTTP request parameters of the current request or
+          not.</p>
+
+          <p>Finally, you can specify an optional parameter named
+          <tt style="color: #A03D10">params</tt> that specifies new request parameters that
+          the included page will see. In case inherited parameters are passed
+          too, the values of specified parameters will get prepended to the
+          values of inherited parameters of the same name. The value of
+          <tt style="color: #A03D10">params</tt> must be a hash, with each value in it
+          being either a string, or a sequence of strings (if you need
+          multivalued parameters). Here's a full example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;@include_page path=&quot;path/to/some.jsp&quot; inherit_params=true params={&quot;foo&quot;: &quot;99&quot;, &quot;bar&quot;: [&quot;a&quot;, &quot;b&quot;]}/&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This will include the page
+          <tt style="color: #A03D10">path/to/some.jsp</tt>, pass it all request parameters
+          of the current request, except for &quot;foo&quot; and &quot;bar&quot;, which will be
+          set to &quot;99&quot; and multi-value of &quot;a&quot;, &quot;b&quot;, respectively. In case the
+          original request already had values for these parameters, the new
+          values will be prepended to the existing values. I.e. if &quot;foo&quot; had
+          values &quot;111&quot; and &quot;123&quot;, then it will now have values &quot;99&quot;, &quot;111&quot;,
+          &quot;123&quot;.</p>
+
+          <p><span style="color:#333399; font-style:italic">It is in fact possible to pass
+          non-string values for parameter values within
+          <tt style="color: #A03D10">params</tt>. Such a value will be converted to a
+          suitable Java object first (i.e. a Number, a Boolean, a Date, etc.),
+          and then its Java <tt style="color: #A03D10">toString()</tt> method will be used
+          to obtain the string value. It is better to not rely on this
+          mechanism, though, and instead explicitly ensure that parameter
+          values that aren't strings are converted to strings on the template
+          level where you have control over formatting using the
+          <tt style="color: #A03D10">?string</tt> and <tt style="color: #A03D10">?c</tt> built-ins.
+          </span></p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_56"></a>Using JSP custom tags in FTL  </h2>
+
+
+          
+
+          
+
+          
+
+          <p><tt style="color: #A03D10">FreemarkerServlet</tt> puts a hash
+          <tt style="color: #A03D10">JspTaglibs</tt> into the data-model, what you can use
+          to access JSP taglibs. The JSP custom tags will be accessible as
+          plain user-defined directives. For example, this is a JSP file that
+          uses some Struts tags:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;%@page contentType=&quot;text/html;charset=ISO-8859-2&quot; language=&quot;java&quot;%&gt;
+&lt;%@taglib uri=&quot;/WEB-INF/struts-html.tld&quot; prefix=&quot;html&quot;%&gt;
+&lt;%@taglib uri=&quot;/WEB-INF/struts-bean.tld&quot; prefix=&quot;bean&quot;%&gt;
+
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;h1&gt;&lt;bean:message key=&quot;welcome.title&quot;/&gt;&lt;/h1&gt;
+    &lt;html:errors/&gt;
+    &lt;html:form action=&quot;/query&quot;&gt;
+      Keyword: &lt;html:text property=&quot;keyword&quot;/&gt;&lt;br&gt;
+      Exclude: &lt;html:text property=&quot;exclude&quot;/&gt;&lt;br&gt;
+      &lt;html:submit value=&quot;Send&quot;/&gt;
+    &lt;/html:form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>And this is the (near) equivalent FTL:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign html=JspTaglibs[&quot;/WEB-INF/struts-html.tld&quot;]&gt;
+&lt;#assign bean=JspTaglibs[&quot;/WEB-INF/struts-bean.tld&quot;]&gt;
+
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;h1&gt;&lt;@bean.message key=&quot;welcome.title&quot;/&gt;&lt;/h1&gt;
+    &lt;@html.errors/&gt;
+    &lt;@html.form action=&quot;/query&quot;&gt;
+      Keyword: &lt;@html.text property=&quot;keyword&quot;/&gt;&lt;br&gt;
+      Exclude: &lt;@html.text property=&quot;exclude&quot;/&gt;&lt;br&gt;
+      &lt;@html.submit value=&quot;Send&quot;/&gt;
+    &lt;/@html.form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Since JSP custom tags are written to operate in JSP
+          environment, they assume that variables (often referred as ``beans''
+          in JSP world) are stored in 4 scopes: page scope, request scope,
+          session scope and application scope. FTL has no such notation (the 4
+          scopes), but <tt style="color: #A03D10">FreemarkerServlet</tt> provides emulated
+          JSP environment for the custom JSP tags, which maintains
+          correspondence between the ``beans'' of JSP scopes and FTL
+          variables. For the custom JSP tags, the request, session and
+          application scopes are exactly the same as with real JSP: the
+          attributes of the <tt style="color: #A03D10">javax.servlet.ServletContext</tt>,
+          <tt style="color: #A03D10">HttpSession</tt> and <tt style="color: #A03D10">ServletRequest</tt>
+          objects. From the FTL side you see these 3 scopes together as the
+          data-model, as it was explained earlier. The page scope corresponds
+          to the FTL global variables (see the <a href="ref_directive_global.html#ref.directive.global"><tt>global</tt>
+          directive</a>). That is, if you create a variable with the
+          <tt style="color: #A03D10">global</tt> directive, it will be visible for the
+          custom tags as page scope variable through the emulated JSP
+          environment. Also, if a JSP-tag creates a new page scope variable,
+          the result will be the same as if you create a variable with the
+          <tt style="color: #A03D10">global</tt> directive. Note that the variables in the
+          data-model are not visible as page-scope attributes for the JSP
+          tags, despite that they are globally visible, since the data-model
+          corresponds to the request, session and application scopes, not the
+          page-scope.</p>
+
+          <p>On JSP pages you quote all attribute values, it does not mater
+          if the type of the parameter is string or boolean or number. But
+          since custom tags are accessible in FTL templates as user-defined
+          FTL directives, you have to use the FTL syntax rules inside the
+          custom tags, not the JSP rules. So when you specify the value of an
+          ``attribute'', then on the right side of the <tt style="color: #A03D10">=</tt>
+          there is an <a href="dgui_template_exp.html">FTL expression</a>.
+          Thus, <i>you must not quote boolean and numerical parameter
+          values</i> (e.g. <tt style="color: #A03D10">&lt;@tiles.insert
+          page=&quot;/layout.ftl&quot; flush=true/&gt;</tt>), or they are
+          interpreted as string values, and this will cause a type mismatch
+          error when FreeMarker tries to pass the value to the custom tag that
+          expects non-string value. Also note, that naturally, you can use any
+          FTL expression as attribute value, such as variables, calculated
+          values, etc. (e.g. <tt style="color: #A03D10">&lt;@tiles.insert page=layoutName
+          flush=foo &amp;&amp; bar/&gt;</tt>).</p>
+
+          <p>FreeMarker does not rely on the JSP support of the servlet
+          container in which it is run when it uses JSP taglibs since it
+          implements its own lightweight JSP runtime environment. There is
+          only one small detail to pay attention to: to enable the FreeMarker
+          JSP runtime environment to dispatch events to JSP taglibs that
+          register event listeners in their TLD files, you should add this to
+          the <tt style="color: #A03D10">WEB-INF/web.xml</tt> of your Web
+          application:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;listener&gt;
+  &lt;listener-class&gt;freemarker.ext.jsp.EventForwarding&lt;/listener-class&gt;
+&lt;/listener&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note that you can use JSP taglibs with FreeMarker even if the
+          servlet container has no native JSP support, just make sure that the
+          <tt style="color: #A03D10">javax.servlet.jsp.*</tt> packages for JSP 1.2 (or
+          later) are available to your Web application. If your servlet
+          container comes with JSP 1.1, then you have to obtain the following
+          six classes (for example you can extract them from the jar-s of
+          Tomcat 5.x or Tomcat 4.x), and copy them into your webapp's
+          <tt style="color: #A03D10">WEB-INF/classes/<i style="color: #DD4400">...</i></tt>
+          directory: <tt style="color: #A03D10">javax.servlet.jsp.tagext.IterationTag</tt>,
+          <tt style="color: #A03D10">javax.servlet.jsp.tagext.TryCatchFinally</tt>,
+          <tt style="color: #A03D10">javax.servlet.ServletContextListener</tt>,
+          <tt style="color: #A03D10">javax.servlet.ServletContextAttributeListener</tt>,
+          <tt style="color: #A03D10">javax.servlet.http.HttpSessionAttributeListener</tt>,
+          <tt style="color: #A03D10">javax.servlet.http.HttpSessionListener</tt>. But
+          beware, since containers that come with JSP 1.1 usually use earlier
+          Serlvet versions than 2.3, event listeners will not be supported,
+          and thus JSP 1.2 taglibs that register event listeners will not work
+          properly.</p>
+
+          <p>As of this writing, JSP features up to JSP 2.1 are
+          implemented, except the &quot;tag files&quot; feature of JSP 2 (i.e., custom
+          JSP tags <i>implemented</i> in JSP language). The tag
+          files had to be compiled to Java classes to be usable under
+          FreeMarker.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_57"></a>Embed FTL into JSP pages  </h2>
+
+
+          
+
+          <p>There is a taglib that allows you to put FTL fragments into
+          JSP pages. The embedded FTL fragment can access the attributes
+          (Beans) of the 4 JSP scopes. You can find a working example and the
+          taglib in the FreeMarker distribution.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_secureenv.html"><span class="hideA">Next page: </span>Configuring security policy for FreeMarker</a></div><div class="pagerButton"><a href="pgui_misc_logging.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Using FreeMarker with servlets
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

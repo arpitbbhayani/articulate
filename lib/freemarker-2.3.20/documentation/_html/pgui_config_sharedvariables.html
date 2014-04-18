@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Shared variables
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_config.html">The Configuration</a>
+            <b>></b>
+          Shared variables
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_config_settings.html"><span class="hideA">Next page: </span>Settings</a></div><div class="pagerButton"><a href="pgui_config_basics.html">Previous page</a></div><div class="pagerButton"><a href="pgui_config.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_config_sharedvariables"></a>Shared variables  </h1>
+    
+    
+<p><b>Shared variables</b> are variables
+        that are defined for all templates. You can add shared variables to
+        the configuration with the <tt style="color: #A03D10">setSharedVariable</tt>
+        methods:</p><div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Configuration cfg = new Configuration();
+<i>...</i>
+cfg.setSharedVariable(&quot;wrap&quot;, new WrapDirective());
+cfg.setSharedVariable(&quot;company&quot;, &quot;Foo Inc.&quot;);  // Using ObjectWrapper.DEFAULT_WRAPPER&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>In all templates that use this configuration, an user-defined
+        directive with name <tt style="color: #A03D10">wrap</tt> and a string with name
+        <tt style="color: #A03D10">company</tt> will be visible in the data-model root, so
+        you don't have to add them to the root hash again and again. A
+        variable in the root object that you pass to the
+        <tt style="color: #A03D10">Template.process</tt> will hide the shared variable with
+        the same name.</p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+  <p class="rank_note">Warning!</p>
+
+          <p>Never use <tt style="color: #A03D10">TemplateModel</tt> implementation that
+          is not <a href="gloss.html#gloss.threadSafe">thread-safe</a> for
+          shared variables, if the configuration is used by multiple threads!
+          This is the typical situation for Servlet based Web sites.</p>
+        </div>            
+<p>Due to backward compatibility heritage, the set of shared
+        variables is initially (i.e., for a new
+        <tt style="color: #A03D10">Configuration</tt> instance) not empty. It contains the
+        following user-defined directives (they are &quot;user-defined&quot; in the
+        sense that you use <tt style="color: #A03D10">@</tt> to call them instead of
+        <tt style="color: #A03D10">#</tt>):</p>   <div class="informaltable">
+      <table border="1" cellpadding="4">
+
+          <thead>
+            <tr>
+              <th>name</th>
+
+
+              <th>class</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+            <tr>
+              <td><tt style="color: #A03D10">capture_output</tt></td>
+
+
+              <td><tt style="color: #A03D10">freemarker.template.utility.CaptureOutput</tt></td>
+
+            </tr>
+
+
+            <tr>
+              <td><tt style="color: #A03D10">compress</tt></td>
+
+
+              <td><tt style="color: #A03D10">freemarker.template.utility.StandardCompress</tt></td>
+
+            </tr>
+
+
+            <tr>
+              <td><tt style="color: #A03D10">html_escape</tt></td>
+
+
+              <td><tt style="color: #A03D10">freemarker.template.utility.HtmlEscape</tt></td>
+
+            </tr>
+
+
+            <tr>
+              <td><tt style="color: #A03D10">normalize_newlines</tt></td>
+
+
+              <td><tt style="color: #A03D10">freemarker.template.utility.NormalizeNewlines</tt></td>
+
+            </tr>
+
+
+            <tr>
+              <td><tt style="color: #A03D10">xml_escape</tt></td>
+
+
+              <td><tt style="color: #A03D10">freemarker.template.utility.XmlEscape</tt></td>
+
+            </tr>
+
+          </tbody>
+
+              </table>
+   </div>
+  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_config_settings.html"><span class="hideA">Next page: </span>Settings</a></div><div class="pagerButton"><a href="pgui_config_basics.html">Previous page</a></div><div class="pagerButton"><a href="pgui_config.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_config.html">The Configuration</a>
+            <b>></b>
+          Shared variables
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

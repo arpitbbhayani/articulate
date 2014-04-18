@@ -1,0 +1,408 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Template loading
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_config.html">The Configuration</a>
+            <b>></b>
+          Template loading
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_config_errorhandling.html"><span class="hideA">Next page: </span>Error handling</a></div><div class="pagerButton"><a href="pgui_config_settings.html">Previous page</a></div><div class="pagerButton"><a href="pgui_config.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_config_templateloading"></a>Template loading  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li>
+        <a href="#autoid_39">Template loaders</a>
+  <ul >
+      <li>
+        <a href="#autoid_40">Built-in template loaders</a>
+      </li>
+      <li>
+        <a href="#autoid_41">Loading templates from multiple locations</a>
+      </li>
+      <li>
+        <a href="#autoid_42">Loading templates from other sources</a>
+      </li>
+      <li>
+        <a href="#autoid_43">The template path</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="#pgui_config_templateloading_caching">Template caching</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_39"></a>Template loaders  </h2>
+
+
+          
+
+          <p>Template loaders are objects that load raw textual data based
+          on abstract template paths like <tt style="color: #A03D10">&quot;index.ftl&quot;</tt> or
+          <tt style="color: #A03D10">&quot;products/catalog.ftl&quot;</tt>. It is up to the concrete
+          template loader object what source does it use to fetch the
+          requested data (files in a directory, data base, etc.). When you
+          call <tt style="color: #A03D10">cfg.getTemplate</tt> (where
+          <tt style="color: #A03D10">cfg</tt> is a <tt style="color: #A03D10">Configuration</tt>
+          instance), FreeMarker ask the template loader you have set up for
+          the <tt style="color: #A03D10">cfg</tt> to return the text for the given template
+          path, and then FreeMarker parses that text as template.</p>
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_40"></a>Built-in template loaders  </h3>
+
+
+            <p>You can set up three template loading methods in the
+            <tt style="color: #A03D10">Configuration</tt> using the following convenience
+            methods. (Each method will create a template loader object
+            internally and set up the <tt style="color: #A03D10">Configuration</tt>
+            instance to use that.)</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+void setDirectoryForTemplateLoading(File dir);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>or</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+void setClassForTemplateLoading(Class cl, String prefix);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>or</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+void setServletContextForTemplateLoading(Object servletContext, String path);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>The first method above sets an explicit directory on the
+            file system from which to load templates. Needless to say perhaps,
+            the <tt style="color: #A03D10">File</tt> parameter must be an existing
+            directory. Otherwise, an exception will be thrown.</p>
+
+            <p>The second call takes a <tt style="color: #A03D10">Class</tt> as a
+            parameter and a prefix. This is for when you want to load
+            templates via the same mechanism that a java
+            <tt style="color: #A03D10">ClassLoader</tt> uses to load classes. This means
+            that the class you pass in will be used to call
+            <tt style="color: #A03D10">Class.getResource()</tt> to find the templates. The
+            <tt style="color: #A03D10">prefix</tt> parameter is prepended to the name of
+            the template. The classloading mechanism will very likely be the
+            preferred means of loading templates for production code, since
+            loading from the classpath mechanism is usually more foolproof
+            than specifying an explicit directory location on the file system.
+            It is also nicer in a final application to keep everything in a
+            <tt style="color: #A03D10">.jar</tt> file that the user can simply execute
+            directly and have all the icons and text and everything else
+            inside the <tt style="color: #A03D10">.jar</tt> file.</p>
+
+            <p>The third call takes the context of your web application,
+            and a base path, which is interpreted relative to the web
+            application root directory (that's the parent of the
+            <tt style="color: #A03D10">WEB-INF</tt> directory). This loader will load the
+            templates from the web application directory. Note that we refer
+            to &quot;directory&quot; here although this loading method works even for
+            unpacked <tt style="color: #A03D10">.war</tt> files since it uses
+            <tt style="color: #A03D10">ServletContext.getResource()</tt> to access the
+            templates. If you omit the second parameter (or use
+            <tt style="color: #A03D10">&quot;&quot;</tt>), you can simply store the static files
+            (<tt style="color: #A03D10">.html</tt>, <tt style="color: #A03D10">.jpg</tt>, etc.) mixed
+            with the <tt style="color: #A03D10">.ftl</tt> files, just
+            <tt style="color: #A03D10">.ftl</tt> files will be sent to the client
+            processed. Of course, you must set up a Servlet for the
+            <tt style="color: #A03D10">*.ftl</tt> uri-pattern in
+            <tt style="color: #A03D10">WEB-INF/web.xml</tt> for this, otherwise the client
+            will get the templates as is, and thus may see confidential
+            content! You should not use empty path if this is a problem for
+            your site, rather you should store the templates somewhere inside
+            the <tt style="color: #A03D10">WEB-INF</tt> directory, so the raw templates are
+            never served accidentally. This mechanism will very likely be the
+            preferred means of loading templates for servlet applications,
+            since the templates can be updated without restarting the web
+            application, while this often doesn't work with the class-loader
+            mechanism.</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_41"></a>Loading templates from multiple locations  </h3>
+
+
+            <p>If you need to load templates from multiple locations, you
+            have to instantiate the template loader objects for every
+            location, wrap them into a special template loader named
+            <tt style="color: #A03D10">MultiTemplateLoader</tt> and finally pass that
+            loader to the <tt style="color: #A03D10">setTemplateLoader(TemplateLoader
+            loader)</tt> method of <tt style="color: #A03D10">Configuration</tt>.
+            Here's an example for loading templates from two distinct
+            directories and with the class-loader:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+import freemarker.cache.*; // template loaders live in this package
+
+<i>...</i>
+
+FileTemplateLoader ftl1 = new FileTemplateLoader(new File(&quot;/tmp/templates&quot;));
+FileTemplateLoader ftl2 = new FileTemplateLoader(new File(&quot;/usr/data/templates&quot;));
+ClassTemplateLoader ctl = new ClassTemplateLoader(getClass(), &quot;&quot;);
+TemplateLoader[] loaders = new TemplateLoader[] { ftl1, ftl2, ctl };
+MultiTemplateLoader mtl = new MultiTemplateLoader(loaders);
+
+cfg.setTemplateLoader(mtl);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Now FreeMarker will try to load templates from
+            <tt style="color: #A03D10">/tmp/templates</tt> directory, and if it does not
+            find the requested template there, it will try to load that from
+            <tt style="color: #A03D10">/usr/data/templates</tt>, and if it still does not
+            find the requested template, then it tries to load that with the
+            class-loader.</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_42"></a>Loading templates from other sources  </h3>
+
+
+            <p>If none of the built-in class loaders are good for you, you
+            will have to write your own class that implements the
+            <tt style="color: #A03D10">freemarker.cache.TemplateLoader</tt> interface and
+            pass it to the <tt style="color: #A03D10">setTemplateLoader(TemplateLoader
+            loader)</tt> method of <tt style="color: #A03D10">Configuration</tt>.
+            Please read the API JavaDoc for more information.</p>
+
+            <p>If your template source accesses the templates through an
+            URL, you needn't implement a <tt style="color: #A03D10">TemplateLoader</tt>
+            from scratch; you can choose to subclass
+            <tt style="color: #A03D10">freemarker.cache.URLTemplateLoader</tt> instead and
+            just implement the <tt style="color: #A03D10">URL getURL(String
+            templateName)</tt> method.</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_43"></a>The template path  </h3>
+
+
+            
+
+            
+
+            <p>It is up to the template loader how it interprets template
+            paths. But to work together with other components there are
+            restrictions regarding the format of the path. In general, it is
+            strongly recommended that template loaders use URL-style paths.
+            The path must not use <tt style="color: #A03D10">/</tt>, <tt style="color: #A03D10">./</tt>
+            and <tt style="color: #A03D10">../</tt> and <tt style="color: #A03D10">://</tt> with other
+            meaning as they have in URL paths (or in UN*X paths). The
+            characters <tt style="color: #A03D10">*</tt> and <tt style="color: #A03D10">?</tt> are
+            reserved. Also, the template loader must not want paths starting
+            with <tt style="color: #A03D10">/</tt>; FreeMarker will never call template
+            loader with such path. Note that FreeMarker always normalizes the
+            paths before passing them to the template loader, so the paths do
+            not contain <tt style="color: #A03D10">/../</tt> and such, and are relative to
+            the imaginary template root directory.</p>
+
+            <p>Note that FreeMarker template loading always uses slash (not
+            backslash) regardless of the host OS.</p>
+          
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="pgui_config_templateloading_caching"></a>Template caching  </h2>
+
+
+          
+
+          
+
+          <p>FreeMarker caches templates (assuming you use the
+          <tt style="color: #A03D10">Configuration</tt> methods to create
+          <tt style="color: #A03D10">Template</tt> objects). This means that when you call
+          <tt style="color: #A03D10">getTemplate</tt>, FreeMarker not only returns the
+          resulting <tt style="color: #A03D10">Template</tt> object, but stores it in a
+          cache, so when next time you call <tt style="color: #A03D10">getTemplate</tt>
+          with the same (or equivalent) path, it just returns the cached
+          <tt style="color: #A03D10">Template</tt> instance, and will not load and parse
+          the template file again.</p>
+
+          <p>If you change the template file, then FreeMarker will re-load
+          and re-parse the template automatically when you get the template
+          next time. However, since checking if the file has been changed can
+          be time consuming, there is a <tt style="color: #A03D10">Configuration</tt> level
+          setting called ``update delay''. This is the time that must elapse
+          since the last checking for a newer version of a certain template
+          before FreeMarker will check that again. This is set to 5 seconds by
+          default. If you want to see the changes of templates immediately,
+          set it to 0. Note that some template loaders may have problems with
+          template updating. For example, class-loader based template loaders
+          typically do not notice that you have changed the template
+          file.</p>
+
+          <p>A template will be removed from the cache if you call
+          <tt style="color: #A03D10">getTemplate</tt> and FreeMarker realizes that the
+          template file has been removed meanwhile. Also, if the JVM thinks
+          that it begins to run out of memory, by default it can arbitrarily
+          drop templates from the cache. Furthermore, you can empty the cache
+          manually with the <tt style="color: #A03D10">clearTemplateCache</tt> method of
+          <tt style="color: #A03D10">Configuration</tt>.</p>
+
+          <p>The actual strategy of when a cached template should be thrown
+          away is pluggable with the <tt style="color: #A03D10">cache_storage</tt> setting,
+          by which you can plug any <tt style="color: #A03D10">CacheStorage</tt>
+          implementation. For most users
+          <tt style="color: #A03D10">freemarker.cache.MruCacheStorage</tt> will be
+          sufficient. This cache storage implements a two-level Most Recently
+          Used cache. In the first level, items are strongly referenced up to
+          the specified maximum (strongly referenced items can't be dropped by
+          the JVM, as opposed to softly referenced items). When the maximum is
+          exceeded, the least recently used item is moved into the second
+          level cache, where they are softly referenced, up to another
+          specified maximum. The size of the strong and soft parts can be
+          specified with the constructor. For example, set the size of the
+          strong part to 20, and the size of soft part to 250:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+cfg.setCacheStorage(new freemarker.cache.MruCacheStorage(20, 250))&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Or, since <tt style="color: #A03D10">MruCacheStorage</tt> is the default
+          cache storage implementation:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+cfg.setSetting(Configuration.CACHE_STORAGE_KEY, &quot;strong:20, soft:250&quot;);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>When you create a new <tt style="color: #A03D10">Configuration</tt> object,
+          initially it uses an <tt style="color: #A03D10">MruCacheStorage</tt> where
+          <tt style="color: #A03D10">maxStrongSize</tt> is 0, and
+          <tt style="color: #A03D10">maxSoftSize</tt> is
+          <tt style="color: #A03D10">Integer.MAX_VALUE</tt> (that is, in practice,
+          infinite). But using non-0 <tt style="color: #A03D10">maxStrongSize</tt> is maybe
+          a better strategy for high load servers, since it seems that, with
+          only softly referenced items, JVM tends to cause just higher
+          resource consumption if the resource consumption was already high,
+          because it constantly throws frequently used templates from the
+          cache, which then have to be re-loaded and and re-parsed.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_config_errorhandling.html"><span class="hideA">Next page: </span>Error handling</a></div><div class="pagerButton"><a href="pgui_config_settings.html">Previous page</a></div><div class="pagerButton"><a href="pgui_config.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_config.html">The Configuration</a>
+            <b>></b>
+          Template loading
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

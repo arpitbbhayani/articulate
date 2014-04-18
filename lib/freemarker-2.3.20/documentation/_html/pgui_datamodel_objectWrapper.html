@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Object wrappers
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_datamodel.html">The Data Model</a>
+            <b>></b>
+          Object wrappers
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_config.html"><span class="hideA">Next page: </span>The Configuration</a></div><div class="pagerButton"><a href="pgui_datamodel_node.html">Previous page</a></div><div class="pagerButton"><a href="pgui_datamodel.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_datamodel_objectWrapper"></a>Object wrappers  </h1>
+    
+    
+<p>When you add something to a container, it may receive any java
+        object as a parameter, not necessarily a
+        <tt style="color: #A03D10">TemplateModel</tt>, as you could see in the FreeMarker
+        API. This is because the container implementation can silently replace
+        that object with the appropriate <tt style="color: #A03D10">TemplateModel</tt>
+        object. For example if you add a <tt style="color: #A03D10">String</tt> to the
+        container, perhaps it will be replaced with a
+        <tt style="color: #A03D10">SimpleScalar</tt> instance which stores the same
+        text.</p><p>As for when the replacement occurs, it's the business of the
+        container in question (i.e. the business of the class that implements
+        the container interface), but it must happen at the latest when you
+        get the subvariable, as the getter methods (according to the
+        interfaces) return <tt style="color: #A03D10">TemplateModel</tt>, not
+        <tt style="color: #A03D10">Object</tt>. For example, <tt style="color: #A03D10">SimpleHash</tt>,
+        <tt style="color: #A03D10">SimpleSequence</tt> and
+        <tt style="color: #A03D10">SimpleCollection</tt> use the laziest strategy; they
+        replace a non-<tt style="color: #A03D10">TemplateModel</tt> subvariable with an
+        appropriate <tt style="color: #A03D10">TemplateModel</tt> object when you get the
+        subvariable for the first time.</p><p>As for what java objects can be replaced, and with what
+        <tt style="color: #A03D10">TemplateModel</tt> implementations, it is either handled
+        by the container implementation itself, or it delegates this to an
+        <tt style="color: #A03D10">ObjectWrapper</tt> instance.
+        <tt style="color: #A03D10">ObjectWrapper</tt> is an interface that specifies one
+        method: <tt style="color: #A03D10">TemplateModel wrap(java.lang.Object obj)</tt>.
+        You pass in an <tt style="color: #A03D10">Object</tt>, and it returns the
+        corresponding <tt style="color: #A03D10">TemplateModel</tt> object, or throws a
+        <tt style="color: #A03D10">TemplateModelException</tt> if this is not possible. The
+        replacement rules are coded into the <tt style="color: #A03D10">ObjectWrapper</tt>
+        implementation.</p><p>The most important <tt style="color: #A03D10">ObjectWrapper</tt>
+        implementations that the FreeMarker core provides are:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p><tt style="color: #A03D10">ObjectWrapper.DEFAULT_WRAPPER</tt>: It
+            replaces <tt style="color: #A03D10">String</tt> with
+            <tt style="color: #A03D10">SimpleScalar</tt>, <tt style="color: #A03D10">Number</tt> with
+            <tt style="color: #A03D10">SimpleNumber</tt>, <tt style="color: #A03D10">List</tt> and array
+            with <tt style="color: #A03D10">SimpleSequence</tt>, <tt style="color: #A03D10">Map</tt>
+            with <tt style="color: #A03D10">SimpleHash</tt>, <tt style="color: #A03D10">Boolean</tt>
+            with <tt style="color: #A03D10">TemplateBooleanModel.TRUE</tt> or
+            <tt style="color: #A03D10">TemplateBooleanModel.FALSE</tt>, W3C DOM nodes with
+            <tt style="color: #A03D10">freemarker.ext.dom.NodeModel</tt>. For Jython
+            objects, this wrapper will invoke
+            <tt style="color: #A03D10">freemarker.ext.jython.JythonWrapper</tt>. For all
+            other objects, it will invoke <a href="pgui_misc_beanwrapper.html"><tt>BEANS_WRAPPER</tt></a>.</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">ObjectWrapper.BEANS_WRAPPER</tt>: It can
+            expose java Bean properties and other members of arbitrary objects
+            using Java reflection. At least in FreeMarker 2.3, it is a
+            <tt style="color: #A03D10">freemarker.ext.beans.BeansWrapper</tt> instance;
+            there is a separated <a href="pgui_misc_beanwrapper.html">chapter
+            about it</a>.</p>
+          </li>
+        </ul>    </div>
+<p>For a concrete example, let's see how the
+        <tt style="color: #A03D10">Simple<i style="color: #DD4400">Xxx</i></tt> classes work.
+        <tt style="color: #A03D10">SimpleHash</tt>, <tt style="color: #A03D10">SimpleSequence</tt> and
+        <tt style="color: #A03D10">SimpleCollection</tt> use
+        <tt style="color: #A03D10">DEFAULT_WRAPPER</tt> to wrap the subvariables (unless
+        you pass in an alternative wrapper in their constructor). So this
+        example demonstrates <tt style="color: #A03D10">DEFAULT_WRAPPER</tt> in
+        action:</p><div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Map map = new HashMap();
+map.put(&quot;anotherString&quot;, &quot;blah&quot;);
+map.put(&quot;anotherNumber&quot;, new Double(3.14));
+List list = new ArrayList();
+list.add(&quot;red&quot;);
+list.add(&quot;green&quot;);
+list.add(&quot;blue&quot;);
+
+SimpleHash root = new SimpleHash();  // will use the default wrapper
+root.put(&quot;theString&quot;, &quot;wombat&quot;);
+root.put(&quot;theNumber&quot;, new Integer(8));
+root.put(&quot;theMap&quot;, map);
+root.put(&quot;theList&quot;, list);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>Assuming that root is the data-model root, the resulting
+        data-model is:</p><div align="left" class="programlisting"><table bgcolor="#99CCFF" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#99CCFF" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+(root)
+ |
+ +- theString = &quot;wombat&quot;
+ |
+ +- theNumber = 8
+ |
+ +- theMap
+ |   |
+ |   +- anotherString = &quot;blah&quot;
+ |   |
+ |   +- anotherNumber = 3.14
+ |
+ +- theList
+     |
+     +- (1st) = &quot;red&quot;
+     |
+     +- (2nd) = &quot;green&quot;
+     |
+     +- (3rd) = &quot;blue&quot;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>Note that the <tt style="color: #A03D10">Object</tt>-s inside
+        <tt style="color: #A03D10">theMap</tt> and <tt style="color: #A03D10">theList</tt> are
+        accessible as subvariables too. This is because when you, say, try to
+        access <tt style="color: #A03D10">theMap.anotherString</tt>, then the
+        <tt style="color: #A03D10">SimpleHash</tt> (which is used as root hash here) will
+        silently replace the <tt style="color: #A03D10">Map</tt>
+        (<tt style="color: #A03D10">theMap</tt>) with a <tt style="color: #A03D10">SimpleHash</tt>
+        instance that uses the same wrapper as the root hash, so when you try
+        to access the <tt style="color: #A03D10">anotherString</tt> subvariable of it, it
+        will replace that with a <tt style="color: #A03D10">SimpleScalar</tt>.</p><p>If you drop an ``arbitrary'' object into the data-model,
+        <tt style="color: #A03D10">DEFAULT_WRAPPER</tt> will invoke
+        <tt style="color: #A03D10">BEANS_WRAPPER</tt> to wrap the object:</p><div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+SimpleHash root = new SimpleHash();
+// expose a &quot;simple&quot; java objects:
+root.put(&quot;theString&quot;, &quot;wombat&quot;);
+// expose an &quot;arbitrary&quot; java objects:
+root.put(&quot;theObject&quot;, new TestObject(&quot;green mouse&quot;, 1200));&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>Assuming this is <tt style="color: #A03D10">TestObject</tt>:</p><div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+public class TestObject {
+    private String name;
+    private int price;
+
+    public TestObject(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    // JavaBean properties
+    // Note that public fields are not visible directly;
+    // you must write a getter method for them.
+    public String getName() {return name;}
+    public int getPrice() {return price;}
+    
+    // A method
+    public double sin(double x) {
+        return Math.sin(x);
+    }
+}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>The data-model will be:</p><div align="left" class="programlisting"><table bgcolor="#99CCFF" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#99CCFF" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+(root)
+ |
+ +- theString = &quot;wombat&quot;
+ |
+ +- theObject
+     |
+     +- name = &quot;green mouse&quot;
+     |
+     +- price = 1200
+     |
+     +- number sin(number)&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>So we can merge it with this template:</p><div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${theObject.name}
+${theObject.price}
+${theObject.sin(123)}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>Which will output:</p><div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+green mouse
+1200
+-0,45990349068959124&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>You have seen in earlier examples of this manual that we have
+        used <tt style="color: #A03D10">java.util.HashMap</tt> as root hash, and not
+        <tt style="color: #A03D10">SimpleHash</tt> or other FreeMarker specific class. It
+        works because
+        <tt style="color: #A03D10">Template.process(<i style="color: #DD4400">...</i>)</tt>
+        automatically wraps the object you give as its data-model argument. It
+        uses the object wrapper dictated by the
+        <tt style="color: #A03D10">Configuration</tt> level <a href="pgui_config_settings.html">setting</a>,
+        <tt style="color: #A03D10">object_wrapper</tt> (unless you explicitly specify an
+        <tt style="color: #A03D10">ObjectWrapper</tt> as its parameter). Thus, in simple
+        FreeMarker application you need not know about
+        <tt style="color: #A03D10">TemplateModel</tt>-s at all. Note that the root need not
+        be a <tt style="color: #A03D10">java.util.Map</tt>. It can be anything that is
+        wrapped so that it implements the <tt style="color: #A03D10">TemplateHashModel</tt>
+        interface.</p><p>The factory default value of the
+        <tt style="color: #A03D10">object_wrapper</tt> setting is
+        <tt style="color: #A03D10">ObjectWrapper.DEFAULT_WRAPPER</tt>. If you want to
+        change it to, say, <tt style="color: #A03D10">ObjectWrapper.BEANS_WRAPPER</tt>, you
+        can configure the FreeMarker engine (before starting to use it from
+        other threads) like this:</p><div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+cfg.setObjectWrapper(ObjectWrapper.BEANS_WRAPPER);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>Note that you can set any object here that implements interface
+        <tt style="color: #A03D10">ObjectWrapper</tt>, so you can set your custom
+        implementation as well.</p><p>For <tt style="color: #A03D10">TemplateModel</tt> implementations that wrap
+        basic Java container types, as <tt style="color: #A03D10">java.util.Map</tt>-s and
+        <tt style="color: #A03D10">java.util.List</tt>-s, the convention is that they use
+        the same object wrapper to wrap their subvariables as their parent
+        container does. Technically correctly said, they are instantiated by
+        their parent container (so it has full control over the creation of
+        them), and the parent container create them so they will use the same
+        object wrapper as the parent itself. Thus, if
+        <tt style="color: #A03D10">BEANS_WRAPPER</tt> is used for the wrapping of the root
+        hash, it will be used for the wrapping of the subvariables (and the
+        subvariables of the subvariables, etc.) as well. This is exactly the
+        same phenomenon as you have seen with
+        <tt style="color: #A03D10">theMap.anotherString</tt> earlier.</p>  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_config.html"><span class="hideA">Next page: </span>The Configuration</a></div><div class="pagerButton"><a href="pgui_datamodel_node.html">Previous page</a></div><div class="pagerButton"><a href="pgui_datamodel.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_datamodel.html">The Data Model</a>
+            <b>></b>
+          Object wrappers
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,569 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Seldom used and expert built-ins
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_builtins.html">Built-in Reference</a>
+            <b>></b>
+          Seldom used and expert built-ins
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_directives.html"><span class="hideA">Next page: </span>Directive Reference</a></div><div class="pagerButton"><a href="ref_builtins_node.html">Previous page</a></div><div class="pagerButton"><a href="ref_builtins.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="ref_builtins_expert"></a>Seldom used and expert built-ins  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#ref_builtin_numType">byte, double, float, int, long, short</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_numToDate">number_to_date, number_to_time, number_to_datetime</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_eval">eval</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_has_content">has_content</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_interpret">interpret</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_isType">is_...</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_namespace">namespace</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_new">new</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>These are the built-ins that normally you should not use, but in
+        exceptional situations (debugging, advanced macros) they can be
+        useful. If you need to use these in your normal page templates, you
+        may revisit the data-model so you don't need to use these.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_numType"></a>byte, double, float, int, long, short  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <p>Returns a <tt style="color: #A03D10">SimpleNumber</tt> which contains the
+          same value as the original variable, but uses
+          <tt style="color: #A03D10">java.lang.<i style="color: #DD4400">Type</i></tt> for the
+          internal representation of the value. This is useful if a method is
+          overloaded, or if a <tt style="color: #A03D10">TemplateModel</tt> unwrapper has
+          problem with automatically choosing the suitable
+          <tt style="color: #A03D10">java.lang.*</tt> type. Note that since version 2.3.9
+          the unwrapper has been improved substantially, so you will hardly
+          ever need to use these built-ins to convert between numerical types,
+          except for resolving ambiguity in overloaded method
+          invocation.</p>
+
+          <p>The <tt style="color: #A03D10">long</tt> built-in can also be used with
+          date, time and date-time values to get the value as
+          <tt style="color: #A03D10">java.util.Date.getTime()</tt> would return. This is
+          useful if you have to call a Java methods that expect a timestamp as
+          a <tt style="color: #A03D10">long</tt>. This conversion is not automatic.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_numToDate"></a>number_to_date, number_to_time, number_to_datetime  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <p>These are used to convert a number (usually a Java
+          <tt style="color: #A03D10">long</tt>) to a date, time or date-time, respectively.
+          This does them same as <tt style="color: #A03D10">new java.util.Date(long)</tt>
+          in Java, that is, the number is interpreted as the milliseconds
+          passed since the epoch. The number can be anything and of any type
+          as far as its value fits into a <tt style="color: #A03D10">long</tt>. If the
+          number isn't a whole number, it will be rounded to whole with
+          half-up rule. This conversion is not automatic.</p>
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${1305575275540?number_to_datetime}
+${1305575275540?number_to_date}
+${1305575275540?number_to_time}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The output will be something like this (depending on the
+          current locale and time zone):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+May 16, 2011 3:47:55 PM
+May 16, 2011
+3:47:55 PM&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_eval"></a>eval  </h2>
+
+
+          
+
+          
+
+          <p>This built-in evaluates a string as an FTL expression. For
+          example <tt style="color: #A03D10">&quot;1+2&quot;?eval</tt> returns number 3.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_has_content"></a>has_content  </h2>
+
+
+          
+
+          <p>It is <tt style="color: #A03D10">true</tt> if the variable exists (and
+          isn't Java <tt style="color: #A03D10">null</tt>) and is not ``empty'', otherwise
+          it is <tt style="color: #A03D10">false</tt>. The meaning of ``empty'' depends on
+          the concrete case. This follows intuitive common-sense ideas. The
+          following are empty: a string with 0 length, sequence or hash with
+          no subvariables, a collection which has passed the last element. If
+          the value is not a string or sequence or hash or collection, then it
+          counts as non-empty if it's a number or a date or a boolean (e.g.
+          <tt style="color: #A03D10">0</tt> and <tt style="color: #A03D10">false</tt> are not empty),
+          otherwise it counts as empty. Note that when your data-model
+          implements multiple template model interfaces you may get unexpected
+          results. However, when in doubt you can use always use
+          <tt style="color: #A03D10">expr!?size &gt; 0</tt> or <tt style="color: #A03D10">expr!?length &gt;
+          0</tt> instead of <tt style="color: #A03D10">expr?has_content</tt>.</p>
+
+          <p>This buit-in is exceptional in that you can use the
+          parentheses trick like with the <a href="dgui_template_exp.html#dgui_template_exp_missing_default">default value
+          operator</a>. That is, you can write both
+          <tt style="color: #A03D10">product.color?has_content</tt> and
+          <tt style="color: #A03D10">(product.color)?has_content</tt>. The first doesn't
+          handle the case when <tt style="color: #A03D10">product</tt> is missing, the last
+          does.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_interpret"></a>interpret  </h2>
+
+
+          
+
+          <p>This built-in interprets a string as a FTL template, and
+          returns an user-defined directive that - when applied to any block -
+          executes the template just as if it was included at that point.
+          Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign x=[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]&gt;
+&lt;#assign templateSource = r&quot;&lt;#list x as y&gt;${y}&lt;/#list&gt;&quot;&gt;
+&lt;#-- Note: That r was needed so that the ${y} is not interpreted above --&gt;
+&lt;#assign inlineTemplate = templateSource?interpret&gt;
+&lt;@inlineTemplate /&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+abc&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>As you can see, <tt style="color: #A03D10">inlineTemplate</tt> is a
+          user-defined directive that, when executed, runs the template that
+          was generated on-the-fly using the
+          <tt style="color: #A03D10">interpret</tt>.</p>
+
+          <p>You can also apply this built-in to a two-element sequence. In
+          this case the first element of the sequence is the template source,
+          and the second element is a name for the inline template. It can be
+          useful to give an explicit name to the inline template for debugging
+          purposes. So, you could have written:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign inlineTemplate = [templateSource, &quot;myInlineTemplate&quot;]?interpret&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>as well in the above template. Note that giving the inline
+          template a name has no immediate effect - it is only useful as an
+          extra bit of information if you get an error report.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_isType"></a>is_...  </h2>
+
+
+          
+
+          
+
+          <p>These built-ins check the type of a variable, and returns
+          <tt style="color: #A03D10">true</tt> or <tt style="color: #A03D10">false</tt> depending on the
+          type. The list of
+          <tt style="color: #A03D10">is_<i style="color: #DD4400">...</i></tt>
+          built-ins:</p>
+
+             <div class="informaltable">
+      <table border="1" cellpadding="4">
+
+            <thead>
+              <tr>
+                <th>Built-in</th>
+
+
+                <th>Returns <tt style="color: #A03D10">true</tt> if the value is a ...</th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+              <tr>
+                <td><tt style="color: #A03D10">is_string</tt></td>
+
+
+                <td>string</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_number</tt></td>
+
+
+                <td>number</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_boolean</tt></td>
+
+
+                <td>boolean</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_date</tt></td>
+
+
+                <td>date (all types: date-only, time-only and date-time)</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_method</tt></td>
+
+
+                <td>method</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_transform</tt></td>
+
+
+                <td>transform</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_macro</tt></td>
+
+
+                <td>macro or function (yes, also for function; a historical
+                glitch)</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_hash</tt></td>
+
+
+                <td>hash</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_hash_ex</tt></td>
+
+
+                <td>extended hash (i.e. supports <tt style="color: #A03D10">?keys</tt> and
+                <tt style="color: #A03D10">?values</tt>)</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_sequence</tt></td>
+
+
+                <td>sequence</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_collection</tt></td>
+
+
+                <td>collection</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_enumerable</tt></td>
+
+
+                <td>sequence or collection</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_indexable</tt></td>
+
+
+                <td>sequence</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_directive</tt></td>
+
+
+                <td>Whatever kind of directive (for example a macro, <span style="color:#333399; font-style:italic">or
+                <tt style="color: #A03D10">TemplateDirectiveModel</tt>,
+                <tt style="color: #A03D10">TemplateTransformModel</tt>, etc.</span>), or
+                function (a historical glitch)</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">is_node</tt></td>
+
+
+                <td>node</td>
+
+              </tr>
+
+            </tbody>
+
+                </table>
+   </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_namespace"></a>namespace  </h2>
+
+
+          
+
+          <p>This built-in returns the namespace (i.e. the ``gate'' hash to
+          the namespace) associated with a macro or function variable. You can
+          use it with macros and functions only.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_new"></a>new  </h2>
+
+
+          
+
+          
+
+          <p>This is to create a variable of a certain
+          <tt style="color: #A03D10">TemplateModel</tt> implementation.</p>
+
+          <p>On the left side of <tt style="color: #A03D10">?</tt> you specify a string,
+          the full-qualified class name of a <tt style="color: #A03D10">TemplateModel</tt>
+          implementation. The result is a method variable that calls the
+          constructor, and returns the new variable.</p>
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#-- Creates an user-defined directive be calling the parameterless constructor of the class --&gt;
+&lt;#assign word_wrapp = &quot;com.acmee.freemarker.WordWrapperDirective&quot;?new()&gt;
+&lt;#-- Creates an user-defined directive be calling the constructor with one numerical argument --&gt;
+&lt;#assign word_wrapp_narrow = &quot;com.acmee.freemarker.WordWrapperDirective&quot;?new(40)&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>For more information about how the constructor parameters are
+          unwrapped and how overloaded constructor is chosen, read: <a href="pgui_misc_beanwrapper.html">Programmer's Guide/Miscellaneous/Bean wrapper</a></p>
+
+          <p>This built-in can be a security concern because the template
+          author can create arbitrary Java objects and then use them, as far
+          as they implement <tt style="color: #A03D10">TemplateModel</tt>. Also the
+          template author can trigger static initialization for classes that
+          don't even implement <tt style="color: #A03D10">TemplateModel</tt>. You can
+          (since 2.3.17) restrict the classes accessible with this built-in
+          using
+          <tt style="color: #A03D10">Configuration.setNewBuiltinClassResolver(TemplateClassResolver)</tt>
+          or the <tt style="color: #A03D10">new_builtin_class_resolver</tt> setting. See
+          the Java API docs for more information. If you are allowing
+          not-so-much-trusted users to upload templates then you should
+          definitely look into this topic.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_directives.html"><span class="hideA">Next page: </span>Directive Reference</a></div><div class="pagerButton"><a href="ref_builtins_node.html">Previous page</a></div><div class="pagerButton"><a href="ref_builtins.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_builtins.html">Built-in Reference</a>
+            <b>></b>
+          Seldom used and expert built-ins
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

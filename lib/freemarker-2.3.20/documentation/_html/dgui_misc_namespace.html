@@ -1,0 +1,433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Namespaces
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Namespaces
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_misc_whitespace.html"><span class="hideA">Next page: </span>White-space handling</a></div><div class="pagerButton"><a href="dgui_misc_var.html">Previous page</a></div><div class="pagerButton"><a href="dgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="dgui_misc_namespace"></a>Namespaces  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_26">Creating a library</a>
+      </li>
+      <li>
+        <a href="#autoid_27">Writing the variables of imported namespaces</a>
+      </li>
+      <li>
+        <a href="#autoid_28">Namespaces and data-model</a>
+      </li>
+      <li>
+        <a href="#autoid_29">The life-cycle of namespaces</a>
+      </li>
+      <li>
+        <a href="#autoid_30">Writing libraries for other people</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>When you run FTL templates, you have a (possibly empty) set of
+        variables that you have created with <tt style="color: #A03D10">assign</tt> and
+        <tt style="color: #A03D10">macro</tt> directives, as can be seen from the <a href="dgui_misc_var.html">previous chapter</a>. A set of variables
+        like this is called a <b>namespace</b>. In
+        simple cases you use only one namespace, the so-called <b>main namespace</b>. You don't realize this, since
+        normally you use only this namespace.</p><p>But if you want to build reusable collection of macros,
+        functions and other variables -- usually referred as <b>library</b> by lingo -- the usage of multiple
+        namespaces becomes inevitable. Just consider if you have a big
+        collection of macros, that you use in several projects, or even you
+        want to share it with other people. It becomes impossible to be sure
+        that the library does not have a macro (or other variable) with the
+        same name as the name of a variable in the data-model, or with the
+        same name as a the name of a variable in another library used in the
+        template. In general, variables can clobber each other because of the
+        name clashes. So you should use a separate namespace for the variables
+        of each library.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_26"></a>Creating a library  </h2>
+
+
+          <p>Let's create a simple library. Assume you commonly need the
+          variables <tt style="color: #A03D10">copyright</tt> and <tt style="color: #A03D10">mail</tt>
+          (before you ask, macros <i>are</i> variables):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#macro copyright date&gt;
+  &lt;p&gt;Copyright (C) ${date} Julia Smith. All rights reserved.&lt;/p&gt;
+&lt;/#macro&gt;
+
+&lt;#assign mail = &quot;jsmith@acme.com&quot;&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Store the above in the file <tt style="color: #A03D10">lib/my_test.ftl</tt>
+          (in the directory where you store the templates). Assume you want to
+          use this in <tt style="color: #A03D10">aWebPage.ftl</tt>. If you use
+          <tt style="color: #A03D10">&lt;#include &quot;/lib/my_test.ftl&quot;&gt;</tt> in the
+          <tt style="color: #A03D10">aWebPage.ftl</tt>, then it will create the two
+          variables in the main namespace, and it is not good now, since you
+          want them to be in a namespace that is used exclusively by the ``My
+          Test Library''. Instead of <tt style="color: #A03D10">include</tt> you have to
+          use <a href="ref_directive_import.html#ref.directive.import"><tt>import</tt>
+          directive</a>. This directive is, at the first glance, similar to
+          <tt style="color: #A03D10">include</tt>, but it will create an empty namespace
+          for <tt style="color: #A03D10">lib/my_test.ftl</tt> and will execute that there.
+          <tt style="color: #A03D10">lib/my_test.ftl</tt> will find itself in an clean new
+          world, where only the variables of data-model are present (since
+          they are visible from everywhere), and will create the two variables
+          in this new world. That's fine for now, but you want to access the
+          two variables from <tt style="color: #A03D10">aWebPage.ftl</tt>, and that uses
+          the main namespace, so it can't see the variables of the other
+          namespace. The solution is that the <tt style="color: #A03D10">import</tt>
+          directive not only creates the new namespace, but a new hash
+          variable in the namespace used by the caller of
+          <tt style="color: #A03D10">import</tt> (the main namespace in this case), that
+          will act as a gate into the newly created namespace. So this is how
+          <tt style="color: #A03D10">aWebPage.ftl</tt> will look like:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#import &quot;/lib/my_test.ftl&quot; as <b>my</b>&gt; &lt;#-- the hash called &quot;my&quot; will be the &quot;gate&quot; --&gt;
+&lt;@<b>my</b>.copyright date=&quot;1999-2002&quot;/&gt;
+${<b>my</b>.mail}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note how it accesses the variables in the namespace created
+          for <tt style="color: #A03D10">/lib/my_test.ftl</tt> using the newly created
+          namespace accessing hash, <tt style="color: #A03D10">my</tt>. This will
+          print:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+  &lt;p&gt;Copyright (C) 1999-2002 Julia Smith. All rights reserved.&lt;/p&gt;
+jsmith@acme.com&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>If you would have a variable called <tt style="color: #A03D10">mail</tt> or
+          <tt style="color: #A03D10">copyright</tt> in the main namespace, that would not
+          cause any confusion, since the two templates use separated
+          namespaces. For example, modify the <tt style="color: #A03D10">copyright</tt>
+          macro in <tt style="color: #A03D10">lib/my_test.ftl</tt> to this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#macro copyright date&gt;
+  &lt;p&gt;Copyright (C) ${date} Julia Smith. All rights reserved.
+  &lt;br&gt;Email: <b>${mail}</b>&lt;/p&gt;
+&lt;/#macro&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>and then replace <tt style="color: #A03D10">aWebPage.ftl</tt> with
+          this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#import &quot;/lib/my_test.ftl&quot; as my&gt;
+<b>&lt;#assign mail=&quot;fred@acme.com&quot;&gt;</b>
+&lt;@my.copyright date=&quot;1999-2002&quot;/&gt;
+${my.mail}
+${mail}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>and the output will be this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+  &lt;p&gt;Copyright (C) 1999-2002 Julia Smith. All rights reserved.
+  &lt;br&gt;Email: <b>jsmith@acme.com</b>&lt;/p&gt;
+jsmith@acme.com
+fred@acme.com&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This is like that because when you have called the
+          <tt style="color: #A03D10">copyright</tt> macro, FreeMarker has temporarily
+          switch to the namespace that was created by the
+          <tt style="color: #A03D10">import</tt> directive for
+          <tt style="color: #A03D10">/lib/my_test.ftl</tt>. Thus, the
+          <tt style="color: #A03D10">copyright</tt> macro always sees the
+          <tt style="color: #A03D10">mail</tt> variable that exists there, and not the
+          other <tt style="color: #A03D10">mail</tt> that exists in the main
+          namespace.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_27"></a>Writing the variables of imported namespaces  </h2>
+
+
+          <p>Occasionally you may want to create or replace a variable in
+          an imported namespace. You can do this with the
+          <tt style="color: #A03D10">assign</tt> directive, if you use its
+          <tt style="color: #A03D10">namespace</tt> parameter. For example, this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#import &quot;/lib/my_test.ftl&quot; as my&gt;
+${my.mail}
+&lt;#assign mail=&quot;jsmith@other.com&quot; <b>in my</b>&gt;
+${my.mail}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+jsmith@acme.com
+jsmith@other.com&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_28"></a>Namespaces and data-model  </h2>
+
+
+          <p>The variables of the data-model are visible from everywhere.
+          For example, if you have a variable called <tt style="color: #A03D10">user</tt>
+          in the data-model, <tt style="color: #A03D10">lib/my_test.ftl</tt> will access
+          that, exactly as <tt style="color: #A03D10">aWebPage.ftl</tt> does:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#macro copyright date&gt;
+  &lt;p&gt;Copyright (C) ${date} <b>${user}</b>. All rights reserved.&lt;/p&gt;
+&lt;/#macro&gt;
+
+&lt;#assign mail = &quot;<b>${user}</b>@acme.com&quot;&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>If <tt style="color: #A03D10">user</tt> is ``Fred'', then the usual
+          example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#import &quot;/lib/my_test.ftl&quot; as my&gt;
+&lt;@my.copyright date=&quot;1999-2002&quot;/&gt;
+${my.mail}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will print this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+  &lt;p&gt;Copyright (C) 1999-2002 Fred. All rights reserved.&lt;/p&gt;
+Fred@acme.com&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Don't forget that the variables in the namespace (the
+          variables you create with <tt style="color: #A03D10">assign</tt> or
+          <tt style="color: #A03D10">macro</tt> directives) have precedence over the
+          variables of the data-model when you are in that namespace. Thus,
+          the contents of data-model does not interfere with the variables
+          created by the library.</p>
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>In some unusual applications you want to create variables in
+            the template those are visible from all namespaces, exactly like
+            the variables of the data-model. But you can't change the
+            data-model with templates. Still, it is possible to achieve
+            similar result with the <tt style="color: #A03D10">global</tt> directive; read
+            the <a href="ref_directive_global.html#ref.directive.global">reference</a> for more
+            details.</p>
+          </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_29"></a>The life-cycle of namespaces  </h2>
+
+
+          <p>A namespace is identified by the path that was used with the
+          <tt style="color: #A03D10">import</tt> directive. If you try to
+          <tt style="color: #A03D10">import</tt> with the same path for multiple times, it
+          will create the namespace and run the template specified by the path
+          for the very first invocation of <tt style="color: #A03D10">import</tt> only. The
+          later <tt style="color: #A03D10">import</tt>s with the same path will just create
+          a ``gate'' hash to the same namespace. For example, let this be the
+          <tt style="color: #A03D10">aWebPage.ftl</tt>:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#import &quot;/lib/my_test.ftl&quot; as my&gt;
+&lt;#import &quot;/lib/my_test.ftl&quot; as foo&gt;
+&lt;#import &quot;/lib/my_test.ftl&quot; as bar&gt;
+${my.mail}, ${foo.mail}, ${bar.mail}
+&lt;#assign mail=&quot;jsmith@other.com&quot; in my&gt;
+${my.mail}, ${foo.mail}, ${bar.mail}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The output will be:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+jsmith@acme.com, jsmith@acme.com, jsmith@acme.com
+jsmith@other.com, jsmith@other.com, jsmith@other.com&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>since you see the same namespace through
+          <tt style="color: #A03D10">my</tt>, <tt style="color: #A03D10">foo</tt> and
+          <tt style="color: #A03D10">bar</tt>.</p>
+
+          <p>Note that namespaces are not hierarchical, they exist
+          independently of each other. That is, if you
+          <tt style="color: #A03D10">import</tt> namespace N2 while you are in name space
+          N1, N2 will not be inside N1. N1 just gets a hash by which it can
+          access N2. This is the same N2 namespace that you would access if,
+          say, you <tt style="color: #A03D10">import</tt> N2 when you are in the main
+          namespace.</p>
+
+          <p>Each <a href="gloss.html#gloss.templateProcessingJob">template
+          processing job</a> has its own private set of namespaces. Each
+          template-processing job is a separated cosmos that exists only for
+          the short period of time while the given page is being rendered, and
+          then it vanishes with all its populated namespaces. Thus, whenever
+          we say that ``<tt style="color: #A03D10">import</tt> is called for the first
+          time'' and such, we are always talking in the context of a single
+          template processing job.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_30"></a>Writing libraries for other people  </h2>
+
+
+          
+
+          <p>If you have written a good quality library that can be useful
+          for other people, you may want to make it available on the Internet
+          (like on <a href="http://freemarker.org/libraries.html">http://freemarker.org/libraries.html</a>).
+          To prevent clashes with the names of libraries used by other
+          authors, and to make it easy to write libraries that import other
+          published libraries, there is a de-facto standard that specifies the
+          format of library paths. The standard is that the library must be
+          available (importable) for templates and other libraries with a path
+          like this:</p>
+
+          <p><tt style="color: #A03D10">/lib/<i style="color: #DD4400">yourcompany.com</i>/<i style="color: #DD4400">your_library</i>.ftl</tt></p>
+
+          <p>For example if you work for Example Inc. that owns the
+          www.example.com homepage, and you develop a widget library, then the
+          path of the FTL file to import should be:</p>
+
+          <p><tt style="color: #A03D10">/lib/example.com/widget.ftl</tt></p>
+
+          <p>Note that the www is omitted. The part after the 3rd slash can
+          contain subdirectories such as:</p>
+
+          <p><tt style="color: #A03D10">/lib/example.com/commons/string.ftl</tt></p>
+
+          <p>An important rule is that the path should not contain
+          upper-case letters. To separate words, use <tt style="color: #A03D10">_</tt>, as
+          in <tt style="color: #A03D10">wml_form</tt> (not
+          <tt style="color: #A03D10">wmlForm</tt>).</p>
+
+          <p>Note that if you do not develop the library for a company or
+          organization, you should use the URL of the project homepage, such
+          as <tt style="color: #A03D10">/lib/example.sourceforge.net/example.ftl</tt>, or
+          <tt style="color: #A03D10">/lib/geocities.com/jsmith/example.ftl</tt>.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_misc_whitespace.html"><span class="hideA">Next page: </span>White-space handling</a></div><div class="pagerButton"><a href="dgui_misc_var.html">Previous page</a></div><div class="pagerButton"><a href="dgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Namespaces
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,1768 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Built-ins for strings
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_builtins.html">Built-in Reference</a>
+            <b>></b>
+          Built-ins for strings
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_builtins_number.html"><span class="hideA">Next page: </span>Built-ins for numbers</a></div><div class="pagerButton"><a href="ref_builtins_alphaidx.html">Previous page</a></div><div class="pagerButton"><a href="ref_builtins.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="ref_builtins_string"></a>Built-ins for strings  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#ref_builtin_substring">substring</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_cap_first">cap_first</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_uncap_first">uncap_first</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_capitalize">capitalize</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_chop_linebreak">chop_linebreak</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_string_date">date, time, datetime</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_ends_with">ends_with</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_html">html</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_groups">groups</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_index_of">index_of</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_j_string">j_string</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_js_string">js_string</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_json_string">json_string</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_last_index_of">last_index_of</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_length">length</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_lower_case">lower_case</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_left_pad">left_pad</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_right_pad">right_pad</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_contains">contains</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_matches">matches</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_number">number</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_replace">replace</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_rtf">rtf</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_url">url</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_split">split</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_starts_with">starts_with</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_string_for_string">string (when used with a string value)</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_trim">trim</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_upper_case">upper_case</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_word_list">word_list</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_xhtml">xhtml</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_xml">xml</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_string_flags">Common flags</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>These built-ins act on a string left-value. However, if the
+        left-value is number or date or, since 2.3.20, boolean, it will
+        automatically converted to string according the current number-, date-
+        and boolean-format settings (which are the same formatters that are
+        applied when inserting such values with
+        <tt style="color: #A03D10">${<i style="color: #DD4400">...</i>}</tt>).</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_substring"></a>substring  </h2>
+
+
+          
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>This built-in exists since FreeMarker 2.3.7.</p>
+          </div>
+
+
+          <p>Synopsis:
+          <tt style="color: #A03D10"><i style="color: #DD4400">exp</i>?substring(<i style="color: #DD4400">from</i>,
+          <i style="color: #DD4400">toExclusive</i>)</tt>, also callable as
+          <tt style="color: #A03D10"><i style="color: #DD4400">exp</i>?substring(<i style="color: #DD4400">from</i>)</tt></p>
+
+          <p>A substring of the string.
+          <tt style="color: #A03D10"><i style="color: #DD4400">from</i></tt> is the index of
+          the first character. It must be a number that is at least 0 and less
+          than or equal with
+          <tt style="color: #A03D10"><i style="color: #DD4400">toExclusive</i></tt>, or else
+          an error will abort the template processing. The
+          <tt style="color: #A03D10"><i style="color: #DD4400">toExclusive</i></tt> is the
+          index of the character position after the last character of the
+          substring, or with other words, it is one greater than the index of
+          the last character. It must be a number that is at least 0 and less
+          than or equal to the length of the string, or else an error will
+          abort the template processing. If the
+          <tt style="color: #A03D10"><i style="color: #DD4400">toExclusive</i></tt> is
+          omitted, then it defaults to the length of the string. If a
+          parameter is a number that is not an integer, only the integer part
+          of the number will be used.</p>
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+- ${'abc'?substring(0)}
+- ${'abc'?substring(1)}
+- ${'abc'?substring(2)}
+- ${'abc'?substring(3)}
+
+- ${'abc'?substring(0, 0)}
+- ${'abc'?substring(0, 1)}
+- ${'abc'?substring(0, 2)}
+- ${'abc'?substring(0, 3)}
+
+- ${'abc'?substring(0, 1)}
+- ${'abc'?substring(1, 2)}
+- ${'abc'?substring(2, 3)}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+- abc
+- bc
+- c
+-
+
+-
+- a
+- ab
+- abc
+
+- a
+- b
+- c&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_cap_first"></a>cap_first  </h2>
+
+
+          
+
+          <p>The string with the very first word of the string capitalized.
+          For the precise meaning of ``word'' see the <a href="#ref_builtin_word_list">word_list built-in</a>.
+          Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${&quot;  green mouse&quot;?cap_first}
+${&quot;GreEN mouse&quot;?cap_first}
+${&quot;- green mouse&quot;?cap_first}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+  Green mouse
+GreEN mouse
+- green mouse&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>In the case of <tt style="color: #A03D10">&quot;- green mouse&quot;</tt>, the first
+          word is the <tt style="color: #A03D10">-</tt>.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_uncap_first"></a>uncap_first  </h2>
+
+
+          
+
+          <p>The opposite of <a href="#ref_builtin_cap_first"><tt>cap_first</tt></a>.
+          The string with the very first word of the string
+          un-capitalized.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_capitalize"></a>capitalize  </h2>
+
+
+          
+
+          <p>The string with all words capitalized. For the precise meaning
+          of ``word'' see the <a href="#ref_builtin_word_list">word_list
+          built-in</a>. Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${&quot;  green  mouse&quot;?capitalize}
+${&quot;GreEN mouse&quot;?capitalize}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+  Green Mouse
+Green Mouse&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_chop_linebreak"></a>chop_linebreak  </h2>
+
+
+          
+
+          <p>The string without the <a href="gloss.html#gloss.lineBreak">line-break</a> at its very end if there
+          was a line-break, otherwise the unchanged string.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_string_date"></a>date, time, datetime  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <p>The string converted to a date value. It is recommended to
+          specify a parameter that specifies the format. For example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign test1 = &quot;10/25/1995&quot;?date(&quot;MM/dd/yyyy&quot;)&gt;
+&lt;#assign test2 = &quot;15:05:30&quot;?time(&quot;HH:mm:ss&quot;)&gt;
+&lt;#assign test3 = &quot;1995-10-25 03:05 PM&quot;?datetime(&quot;yyyy-MM-dd hh:mm a&quot;)&gt;
+${test1}
+${test2}
+${test3}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will print something like (depends on the output locale
+          (language) and on other settings):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Oct 25, 1995
+3:05:30 PM
+Oct 25, 1995 3:05:00 PM&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note that the dates was converted back to string according to
+          the <tt style="color: #A03D10">date_format</tt>, <tt style="color: #A03D10">time_format</tt>
+          and <tt style="color: #A03D10">datetime_format</tt> <a href="ref_directive_setting.html#ref.directive.setting">settings</a> (for more
+          information about converting dates to strings read: <a href="ref_builtins_date.html#ref_builtin_string_for_date">string built-in for
+          dates</a>, <a href="dgui_template_valueinsertion.html#dgui_template_valueinserion_universal_date">date
+          interpolations</a>). It does not mater what format did you use
+          when you have converted the strings to dates.</p>
+
+          <p>You don't have to use the format parameter, if you know what
+          the default date/time/datetime format will be when the template is
+          processed:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign test1 = &quot;Oct 25, 1995&quot;?date&gt;
+&lt;#assign test2 = &quot;3:05:30 PM&quot;?time&gt;
+&lt;#assign test3 = &quot;Oct 25, 1995 03:05:00 PM&quot;?datetime&gt;
+${test1}
+${test2}
+${test3}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>If the string is not in the appropriate format, an error will
+          abort template processing when you try to access this
+          built-in.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_ends_with"></a>ends_with  </h2>
+
+
+          
+
+          <p>Returns if this string ends with the specified substring. For
+          example <tt style="color: #A03D10">&quot;redhead&quot;?ends_with(&quot;head&quot;)</tt> returns
+          boolean true. Also, <tt style="color: #A03D10">&quot;head&quot;?ends_with(&quot;head&quot;)</tt> will
+          return true.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_html"></a>html  </h2>
+
+
+          
+
+          
+
+          <p>The string as HTML markup. That is, the string with
+          all:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <tt style="color: #A03D10">&lt;</tt> replaced with
+              <tt style="color: #A03D10">&amp;lt;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">&gt;</tt> replaced with
+              <tt style="color: #A03D10">&amp;gt;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">&amp;</tt> replaced with
+              <tt style="color: #A03D10">&amp;amp;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">&quot;</tt> replaced with
+              <tt style="color: #A03D10">&amp;quot;</tt>
+            </li>
+
+            <li>
+              if FreeMarker was configured by the programmers so (by
+              setting the <tt style="color: #A03D10">incompatible_improvements</tt> setting
+              to <tt style="color: #A03D10">2.3.20</tt> or higher; more <a href="http://freemarker.org/docs/api/freemarker/template/Configuration.html#setIncompatibleImprovements%28freemarker.core.Version%29">here</a>),
+              <tt style="color: #A03D10">'</tt> is replaced with
+              <tt style="color: #A03D10">&amp;#39;</tt>
+            </li>
+          </ul>    </div>
+
+
+          <p>Note that if you want to insert an attribute value securely,
+          you must quote the attribute value in the HTML template with
+          quotation mark (with <tt style="color: #A03D10">&quot;</tt>, not with
+          <tt style="color: #A03D10">'</tt>):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;input type=text name=user value=<b>&quot;</b>${user?html}<b>&quot;</b>&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note that in HTML pages usually you want to use this built-in
+          for all interpolations. So you can spare a lot of typing and lessen
+          the chances of accidental mistakes by using the <a href="ref_directive_escape.html"><tt>escape</tt>
+          directive</a>.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_groups"></a>groups  </h2>
+
+
+          
+
+          <p>This is used only with the result of the
+          <tt style="color: #A03D10">matches</tt> built-in. See <a href="#ref_builtin_matches">there...</a></p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_index_of"></a>index_of  </h2>
+
+
+          
+
+          <p>Returns the index within this string of the first occurrence
+          of the specified substring. For example,
+          <tt style="color: #A03D10">&quot;abcabc&quot;?index_of(&quot;bc&quot;)</tt> will return 1 (don't
+          forget that the index of the first character is 0). Also, you can
+          specify the index to start the search from:
+          <tt style="color: #A03D10">&quot;abcabc&quot;?index_of(&quot;bc&quot;, 2)</tt> will return 4. There
+          is no restriction on the numerical value of the second parameter: if
+          it is negative, it has the same effect as if it were zero, and if it
+          is greater than the length of this string, it has the same effect as
+          if it were equal to the length of this string. Decimal values will
+          be truncated to integers.</p>
+
+          <p>If the 1st parameter does not occur as a substring in this
+          string (starting from the given index, if you use the second
+          parameter), then it returns -1.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_j_string"></a>j_string  </h2>
+
+
+          
+
+          <p>Escapes the string with the escaping rules of Java language
+          string literals, so it's safe to insert the value into a string
+          literal. Note that it will <i>not</i> add quotation
+          marks around the inserted value; you meant to use this
+          <i>inside</i> the string literal.</p>
+
+          <p>All characters under <a href="gloss.html#gloss.UCS">UCS</a> code
+          point 0x20 will be escaped. When they have no dedicated escape
+          sequence in the Java language (like <tt style="color: #A03D10">\n</tt>,
+          <tt style="color: #A03D10">\t</tt>, etc.), they will be replaced with a UNICODE
+          escape
+          (<tt style="color: #A03D10">\u<i style="color: #DD4400">XXXX</i></tt>).</p>
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign beanName = 'The &quot;foo&quot; bean.'&gt;
+String BEAN_NAME = &quot;${beanName?j_string}&quot;;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+String BEAN_NAME = &quot;The \&quot;foo\&quot; bean.&quot;;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_js_string"></a>js_string  </h2>
+
+
+          
+
+          <p>Escapes the string with the escaping rules of JavaScript
+          language string literals, so it's safe to insert the value into a
+          string literal. Note that it will <i>not</i> add
+          quotation marks around the inserted value; you meant to use this
+          <i>inside</i> the string literal.</p>
+
+          <p>Both quotation mark (<tt style="color: #A03D10">&quot;</tt>) and
+          apostrophe-quoate (<tt style="color: #A03D10">'</tt>) are escaped. Starting from
+          FreeMarker 2.3.1, it also escapes <tt style="color: #A03D10">&gt;</tt> as
+          <tt style="color: #A03D10">\&gt;</tt> (to avoid
+          <tt style="color: #A03D10">&lt;/script&gt;</tt>).</p>
+
+          <p>All characters under <a href="gloss.html#gloss.UCS">UCS</a> code
+          point 0x20 will be escaped. When they have no dedicated escape
+          sequence in JavaScript (like <tt style="color: #A03D10">\n</tt>,
+          <tt style="color: #A03D10">\t</tt>, etc.), they will be replaced with a UNICODE
+          escape
+          (<tt style="color: #A03D10">\u<i style="color: #DD4400">XXXX</i></tt>).</p>
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign user = &quot;Big Joe's \&quot;right hand\&quot;&quot;&gt;
+&lt;script&gt;
+  alert(&quot;Welcome ${user?js_string}!&quot;);
+&lt;/script&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;script&gt;
+  alert(&quot;Welcome Big Joe\'s \&quot;right hand\&quot;!&quot;);
+&lt;/script&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_json_string"></a>json_string  </h2>
+
+
+          
+
+          <p>Escapes the string with the escaping rules of JSON language
+          string literals, so it's safe to insert the value into a string
+          literal. Note that it will <i>not</i> add quotation
+          marks around the inserted value; you meant to use this
+          <i>inside</i> the string literal.</p>
+
+          <p>This will not escape <tt style="color: #A03D10">'</tt> characters, since
+          JSON strings must be quoted with <tt style="color: #A03D10">&quot;</tt>. It will,
+          however escape the <tt style="color: #A03D10">/</tt> (slash) characters as
+          <tt style="color: #A03D10">\/</tt> where they occur directly after a
+          <tt style="color: #A03D10">&lt;</tt>, to avoid <tt style="color: #A03D10">&lt;/script&gt;</tt>
+          and such. It will also escape the <tt style="color: #A03D10">&gt;</tt> characters
+          as <tt style="color: #A03D10">\u003E</tt> where they occur directly after
+          <tt style="color: #A03D10">]]</tt>, to avoid exiting an XML
+          <tt style="color: #A03D10">CDATA</tt> section.</p>
+
+          <p>All characters under <a href="gloss.html#gloss.UCS">UCS</a> code
+          point 0x20 will be escaped. When they have no dedicated escape
+          sequence in JSON (like <tt style="color: #A03D10">\n</tt>, <tt style="color: #A03D10">\t</tt>,
+          etc.), they will be replaced with a UNICODE escape
+          (<tt style="color: #A03D10">\u<i style="color: #DD4400">XXXX</i></tt>).</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_last_index_of"></a>last_index_of  </h2>
+
+
+          
+
+          <p>Returns the index within this string of the last (rightmost)
+          occurrence of the specified substring. It returns the index of the
+          first (leftmost) character of the substring. For example:
+          <tt style="color: #A03D10">&quot;abcabc&quot;?last_index_of(&quot;ab&quot;)</tt> will return 3. Also,
+          you can specify the index to start the search from. For example,
+          <tt style="color: #A03D10">&quot;abcabc&quot;?last_index_of(&quot;ab&quot;, 2)</tt> will return 0.
+          Note that the second parameter indicates the maximum index of the
+          start of the substring. There is no restriction on the numerical
+          value of the second parameter: if it is negative, it has the same
+          effect as if it were zero, and if it is greater than the length of
+          this string, it has the same effect as if it were equal to the
+          length of this string. Decimal values will be truncated to
+          inegers.</p>
+
+          <p>If the 1st parameter does not occur as a substring in this
+          string (before the given index, if you use the second parameter),
+          then it returns -1.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_length"></a>length  </h2>
+
+
+          
+
+          <p>The number of characters in the string.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_lower_case"></a>lower_case  </h2>
+
+
+          
+
+          <p>The lower case version of the string. For example
+          <tt style="color: #A03D10">&quot;GrEeN MoUsE&quot;?lower_case</tt> will be <tt style="color: #A03D10">&quot;green
+          mouse&quot;</tt>.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_left_pad"></a>left_pad  </h2>
+
+
+          
+
+          
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>This built-in is available since FreeMarker 2.3.1. It
+            doesn't exist in 2.3.</p>
+          </div>
+
+
+          <p>If it's used with 1 parameter, then it inserts spaces on the
+          beginning of the string until it reaches the length that is
+          specified as the parameter. If the string is already as long or
+          longer than the specified length, then it does nothing. For example,
+          this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+[${&quot;&quot;?left_pad(5)}]
+[${&quot;a&quot;?left_pad(5)}]
+[${&quot;ab&quot;?left_pad(5)}]
+[${&quot;abc&quot;?left_pad(5)}]
+[${&quot;abcd&quot;?left_pad(5)}]
+[${&quot;abcde&quot;?left_pad(5)}]
+[${&quot;abcdef&quot;?left_pad(5)}]
+[${&quot;abcdefg&quot;?left_pad(5)}]
+[${&quot;abcdefgh&quot;?left_pad(5)}]&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+[     ]
+[    a]
+[   ab]
+[  abc]
+[ abcd]
+[abcde]
+[abcdef]
+[abcdefg]
+[abcdefgh]&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>If it's used with 2 parameters, then the 1st parameter means
+          the same as if you were using the built-in with only 1 parameter,
+          and the second parameter specifies what to insert instead of space
+          characters. For example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+[${&quot;&quot;?left_pad(5, &quot;-&quot;)}]
+[${&quot;a&quot;?left_pad(5, &quot;-&quot;)}]
+[${&quot;ab&quot;?left_pad(5, &quot;-&quot;)}]
+[${&quot;abc&quot;?left_pad(5, &quot;-&quot;)}]
+[${&quot;abcd&quot;?left_pad(5, &quot;-&quot;)}]
+[${&quot;abcde&quot;?left_pad(5, &quot;-&quot;)}]&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+[-----]
+[----a]
+[---ab]
+[--abc]
+[-abcd]
+[abcde]&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The 2nd parameter can be a string whose length is greater than
+          1. Then the string will be inserted periodically, for
+          example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+[${&quot;&quot;?left_pad(8, &quot;.oO&quot;)}]
+[${&quot;a&quot;?left_pad(8, &quot;.oO&quot;)}]
+[${&quot;ab&quot;?left_pad(8, &quot;.oO&quot;)}]
+[${&quot;abc&quot;?left_pad(8, &quot;.oO&quot;)}]
+[${&quot;abcd&quot;?left_pad(8, &quot;.oO&quot;)}]&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+[.oO.oO.o]
+[.oO.oO.a]
+[.oO.oOab]
+[.oO.oabc]
+[.oO.abcd]&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The 2nd parameter must be a string value, and it must be at
+          least 1 character long.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_right_pad"></a>right_pad  </h2>
+
+
+          
+
+          
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>This built-in is available since FreeMarker 2.3.1. It
+            doesn't exist in 2.3.</p>
+          </div>
+
+
+          <p>This is the same as <a href="#ref_builtin_left_pad"><tt>left_pad</tt></a>,
+          but it inserts the characters at the end of the string instead of
+          the beginning of the string.</p>
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+[${&quot;&quot;?right_pad(5)}]
+[${&quot;a&quot;?right_pad(5)}]
+[${&quot;ab&quot;?right_pad(5)}]
+[${&quot;abc&quot;?right_pad(5)}]
+[${&quot;abcd&quot;?right_pad(5)}]
+[${&quot;abcde&quot;?right_pad(5)}]
+[${&quot;abcdef&quot;?right_pad(5)}]
+[${&quot;abcdefg&quot;?right_pad(5)}]
+[${&quot;abcdefgh&quot;?right_pad(5)}]
+
+[${&quot;&quot;?right_pad(8, &quot;.oO&quot;)}]
+[${&quot;a&quot;?right_pad(8, &quot;.oO&quot;)}]
+[${&quot;ab&quot;?right_pad(8, &quot;.oO&quot;)}]
+[${&quot;abc&quot;?right_pad(8, &quot;.oO&quot;)}]
+[${&quot;abcd&quot;?right_pad(8, &quot;.oO&quot;)}]&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This will output this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+[     ]
+[a    ]
+[ab   ]
+[abc  ]
+[abcd ]
+[abcde]
+[abcdef]
+[abcdefg]
+[abcdefgh]
+
+[.oO.oO.o]
+[aoO.oO.o]
+[abO.oO.o]
+[abc.oO.o]
+[abcdoO.o]&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_contains"></a>contains  </h2>
+
+
+          
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>This built-in is available since FreeMarker 2.3.1. It
+            doesn't exist in 2.3.</p>
+          </div>
+
+
+          <p>Returns if the substring specified as the parameter to this
+          built-in occurrs in the string. For example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if &quot;piceous&quot;?contains(&quot;ice&quot;)&gt;It contains &quot;ice&quot;&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This will output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+It contains &quot;ice&quot;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_matches"></a>matches  </h2>
+
+
+          
+
+          <p>This is a ``power user'' built-in. Ignore it if you don't know
+          <a href="gloss.html#gloss.regularExpression">regular
+          expressions</a>.</p>
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>This built-in will work only if you use Java2 platform 1.4
+            or later. Otherwise it will stop template processing with
+            error.</p>
+          </div>
+
+
+          <p>This built-in determines if the string exactly matches the
+          pattern. Also, it returns the list of matching sub-strings. The
+          return value is a multi-type value:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Boolean: <tt style="color: #A03D10">true</tt>, if it the string exactly
+              matches the pattern, otherwise <tt style="color: #A03D10">false</tt>. For
+              example, <tt style="color: #A03D10">&quot;fooo&quot;?matches('fo*')</tt> is
+              <tt style="color: #A03D10">true</tt>, but
+              <tt style="color: #A03D10">&quot;fooo bar&quot;?matches('fo*')</tt> is
+              <tt style="color: #A03D10">false</tt>.</p>
+            </li>
+
+            <li>
+              <p>Sequence: the list of matched substrings of the string.
+              Possibly a 0 length sequence.</p>
+            </li>
+          </ul>    </div>
+
+
+          <p>For example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if &quot;fxo&quot;?matches(&quot;f.?o&quot;)&gt;Matches.&lt;#else&gt;Does not match.&lt;/#if&gt;
+
+&lt;#assign res = &quot;foo bar fyo&quot;?matches(&quot;f.?o&quot;)&gt;
+&lt;#if res&gt;Matches.&lt;#else&gt;Does not match.&lt;/#if&gt;
+Matching sub-strings:
+&lt;#list res as m&gt;
+- ${m}
+&lt;/#list&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will print:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Matches.
+
+Does not match.
+Matching sub-strings:
+- foo
+- fyo&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>If the regular expression contains groups (parentheses), then
+          you can access them with the <tt style="color: #A03D10">groups</tt>
+          built-in:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign res = &quot;aa/rx; ab/r;&quot;?matches(&quot;(\\w[^/]+)/([^;]+);&quot;)&gt;
+&lt;#list res as m&gt;
+- ${m} is ${m?groups[1]} per ${m?groups[2]}
+&lt;/#list&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This will print:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+- aa/rx; is aa per rx
+- ab/r; is ab per r&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p><tt style="color: #A03D10">matches</tt> accepts an optional 2nd parameter,
+          the <a href="#ref_builtin_string_flags">flags</a>. Note that
+          it does not support flag <tt style="color: #A03D10">f</tt>, and ignores the
+          <tt style="color: #A03D10">r</tt> flag.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_number"></a>number  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <p>The string converted to numerical value. The number must be in
+          the same format as you specify numerical values directly in FTL.
+          That is, it must be in the locale independent form, where the
+          decimal separator is dot. In additional the built-in recognizes
+          scientific notation (e.g. <tt style="color: #A03D10">&quot;1.23E6&quot;</tt>,
+          <tt style="color: #A03D10">&quot;1.5e-8&quot;</tt>).</p>
+
+          <p>If the string is not in the appropriate format, an error will
+          abort template processing when you try to access this
+          built-in.</p>
+
+          <p>Known problem: If you use earlier Java2 platform than v1.3,
+          the built-ins will not recognize + prefix and scientific
+          notation.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_replace"></a>replace  </h2>
+
+
+          
+
+          <p>It is used to replace all occurrences of a string in the
+          original string with another string. It does not deal with word
+          boundaries. For example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${&quot;this is a car acarus&quot;?replace(&quot;car&quot;, &quot;bulldozer&quot;)}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will print:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+this is a bulldozer abulldozerus&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The replacing occurs in left-to-right order. This means that
+          this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${&quot;aaaaa&quot;?replace(&quot;aaa&quot;, &quot;X&quot;)}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will print:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Xaa&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>If the 1st parameter is an empty string, then all occurrences
+          of the empty string will be replaced, like
+          <tt style="color: #A03D10">&quot;foo&quot;?replace(&quot;&quot;,&quot;|&quot;)</tt> will evaluate to
+          <tt style="color: #A03D10">&quot;|f|o|o|&quot;</tt>.</p>
+
+          <p><tt style="color: #A03D10">replace</tt> accepts an optional <a href="#ref_builtin_string_flags">flags parameter</a>, as its
+          3rd parameter.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_rtf"></a>rtf  </h2>
+
+
+          
+
+          
+
+          <p>The string as Rich text (RTF text). That is, the string with
+          all:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><tt style="color: #A03D10">\</tt> replaced with
+              <tt style="color: #A03D10">\\</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">{</tt> replaced with
+              <tt style="color: #A03D10">\{</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">}</tt> replaced with
+              <tt style="color: #A03D10">\}</tt></p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_url"></a>url  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>This built-in is available since FreeMarker 2.3.1. It
+            doesn't exist in 2.3.</p>
+          </div>
+
+
+          <p>The string after URL escaping. This means that all
+          non-US-ASCII and reserved URL characters will be escaped with
+          <tt style="color: #A03D10">%<i style="color: #DD4400">XX</i></tt>. For
+          example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign x = 'a/b c'&gt;
+${x?url}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The output will be (assuming that the charset used for the
+          escaping is an US-ASCII compatible charset):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+a%2Fb%20c&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note that it escapes <i>all</i> reserved URL
+          characters (<tt style="color: #A03D10">/</tt>, <tt style="color: #A03D10">=</tt>,
+          <tt style="color: #A03D10">&amp;</tt>, ...etc), so this encoding can be used for
+          encoding query parameter values, for example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;a href=&quot;foo.cgi?x=${x?url}&amp;y=${y?url}&quot;&gt;Click here...&lt;/a&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>Above no HTML encoding (<tt style="color: #A03D10">?htm</tt>) was needed,
+            because URL escaping escapes all reserved HTML characters anyway.
+            But watch: always quote the attribute value, and always with
+            normal quotation mark (<tt style="color: #A03D10">&quot;</tt>), never with
+            apostrophe quotation mark (<tt style="color: #A03D10">'</tt>), because
+            apostrophe quotation mark is not escaped by the URL
+            escaping.</p>
+          </div>
+
+
+          <p>To do URL escaping a <a href="gloss.html#gloss.charset">charset</a> must be chosen that will be
+          used for calculating the escaped parts
+          (<tt style="color: #A03D10">%<i style="color: #DD4400">XX</i></tt>). If you are HTML
+          page author and you don't really understand this, don't worry: the
+          programmers should configure FreeMarker so that it uses the proper
+          charset by default (<span style="color:#333399; font-style:italic">programmers: see
+          more below...</span>). If you are a more technical minded user,
+          then you may want to know that the charset used is specified by the
+          <tt style="color: #A03D10">url_escaping_charset</tt> setting, that can be set in
+          template execution time (or, preferably, earlier by the
+          programmers). For example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#--
+  This will use the charset specified by the programmers
+  before the template execution has started.
+--&gt;
+&lt;a href=&quot;foo.cgi?x=${x?url}&quot;&gt;foo&lt;/a&gt;
+
+&lt;#-- Use UTF-8 charset for URL escaping from now: --&gt;
+<b>&lt;#setting url_escaping_charset=&quot;UTF-8&quot;&gt;</b>
+
+&lt;#-- This will surely use UTF-8 charset --&gt;
+&lt;a href=&quot;bar.cgi?x=${x?url}&quot;&gt;bar&lt;/a&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Furthermore, you can explicitly specify a charset for a single
+          URL escaping as the parameter to the built-in:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;a href=&quot;foo.cgi?x=${x?url<b>('ISO-8895-2')</b>}&quot;&gt;foo&lt;/a&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p><span style="color:#333399; font-style:italic">If the <tt style="color: #A03D10">url</tt> built-in has no
+          parameter, then it will use the charset specified as the value of
+          the <tt style="color: #A03D10">url_escaping_charset</tt> setting. This setting
+          should be set by the software that encloses FreeMarker (e.g. a Web
+          application framework), because it is not set
+          (<tt style="color: #A03D10">null</tt>) by default. If it is not set, then
+          FreeMarker falls back using the value of the
+          <tt style="color: #A03D10">output_encoding</tt> setting, which is also not set by
+          default, so it is again the task of the enclosing software. If the
+          <tt style="color: #A03D10">output_encoding</tt> setting is not set either, then
+          the parameterless <tt style="color: #A03D10">url</tt> built-in can't be executed,
+          and it will cause execution time error. Of course, the
+          <tt style="color: #A03D10">url</tt> built-in with parameter always
+          works.</span></p>
+
+          <p><span style="color:#333399; font-style:italic">It's possible to set
+          <tt style="color: #A03D10">url_escaping_charset</tt> in the template with the
+          <tt style="color: #A03D10">setting</tt> directive, but it is bad practice, at
+          least in true MVC applications. The
+          <tt style="color: #A03D10">output_encoding</tt> setting can't be set with the
+          <tt style="color: #A03D10">setting</tt> directive, so that's surely the task of
+          the enclosing software. You may find more information regarding this
+          <a href="pgui_misc_charset.html">here...</a></span></p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_split"></a>split  </h2>
+
+
+          
+
+          <p>It is used to split a string into a sequence of strings along
+          the occurrences of another string. For example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#list &quot;someMOOtestMOOtext&quot;?split(&quot;MOO&quot;) as x&gt;
+- ${x}
+&lt;/#list&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will print:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+- some
+- test
+- text&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note that it is assumed that all occurrences of the separator
+          is before a new item (except with <tt style="color: #A03D10">&quot;r&quot;</tt> flag - see
+          later), thus:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#list &quot;some,,test,text,&quot;?split(&quot;,&quot;) as x&gt;
+- &quot;${x}&quot;
+&lt;/#list&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will print:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+- &quot;some&quot;
+- &quot;&quot;
+- &quot;test&quot;
+- &quot;text&quot;
+- &quot;&quot;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p><tt style="color: #A03D10">split</tt> accepts an optional <a href="#ref_builtin_string_flags">flags parameter</a>, as its
+          2nd parameter. There's a historical glitch with the
+          <tt style="color: #A03D10">r</tt> (regular expression) flag; it removes the empty
+          elements from the end of the resulting list, so with
+          <tt style="color: #A03D10">?split(&quot;,&quot;, &quot;r&quot;)</tt> in the last example the last
+          <tt style="color: #A03D10">&quot;&quot;</tt> would be missing from the output.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_starts_with"></a>starts_with  </h2>
+
+
+          
+
+          <p>Returns if this string starts with the specified substring.
+          For example <tt style="color: #A03D10">&quot;redhead&quot;?starts_with(&quot;red&quot;)</tt> returns
+          boolean true. Also, <tt style="color: #A03D10">&quot;red&quot;?starts_with(&quot;red&quot;)</tt> will
+          return true.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_string_for_string"></a>string (when used with a string value)  </h2>
+
+
+          <p>Does nothing, just returns the string as-is. The exception is
+          that if the value is a multi-type value (e.g. it is both string and
+          sequence at the same time), then the resulting value will be only a
+          simple string, not a multi-type value. This can be utilized to
+          prevent the artifacts of multi-typing.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_trim"></a>trim  </h2>
+
+
+          
+
+          <p>The string without leading and trailing white-space.
+          Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+(${&quot;  green mouse  &quot;?trim})&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+(green mouse)&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_upper_case"></a>upper_case  </h2>
+
+
+          
+
+          <p>The upper case version of the string. For example
+          <tt style="color: #A03D10">&quot;GrEeN MoUsE&quot;</tt> will be <tt style="color: #A03D10">&quot;GREEN
+          MOUSE&quot;</tt>.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_word_list"></a>word_list  </h2>
+
+
+          
+
+          <p>A sequence that contains all words of the string in the order
+          as they appear in the string. Words are continual character
+          sequences that contain any character but <a href="gloss.html#gloss.whiteSpace">white-space</a>. Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign words = &quot;   a bcd, .   1-2-3&quot;?word_list&gt;
+&lt;#list words as word&gt;[${word}]&lt;/#list&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+[a][bcd,][.][1-2-3]&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_xhtml"></a>xhtml  </h2>
+
+
+          
+
+          
+
+          <p>The string as XHTML text. That is, the string with all:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <tt style="color: #A03D10">&lt;</tt> replaced with
+              <tt style="color: #A03D10">&amp;lt;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">&gt;</tt> replaced with
+              <tt style="color: #A03D10">&amp;gt;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">&amp;</tt> replaced with
+              <tt style="color: #A03D10">&amp;amp;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">&quot;</tt> replaced with
+              <tt style="color: #A03D10">&amp;quot;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">'</tt> replaced with
+              <tt style="color: #A03D10">&amp;#39;</tt>
+            </li>
+          </ul>    </div>
+
+
+          <p>The only difference between this built-in and the
+          <tt style="color: #A03D10">xml</tt> built-in is that the <tt style="color: #A03D10">xhtml</tt>
+          built-in escapes <tt style="color: #A03D10">'</tt> as
+          <tt style="color: #A03D10">&amp;#39;</tt> instead of as
+          <tt style="color: #A03D10">&amp;apos;</tt>, because some older browsers don't
+          interpret <tt style="color: #A03D10">&amp;apos;</tt> correctly.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_xml"></a>xml  </h2>
+
+
+          
+
+          
+
+          <p>The string as XML text. That is, the string with all:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <tt style="color: #A03D10">&lt;</tt> replaced with
+              <tt style="color: #A03D10">&amp;lt;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">&gt;</tt> replaced with
+              <tt style="color: #A03D10">&amp;gt;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">&amp;</tt> replaced with
+              <tt style="color: #A03D10">&amp;amp;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">&quot;</tt> replaced with
+              <tt style="color: #A03D10">&amp;quot;</tt>
+            </li>
+
+            <li>
+              <tt style="color: #A03D10">'</tt> replaced with
+              <tt style="color: #A03D10">&amp;apos;</tt>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_string_flags"></a>Common flags  </h2>
+
+
+          <p>Many string built-ins accept an optional string parameter, the
+          so called ``flags''. In this string, each letter influences a
+          certain aspect of the behavior of the built-in. For example, letter
+          <tt style="color: #A03D10">i</tt> means that the built-in should not
+          differentiate the lower and upper-case variation of the same letter.
+          The order of the letters in the flags string is not
+          significant.</p>
+
+          <p>This is the complete list of letters (flags):</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><tt style="color: #A03D10">i</tt>: Case insensitive: do not
+              differentiate the lower and upper-case variation of the same
+              letter.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">f</tt>: First only. That is,
+              replace/find/etc. only the first occurrence of something.</p>
+            </li>
+
+            <li>
+              <p> <tt style="color: #A03D10">r</tt>: The substring to find is a
+              <a href="gloss.html#gloss.regularExpression">regular
+              expression</a>. FreeMarker uses the variation of regular
+              expressions described at <a href="http://java.sun.com/j2se/1.4.1/docs/api/java/util/regex/Pattern.html">http://java.sun.com/j2se/1.4.1/docs/api/java/util/regex/Pattern.html</a>.
+              <i>This flag will work only if you use Java2 platform 1.4
+              or later. Otherwise it will cause template processing to stop
+              with error.</i></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">m</tt>: Multi-line mode for regular
+              expressions. In multi-line mode the expressions
+              <tt style="color: #A03D10">^</tt> and <tt style="color: #A03D10">$</tt> match just after
+              or just before, respectively, a line terminator or the end of
+              the string. By default these expressions only match at the
+              beginning and the end of the entire string. Note that
+              <tt style="color: #A03D10">^</tt> and <tt style="color: #A03D10">$</tt> doesn't match the
+              line-break character itself.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">s</tt>: Enables dot-all mode for regular
+              expressions (same as Perl singe-line mode). In dot-all mode, the
+              expression <tt style="color: #A03D10">.</tt> matches any character, including
+              a line terminator. By default this expression does not match
+              line terminators.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">c</tt>: Permits whitespace and comments in
+              regular expressions.</p>
+            </li>
+          </ul>    </div>
+
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign s = 'foo bAr baar'&gt;
+${s?replace('ba', 'XY')}
+i: ${s?replace('ba', 'XY', 'i')}
+if: ${s?replace('ba', 'XY', 'if')}
+r: ${s?replace('ba*', 'XY', 'r')}
+ri: ${s?replace('ba*', 'XY', 'ri')}
+rif: ${s?replace('ba*', 'XY', 'rif')}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This outputs this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+foo bAr XYar
+i: foo XYr XYar
+if: foo XYr baar
+r: foo XYAr XYr
+ri: foo XYr XYr
+rif: foo XYr baar&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This is the table of built-ins that use these common flags,
+          and which supports which flags:</p>
+
+             <div class="informaltable">
+      <table border="1" cellpadding="4">
+
+            <thead>
+              <tr>
+                <th>Built-in</th>
+
+
+                <th><tt style="color: #A03D10">i</tt> (ignore case)</th>
+
+
+                <th><tt style="color: #A03D10">r</tt> (reg. exp.)</th>
+
+
+                <th><tt style="color: #A03D10">m</tt> (multi-line mode)</th>
+
+
+                <th><tt style="color: #A03D10">s</tt> (dot-all mode)</th>
+
+
+                <th><tt style="color: #A03D10">c</tt> (whitesp. and comments)</th>
+
+
+                <th><tt style="color: #A03D10">f</tt> (first only)</th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+              <tr>
+                <td><tt style="color: #A03D10">replace</tt></td>
+
+
+                <td>Yes</td>
+
+
+                <td>Yes</td>
+
+
+                <td>Only with <tt style="color: #A03D10">r</tt></td>
+
+
+                <td>Only with <tt style="color: #A03D10">r</tt></td>
+
+
+                <td>Only with <tt style="color: #A03D10">r</tt></td>
+
+
+                <td>Yes</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">split</tt></td>
+
+
+                <td>Yes</td>
+
+
+                <td>Yes</td>
+
+
+                <td>Only with <tt style="color: #A03D10">r</tt></td>
+
+
+                <td>Only with <tt style="color: #A03D10">r</tt></td>
+
+
+                <td>Only with <tt style="color: #A03D10">r</tt></td>
+
+
+                <td>No</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">matches</tt></td>
+
+
+                <td>Yes</td>
+
+
+                <td>Ignored</td>
+
+
+                <td>Yes</td>
+
+
+                <td>Yes</td>
+
+
+                <td>Yes</td>
+
+
+                <td>No</td>
+
+              </tr>
+
+            </tbody>
+
+                </table>
+   </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_builtins_number.html"><span class="hideA">Next page: </span>Built-ins for numbers</a></div><div class="pagerButton"><a href="ref_builtins_alphaidx.html">Previous page</a></div><div class="pagerButton"><a href="ref_builtins.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_builtins.html">Built-in Reference</a>
+            <b>></b>
+          Built-ins for strings
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

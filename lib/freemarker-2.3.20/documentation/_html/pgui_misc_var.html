@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Variables
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Variables
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_charset.html"><span class="hideA">Next page: </span>Charset issues</a></div><div class="pagerButton"><a href="pgui_misc.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_misc_var"></a>Variables  </h1>
+    
+    
+<p>This chapter explains what happens when a template tries to
+        access a variable, and how the variables are stored.</p><p>When you call <tt style="color: #A03D10">Template.process</tt> it will
+        internally create an <tt style="color: #A03D10">Environment</tt> object that will
+        be in use until <tt style="color: #A03D10">process</tt> returns. This object stores
+        the runtime state of template processing. Among other things, it
+        stores the variables created by the template with directives like
+        <tt style="color: #A03D10">assign</tt>, <tt style="color: #A03D10">macro</tt>,
+        <tt style="color: #A03D10">local</tt> or <tt style="color: #A03D10">global</tt>. It never tries
+        to modify the data-model object that you pass to the
+        <tt style="color: #A03D10">process</tt> call, nor does it create or replace shared
+        variables stored in the configuration.</p><p>When you try to read a variable, FreeMarker will seek the
+        variable in this order, and stops when it finds a variable with the
+        right name:</p><div class="orderedlist"><ol type="1">
+          <li>
+            <p>In the Environment:</p>
+
+            <div class="orderedlist"><ol type="1">
+              <li>
+                <p>If you are in a loop, in the set of loop variables. Loop
+                variables are the variables created by directives like
+                <tt style="color: #A03D10">list</tt>.</p>
+              </li>
+
+              <li>
+                <p>If you are inside a macro, in the local variable set of
+                the macro. Local variables can be created with the
+                <tt style="color: #A03D10">local</tt> directive. Also, the parameters of
+                macros are local variables.</p>
+              </li>
+
+              <li>
+                <p>In the current <a href="dgui_misc_namespace.html">namespace</a>. You can put
+                variables into a namespace with the <tt style="color: #A03D10">assign</tt>
+                directive.</p>
+              </li>
+
+              <li>
+                <p>In the set of variables created with
+                <tt style="color: #A03D10">global</tt> directive. FTL handles these
+                variables as if they were normal members of the data-model.
+                That is, they are visible in all namespaces, and you can
+                access them as if they would be in the data-model.</p>
+              </li>
+            </ol></div>
+          </li>
+
+          <li>
+            <p>In the data-model object you have passed to the
+            <tt style="color: #A03D10">process</tt> method</p>
+          </li>
+
+          <li>
+            <p>In the set of shared variables stored in the
+            <tt style="color: #A03D10">Configuration</tt></p>
+          </li>
+        </ol></div><p>In practice, from the viewpoint of template authors these 6
+        layers are only 4 layers, since from that viewpoint the last 3 layers
+        (variables created with <tt style="color: #A03D10">global</tt>, the actual
+        data-model object, shared variables) together constitute the set of
+        global variables.</p><p>Note that it is possible to get variables from a specific layer
+        in FTL with <a href="ref_specvar.html">special
+        variables</a>.</p>  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_charset.html"><span class="hideA">Next page: </span>Charset issues</a></div><div class="pagerButton"><a href="pgui_misc.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Variables
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

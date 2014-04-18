@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Charset issues
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Charset issues
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_multithreading.html"><span class="hideA">Next page: </span>Multithreading</a></div><div class="pagerButton"><a href="pgui_misc_var.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_misc_charset"></a>Charset issues  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_47">The charset of the input</a>
+      </li>
+      <li>
+        <a href="#autoid_48">The charset of the output</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>FreeMarker, as most Java applications, works with &quot;<a href="gloss.html#gloss.unicode">UNICODE</a> text&quot; (UTF-16). Nonetheless,
+        there are situations when it must deal with <a href="gloss.html#gloss.charset">charsets</a>, because it has to exchange
+        data with the outer world that may uses various charsets.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_47"></a>The charset of the input  </h2>
+
+
+          <p>When FreeMarker has to load a template file (or an unparsed
+          text file), then it must know the charset of the file, since files
+          are just raw byte arrays. You can use the
+          <tt style="color: #A03D10">encoding</tt> <a href="pgui_config_settings.html">setting</a> to specify the
+          charset. This setting takes effect only when FreeMarker loads a
+          template (parsed or unparsed) with the
+          <tt style="color: #A03D10">getTemplate</tt> method of
+          <tt style="color: #A03D10">Configuration</tt>. Note that the <a href="ref_directive_include.html#ref.directive.include"><tt>include</tt>
+          directive</a> uses this method internally, so the value of the
+          <tt style="color: #A03D10">encoding</tt> setting is significant for an already
+          loaded template if the template contains <tt style="color: #A03D10">include</tt>
+          directive call.</p>
+
+          <p>The getter and setter method of the
+          <tt style="color: #A03D10">encoding</tt> setting is special in the first
+          (configuration) layer. The getter method guesses the return value
+          based on a <tt style="color: #A03D10">Locale</tt> passed as parameter; it looks
+          up the encoding in a table that maps locales to encodings (called
+          encoding map), and if the locale was not found there, it returns the
+          default encoding. You can fill the encoding map with the
+          <tt style="color: #A03D10">setEncoding(Locale locale, String encoding)</tt>
+          method of the configuration; the encoding map is initially empty.
+          The default encoding is initially the value of the
+          <tt style="color: #A03D10">file.encoding</tt> system property, but you can set a
+          different default with the <tt style="color: #A03D10">setDefaultEncoding</tt>
+          method.</p>
+
+          <p>You can give the charset directly by overriding the
+          <tt style="color: #A03D10">encoding</tt> setting in the template layer or runtime
+          environment layer (When you specify an encoding as the parameter of
+          <tt style="color: #A03D10">getTemplate</tt> method, you override the
+          <tt style="color: #A03D10">encoding</tt> setting in the template layer.). If you
+          don't override it, the effective value will be what the
+          <tt style="color: #A03D10">configuration.getEncoding(Locale)</tt> method returns
+          for the effective value of the <tt style="color: #A03D10">locale</tt>
+          setting.</p>
+
+          <p>Also, instead of relying on this charset guessing mechanism,
+          you can specify the charset of the template in the template file
+          itself, with the <a href="ref_directive_ftl.html#ref.directive.ftl"><tt>ftl</tt></a>
+          directive.</p>
+
+          <p>You may wonder what charset you should choose for the
+          templates. It primarily depends on the tools (as text editors) that
+          you want to use to create and modify templates. In principle, using
+          UTF-8 is the best, but currently (2004) only a few tools supports
+          it, actually most of them doesn't even know about charsets. So in
+          that case you should use the widely used charset of your language,
+          which is probably also the default charset of you working
+          environment.</p>
+
+          <p>Note that the charset of the template is independent from the
+          charset of the output that the tempalte generates (unless the
+          enclosing software deliberately sets the output charset to the same
+          as the template charset).</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_48"></a>The charset of the output  </h2>
+
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>The <tt style="color: #A03D10">output_encoding</tt> setting/variable and
+            the <a href="ref_builtins_string.html#ref_builtin_url"><tt>url</tt>
+            built-in</a> is available since FreeMarker 2.3.1. It doesn't
+            exist in 2.3.</p>
+          </div>
+
+
+          <p>In principle FreeMarker does not deal with the charset
+          of the output, since it writes the output to a
+          <tt style="color: #A03D10">java.io.Writer</tt>. Since the
+          <tt style="color: #A03D10">Writer</tt> is made by the software that encapsulates
+          FreeMarker (such as a Web application framework), the output charset
+          is controlled by the encapsulating software. Still, FreeMarker has a
+          setting called <tt style="color: #A03D10">output_encoding</tt> (starting from
+          FreeMarker version 2.3.1). The enclosing software should set this
+          setting (to the charset that the <tt style="color: #A03D10">Writer</tt> uses), to
+          inform FreeMarker what charset is used for the output (otherwise
+          FreeMarker can't find it out). Some features, such as the <a href="ref_builtins_string.html#ref_builtin_url"><tt>url</tt> built-in</a>,
+          and the <a href="ref_specvar.html"><tt>output_encoding</tt> special
+          variable</a> utilize this information. Thus, if the enclosing
+          software doesn't set this setting then FreeMarker features that need
+          to know the output charset can't be used.</p>
+
+          <p>If you write software that will use FreeMarker, you may wonder
+          what output charset should you choose. Of course it depends on the
+          consumer of the FreeMarker output, but if the consumer is flexible
+          regarding this question, then the common practice is either using
+          the charset of the template file for the output, or using UTF-8.
+          Using UTF-8 is usually a better practice, because arbitrary text may
+          comes from the data-model, which then possibly contains characters
+          that couldn't be encoded with the charset of the template.</p>
+
+          <p>FreeMarker settings can be set for each individual template
+          processing if you use
+          <tt style="color: #A03D10">Template.createProcessingEnvironment(<i style="color: #DD4400">...</i>)</tt>
+          plus
+          <tt style="color: #A03D10">Environment.process(<i style="color: #DD4400">...</i>)</tt>
+          instead of
+          <tt style="color: #A03D10">Template.process(<i style="color: #DD4400">...</i>)</tt>.
+          Thus, you can set the <tt style="color: #A03D10">output_encoding</tt> setting for
+          each template execution independently:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Writer w = new OutputStreamWriter(out, outputCharset);
+Environment env = template.createProcessingEnvironment(dataModel, w);
+env.setOutputEncoding(outputCharset);
+env.process();&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_multithreading.html"><span class="hideA">Next page: </span>Multithreading</a></div><div class="pagerButton"><a href="pgui_misc_var.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Charset issues
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

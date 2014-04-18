@@ -1,0 +1,510 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Built-ins for numbers
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_builtins.html">Built-in Reference</a>
+            <b>></b>
+          Built-ins for numbers
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_builtins_date.html"><span class="hideA">Next page: </span>Built-ins for dates</a></div><div class="pagerButton"><a href="ref_builtins_string.html">Previous page</a></div><div class="pagerButton"><a href="ref_builtins.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="ref_builtins_number"></a>Built-ins for numbers  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#ref_builtin_abs">abs</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_c">c (when used with numerical value)</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_string_for_number">string (when used with a numerical value)</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_is_infinite">is_infinite</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_is_nan">is_nan</a>
+      </li>
+      <li>
+        <a href="#ref_builtin_rounding">round, floor, ceiling</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Related FAQs: Do you have things like 1,000,000 or 1 000 000
+        instead of 1000000, or something like 3.14 instead of 3,14 or vice
+        versa? See <a href="app_faq.html#faq_number_grouping">this</a> and <a href="app_faq.html#faq_number_decimal_point">this</a> FAQ entry, also note
+        the <tt style="color: #A03D10">c</tt> built-in above.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_abs"></a>abs  </h2>
+
+
+          
+
+          
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>This built-in exists since FreeMarker 2.3.20.</p>
+          </div>
+
+
+          <p>Gives the absolute value of a number. For example
+          <tt style="color: #A03D10">x?abs</tt> , if <tt style="color: #A03D10">x</tt> is -5, will
+          evaluate to 5.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_c"></a>c (when used with numerical value)  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>This built-in exists since FreeMarker 2.3.3.</p>
+          </div>
+
+
+          <p>This built-in converts a number to string for a
+          "computer language" as opposed to for human audience.
+          That is, it formats with the rules that programming languages used
+          to use, which is independent of all the locale and number format
+          settings of FreeMarker. It always uses dot as decimal separator, and
+          it never uses grouping separators (like 3,000,000), nor exponential
+          form (like 5E20), nor superfluous leading or trailing 0-s (like 03
+          or 1.0), nor + sign (like +1). It will print at most 16 digits after
+          the decimal dot, and thus numbers whose absolute value is less than
+          1E-16 will be shown as 0. This built-in is crucial because be
+          default (like with <tt style="color: #A03D10">${x}</tt>) numbers are converted to
+          strings with the locale (language, country) specific number
+          formatting, which is for human readers (like 3000000 is possibly
+          printed as 3,000,000). When the number is printed not for human
+          audience (e.g., for a database record ID used as the part of an URL,
+          or as invisible field value in a HTML form, or for printing
+          CSS/JavaScript numerical literals) this built-in must be used to
+          print the number (i.e., use <tt style="color: #A03D10">${x?c}</tt> instead of
+          <tt style="color: #A03D10">${x}</tt>), or else the output will be possibly broken
+          depending on the current number formatting settings and locale (like
+          the decimal point is not dot, but comma in many countries) and the
+          value of the number (like big numbers are possibly ``damaged'' by
+          grouping separators).</p>
+
+          <p>Note that this built-in <a href="ref_builtins_boolean.html#ref_builtin_c_boolean">also works on
+          booleans</a>.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_string_for_number"></a>string (when used with a numerical value)  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          <p>Converts a number to a string. It uses the default format that
+          the programmer has specified. You can also specify a number format
+          explicitly with this built-in, as it will be shown later.</p>
+
+          <p>There are four predefined number formats:
+          <tt style="color: #A03D10">computer</tt>, <tt style="color: #A03D10">currency</tt>,
+          <tt style="color: #A03D10">number</tt>, and <tt style="color: #A03D10">percent</tt>. The exact
+          meaning of these is locale (nationality) specific, and is controlled
+          by the Java platform installation, rather than by FreeMarker, except
+          for <tt style="color: #A03D10">computer</tt>, which uses the same formatting as
+          <a href="#ref_builtin_c">the <tt>c</tt>
+          built-in</a>. You can use these predefined formats like
+          this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign x=42&gt;
+${x}
+${x?string}  &lt;#-- the same as ${x} --&gt;
+${x?string.number}
+${x?string.currency}
+${x?string.percent}
+${x?string.computer}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>If your locale is US English, this will certainly
+          produce:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+42
+42
+42
+$42.00
+4,200%
+42&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>The output of first three expressions is identical because the
+          first two expressions use the default format, which is &quot;number&quot;
+          here. You can change this default using a setting:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#setting number_format=&quot;currency&quot;&gt;
+&lt;#assign x=42&gt;
+${x}
+${x?string}  &lt;#-- the same as ${x} --&gt;
+${x?string.number}
+${x?string.currency}
+${x?string.percent}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Will now output:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+$42.00
+$42.00
+42
+$42.00
+4,200%&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>since the default number format was set to &quot;currency&quot;.</p>
+
+          <p>Beside the three predefined formats, you can use arbitrary
+          number format patterns written in <a href="http://java.sun.com/j2se/1.4/docs/api/java/text/DecimalFormat.html">Java
+          decimal number format syntax</a>:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign x = 1.234&gt;
+${x?string(&quot;0&quot;)}
+${x?string(&quot;0.#&quot;)}
+${x?string(&quot;0.##&quot;)}
+${x?string(&quot;0.###&quot;)}
+${x?string(&quot;0.####&quot;)}
+
+${1?string(&quot;000.00&quot;)}
+${12.1?string(&quot;000.00&quot;)}
+${123.456?string(&quot;000.00&quot;)}
+
+${1.2?string(&quot;0&quot;)}
+${1.8?string(&quot;0&quot;)}
+${1.5?string(&quot;0&quot;)} &lt;-- 1.5, rounded towards even neighbor
+${2.5?string(&quot;0&quot;)} &lt;-- 2.5, rounded towards even neighbor
+
+${12345?string(&quot;0.##E0&quot;)}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>outputs this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+1
+1.2
+1.23
+1.234
+1.234
+
+001.00
+012.10
+123.46
+
+1
+2
+2 &lt;-- 1.5, rounded towards even neighbor
+2 &lt;-- 2.5, rounded towards even neighbor
+
+1.23E4&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Following the financial and statistics practice, the rounding
+          goes according the so called half-even rule, which means rounding
+          towards the nearest ``neighbor'', unless both neighbors are
+          equidistant, in which case, it rounds towards the even neighbor.
+          This was visible in the above example if you look at the rounding of
+          1.5 and of 2.5, as both were rounded to 2, since 2 is even, but 1
+          and 3 are odds.</p>
+
+          <p>Apart from the Java decimal syntax patterns, you can also
+          write <tt style="color: #A03D10">${aNumber?string(&quot;currency&quot;)}</tt> and like,
+          that will do the same as
+          <tt style="color: #A03D10">${aNumber?string.currency}</tt> and like.</p>
+
+          <p>As it was shown for the predefined formats earlier, the
+          default formatting of the numbers can be set in the template:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#setting number_format=&quot;0.##&quot;&gt;
+${1.234}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>outputs this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+1.23&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note that the number formatting is locale sensitive:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#setting locale=&quot;en_US&quot;&gt;
+US people write:        ${12345678?string(&quot;,##0.00&quot;)}
+&lt;#setting locale=&quot;hu&quot;&gt;
+Hungarian people write: ${12345678?string(&quot;,##0.00&quot;)}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>outputs this:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+US people write:        12,345,678.00
+Hungarian people write: 12 345 678,00&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_is_infinite"></a>is_infinite  </h2>
+
+
+          
+
+          
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>This built-in exists since FreeMarker 2.3.20.</p>
+          </div>
+
+
+          <p>Tells if a number is floating point infinite (according to
+          IEEE 754). For example, <tt style="color: #A03D10">someNumber?is_infinite</tt>
+          evaluates to <tt style="color: #A03D10">true</tt> or <tt style="color: #A03D10">false</tt>
+          depending on if the value of <tt style="color: #A03D10">someNumber</tt> is
+          infinite or not. Of course, if the underlying number is not of
+          floating point type, this will always return
+          <tt style="color: #A03D10">false</tt>.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_is_nan"></a>is_nan  </h2>
+
+
+          
+
+          
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>This built-in exists since FreeMarker 2.3.20.</p>
+          </div>
+
+
+          <p>Tells if a number is floating point NaN (according to IEEE
+          754). For example, <tt style="color: #A03D10">someNumber?is_nan</tt> evaluates to
+          <tt style="color: #A03D10">true</tt> or <tt style="color: #A03D10">false</tt> depending on if
+          the value of <tt style="color: #A03D10">someNumber</tt> is NaN or not. Of course,
+          if the underlying number is not of floating point type, this will
+          always return <tt style="color: #A03D10">false</tt>.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="ref_builtin_rounding"></a>round, floor, ceiling  </h2>
+
+
+          
+
+          
+
+          
+
+          
+
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+            <p>The rounding built-ins exist since FreeMarker 2.3.13.</p>
+          </div>
+
+
+          <p>Converts a number to a whole number using the specified
+          rounding rule:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><tt style="color: #A03D10">round</tt>: Rounds to the nearest whole
+              number. If the number ends with .5, then it rounds upwards
+              (i.e., towards positive infinity)</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">floor</tt>: Rounds the number downwards
+              (i.e., towards neagative infinity)</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">ceiling</tt>: Rounds the number upwards
+              (i.e., towards positive infinity)</p>
+            </li>
+          </ul>    </div>
+
+
+          <p>Example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign testlist=[
+  0, 1, -1, 0.5, 1.5, -0.5,
+  -1.5, 0.25, -0.25, 1.75, -1.75]&gt;
+&lt;#list testlist as result&gt;
+    ${result} ?floor=${result?floor} ?ceiling=${result?ceiling} ?round=${result?round}
+&lt;/#list&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Prints:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+    0 ?floor=0 ?ceiling=0 ?round=0            
+    1 ?floor=1 ?ceiling=1 ?round=1        
+    -1 ?floor=-1 ?ceiling=-1 ?round=-1      
+    0.5 ?floor=0 ?ceiling=1 ?round=1      
+    1.5 ?floor=1 ?ceiling=2 ?round=2      
+    -0.5 ?floor=-1 ?ceiling=0 ?round=0     
+    -1.5 ?floor=-2 ?ceiling=-1 ?round=-1    
+    0.25 ?floor=0 ?ceiling=1 ?round=0     
+    -0.25 ?floor=-1 ?ceiling=0 ?round=0    
+    1.75 ?floor=1 ?ceiling=2 ?round=2     
+    -1.75 ?floor=-2 ?ceiling=-1 ?round=-2&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>These built-ins may be useful in pagination operations and
+          like. If you just want to <i>display</i> numbers in
+          rounded form, then you should rather use the <a href="#ref_builtin_string_for_number"><tt>string</tt>
+          built-in</a> or the <a href="ref_directive_setting.html#ref.setting.number_format"><tt>number_format</tt>
+          setting</a>.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_builtins_date.html"><span class="hideA">Next page: </span>Built-ins for dates</a></div><div class="pagerButton"><a href="ref_builtins_string.html">Previous page</a></div><div class="pagerButton"><a href="ref_builtins.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          <a href="ref_builtins.html">Built-in Reference</a>
+            <b>></b>
+          Built-ins for numbers
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="jetty-6.0.0beta6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/spark-dependency/jetty-6.0.0beta6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spark-dependency/jetty-all-server-7.0.2.RC0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spark-dependency/log4j-1.2.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spark-dependency/servlet-api-3.0.pre4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spark-dependency/slf4j-api-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spark-dependency/slf4j-log4j12-1.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

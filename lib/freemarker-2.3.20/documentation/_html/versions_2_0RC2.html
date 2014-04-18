@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.0 RC2
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.0 RC2
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_0RC1.html"><span class="hideA">Next page: </span>2.0 RC1</a></div><div class="pagerButton"><a href="versions_2_0RC3.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_0RC2"></a>2.0 RC2  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_248">Changes to Template Language</a>
+      </li>
+      <li>
+        <a href="#autoid_249">API Changes</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>FreeMarker 2.0 RC 2 was released on 4 April 2002. Here is a
+        summary of changes wrt to the first release.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_248"></a>Changes to Template Language  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Certain built-in functionality is provided via a new
+              operator, '?'. Thus, <tt style="color: #A03D10">myList?size</tt> provides the
+              number of elements in a list. Similarly,
+              <tt style="color: #A03D10">myString?length</tt> provides the length of a
+              string, <tt style="color: #A03D10">myString?upper_case</tt> puts the string
+              all in capital letters, and <tt style="color: #A03D10">myHash?keys</tt>
+              provides a sequence containing the keys in the hash. See <a href="ref_builtins.html">Reference/Built-in Reference</a> for list of all available
+              built-ins.</p>
+            </li>
+
+            <li>
+              <p>Numerical comparisons can now be made using the &quot;natural&quot;
+              operators &lt; and &gt; but there are also &quot;web-safe&quot;
+              alternatives, such as <i>\lt</i> and
+              <i>\gt</i>, since the use of these characters may
+              confuse HTML editors and parsers. Note that these changed
+              between rc1 and rc2, they now start with a backslash. A little
+              asymmetry is the fact that if you use the natural greater-than
+              or greater-than-or-equals operators (i.e. &gt; or &gt;=) the
+              expression must be in parentheses. With any other operator, the
+              parentheses are optional.</p>
+            </li>
+
+            <li>
+              <p>Within an iteration loop -- i.e. a
+              <tt style="color: #A03D10">foreach</tt> or a <tt style="color: #A03D10">list</tt> block --
+              the current count in the loop is available as the special
+              variable
+              <tt style="color: #A03D10"><i style="color: #DD4400">index</i>_count</tt>. where
+              <i>index</i> is the name of the variable in
+              the iteration. A boolean variable called
+              <tt style="color: #A03D10"><i style="color: #DD4400">index</i>_has_next</tt> is
+              also defined that indicates whether there are any more items in
+              the iteration after this one. Note that the index starts at
+              zero, so you will often be adding one to it in practice.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">&lt;#break&gt;</tt> directive can now be
+              used to break out of a <tt style="color: #A03D10">&lt;#foreach...&gt;</tt> or
+              a <tt style="color: #A03D10">&lt;list...&gt;</tt> loop. (Prior to this
+              version, it only worked within a switch-case block.) There is a
+              new directive called <tt style="color: #A03D10">&lt;#stop&gt;</tt> that, when
+              encountered, simply halts processing of the template. This can
+              be useful for debugging purposes.</p>
+            </li>
+
+            <li>
+              <p>When invoking java methods that have been exposed to the
+              page, using the code in freemarker.ext.*, there are built-ins
+              that allow you to indicate the numerical type that you wish to
+              pass as the value. For instance, if you had two methods, one
+              that takes an int and another that takes a long, and you wanted
+              to pass in a value, you would have to specify which method.
+              <tt style="color: #A03D10">myMethod(1?int)</tt> or
+              <tt style="color: #A03D10">myMethod(1?long)</tt>. This is unnecessary if
+              there is only one method of the given name.</p>
+            </li>
+
+            <li>
+              <p>Ranges can be used to get the sublist from a list or the
+              substring of a string. For example:
+              <tt style="color: #A03D10">myList[0..3]</tt> will return items 0 through 3 of
+              the list in question. Or, for example, you could get all the
+              elements of the list except for the first and last ones via:
+              <tt style="color: #A03D10">myList[1..(myList?size-2)]</tt></p>
+            </li>
+
+            <li>
+              <p>Or we could get the first 6 characters of a string via
+              <tt style="color: #A03D10">myString[0..5]</tt></p>
+            </li>
+
+            <li>
+              <p>Lists can be concatenated using the '+' operator.
+              Previously, this overloading of '+' only applied to
+              strings.</p>
+            </li>
+
+            <li>
+              <p>An attempt to compare a number to a string now throws an
+              exception, since it is indicative of a coding error. Note that
+              there is a backward compatibility mode that can be set (see
+              below) that loosens this up in order to be able to process
+              legacy templates.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_249"></a>API Changes  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>The <tt style="color: #A03D10">TemplateSequenceModel</tt> interface now
+              has a <tt style="color: #A03D10">size()</tt> method for getting the number of
+              elements in the sequence in question.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">TemplateModelIterator</tt> interface now
+              has a <tt style="color: #A03D10">hasNext()</tt> method.</p>
+            </li>
+
+            <li>
+              <p>The default sequence and hash implementations,
+              <tt style="color: #A03D10">freemarker.template.SimpleSequence</tt> and
+              <tt style="color: #A03D10">freemarker.template.SimpleHash</tt> are now
+              unsynchronized. If you need the methods to be synchronized, you
+              can get a synchronized wrapper via the
+              <tt style="color: #A03D10">synchronizedWrapper()</tt> in either class.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">freemarker.utility.ExtendedList</tt> and
+              <tt style="color: #A03D10">freemarker.utility.ExtendedHash</tt> classes were
+              removed, since all of the extra keys that it defined are now
+              available using the appropriate '?' built-in operation, i.e.
+              <tt style="color: #A03D10">myHash?keys</tt> or <tt style="color: #A03D10">myList?size</tt>
+              or <tt style="color: #A03D10">myList?last</tt>.</p>
+            </li>
+
+            <li>
+              <p>There is a method in
+              <tt style="color: #A03D10">java.freemarker.Configuration</tt> named
+              <tt style="color: #A03D10">setDebugMode()</tt> which allows you to decide
+              whether stack traces are simply output to the web client (the
+              best situation in development) or thrown back to the caller to
+              be handled more gracefully (the best situation in
+              production).</p>
+            </li>
+
+            <li>
+              <p>There is a flag that can be set to turn on a processing
+              mode that is more backward-compatible with FreeMarker Classic.
+              This is off by default, but you can set it via
+              <tt style="color: #A03D10">Template.setClassicCompatibility(true)</tt>. What
+              this does is that it allows scalars to be treated as a
+              single-item list in a list directive. Also, it allows somewhat
+              more looseness about types. In FreeMarker 1.x, <tt style="color: #A03D10">&lt;#if
+              x==&quot;1&quot;&gt;</tt> and <tt style="color: #A03D10">&lt;#if x==1&gt;</tt>
+              were in fact equivalent. This meant that legacy templates might
+              tend to be slack about this. If classic compatibility is not
+              set, an attempt to compare the string &quot;1&quot; with the number 1 will
+              result in an exception being thrown. (Note that it is preferable
+              to get your templates working without the backward compatibility
+              flag, since it usually will require only minor changes. However,
+              for people with a lot of templates and no time to check over
+              them, this flag may be of use.)</p>
+            </li>
+          </ul>    </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_0RC1.html"><span class="hideA">Next page: </span>2.0 RC1</a></div><div class="pagerButton"><a href="versions_2_0RC3.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.0 RC2
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Using FreeMarker with Ant
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Using FreeMarker with Ant
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_jythonwrapper.html"><span class="hideA">Next page: </span>Jython wrapper</a></div><div class="pagerButton"><a href="pgui_misc_xml_legacy.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_misc_ant"></a>Using FreeMarker with Ant  </h1>
+    
+    
+<p>There are two ``FreeMarker Ant tasks'' that we know
+        about:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p><tt style="color: #A03D10">FreemarkerXmlTask</tt>: It comes with the
+            FreeMarker distribution, packed into the
+            <tt style="color: #A03D10">freemarker.jar</tt>. This is a lightweight,
+            easy-to-use Ant task for transforming XML documents with
+            FreeMarker templates. Its approach is that the source files (input
+            files) are XML files, which are rendered to corresponding output
+            files, by a single template. That is, for each XML file, the
+            template will be executed (with the XML document in the
+            data-model), and the template output will be written into a file
+            of similar name than the name of the XML file. Thus, the template
+            file plays a similar role as an XSLT style sheet, but it is FTL,
+            not XSLT.</p>
+          </li>
+
+          <li>
+            <p> FMPP: It's a more heavyweight, less XML centric,
+            third party Ant task (and standalone command-line tool). Its
+            primary approach is that the source files (input files) are
+            template files that generate the corresponding output files
+            themselves, but it also supports the approach of
+            <tt style="color: #A03D10">FreemarkerXmlTask</tt> for the source files that are
+            XML-s. Also, it has extra features over the
+            <tt style="color: #A03D10">FreemarkerXmlTask</tt>. What's its drawback then? As
+            it is more complex and more generalized, it's harder to learn and
+            use it.</p>
+          </li>
+        </ul>    </div>
+<p>This section introduces the
+        <tt style="color: #A03D10">FreemarkerXmlTask</tt>. For more information about FMPP
+        visit its homepage: <a href="http://fmpp.sourceforge.net/">http://fmpp.sourceforge.net/</a>.</p><p>In order to use the <tt style="color: #A03D10">FreemarkerXmlTask</tt>, you
+        must first define the
+        <tt style="color: #A03D10">freemarker.ext.ant.FreemarkerXmlTask</tt> inside your
+        Ant buildfile, then call the task. Suppose you want to transform
+        several XML documents to HTML using the hypothetical &quot;xml2html.ftl&quot;
+        template, with XML documents being located in the directory &quot;xml&quot; and
+        HTML documents generated into directory &quot;html&quot;. You would write
+        something like:</p><div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;taskdef name=&quot;freemarker&quot; classname=&quot;freemarker.ext.ant.FreemarkerXmlTask&quot;&gt;
+  &lt;classpath&gt;
+    &lt;pathelement location=&quot;freemarker.jar&quot; /&gt;
+  &lt;/classpath&gt;
+&lt;/taskdef&gt;
+&lt;mkdir dir=&quot;html&quot; /&gt;
+&lt;freemarker basedir=&quot;xml&quot; destdir=&quot;html&quot; includes=&quot;**/*.xml&quot; template=&quot;xml2html.ftl&quot; /&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>The task would invoke the template for every XML document. Every
+        document would be parsed into a DOM tree, then wrapped as a FreeMarker
+        node variable. When template processing begins, the special variable,
+        <tt style="color: #A03D10">.node</tt>, is set to the root node of the XML
+        document.</p><p>Note that if you are using the legacy (FreeMarker 2.2.x and
+        earlier) XML adapter implementation, that still works, and the root of
+        the XML tree is placed in the data-model as the variable
+        <tt style="color: #A03D10">document</tt>. That contains an instance of the legacy
+        <tt style="color: #A03D10">freemarker.ext.xml.NodeListModel</tt> class.</p><p>Note that all properties defined by the build file would be made
+        available as a hash model named &quot;properties&quot;. Several other models are
+        made available; for detailed description of what variables are made
+        available to templates as well as what other attributes can the task
+        accept, see the JavaDoc for
+        <tt style="color: #A03D10">freemarker.ext.ant.FreemarkerXmlTask</tt>.</p>  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_jythonwrapper.html"><span class="hideA">Next page: </span>Jython wrapper</a></div><div class="pagerButton"><a href="pgui_misc_xml_legacy.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Using FreeMarker with Ant
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

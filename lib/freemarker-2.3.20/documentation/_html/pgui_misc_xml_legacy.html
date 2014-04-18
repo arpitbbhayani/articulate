@@ -1,0 +1,583 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Legacy XML wrapper implementation
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Legacy XML wrapper implementation
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_ant.html"><span class="hideA">Next page: </span>Using FreeMarker with Ant</a></div><div class="pagerButton"><a href="pgui_misc_secureenv.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_misc_xml_legacy"></a>Legacy XML wrapper implementation  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_58">TemplateScalarModel</a>
+      </li>
+      <li>
+        <a href="#autoid_59">TemplateCollectionModel</a>
+      </li>
+      <li>
+        <a href="#autoid_60">TemplateSequenceModel</a>
+      </li>
+      <li>
+        <a href="#autoid_61">TemplateHashModel</a>
+      </li>
+      <li>
+        <a href="#autoid_62">TemplateMethodModel</a>
+      </li>
+      <li>
+        <a href="#autoid_63">Namespace handling</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+          <p><i>The legacy XML wrapper is deprecated.</i>
+          FreeMarker 2.3 has introduced support for a new XML processing
+          model. To support this, a new XML wrapper package was introduced,
+          <tt style="color: #A03D10">freemarker.ext.dom</tt>. For new usage, we encourage
+          you to use that. It is documented in the part <a href="xgui.html">XML Processing Guide</a>.</p>
+        </div>
+<p>The class <tt style="color: #A03D10">freemarker.ext.xml.NodeListModel</tt>
+        provides a template model for wrapping XML documents represented as
+        node trees. Every node list can contain zero or more XML nodes
+        (documents, elements, texts, processing instructions, comments, entity
+        references, CDATA sections, etc.). The node list implements the
+        following template model interfaces with the following
+        semantics:</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_58"></a>TemplateScalarModel  </h2>
+
+
+          <p>When used as a scalar, the node list will render the XML
+          fragment that represents its contained nodes. This makes it handy
+          for use in XML-to-XML transforming templates.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_59"></a>TemplateCollectionModel  </h2>
+
+
+          <p>When used as a collection with <tt style="color: #A03D10">list</tt>
+          directive, it will simply enumerate its nodes. Every node will be
+          returned as a new node list consisting of a single node.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_60"></a>TemplateSequenceModel  </h2>
+
+
+          <p>When used as a sequence, it will return the i-th node as a new
+          node list consisting of the single requested node. I.e. to return
+          the 3rd <tt style="color: #A03D10">&lt;chapter&gt;</tt> element of the
+          <tt style="color: #A03D10">&lt;book&gt;</tt> element, you'd use the following
+          (note indexes are zero-based):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign 3rdChapter = xmldoc.book.chapter[2]&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_61"></a>TemplateHashModel  </h2>
+
+
+          <p>When used as a hash, it is basically used to traverse
+          children. That is, if you have a node list named
+          <tt style="color: #A03D10">book</tt> that wraps an element node with several
+          chapters, then the <tt style="color: #A03D10">book.chapter</tt> will yield a node
+          list with all chapter elements of that book element. The at sign is
+          used to refer to attributes: <tt style="color: #A03D10">book.@title</tt> yields a
+          node list with a single attribute node, that is the title attribute
+          of the book element.</p>
+
+          <p>It is important to realize the consequence that, for example,
+          if <tt style="color: #A03D10">book</tt> has no <tt style="color: #A03D10">chapter</tt>-s then
+          <tt style="color: #A03D10">book.chapter</tt> is an empty sequence, so
+          <tt style="color: #A03D10">xmldoc.book.chapter??</tt> will
+          <i>not</i> be <tt style="color: #A03D10">false</tt>, it will be
+          always <tt style="color: #A03D10">true</tt>! Similarly,
+          <tt style="color: #A03D10">xmldoc.book.somethingTotallyNonsense??</tt> will not
+          be <tt style="color: #A03D10">false</tt> either. To check if there was no
+          children found, use <tt style="color: #A03D10">xmldoc.book.chapter?size ==
+          0</tt>.</p>
+
+          <p>The hash defines several &quot;magic keys&quot; as well. All these keys
+          start with an underscore. The most notable is the
+          <tt style="color: #A03D10">_text</tt> key which retrieves the text of the node:
+          <tt style="color: #A03D10">${book.@title._text}</tt> will render the value of the
+          attribute into the template. Similarly, <tt style="color: #A03D10">_name</tt>
+          will retrieve the name of the element or attribute.
+          <tt style="color: #A03D10">*</tt> or <tt style="color: #A03D10">_allChildren</tt> returns all
+          direct children elements of all elements in the node list, while
+          <tt style="color: #A03D10">@*</tt> or <tt style="color: #A03D10">_allAttributes</tt> returns
+          all attributes of the elements in the node list. There are many more
+          such keys; here's a detailed summary of all the hash keys:</p>
+
+             <div class="informaltable">
+      <table border="1" cellpadding="4">
+
+            <thead>
+              <tr>
+                <th>Key name</th>
+
+
+                <th>Evaluates to</th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+              <tr>
+                <td><tt style="color: #A03D10">*</tt> or <tt style="color: #A03D10">_children</tt></td>
+
+
+                <td>all direct element children of current nodes
+                (non-recursive). Applicable to element and document
+                nodes.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">@*</tt> or
+                <tt style="color: #A03D10">_attributes</tt></td>
+
+
+                <td>all attributes of current nodes. Applicable to elements
+                only.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">@<i style="color: #DD4400">attributeName</i></tt></td>
+
+
+                <td>named attributes of current nodes. Applicable to elements,
+                doctypes and processing instructions. On doctypes it supports
+                attributes <tt style="color: #A03D10">publicId</tt>,
+                <tt style="color: #A03D10">systemId</tt> and
+                <tt style="color: #A03D10">elementName</tt>. On processing instructions, it
+                supports attributes <tt style="color: #A03D10">target</tt> and
+                <tt style="color: #A03D10">data</tt>, as well as any other attribute name
+                specified in data as <tt style="color: #A03D10">name=&quot;value&quot;</tt> pair. The
+                attribute nodes for doctype and processing instruction are
+                synthetic, and as such have no parent. Note, however that
+                <tt style="color: #A03D10">@*</tt> does NOT operate on doctypes or
+                processing instructions.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_ancestor</tt></td>
+
+
+                <td>all ancestors up to root element (recursive) of current
+                nodes. Applicable to same node types as
+                <tt style="color: #A03D10">_parent</tt>.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_ancestorOrSelf</tt></td>
+
+
+                <td>all ancestors of current nodes plus current nodes.
+                Applicable to same node types as
+                <tt style="color: #A03D10">_parent</tt>.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_cname</tt></td>
+
+
+                <td>the canonical names of current nodes (namespace URI +
+                local name), one string per node (non-recursive). Applicable
+                to elements and attributes</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_content</tt></td>
+
+
+                <td>the complete content of current nodes, including children
+                elements, text, entity references, and processing instructions
+                (non-recursive). Applicable to elements and documents.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_descendant</tt></td>
+
+
+                <td>all recursive descendant element children of current
+                nodes. Applicable to document and element nodes.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_descendantOrSelf</tt></td>
+
+
+                <td>all recursive descendant element children of current nodes
+                plus current nodes. Applicable to document and element
+                nodes.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_document</tt></td>
+
+
+                <td>all documents the current nodes belong to. Applicable to
+                all nodes except text.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_doctype</tt></td>
+
+
+                <td>doctypes of the current nodes. Applicable to document
+                nodes only.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_filterType</tt></td>
+
+
+                <td>is a filter-by-type template method model. When called, it
+                will yield a node list that contains only those current nodes
+                whose type matches one of types passed as argument. You should
+                pass arbitrary number of strings to this method containing the
+                names of types to keep. Valid type names are: &quot;attribute&quot;,
+                &quot;cdata&quot;, &quot;comment&quot;, &quot;document&quot;, &quot;documentType&quot;, &quot;element&quot;,
+                &quot;entity&quot;, &quot;entityReference&quot;, &quot;processingInstruction&quot;,
+                &quot;text&quot;.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_name</tt></td>
+
+
+                <td>the names of current nodes, one string per node
+                (non-recursive). Applicable to elements and attributes
+                (returns their local names), entities, processing instructions
+                (returns its target), doctypes (returns its public ID)</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_nsprefix</tt></td>
+
+
+                <td>the namespace prefixes of current nodes, one string per
+                node (non-recursive). Applicable to elements and
+                attributes</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_nsuri</tt></td>
+
+
+                <td>the namespace URIs of current nodes, one string per node
+                (non-recursive). Applicable to elements and attributes</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_parent</tt></td>
+
+
+                <td>parent elements of current nodes. Applicable to element,
+                attribute, comment, entity, processing instruction.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_qname</tt></td>
+
+
+                <td>the qualified names of current nodes in
+                <tt style="color: #A03D10">[namespacePrefix:]localName</tt> form, one
+                string per node (non-recursive). Applicable to elements and
+                attributes</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_registerNamespace(prefix, uri)</tt></td>
+
+
+                <td>register a XML namespace with the specified prefix and URI
+                for the current node list and all node lists that are derived
+                from the current node list. After registering, you can use the
+                <tt style="color: #A03D10">nodelist[&quot;prefix:localname&quot;]</tt> or
+                <tt style="color: #A03D10">nodelist[&quot;@prefix:localname&quot;]</tt> syntaxes to
+                reach elements and attributes whose names are
+                namespace-scoped. Note that the namespace prefix need not
+                match the actual prefix used by the XML document itself since
+                namespaces are compared solely by their URI.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_text</tt></td>
+
+
+                <td>the text of current nodes, one string per node
+                (non-recursive). Applicable to elements, attributes, comments,
+                processing instructions (returns its data) and CDATA sections.
+                The reserved XML characters ('&lt;' and '&amp;') are not
+                escaped.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_type</tt></td>
+
+
+                <td>Returns a node list containing one string per node
+                describing the type of the node. Possible node type names are:
+                &quot;attribute&quot;, &quot;cdata&quot;, &quot;comment&quot;, &quot;document&quot;, &quot;documentType&quot;,
+                &quot;element&quot;, &quot;entity&quot;, &quot;entityReference&quot;,
+                &quot;processingInstruction&quot;, &quot;text&quot;. If the type of the node is
+                unknown, returns &quot;unknown&quot;.</td>
+
+              </tr>
+
+
+              <tr>
+                <td><tt style="color: #A03D10">_unique</tt></td>
+
+
+                <td>a copy of the current nodes that keeps only the first
+                occurrence of every node, eliminating duplicates. Duplicates
+                can occur in the node list by applying uptree-traversals
+                <tt style="color: #A03D10">_parent</tt>, <tt style="color: #A03D10">_ancestor</tt>,
+                <tt style="color: #A03D10">_ancestorOrSelf</tt>, and
+                <tt style="color: #A03D10">_document</tt>. I.e.
+                <tt style="color: #A03D10">foo._children._parent</tt> will return a node
+                list that has duplicates of nodes in foo - each node will have
+                the number of occurrences equal to the number of its children.
+                In these cases, use
+                <tt style="color: #A03D10">foo._children._parent._unique</tt> to eliminate
+                duplicates. Applicable to all node types.</td>
+
+              </tr>
+
+
+              <tr>
+                <td>any other key</td>
+
+
+                <td>element children of current nodes with name matching the
+                key. This allows for convenience child traversal in
+                <tt style="color: #A03D10">book.chapter.title</tt> style syntax. Note that
+                <tt style="color: #A03D10">nodeset.childname</tt> is technically equivalent
+                to <tt style="color: #A03D10">nodeset(&quot;childname&quot;)</tt>, but is both
+                shorter to write and evaluates faster. Applicable to document
+                and element nodes.</td>
+
+              </tr>
+
+            </tbody>
+
+                </table>
+   </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_62"></a>TemplateMethodModel  </h2>
+
+
+          <p>When used as a method model, it returns a node list that is
+          the result of evaluating an XPath expression on the current contents
+          of the node list. For this feature to work, you must have the
+          <tt style="color: #A03D10">Jaxen</tt> library in your classpath. For
+          example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign firstChapter=xmldoc(&quot;//chapter[first()]&quot;)&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_63"></a>Namespace handling  </h2>
+
+
+          <p>For purposes of traversal of children elements that have
+          namespace-scoped names, you can register namespace prefixes with the
+          node list. You can do it either in Java, calling the</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+public void registerNamespace(String prefix, String uri);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>method, or inside a template using the</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${<i>nodelist</i>._registerNamespace(<i>prefix</i>, <i>uri</i>)}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>syntax. From there on, you can refer to children elements in
+          the namespace denoted by the particular URI through the
+          syntax</p>
+
+          <pre class="metaTemplate"><tt style="color: #A03D10"><i style="color: #DD4400">nodelist</i>[&quot;<i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">localName</i>&quot;]</tt></pre>
+
+
+          <p>and</p>
+
+          <pre class="metaTemplate"><tt style="color: #A03D10"><i style="color: #DD4400">nodelist</i>[&quot;@<i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">localName</i>&quot;]</tt></pre>
+
+
+          <p>as well as use these namespace prefixes in XPath expressions.
+          Namespaces registered with a node list are propagated to all node
+          lists that are derived from the original node list. Note also that
+          namespaces are matched by their URI only, so you can safely use a
+          prefix for a namespace inside your template that differs from the
+          prefix in the actual XML document - a prefix is just a local alias
+          for the URI both in the template and in the XML document.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_ant.html"><span class="hideA">Next page: </span>Using FreeMarker with Ant</a></div><div class="pagerButton"><a href="pgui_misc_secureenv.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Legacy XML wrapper implementation
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

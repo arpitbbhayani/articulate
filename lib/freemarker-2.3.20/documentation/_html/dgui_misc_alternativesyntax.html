@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Alternative (square bracket) syntax
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Alternative (square bracket) syntax
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui.html"><span class="hideA">Next page: </span>Programmer's Guide</a></div><div class="pagerButton"><a href="dgui_misc_whitespace.html">Previous page</a></div><div class="pagerButton"><a href="dgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="dgui_misc_alternativesyntax"></a>Alternative (square bracket) syntax  </h1>
+    
+    
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+          <p>This feature exists since FreeMarker 2.3.4.</p>
+        </div>
+<p>FreeMarker supports an alternative syntax, where
+        <tt style="color: #A03D10">[</tt> and <tt style="color: #A03D10">]</tt> is used instead of
+        <tt style="color: #A03D10">&lt;</tt> and <tt style="color: #A03D10">&gt;</tt> in FreeMarker
+        directives and comments, for example:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            Calling predefined directive: <tt style="color: #A03D10">[#list animals as
+            being]<i style="color: #DD4400">...</i>[/#list]</tt>
+          </li>
+
+          <li>
+            Calling user-defined directive: <tt style="color: #A03D10">[@myMacro
+            /]</tt>
+          </li>
+
+          <li>
+            Comment: <tt style="color: #A03D10">[#-- the comment --]</tt>
+          </li>
+        </ul>    </div>
+<p>To use the alternative syntax instead of the default one, start
+        the template with the <a href="ref_directive_ftl.html"><tt>ftl</tt> directive</a>
+        using the alternative syntax. If you don't know what is the
+        <tt style="color: #A03D10">ftl</tt> directive, just start the template with
+        <tt style="color: #A03D10">[#ftl]</tt>, and remember that it should be the very
+        first thing in the file (except that <a href="gloss.html#gloss.whiteSpace">white-space</a> can precede it). For
+        example, this is how the last example of the <a href="dgui_quickstart_template.html">Getting Started</a> looks with
+        the alternative syntax (assuming it's a complete template, not just a
+        fragment):</p><div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+<b>[#ftl]</b>
+&lt;p&gt;We have these animals:
+&lt;table border=1&gt;
+  &lt;tr&gt;&lt;th&gt;Name&lt;th&gt;Price
+  <b>[#list animals as being]</b>
+  &lt;tr&gt;
+    &lt;td&gt;
+      <b>[#if being.size = &quot;large&quot;]</b>&lt;b&gt;<b>[/#if]</b>
+      ${being.name}
+      <b>[#if being.size = &quot;large&quot;]</b>&lt;/b&gt;<b>[/#if]</b>
+    &lt;td&gt;${being.price} Euros
+  <b>[/#list]</b>
+&lt;/table&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>The alternative (square bracket) and the default (angle bracket)
+        syntax are mutually exclusive within a template. That is, either the
+        whole template uses alternative syntax, or the whole template uses the
+        default syntax. If the template uses alternative syntax, things like
+        <tt style="color: #A03D10">&lt;#if <i style="color: #DD4400">...</i>&gt;</tt> are
+        count as static text, not as FTL tags. Similarly, if the template uses
+        the default syntax, things like <tt style="color: #A03D10">[#if
+        <i style="color: #DD4400">...</i>]</tt> count as static text, not as
+        FTL tags.</p><p>If you start the file with <tt style="color: #A03D10">[#ftl
+        <i style="color: #DD4400">...</i>]</tt> (where the
+        <tt style="color: #A03D10"><i style="color: #DD4400">...</i></tt> stands for the
+        optional parameters; of course <tt style="color: #A03D10">[#ftl]</tt> works too)
+        the file will surely use the alternative (square bracket) syntax. If
+        you start the file with <tt style="color: #A03D10">&lt;#ftl
+        <i style="color: #DD4400">...</i>&gt;</tt> the file will surely use
+        the normal (angle bracket) syntax. If there is no
+        <tt style="color: #A03D10">ftl</tt> directive in the file, then the programmer
+        decides what the syntax will be by configuring FreeMarker <span style="color:#333399; font-style:italic">(programmers see
+        <tt style="color: #A03D10">Configuration.setTagSyntax(int)</tt> in the API
+        javadocs)</span>. Most probably the programmers use the factory
+        default however. The factory default in 2.3.x is using the normal
+        syntax. The factory default in 2.4.x will be auto-detection, which
+        means that the first FreeMarker tag determines the syntax (it can be
+        anything, not just <tt style="color: #A03D10">ftl</tt>).</p>  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui.html"><span class="hideA">Next page: </span>Programmer's Guide</a></div><div class="pagerButton"><a href="dgui_misc_whitespace.html">Previous page</a></div><div class="pagerButton"><a href="dgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Alternative (square bracket) syntax
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

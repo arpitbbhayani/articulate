@@ -1,0 +1,758 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Bean wrapper
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Bean wrapper
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_logging.html"><span class="hideA">Next page: </span>Logging</a></div><div class="pagerButton"><a href="pgui_misc_multithreading.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_misc_beanwrapper"></a>Bean wrapper  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#beanswrapper_hash">TemplateHashModel functionality</a>
+      </li>
+      <li>
+        <a href="#autoid_49">A word on security</a>
+      </li>
+      <li>
+        <a href="#autoid_50">TemplateScalarModel functionality</a>
+      </li>
+      <li>
+        <a href="#autoid_51">TemplateNumberModel functionality</a>
+      </li>
+      <li>
+        <a href="#autoid_52">TemplateCollectionModel functionality</a>
+      </li>
+      <li>
+        <a href="#autoid_53">TemplateSequenceModel functionality</a>
+      </li>
+      <li>
+        <a href="#beanswrapper_method">TemplateMethodModel functionality</a>
+      </li>
+      <li>
+        <a href="#autoid_54">Unwrapping rules</a>
+      </li>
+      <li>
+        <a href="#autoid_55">Accessing static methods</a>
+      </li>
+      <li>
+        <a href="#jdk_15_enums">Accessing enums</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>The <tt style="color: #A03D10">freemarker.ext.beans.BeansWrapper</tt> is an
+        <a href="pgui_datamodel_objectWrapper.html">object wrapper</a>
+        that was originally added to FreeMarker so arbitrary POJO-s (Plain Old
+        Java Objects) can be wrapped into <tt style="color: #A03D10">TemplateModel</tt>
+        interfaces. Since then it has becomed the normal way of doing things,
+        and in fact the <tt style="color: #A03D10">DefaultObjectWrapper</tt> itself is a
+        <tt style="color: #A03D10">BeansWrapper</tt> extension. So everything described
+        here goes for the <tt style="color: #A03D10">DefaultObjectWrapper</tt> too, except
+        that the <tt style="color: #A03D10">DefaultObjectWrapper</tt> will wrap
+        <tt style="color: #A03D10">String</tt>, <tt style="color: #A03D10">Number</tt>,
+        <tt style="color: #A03D10">Date</tt>, <tt style="color: #A03D10">array</tt>,
+        <tt style="color: #A03D10">Collection</tt> (like <tt style="color: #A03D10">List</tt>),
+        <tt style="color: #A03D10">Map</tt>, <tt style="color: #A03D10">Boolean</tt> and
+        <tt style="color: #A03D10">Iterator</tt> objects with the
+        <tt style="color: #A03D10">freemarker.template.Simple<i style="color: #DD4400">Xxx</i></tt>
+        classes, and W3C DOM nodes with
+        <tt style="color: #A03D10">freemarker.ext.dom.NodeModel</tt> (<a href="xgui.html">more about wrapped W3C DOM...</a>), so for those the
+        above described rules doesn't apply.</p><p>You will want to use <tt style="color: #A03D10">BeansWrapper</tt> instead of
+        <tt style="color: #A03D10">DefaultObjectWrapper</tt> when any of these
+        stands:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p>The <tt style="color: #A03D10">Collection</tt>-s and
+            <tt style="color: #A03D10">Map</tt>-s of the model should be allowed to be
+            modified during template execution.
+            (<tt style="color: #A03D10">DefaultObjectWrapper</tt> prevents that, since it
+            creates a copy of the collections when they are wrapped, and the
+            copies will be read-only.)</p>
+          </li>
+
+          <li>
+            <p>If the identity of the <tt style="color: #A03D10">array</tt>,
+            <tt style="color: #A03D10">Collection</tt> and <tt style="color: #A03D10">Map</tt> objects
+            must be kept when they are passed to a wrapped object's method in
+            the template. That is, if those methods must get exactly the same
+            object that was earlier wrapped.</p>
+          </li>
+
+          <li>
+            <p>If the Java API of the earlier listed classes
+            (<tt style="color: #A03D10">String</tt>, <tt style="color: #A03D10">Map</tt>,
+            <tt style="color: #A03D10">List</tt> ...etc) should be visible for the
+            templates. Even with <tt style="color: #A03D10">BeansWrapper</tt>, they are not
+            visible by default, but it can be achieved by setting the exposure
+            level (see later). Note that this is usually a bad practice; try
+            to use <a href="ref_builtins.html">the built-ins</a> (like
+            <tt style="color: #A03D10">foo?size</tt>, <tt style="color: #A03D10">foo?upper</tt>,
+            <tt style="color: #A03D10">foo?replace('_', '-')</tt> ...etc) instead of the
+            Java API.</p>
+          </li>
+        </ul>    </div>
+<p>Below is a summary of the <tt style="color: #A03D10">TemplateModel</tt>-s
+        that the <tt style="color: #A03D10">BeansWrapper</tt> creates. Let's assume that
+        the object is called <tt style="color: #A03D10">obj</tt> before wrapping, and
+        <tt style="color: #A03D10">model</tt> after wrapping for the sake of the following
+        discussion.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="beanswrapper_hash"></a>TemplateHashModel functionality  </h2>
+
+
+          <p>Every object will be wrapped into a
+          <tt style="color: #A03D10">TemplateHashModel</tt> that will expose JavaBeans
+          properties and methods of the object. This way, you can use
+          <tt style="color: #A03D10">model.foo</tt> in the template to invoke
+          <tt style="color: #A03D10">obj.getFoo()</tt> or <tt style="color: #A03D10">obj.isFoo()</tt>
+          methods. (Note that public fields are not visible directly; you must
+          write a getter method for them.) Public methods are also retrievable
+          through the hash model as template method models, therefore you can
+          use the <tt style="color: #A03D10">model.doBar()</tt> to invoke
+          <tt style="color: #A03D10">object.doBar()</tt>. More on this on discussion of
+          method model functionality.</p>
+
+          <p>If the requested key can not be mapped to a bean property or
+          method, the framework will attempt to locate the so-called &quot;generic
+          get method&quot;, that is a method with signature public
+          <tt style="color: #A03D10"><i style="color: #DD4400">any-return-type</i>
+          get(String)</tt> or public
+          <tt style="color: #A03D10"><i style="color: #DD4400">any-return-type</i>
+          get(Object)</tt> and invoke that method with the requested key.
+          Note that this allows convenient access to mappings in a
+          <tt style="color: #A03D10">java.util.Map</tt> and similar classes - as long as
+          the keys of the map are <tt style="color: #A03D10">String</tt>s and some property
+          or method name does not shadow the mapping. (There is a solution to
+          avoid shadowing, read on.) Also note that the models for
+          <tt style="color: #A03D10">java.util.ResourceBundle</tt> objects use the
+          <tt style="color: #A03D10">getObject(String)</tt> as the generic get
+          method.</p>
+
+          <p>If you call <tt style="color: #A03D10">setExposeFields(true)</tt> on a
+          <tt style="color: #A03D10">BeansWrapper</tt> instance, it will also expose
+          public, non-static fields of classes as hash keys and values. I.e.
+          if <tt style="color: #A03D10">foo</tt> is a public, non-static field of the class
+          <tt style="color: #A03D10">Bar</tt>, and <tt style="color: #A03D10">bar</tt> is a template
+          variable wrapping an instance of <tt style="color: #A03D10">Bar</tt>, then
+          <tt style="color: #A03D10">bar.foo</tt> expression will evaluate as the value of
+          the field <tt style="color: #A03D10">foo</tt> of the <tt style="color: #A03D10">bar</tt>
+          object. The public fields in all superclasses of the class are also
+          exposed.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_49"></a>A word on security  </h2>
+
+
+          <p>By default, you will not be able to access several methods
+          that are considered not safe for templating. For instance, you can't
+          use synchronization methods (<tt style="color: #A03D10">wait</tt>,
+          <tt style="color: #A03D10">notify</tt>, <tt style="color: #A03D10">notifyAll</tt>), thread and
+          thread group management methods (<tt style="color: #A03D10">stop</tt>,
+          <tt style="color: #A03D10">suspend</tt>, <tt style="color: #A03D10">resume</tt>,
+          <tt style="color: #A03D10">setDaemon</tt>, <tt style="color: #A03D10">setPriority</tt>),
+          reflection (<tt style="color: #A03D10">Field</tt>
+          <tt style="color: #A03D10">set<i style="color: #DD4400">Xxx</i></tt> methods,
+          <tt style="color: #A03D10">Method.invoke</tt>,
+          <tt style="color: #A03D10">Constructor.newInstance</tt>,
+          <tt style="color: #A03D10">Class.newInstance</tt>,
+          <tt style="color: #A03D10">Class.getClassLoader</tt> etc.) and various dangerous
+          methods in <tt style="color: #A03D10">System</tt> and <tt style="color: #A03D10">Runtime</tt>
+          classes (<tt style="color: #A03D10">exec</tt>, <tt style="color: #A03D10">exit</tt>,
+          <tt style="color: #A03D10">halt</tt>, <tt style="color: #A03D10">load</tt>, etc.). The
+          <tt style="color: #A03D10">BeansWrapper</tt> has several security levels (called
+          &quot;levels of method exposure&quot;), and the default called
+          <tt style="color: #A03D10">EXPOSE_SAFE</tt> is probably suited for most
+          applications. There is a no-safeguard level called
+          <tt style="color: #A03D10">EXPOSE_ALL</tt> that allows you to call even the above
+          unsafe methods, and a strict level
+          <tt style="color: #A03D10">EXPOSE_PROPERTIES_ONLY</tt> that will expose only bean
+          property getters. Finally, there is a level named
+          <tt style="color: #A03D10">EXPOSE_NOTHING</tt> that will expose no properties and
+          no methods. The only data you will be able to access through hash
+          model interface in this case are items in maps and resource bundles,
+          as well as objects returned from a call to generic
+          <tt style="color: #A03D10">get(Object)</tt> or <tt style="color: #A03D10">get(String)</tt>
+          methods - provided the affected objects have such method.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_50"></a>TemplateScalarModel functionality  </h2>
+
+
+          <p>Models for <tt style="color: #A03D10">java.lang.String</tt> objects will
+          implement <tt style="color: #A03D10">TemplateScalarModel</tt> whose
+          <tt style="color: #A03D10">getAsString()</tt> method simply delegates to
+          <tt style="color: #A03D10">toString()</tt>. Note that wrapping
+          <tt style="color: #A03D10">String</tt> objects into Bean wrappers provides much
+          more functionality than just them being scalars: because of the hash
+          interface described above, the models that wrap
+          <tt style="color: #A03D10">String</tt>s also provide access to all
+          <tt style="color: #A03D10">String</tt> methods (<tt style="color: #A03D10">indexOf</tt>,
+          <tt style="color: #A03D10">substring</tt>, etc.).</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_51"></a>TemplateNumberModel functionality  </h2>
+
+
+          <p>Model wrappers for objects that are instances of
+          <tt style="color: #A03D10">java.lang.Number</tt> implement
+          <tt style="color: #A03D10">TemplateNumberModel</tt> whose
+          <tt style="color: #A03D10">getAsNumber()</tt> method returns the wrapped number
+          object. Note that wrapping <tt style="color: #A03D10">Number</tt> objects into
+          Bean wrappers provides much more functionality than just them being
+          number models: because of the hash interface described above, the
+          models that wrap <tt style="color: #A03D10">Number</tt>s also provide access to
+          all their methods.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_52"></a>TemplateCollectionModel functionality  </h2>
+
+
+          <p>Model wrappers for native Java arrays and all classes that
+          implement <tt style="color: #A03D10">java.util.Collection</tt> will implement
+          <tt style="color: #A03D10">TemplateCollectionModel</tt> and thus gain the
+          additional capability of being usable through
+          <tt style="color: #A03D10">list</tt> directive.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_53"></a>TemplateSequenceModel functionality  </h2>
+
+
+          <p>Model wrappers for native Java arrays and all classes that
+          implement <tt style="color: #A03D10">java.util.List</tt> will implement
+          <tt style="color: #A03D10">TemplateSequenceModel</tt> and thus their elements
+          will be accessible by index using the <tt style="color: #A03D10">model[i]</tt>
+          syntax. You can also query the length of the array or the size of
+          the list using the <tt style="color: #A03D10">model?size</tt> built-in.</p>
+
+          <p>Also, every method that takes a single parameter that is
+          assignable through reflective method invocation from a
+          <tt style="color: #A03D10">java.lang.Integer</tt> (these are
+          <tt style="color: #A03D10">int</tt>, <tt style="color: #A03D10">long</tt>,
+          <tt style="color: #A03D10">float</tt>, <tt style="color: #A03D10">double</tt>,
+          <tt style="color: #A03D10">java.lang.Object</tt>,
+          <tt style="color: #A03D10">java.lang.Number</tt>, and
+          <tt style="color: #A03D10">java.lang.Integer</tt>) also implements this
+          interface. What this means is that you have a convenient way for
+          accessing the so-called indexed bean properties:
+          <tt style="color: #A03D10">model.foo[i]</tt> will translate into
+          <tt style="color: #A03D10">obj.getFoo(i)</tt>.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="beanswrapper_method"></a>TemplateMethodModel functionality  </h2>
+
+
+          <p>All methods of an object are represented as
+          <tt style="color: #A03D10">TemplateMethodModelEx</tt> objects accessible using a
+          hash key with method name on their object's model. When you call a
+          method using
+          <tt style="color: #A03D10">model.<i style="color: #DD4400">method</i>(<i style="color: #DD4400">arg1</i>,
+          <i style="color: #DD4400">arg2</i>,
+          <i style="color: #DD4400">...</i>)</tt> the arguments are passed
+          to the method as template models. The method will first try to
+          unwrap them - see below for details about unwrapping. These
+          unwrapped arguments are then used for the actual method call. In
+          case the method is overloaded, the most specific method will be
+          selected using the same rules that are used by the Java compiler to
+          select a method from several overloaded methods. In case that no
+          method signature matches the passed parameters, or that no method
+          can be chosen without ambiguity, a
+          <tt style="color: #A03D10">TemplateModelException</tt> is thrown.</p>
+
+          <p>Methods of return type <tt style="color: #A03D10">void</tt> return
+          <tt style="color: #A03D10">TemplateModel.NOTHING</tt>, so they can be safely
+          called with the <tt style="color: #A03D10">${obj.method(args)}</tt>
+          syntax.</p>
+
+          <p>Models for instances of <tt style="color: #A03D10">java.util.Map</tt> also
+          implement <tt style="color: #A03D10">TemplateMethodModelEx</tt> as a means for
+          invoking their <tt style="color: #A03D10">get()</tt> method. As it was discussed
+          previously, you can use the hash functionality to access the &quot;get&quot;
+          method as well, but it has several drawbacks: it's slower because
+          first property and method names are checked for the key; keys that
+          conflict with property and method names will be shadowed by them;
+          finally you can use <tt style="color: #A03D10">String</tt> keys only with that
+          approach. In contrast, invoking <tt style="color: #A03D10">model(key)</tt>
+          translates to <tt style="color: #A03D10">model.get(key)</tt> directly: it's
+          faster because there's no property and method name lookup; it is
+          subject to no shadowing; and finally it works for non-String keys
+          since the argument is unwrapped just as with ordinary method calls.
+          In effect, <tt style="color: #A03D10">model(key)</tt> on a <tt style="color: #A03D10">Map</tt>
+          is equal to <tt style="color: #A03D10">model.get(key)</tt>, only shorter to
+          write.</p>
+
+          <p>Models for <tt style="color: #A03D10">java.util.ResourceBundle</tt> also
+          implement <tt style="color: #A03D10">TemplateMethodModelEx</tt> as a convenient
+          way of resource access and message formatting. A single-argument
+          call to a bundle will retrieve the resource with the name that
+          corresponds to the <tt style="color: #A03D10">toString()</tt> value of the
+          unwrapped argument. A multiple-argument call to a bundle will also
+          retrieve the resource with the name that corresponds to the
+          <tt style="color: #A03D10">toString()</tt> value of the unwrapped argument, but
+          it will use it as a format pattern and pass it to
+          <tt style="color: #A03D10">java.text.MessageFormat</tt> using the unwrapped
+          values of second and later arguments as formatting parameters.
+          <tt style="color: #A03D10">MessageFormat</tt> objects will be initialized with
+          the locale of the bundle that originated them.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_54"></a>Unwrapping rules  </h2>
+
+
+          <p>When invoking a Java method from a template, its arguments
+          need to be converted from template models back to Java objects.
+          Assuming that the target type (the declared type of the method's
+          formal parameter) is denoted as <tt style="color: #A03D10">T</tt>, the following
+          rules are tried in the following order:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>If the model is the null model for this wrapper, Java
+              <tt style="color: #A03D10">null</tt> is returned.</p>
+            </li>
+
+            <li>
+              <p>If the model implements
+              <tt style="color: #A03D10">AdapterTemplateModel</tt>, the result of
+              <tt style="color: #A03D10">model.getAdaptedObject(T)</tt> is returned if it
+              is instance of <tt style="color: #A03D10">T</tt> or it is a number and can be
+              converted to <tt style="color: #A03D10">T</tt> using numeric coercion as
+              described three bullets lower. <span style="color:#333399; font-style:italic">All
+              models created by the BeansWrapper are themselves
+              AdapterTemplateModel implementations, so unwrapping a model that
+              was created by BeansWrapper for an underlying Java object always
+              yields the original Java object.</span></p>
+            </li>
+
+            <li>
+              <p>If the model implements the deprecated
+              <tt style="color: #A03D10">WrapperTemplateModel</tt>, the result of
+              <tt style="color: #A03D10">model.getWrappedObject()</tt> is returned if it is
+              instance of <tt style="color: #A03D10">T</tt> or it is a number and can be
+              converted to <tt style="color: #A03D10">T</tt> using numeric coercion as
+              described two bullets lower.</p>
+            </li>
+
+            <li>
+              <p>If <tt style="color: #A03D10">T</tt> is
+              <tt style="color: #A03D10">java.lang.String</tt>, then if model implements
+              <tt style="color: #A03D10">TemplateScalarModel</tt> its string value is
+              returned. <span style="color:#333399; font-style:italic">Note that if the model
+              doesn't implement TemplateScalarModel we don't attempt to
+              automatically convert the model to string using
+              String.valueOf(model). You'll have to use the ?string built-in
+              explicitly to pass non-scalars as strings.</span></p>
+            </li>
+
+            <li>
+              <p>If <tt style="color: #A03D10">T</tt> is a primitive numeric type or
+              <tt style="color: #A03D10">java.lang.Number</tt> is assignable from
+              <tt style="color: #A03D10">T</tt>, and model implements
+              <tt style="color: #A03D10">TemplateNumberModel</tt>, then its numeric value
+              is returned if it is instance of <tt style="color: #A03D10">T</tt> or its
+              boxing type (if <tt style="color: #A03D10">T</tt> is primitive type).
+              Otherwise, if <tt style="color: #A03D10">T</tt> is a built-in Java numeric
+              type (primitive type or a standard subclass of
+              <tt style="color: #A03D10">java.lang.Number</tt>, including
+              <tt style="color: #A03D10">BigInteger</tt> and <tt style="color: #A03D10">BigDecimal</tt>)
+              a new object of class <tt style="color: #A03D10">T</tt> or its boxing type is
+              created with the number model's appropriately coerced
+              value.</p>
+            </li>
+
+            <li>
+              <p>If <tt style="color: #A03D10">T</tt> is <tt style="color: #A03D10">boolean</tt> or
+              <tt style="color: #A03D10">java.lang.Boolean</tt>, and model implements
+              <tt style="color: #A03D10">TemplateBooleanModel</tt>, then its boolean value
+              is returned.</p>
+            </li>
+
+            <li>
+              <p>If <tt style="color: #A03D10">T</tt> is
+              <tt style="color: #A03D10">java.util.Map</tt> and the model implements
+              <tt style="color: #A03D10">TemplateHashModel</tt>, then a special Map
+              representation of the hash model is returned.</p>
+            </li>
+
+            <li>
+              <p>If <tt style="color: #A03D10">T</tt> is
+              <tt style="color: #A03D10">java.util.List</tt> and the model implements
+              <tt style="color: #A03D10">TemplateSequenceModel</tt>, then a special List
+              representation of the sequence model is returned.</p>
+            </li>
+
+            <li>
+              <p>If <tt style="color: #A03D10">T</tt> is
+              <tt style="color: #A03D10">java.util.Set</tt> and the model implements
+              <tt style="color: #A03D10">TemplateCollectionModel</tt>, then a special Set
+              representation of the collection model is returned.</p>
+            </li>
+
+            <li>
+              <p>If <tt style="color: #A03D10">T</tt> is
+              <tt style="color: #A03D10">java.util.Collection</tt> or
+              <tt style="color: #A03D10">java.lang.Iterable</tt> and the model implements
+              either <tt style="color: #A03D10">TemplateCollectionModel</tt> or
+              <tt style="color: #A03D10">TemplateSequenceModel</tt>, then a special Set or
+              List representation of the collection or sequence model
+              (respectively) is returned.</p>
+            </li>
+
+            <li>
+              <p>If <tt style="color: #A03D10">T</tt> is a Java array type and the model
+              implements <tt style="color: #A03D10">TemplateSequenceModel</tt>, then a new
+              array of the specified type is created and its elements
+              unwrapped into the array recursively using the array's component
+              type as <tt style="color: #A03D10">T</tt>.</p>
+            </li>
+
+            <li>
+              <p>If <tt style="color: #A03D10">T</tt> is <tt style="color: #A03D10">char</tt> or
+              <tt style="color: #A03D10">java.lang.Character</tt>, and model implements
+              <tt style="color: #A03D10">TemplateScalarModel</tt>, and its string
+              representation contains exactly one character, then a
+              <tt style="color: #A03D10">java.lang.Character</tt> with that value is
+              retured.</p>
+            </li>
+
+            <li>
+              <p>If <tt style="color: #A03D10">java.util.Date</tt> is assignable from
+              <tt style="color: #A03D10">T</tt>, and model implements
+              <tt style="color: #A03D10">TemplateDateModel</tt>, and its date value is
+              instance of <tt style="color: #A03D10">T</tt>, then its date value is
+              returned.</p>
+            </li>
+
+            <li>
+              <p>If model is a number model, and its numeric value is
+              instance of <tt style="color: #A03D10">T</tt>, the numeric value is returned.
+              <span style="color:#333399; font-style:italic">You can have a custom subclass of
+              java.lang.Number that implements a custom interface, and T might
+              be that interface. (*)</span></p>
+            </li>
+
+            <li>
+              <p>If model is a date model, and its date value is instance
+              of <tt style="color: #A03D10">T</tt>, the date value is returned. <span style="color:#333399; font-style:italic">Similar consideration as for
+              (*)</span></p>
+            </li>
+
+            <li>
+              <p>If model is a scalar model, and <tt style="color: #A03D10">T</tt> is
+              assignable from <tt style="color: #A03D10">java.lang.String</tt>, the string
+              value is returned. <span style="color:#333399; font-style:italic">This covers
+              cases when T is java.lang.Object, java.lang.Comparable, and
+              java.io.Serializable (**)</span></p>
+            </li>
+
+            <li>
+              <p>If model is a boolean model, and <tt style="color: #A03D10">T</tt> is
+              assignable from <tt style="color: #A03D10">java.lang.Boolean</tt>, the
+              boolean value is returned. <span style="color:#333399; font-style:italic">Same as
+              (**)</span></p>
+            </li>
+
+            <li>
+              <p>If model is a hash model, and <tt style="color: #A03D10">T</tt> is
+              assignable from
+              <tt style="color: #A03D10">freemarker.ext.beans.HashAdapter</tt>, a hash
+              adapter is returned. <span style="color:#333399; font-style:italic">Same as
+              (**)</span></p>
+            </li>
+
+            <li>
+              <p>If model is a sequence model, and <tt style="color: #A03D10">T</tt> is
+              assignable from
+              <tt style="color: #A03D10">freemarker.ext.beans.SequenceAdapter</tt>, a
+              sequence adapter is returned. <span style="color:#333399; font-style:italic">Same
+              as (**)</span></p>
+            </li>
+
+            <li>
+              <p>If model is a collection model, and <tt style="color: #A03D10">T</tt>
+              is assignable from
+              <tt style="color: #A03D10">freemarker.ext.beans.SetAdapter</tt>, a set
+              adapter for the collection is returned. <span style="color:#333399; font-style:italic">Same as (**)</span></p>
+            </li>
+
+            <li>
+              <p>If the model is instance of <tt style="color: #A03D10">T</tt>, the
+              model itself is returned. <span style="color:#333399; font-style:italic">This
+              covers the case where the method explicitly declared a
+              FreeMarker-specific model interface, as well as allows returning
+              directive, method and transform models when java.lang.Object is
+              requested.</span></p>
+            </li>
+
+            <li>
+              <p>An exception signifying no conversion is possible is
+              thrown.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_55"></a>Accessing static methods  </h2>
+
+
+          
+
+          <p>The <tt style="color: #A03D10">TemplateHashModel</tt> returned from
+          <tt style="color: #A03D10">BeansWrapper.getStaticModels()</tt> can be used to
+          create hash models for accessing static methods and fields of an
+          arbitrary class.</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
+TemplateHashModel staticModels = wrapper.getStaticModels();
+TemplateHashModel fileStatics =
+    (TemplateHashModel) staticModels.get(&quot;java.io.File&quot;);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>And you will get a template hash model that exposes all static
+          methods and static fields (both final and non-final) of the
+          <tt style="color: #A03D10">java.lang.System</tt> class as hash keys. Suppose that
+          you put the previous model in your root model:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+root.put(&quot;File&quot;, fileStatics);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>From now on, you can use <tt style="color: #A03D10">${File.SEPARATOR}</tt>
+          to insert the file separator character into your template, or you
+          can even list all roots of your file system by:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#list File.listRoots() as fileSystemRoot&gt;...&lt;/#list&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Of course, you must be aware of the potential security issues
+          this model brings.</p>
+
+          <p>You can even give the template authors complete freedom over
+          which classes' static methods they use by placing the static models
+          hash into your template root model with</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+root.put(&quot;statics&quot;, BeansWrapper.getDefaultInstance().getStaticModels());&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This object exposes just about any class' static methods if
+          it's used as a hash with class name as the key. You can then use
+          expression like
+          <tt style="color: #A03D10">${statics[&quot;java.lang.System&quot;].currentTimeMillis()}</tt>
+          in your template. Note, however that this has even more security
+          implications, as someone could even invoke
+          <tt style="color: #A03D10">System.exit()</tt> using this model if the method
+          exposure level is weakened to <tt style="color: #A03D10">EXPOSE_ALL</tt>.</p>
+
+          <p>Note that in above examples, we always use the default
+          <tt style="color: #A03D10">BeansWrapper</tt> instance. This is a convenient
+          static wrapper instance that you can use in most cases. You are also
+          free to create your own <tt style="color: #A03D10">BeansWrapper</tt> instances
+          and use them instead especially when you want to modify some of its
+          characteristics (like model caching, security level, or the null
+          model representation).</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="jdk_15_enums"></a>Accessing enums  </h2>
+
+
+          
+
+          <p>The <tt style="color: #A03D10">TemplateHashModel</tt> returned from
+          <tt style="color: #A03D10">BeansWrapper.getEnumModels()</tt> can be used to
+          create hash models for accessing values of enums on JRE 1.5 or
+          later. (An attempt to invoke this method on an earlier JRE will
+          result in an
+          <tt style="color: #A03D10">UnsupportedOperationException</tt>.)</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
+TemplateHashModel enumModels = wrapper.getEnumModels();
+TemplateHashModel roundingModeEnums =
+    (TemplateHashModel) enumModels.get(&quot;java.math.RoundingMode&quot;);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>And you will get a template hash model that exposes all enum
+          values of the <tt style="color: #A03D10">java.math.RoundingMode</tt> class as
+          hash keys. Suppose that you put the previous model in your root
+          model:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+root.put(&quot;RoundingMode&quot;, roundingModeEnums);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>From now on, you can use <tt style="color: #A03D10">RoundingMode.UP</tt> as
+          an expression to reference the <tt style="color: #A03D10">UP</tt> enum value in
+          your template.</p>
+
+          <p>You can even give the template authors complete freedom over
+          which enum classes they use by placing the enum models hash into
+          your template root model with</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+root.put(&quot;enums&quot;, BeansWrapper.getDefaultInstance().getEnumModels());&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This object exposes any enum class if it's used as a hash with
+          class name as the key. You can then use expression like
+          <tt style="color: #A03D10">${enums[&quot;java.math.RoundingMode&quot;].UP}</tt> in your
+          template.</p>
+
+          <p>The exposed enum values can be used as scalars (they'll
+          delegate to their <tt style="color: #A03D10">toString()</tt> method), and can be
+          used in equality and inequality comparisons as well.</p>
+
+          <p>Note that in above examples, we always use the default
+          <tt style="color: #A03D10">BeansWrapper</tt> instance. This is a convenient
+          static wrapper instance that you can use in most cases. You are also
+          free to create your own <tt style="color: #A03D10">BeansWrapper</tt> instances
+          and use them instead especially when you want to modify some of its
+          characteristics (like model caching, security level, or the null
+          model representation).</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_misc_logging.html"><span class="hideA">Next page: </span>Logging</a></div><div class="pagerButton"><a href="pgui_misc_multithreading.html">Previous page</a></div><div class="pagerButton"><a href="pgui_misc.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_misc.html">Miscellaneous</a>
+            <b>></b>
+          Bean wrapper
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

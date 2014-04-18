@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="spark-0.9.9.4-SNAPSHOT-javadoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/spark-0.9.9.4-SNAPSHOT/spark-0.9.9.4-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/spark-0.9.9.4-SNAPSHOT/spark-0.9.9.4-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/spark-0.9.9.4-SNAPSHOT/spark-0.9.9.4-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

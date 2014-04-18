@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.3.7
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.7
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_7rc1.html"><span class="hideA">Next page: </span>2.3.7 RC1</a></div><div class="pagerButton"><a href="versions_2_3_8.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_3_7"></a>2.3.7  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_160">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="#autoid_161">Changes on the FTL side</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Date of release: 2006-06-23</p><p>This release, compared to 2.3.7 RC1, contains new operators for
+        handling null/missing variables, , the <tt style="color: #A03D10">substring</tt>
+        built-in, and some more bugfixes. Note that 2.3.7 RC1 has a long
+        change log, so you may want to <a href="versions_2_3_7rc1.html">read
+        that</a> too.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_160"></a>Changes on the Java side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>The <tt style="color: #A03D10">seq_contains</tt> built-in now handles
+              <tt style="color: #A03D10">TemplateCollectionModel</tt>-s as well.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: In 2.3.7 RC1
+              <tt style="color: #A03D10">FreemarkerServlet</tt> has always died with
+              <tt style="color: #A03D10">NullPointerException</tt> during
+              initialization.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_161"></a>Changes on the FTL side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>3 new operators were added for terser missing variable
+              handling. These operators make the <tt style="color: #A03D10">default</tt>,
+              <tt style="color: #A03D10">exists</tt> and <tt style="color: #A03D10">if_exists</tt>
+              built-ins deprecated. (The parser doesn't issue any warning
+              messages when you use deprecated built-ins, and they are still
+              working.):</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p><tt style="color: #A03D10"><i style="color: #DD4400">exp1</i>!<i style="color: #DD4400">exp2</i></tt>
+                  is near equivalent with
+                  <tt style="color: #A03D10"><i style="color: #DD4400">exp1</i>?default(<i style="color: #DD4400">exp2</i>)</tt>,
+                  also
+                  <tt style="color: #A03D10">(<i style="color: #DD4400">exp1</i>)!<i style="color: #DD4400">exp2</i></tt>
+                  is near equivalent with
+                  <tt style="color: #A03D10">(<i style="color: #DD4400">exp1</i>)?default(<i style="color: #DD4400">exp2</i>)</tt>.
+                  The only difference is that this new operator doesn't
+                  evaluate the
+                  <tt style="color: #A03D10"><i style="color: #DD4400">exp2</i></tt> when the
+                  default value is not needed.</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10"><i style="color: #DD4400">exp1</i>!</tt> is
+                  similar to
+                  <tt style="color: #A03D10"><i style="color: #DD4400">exp1</i>?if_exists</tt>,
+                  also <tt style="color: #A03D10">(<i style="color: #DD4400">exp1</i>)!</tt>
+                  is similar to
+                  <tt style="color: #A03D10">(<i style="color: #DD4400">exp1</i>)?if_exists</tt>.
+                  The difference is that with this new operator the default
+                  value is an empty string and an empty list and empty hash at
+                  the same time (multi-type variable), while with
+                  <tt style="color: #A03D10">if_exists</tt> the default value was an empty
+                  string and an empty list and empty hash and boolean
+                  <tt style="color: #A03D10">false</tt> and a transform that does nothing
+                  and ignores all parameters at the same time.</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10"><i style="color: #DD4400">exp1</i>??</tt>
+                  is equivalent with
+                  <tt style="color: #A03D10"><i style="color: #DD4400">exp1</i>?exists</tt>,
+                  also <tt style="color: #A03D10">(<i style="color: #DD4400">exp1</i>)??</tt>
+                  is equivalent with with
+                  <tt style="color: #A03D10">(<i style="color: #DD4400">exp1</i>)?exists</tt>.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>New built-in:
+              <tt style="color: #A03D10"><i style="color: #DD4400">exp</i>?substring(<i style="color: #DD4400">from</i>,
+              <i style="color: #DD4400">toExclusive</i>)</tt>, also callable
+              as
+              <tt style="color: #A03D10"><i style="color: #DD4400">exp</i>?substring(<i style="color: #DD4400">from</i>)</tt>.
+              Getting substrings was possible for a long time like
+              <tt style="color: #A03D10">myString[<i style="color: #DD4400">from</i>..<i style="color: #DD4400">toInclusive</i>]</tt>
+              and
+              <tt style="color: #A03D10">myString[<i style="color: #DD4400">from</i>..]</tt>.
+              This syntax is now deprecated for getting substrings (but it's
+              still working), and instead you should use
+              <tt style="color: #A03D10">myString?substring(<i style="color: #DD4400">from</i>,
+              <i style="color: #DD4400">toExclusive</i>)</tt> and
+              <tt style="color: #A03D10">myString?substring(<i style="color: #DD4400">from</i>)</tt>.
+              Sequence (list) slices still has to be get with the old syntax,
+              since <tt style="color: #A03D10">substring</tt> only applies to strings.
+              Please note that the ``to'' parameter is 1 greater with this new
+              builtin, as it is an exclusive index. Further difference is that
+              the <tt style="color: #A03D10">substring</tt> built-in requires that the
+              ``from'' index is less than or equal to the ``to'' index. So 0
+              length substrings are possible now, but not reversed
+              substrings.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: <a href="http://sourceforge.net/tracker/?func=detail&amp;atid=100794&amp;aid=1487694&amp;group_id=794">[1487694]</a>
+              malfunction when the <tt style="color: #A03D10">recover</tt> directive has no
+              nested content</p>
+            </li>
+          </ul>    </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_7rc1.html"><span class="hideA">Next page: </span>2.3.7 RC1</a></div><div class="pagerButton"><a href="versions_2_3_8.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.7
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

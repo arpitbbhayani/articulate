@@ -1,0 +1,553 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Formal description
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="xgui.html">XML Processing Guide</a>
+            <b>></b>
+          <a href="xgui_imperative.html">Imperative XML processing</a>
+            <b>></b>
+          Formal description
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="xgui_declarative.html"><span class="hideA">Next page: </span>Declarative XML Processing</a></div><div class="pagerButton"><a href="xgui_imperative_learn.html">Previous page</a></div><div class="pagerButton"><a href="xgui_imperative.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="xgui_imperative_formal"></a>Formal description  </h1>
+    
+    
+<p>Every variable that corresponds to a single node in the DOM tree
+        is a multi-type variable of type node and type hash (for programmers:
+        implements both <tt style="color: #A03D10">TemplateNodeModel</tt> and
+        <tt style="color: #A03D10">TemplateHashModel</tt>). Thus, you can use the <a href="ref_builtins_node.html">node built-ins</a> with them. Hash keys
+        are interpreted as XPath expressions, except the special keys shown in
+        the table below. Some of the node variables also have string type, so
+        you can use them as string variables (for programmers: they implement
+        <tt style="color: #A03D10">TemplateScalarModel</tt>).</p><a name="misc.xguiTable"></a>   <div class="informaltable">
+      <table border="1" cellpadding="4">
+
+          <thead>
+            <tr>
+              <th>Node type (<tt style="color: #A03D10">?node_type</tt>)</th>
+
+
+              <th>Node name (<tt style="color: #A03D10">?node_name</tt>)</th>
+
+
+              <th>String value (e.g. <tt style="color: #A03D10">&lt;p&gt;${node}</tt>)</th>
+
+
+              <th>Special hash keys</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+            <tr>
+              <td><tt style="color: #A03D10">&quot;document&quot;</tt></td>
+
+
+              <td><tt style="color: #A03D10">&quot;@document&quot;</tt></td>
+
+
+              <td>No string value. (Error when you try to use it as
+              string.)</td>
+
+
+              <td><tt style="color: #A03D10">&quot;<i style="color: #DD4400">elementName</i>&quot;</tt>,
+              <tt style="color: #A03D10">&quot;<i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">elementName</i>&quot;</tt>,
+              <tt style="color: #A03D10">&quot;*&quot;</tt>, <tt style="color: #A03D10">&quot;**&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@nested_markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@text&quot;</tt></td>
+
+            </tr>
+
+
+            <tr>
+              <td><tt style="color: #A03D10">&quot;element&quot;</tt></td>
+
+
+              <td><tt style="color: #A03D10">&quot;<i style="color: #DD4400">name</i>&quot;</tt>: the
+              name of the element. This is the local name (i.e. name without
+              namespace prefix).</td>
+
+
+              <td>If it has no element children, the text of all text node
+              children concatenated together. Error otherwise, when you try to
+              use it as string.</td>
+
+
+              <td><tt style="color: #A03D10">&quot;<i style="color: #DD4400">elementName</i>&quot;</tt>,
+              <tt style="color: #A03D10">&quot;<i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">elementName</i>&quot;</tt>,
+              <tt style="color: #A03D10">&quot;*&quot;</tt>, <tt style="color: #A03D10">&quot;**&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@<i style="color: #DD4400">attrName</i>&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@<i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">attrName</i>&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@&quot;</tt>, <tt style="color: #A03D10">&quot;@*&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@start_tag&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@end_tag&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@attributes_markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@nested_markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@text&quot;</tt>, <tt style="color: #A03D10">&quot;@@qname&quot;</tt></td>
+
+            </tr>
+
+
+            <tr>
+              <td><tt style="color: #A03D10">&quot;text&quot;</tt></td>
+
+
+              <td><tt style="color: #A03D10">&quot;@text&quot;</tt></td>
+
+
+              <td>The text itself.</td>
+
+
+              <td><tt style="color: #A03D10">&quot;@@markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@nested_markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@text&quot;</tt></td>
+
+            </tr>
+
+
+            <tr>
+              <td><tt style="color: #A03D10">&quot;pi&quot;</tt></td>
+
+
+              <td><tt style="color: #A03D10">&quot;@pi$<i style="color: #DD4400">target</i>&quot;</tt></td>
+
+
+              <td>The part between the target name and the
+              <tt style="color: #A03D10">?&gt;</tt>.</td>
+
+
+              <td><tt style="color: #A03D10">&quot;@@markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@nested_markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@text&quot;</tt></td>
+
+            </tr>
+
+
+            <tr>
+              <td><tt style="color: #A03D10">&quot;comment&quot;</tt></td>
+
+
+              <td><tt style="color: #A03D10">&quot;@comment&quot;</tt></td>
+
+
+              <td>The text of the comment, without the delimiters
+              <tt style="color: #A03D10">&lt;!--</tt> and <tt style="color: #A03D10">--&gt;</tt>.</td>
+
+
+              <td><tt style="color: #A03D10">&quot;@@markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@nested_markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@text&quot;</tt></td>
+
+            </tr>
+
+
+            <tr>
+              <td><tt style="color: #A03D10">&quot;attribute&quot;</tt></td>
+
+
+              <td><tt style="color: #A03D10">&quot;<i style="color: #DD4400">name</i>&quot;</tt>: the
+              name of the attribute. This is the local name (i.e. name without
+              namespace prefix).</td>
+
+
+              <td>The value of the attribute.</td>
+
+
+              <td><tt style="color: #A03D10">&quot;@@markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@nested_markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@text&quot;</tt>, <tt style="color: #A03D10">&quot;@@qname&quot;</tt></td>
+
+            </tr>
+
+
+            <tr>
+              <td><tt style="color: #A03D10">&quot;document_type&quot;</tt></td>
+
+
+              <td><tt style="color: #A03D10">&quot;@document_type$<i style="color: #DD4400">name</i>&quot;</tt>:
+              <tt style="color: #A03D10"><i style="color: #DD4400">name</i></tt> is the name
+              of the document element.</td>
+
+
+              <td>No string value. (Error when you try to use it as
+              string.)</td>
+
+
+              <td><tt style="color: #A03D10">&quot;@@markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@nested_markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@text&quot;</tt></td>
+
+            </tr>
+
+          </tbody>
+
+              </table>
+   </div>
+<p>Notes:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p>There is no CDATA type. CDATA nodes are transparently
+            considered as text nodes.</p>
+          </li>
+
+          <li>
+            <p>Variables do <i>not</i> support
+            <tt style="color: #A03D10">?keys</tt> and <tt style="color: #A03D10">?values</tt>.</p>
+          </li>
+
+          <li>
+            <p>Element and attribute node names are local names, that is,
+            they do not contain the namespace prefix. The URI of the namespace
+            the node belongs to can be queried with the
+            <tt style="color: #A03D10">?node_namespace</tt> built-in.</p>
+          </li>
+
+          <li>
+            <p>XPath expression needs Jaxen (recommended, but please use
+            1.1-beta-8 or later; <a href="http://jaxen.org/">download
+            it here</a>) or Apache Xalan classes available, or an error
+            will stop template execution. Note, however, that as some special
+            hash keys hide the XPath expressions of the same meaning, those
+            XPath expressions will work even if there is no XPath
+            implementation available. <span style="color:#333399; font-style:italic">If both
+            Xalan and Jaxen is available, FreeMarker will use Xalan, unless
+            you choose Jaxen by calling
+            <tt style="color: #A03D10">freemarker.ext.dom.NodeModel.useJaxenXPathSupport()</tt>
+            from Java.</span></p>
+          </li>
+
+          <li>
+            <p>If Jaxen is used for the XPath support (not Xalan), then
+            FreeMarker variables are visible with XPath variable references
+            (e.g.
+            <tt style="color: #A03D10">doc[&quot;book/chapter[title=$currentTitle]&quot;]</tt>).</p>
+          </li>
+        </ul>    </div>
+<p>Meaning of special hash keys:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p><tt style="color: #A03D10">&quot;<i style="color: #DD4400">elementName</i>&quot;</tt>,
+            <tt style="color: #A03D10">&quot;<i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">elementName</i>&quot;</tt>:
+            Returns the sequence of child nodes that are elements of name
+            <tt style="color: #A03D10"><i style="color: #DD4400">elementName</i></tt>. (Note
+            that the term ``child'' means <i>immediate</i>
+            descendant.) The selection is XML name-space aware, unless the XML
+            document was persed with an XML parser that was not in namespace
+            aware mode. In XML name-space aware mode, names without prefix
+            (<i>elementName</i>) selects only elements
+            that doesn't belong to any XML name-space (unless you have
+            registered a default XML namespace), and names with prefix
+            (<i>prefix</i>:<i>elementName</i>)
+            selects only elements that are belonging to the XML namespace
+            denoted by the prefix. The registration of prefixes and the
+            setting of the default XML namespace is done with the
+            <tt style="color: #A03D10">ns_prefixes</tt> parameter of the <a href="ref_directive_ftl.html#ref.directive.ftl"><tt>ftl</tt>
+            directive</a>.</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">&quot;*&quot;</tt>: Returns the sequence of all child
+            (direct descedant) <i>element</i> nodes. The
+            sequence will contain the elements in the ``document order'', that
+            is, in the order in which the first character of the XML
+            representation of each node occurs (after expansion of general
+            entities).</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">&quot;**&quot;</tt>: Returns the sequence of all
+            descendant <i>element</i> nodes. The sequence will
+            contain the elements in the document order.</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">&quot;@<i style="color: #DD4400">attName</i>&quot;</tt>,
+            <tt style="color: #A03D10">&quot;@<i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">attrName</i>&quot;</tt>:
+            Returns the attribute
+            <tt style="color: #A03D10"><i style="color: #DD4400">attName</i></tt> of the
+            element as a sequence of size 1 that contains the attribute node,
+            or as an empty sequence if the attribute does not exist (so to
+            check if an attribute exists use
+            <tt style="color: #A03D10">foo.@<i style="color: #DD4400">attName</i>[0]??</tt>,
+            <i>not</i>
+            <tt style="color: #A03D10">foo.@<i style="color: #DD4400">attName</i>??</tt>). As
+            with special key
+            <tt style="color: #A03D10">&quot;<i style="color: #DD4400">elementName</i>&quot;</tt>, if
+            the length of the sequence is 1, then it also acts as its first
+            subvariable. If no
+            <tt style="color: #A03D10"><i style="color: #DD4400">prefix</i></tt> is used, then
+            it returns only attribute that does not use XML namespace (even if
+            you have set a default XML namespace). If a
+            <tt style="color: #A03D10"><i style="color: #DD4400">prefix</i></tt> is used, it
+            returns only the attribute that belongs to the XML namespace
+            associated with the
+            <tt style="color: #A03D10"><i style="color: #DD4400">prefix</i></tt>. The
+            registration of prefixes is done with the
+            <tt style="color: #A03D10">ns_prefixes</tt> parameter of the <a href="ref_directive_ftl.html#ref.directive.ftl"><tt>ftl</tt>
+            directive</a>.</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">&quot;@@&quot;</tt> or <tt style="color: #A03D10">&quot;@*&quot;</tt>: Returns
+            the sequence of attribute nodes belonging to the parent element.
+            This is the same as XPath <tt style="color: #A03D10">@*</tt>.</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">&quot;@@qname&quot;</tt>: Returns the full-qualified
+            name of the element (such as <tt style="color: #A03D10">e:book</tt>, in
+            contrast to the local name returned by
+            <tt style="color: #A03D10">?node_name</tt> that is <tt style="color: #A03D10">book</tt>) .
+            The prefix used (as <tt style="color: #A03D10">e</tt>) is chosen based on the
+            prefix registered in the current namespace with the
+            <tt style="color: #A03D10">ns_prefixes</tt> parameter of the
+            <tt style="color: #A03D10">ftl</tt> directive, and not influenced by the prefix
+            used in the source XML document. If you have set a default XML
+            namespace, then for nodes that use that, prefix
+            <tt style="color: #A03D10">D</tt> will be used. For nodes that does not belong
+            to an XML namespace, no prefix is used (even if you have set a
+            default namespace). If there is no prefix registered for the
+            namespace of the node, the result is a non-existent variable
+            (<tt style="color: #A03D10">node.@@qname??</tt> is
+            <tt style="color: #A03D10">false</tt>).</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">&quot;@@markup&quot;</tt>: This returns the full XML
+            markup of a node, as a string. (Full XML markup means that it also
+            contains the markup of the child nodes, and the markup of the
+            children of the child nodes, and so on.) The markup you get is not
+            necessary the same as the markup in the source XML file, it's just
+            semantically identical. Especially, note that CDATA sections will
+            become to plain text. Also note that depending on how did you
+            wrapped the original XML document with FreeMarker, comment or
+            processing instruction nodes may were removed, and then they will
+            be missing from the output of course. The first outputted start
+            tag will contain
+            <tt style="color: #A03D10">xmlns:<i style="color: #DD4400">prefix</i></tt>
+            attributes for each XML name-spaces used in the outputted XML
+            fragment, and those prefixes will be used in the outputted element
+            and attribute names. These prefixes will be the same as the
+            prefixes registered with the <tt style="color: #A03D10">ns_prefixes</tt>
+            parameter of the <tt style="color: #A03D10">ftl</tt> directive (no prefix will
+            be used for <tt style="color: #A03D10">D</tt>, as it will be registered as the
+            default name-space with an <tt style="color: #A03D10">xmlns</tt> attribute), or
+            if no prefix was assigned for a XML name-space with that, then an
+            arbitrary chosen unused prefix is used.</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">&quot;@@nested_markup&quot;</tt>: This is similar to
+            <tt style="color: #A03D10">&quot;@@markup&quot;</tt>, but it returns the XML markup of an
+            element without its opening and closing tags. For the document
+            node, it returns the same as <tt style="color: #A03D10">&quot;@@markup&quot;</tt>. For
+            other node types (text, processing instruction, etc.), it returns
+            an empty string. Unlike with <tt style="color: #A03D10">&quot;@@markup&quot;</tt>, no
+            <tt style="color: #A03D10">xmlns:<i style="color: #DD4400">prefix</i></tt>
+            attributes will be placed into the ouput, but regarding the
+            prefixes used in element and attribute names the rules are the
+            same.</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">&quot;@@text&quot;</tt>: This returns the value of all
+            text nodes that occur within the node (all descendant text nodes,
+            not just direct children), concatenated together into a single
+            string. If the node has no text node children, then the result is
+            an empty string.</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">&quot;@@start_tag&quot;</tt>: Returns the markup of the
+            <a href="gloss.html#gloss.startTag">start-tag</a> of the element
+            node. As with <tt style="color: #A03D10">@@markup</tt>, the output is not
+            necessary the same as in the original XML document, but it is
+            semantically equivalent with that. Regarding the XML name-spaces
+            (<tt style="color: #A03D10">xmlns:<i style="color: #DD4400">prefix</i></tt>
+            attributes in the output, etc.) the rules are the same as with
+            <tt style="color: #A03D10">&quot;@@markup&quot;</tt></p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">&quot;@@end_tag&quot;</tt>: Returns the markup of the
+            <a href="gloss.html#gloss.endTag">end-tag</a> of the element node.
+            As with <tt style="color: #A03D10">@@markup</tt>, the output is not necessary
+            the same as in the original XML document, but it is semantically
+            equivalent with that.</p>
+          </li>
+
+          <li>
+            <p><tt style="color: #A03D10">@@attributes_markup</tt>: Returns the markup
+            of the <a href="gloss.html#gloss.attribute">attributes</a> of the
+            element node. As with <tt style="color: #A03D10">@@markup</tt>, the output is
+            not necessary the same as in the original XML document, but it is
+            semantically equivalent with that.</p>
+          </li>
+        </ul>    </div>
+
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_75"></a>Node sequences  </h2>
+
+
+          <p>Many of the special hash keys (indicated in the above list),
+          and XPath expressions that result in node-sets (see the <a href="http://www.w3.org/TR/xpath">XPath recommendation</a>)
+          return a sequence of nodes.</p>
+
+          <p>These node sequences, if they store exactly 1 subvariable,
+          will also act as the subvariable itself. For example,
+          <tt style="color: #A03D10">${book.title[0]}</tt> will do the same as
+          <tt style="color: #A03D10">${book.title}</tt>, if there is only one
+          <tt style="color: #A03D10">title</tt> element child of element
+          <tt style="color: #A03D10">book</tt>.</p>
+
+          <p>Returning an empty node sequence is a normal situation. For
+          example, if in a concrete XML document, element
+          <tt style="color: #A03D10">book</tt> has no child element
+          <tt style="color: #A03D10">chapter</tt>, then <tt style="color: #A03D10">book.chapter</tt>
+          results in an empty node sequence. Beware! This also means, that
+          <tt style="color: #A03D10">book.chaptre</tt> (note the typo) will also return
+          empty node sequence, and will not stop with error. Also,
+          <tt style="color: #A03D10">book.chaptre??</tt> (note the typo) will return
+          <tt style="color: #A03D10">true</tt> because the empty sequence exists, so you
+          have to use <tt style="color: #A03D10">book.chaptre[0]??</tt> for the
+          check.</p>
+
+          <p>Node sequences that store not 1 nodes (but 0 or more than 1
+          nodes) also support some of the hash keys described above. Namely,
+          the following special keys are supported:</p>
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><tt style="color: #A03D10">&quot;<i style="color: #DD4400">elementName</i>&quot;</tt>,
+              <tt style="color: #A03D10">&quot;<i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">elementName</i>&quot;</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">&quot;@<i style="color: #DD4400">attrName</i>&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@<i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">attrName</i>&quot;</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">&quot;@@markup&quot;</tt>,
+              <tt style="color: #A03D10">&quot;@@nested_markup&quot;</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">&quot;@@text&quot;</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">&quot;*&quot;</tt>, <tt style="color: #A03D10">&quot;**&quot;</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">&quot;@@&quot;</tt>, <tt style="color: #A03D10">&quot;@*&quot;</tt></p>
+            </li>
+          </ul>    </div>
+
+
+          <p>When you apply one of the above special keys on a node
+          sequence that contains more than 1 or 0 nodes, then for each node in
+          the sequence (where the special key does make sense, e.g. text nodes
+          will be skipped for key <tt style="color: #A03D10">*</tt> or
+          <tt style="color: #A03D10">@foo</tt>), the special key will be applied as it was
+          explained for single nodes, and the results will be concatenated to
+          form the final result. The results will be concatenated in the order
+          as the corresponding nodes occur in the node sequence. The
+          concatenation means string or sequence concatenation depending on
+          the type of the results. If the special key would result in a string
+          for a single node, then for multiple nodes the result is a single
+          string too (the results for the single nodes concatenated), and if
+          the special key would return a sequence for a single node, then for
+          multiple nodes the result is a single sequence too. If there are 0
+          nodes in the sequence you apply the special key on, the string
+          result is an empty string or an empty sequence respectively.</p>
+
+          <p>XPath expressions can be used with node sequences. However,
+          for 0 or more than 1 nodes it will work only if you use Jaxen
+          instead of Xalan, because of the limitations of the Xalan XPath
+          implementation.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="xgui_declarative.html"><span class="hideA">Next page: </span>Declarative XML Processing</a></div><div class="pagerButton"><a href="xgui_imperative_learn.html">Previous page</a></div><div class="pagerButton"><a href="xgui_imperative.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="xgui.html">XML Processing Guide</a>
+            <b>></b>
+          <a href="xgui_imperative.html">Imperative XML processing</a>
+            <b>></b>
+          Formal description
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

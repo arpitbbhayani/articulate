@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.0 RC1
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.0 RC1
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="app_license.html"><span class="hideA">Next page: </span>License</a></div><div class="pagerButton"><a href="versions_2_0RC2.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_0RC1"></a>2.0 RC1  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_250">Support for Numerical operations, both arithmetic and
+          boolean, as well as numerical ranges.</a>
+      </li>
+      <li>
+        <a href="#autoid_251">API Changes</a>
+      </li>
+      <li>
+        <a href="#autoid_252">Syntactical Miscellany</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>The first public release of FreeMarker 2.0 was on 18 March 2002.
+        Here is a summary of the changes in the Lazarus release, with respect
+        to the last stable release of FreeMarker Classic.</p><p><i>NOTA BENE</i>:</p><p>Despite the changes delineated above, the Lazarus release is
+        almost entirely backward-compatible with FreeMarker Classic. We
+        believe that <i>most</i> existing code and templates
+        that work under FreeMarker Classic will continue working under
+        Lazarus, with at most minimal changes. In practice, the most common
+        cases where legacy template code is broken will be where assumptions
+        were made about numbers and strings being equivalent. Note that in
+        FreeMarker 2, 2 + 2 does not result in &quot;22&quot;. The String &quot;1&quot; and the
+        number 1 are entirely different animals and thus, any code will be
+        broken if it relies on the boolean expression (&quot;1&quot;==1) being true.
+        There is a &quot;classic compatibility mode&quot; that can be set via:
+        <tt style="color: #A03D10">Template.setClassCompatibility()</tt> that can be set so
+        that Lazarus emulates some of the quirky behavior of FreeMarker
+        Classic. However, any code that relied on the above &quot;features&quot; of
+        FreeMarker classic really should be reworked. You are less likely to
+        run into the other incompatibilities that are listed above. If you
+        come across any other anomalies, please do tell us about them.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_250"></a>Support for Numerical operations, both arithmetic and
+          boolean, as well as numerical ranges.  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Scalars can now be either strings or numbers. (In
+              FreeMarker Classic all scalars were strings.) The basic
+              operations allowed are addition, subtraction, multiplication,
+              division, and modulus using the <tt style="color: #A03D10">+</tt>,
+              <tt style="color: #A03D10">-</tt>, <tt style="color: #A03D10">*</tt>,
+              <tt style="color: #A03D10">/</tt>, and <tt style="color: #A03D10">%</tt> operators
+              respectively. Arbitrary-precision arithmetic with integers and
+              floating point numbers are provided. Though our goal is
+              definitely to follow the principle of least surprise, for
+              backward compatibility, the <tt style="color: #A03D10">+</tt> operator still
+              is used for string concatenation. If either the left hand side
+              or the right hand side of <tt style="color: #A03D10">lhs + rhs</tt> is
+              non-numerical, we revert to interpreting this as string
+              concatenation. Thus, in FreeMarker 2, 2+2 evaluates to the
+              number 4, while any of &quot;2&quot;+2 or 2+&quot;2&quot; or &quot;2&quot;+&quot;2&quot; evaluate to the
+              string &quot;22&quot;. In FreeMarker Classic, rather embarrassingly, all
+              of the above, including 2+2, evaluated to the string &quot;22&quot;. An
+              attempt to use any other arithmetic operator besides the
+              <tt style="color: #A03D10">+</tt> with non-numerical operands will cause an
+              exception to be thrown.</p>
+            </li>
+
+            <li>
+              <p>Output of a numerical expression can be made explicit via
+              the alternative <tt style="color: #A03D10">#{....}</tt> syntax. If the
+              expression within the curly parentheses does not evaluate to a
+              numerical value, an exception is thrown. The older ${....}
+              syntax can evaluate to either a number or a string. In general,
+              if, for logical reasons, the output <i>must</i> be
+              numerical, it is preferable to use the #{...} syntax, since it
+              adds an extra sanity check. Note that if, by some miracle, the
+              character sequence &quot;#{&quot; occurs in your template, you will have
+              to use a workaround to prevent problems. (The &lt;noparse&gt;
+              directive is one possibility.)</p>
+            </li>
+
+            <li>
+              <p>In this release, there is a facility for specifying the
+              number of digits to show after the decimal point. The following
+              code specifies to show at least 3 digits after the decimal point
+              but not more than 6. This is optional. This option is only
+              available if you use the #{...} syntax.</p>
+
+              <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+#{foo + bar ; m3M6}  &nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+              <p>(Note that the above is something of a stopgap measure.
+              Future releases will move toward supporting fully
+              internationalization and localization of number and currency
+              formatting.</p>
+            </li>
+
+            <li>
+              <p>Numerical expressions can be used in boolean expressions
+              via the comparison operators: <tt style="color: #A03D10">lt</tt>,
+              <tt style="color: #A03D10">gt</tt>, <tt style="color: #A03D10">lte</tt>, and
+              <tt style="color: #A03D10">gte</tt>. In the web space, where FreeMarker is
+              most used in practice, using the more natural operators such as
+              &lt; and &gt; would tend to confuse HTML-oriented editors. An
+              attempt to compare non-numerical expressions using these
+              operators leads to a <tt style="color: #A03D10">TemplateException</tt> being
+              thrown. If, by some coincidence, you have variables named &quot;lt&quot;,
+              &quot;gt&quot;, &quot;lte&quot;, or &quot;gte&quot;, you will have to change their names,
+              since they are now keywords in the language.</p>
+            </li>
+
+            <li>
+              <p>Numerical ranges are supported.</p>
+
+              <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#list 1990..2001 as year&gt;
+  blah blah in the year ${year} blah
+&lt;/#list&gt; &nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+              <p>The left hand and right hand sides of the
+              <tt style="color: #A03D10">..</tt> operator must be numerical, or an
+              exception is thrown. They also need not be literal numbers, but
+              can be more complex expressions that evaluate to a numerical
+              scalar value. Note that it is also possible to write a range
+              that descends in value:</p>
+
+              <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#list 2001..1990 as year&gt;
+  blah blah in the year ${year} blah blah
+&lt;/#list&gt;  &nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_251"></a>API Changes  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>The <tt style="color: #A03D10">TemplateNumberModel</tt> interface and
+              the <tt style="color: #A03D10">SimpleNumber</tt> implementation were added to
+              support exposing numerical values.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">TemplateListModel</tt> API in FreeMarker
+              Classic had some design problems -- particularly in terms of
+              supporting thread-safe code. It has been deprecated in favor of
+              the following API's: <tt style="color: #A03D10">TemplateCollectionModel</tt>
+              and <tt style="color: #A03D10">TemplateSequenceModel</tt>. The
+              <tt style="color: #A03D10">SimpleList</tt> class was refactored to implement
+              the above interfaces (and paradoxically, does not implement the
+              TemplateListModel interface.) Code that uses the deprecated
+              <tt style="color: #A03D10">TemplateListModel</tt> should be
+              refactored.</p>
+            </li>
+
+            <li>
+              <p>The Expose Package by Attila Szegedi has been made an
+              integral part of the FreeMarker distribution and is now under
+              the freemarker.ext.* hierarchy. This package provides advanced
+              models for representing arbitrary Java objects as template
+              models, for representing XML documents as template models, as
+              well as classes to facilitate the integration of FreeMarker with
+              servlets and Ant.</p>
+            </li>
+
+            <li>
+              <p>In FreeMarker Classic, there were some utility classes
+              such as <tt style="color: #A03D10">freemarker.template.utility.Addition</tt>
+              etcetera that existed as workarounds for the lack of numerical
+              operations in FreeMarker. Those have been removed and will
+              probably not be missed.</p>
+            </li>
+
+            <li>
+              <p>In FreeMarker Classic, the <tt style="color: #A03D10">SimpleScalar</tt>
+              object was mutable, it had a <tt style="color: #A03D10">setValue</tt> method.
+              This was fairly obviously a design mistake. Any code that relied
+              on this must be refactored. Note that in this release, both
+              <tt style="color: #A03D10">SimpleScalar</tt> and the newly introduced
+              <tt style="color: #A03D10">SimpleNumber</tt> are both immutable and
+              final.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_252"></a>Syntactical Miscellany  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>The if-elseif-else syntax was introduced. FreeMarker
+              classic only had if-else. This construct should probably (in the
+              opinion of the author of this document -- Revusky) be used in
+              preference to switch-case since the switch-case with
+              fall-through is a notoriously error-prone construct for most
+              mortal men.</p>
+            </li>
+
+            <li>
+              <p>You can now do a multiple assignment in one
+              &lt;assign...&gt; directive. For example: <tt style="color: #A03D10">&lt;assign x
+              = 1, y = price*items, message=&quot;foo&quot;&gt;</tt></p>
+            </li>
+
+            <li>
+              <p>A scalar will no longer be interpreted as a one-item list
+              in a &lt;list...&gt; or &lt;#foreach...&gt; block. If you have
+              code that relied on this feature, there is an easy workaround,
+              since you can simply define a list literal with exactly one
+              item.</p>
+
+              <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+ &lt;assign y=[x]&gt;
+ <b>and then...</b>
+ &lt;list y as item&gt;...&lt;/list&gt; &nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+            </li>
+          </ul>    </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="app_license.html"><span class="hideA">Next page: </span>License</a></div><div class="pagerButton"><a href="versions_2_0RC2.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.0 RC1
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.3.8
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.8
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_7.html"><span class="hideA">Next page: </span>2.3.7</a></div><div class="pagerButton"><a href="versions_2_3_9.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_3_8"></a>2.3.8  </h1>
+    
+    
+<p>Date of release: 2006-07-09</p><p>This release substantially improves the JSP 2.0 compatibility.
+        (For those who have seen the same points in 2.3.7: Sorry, the version
+        history was incorrect... those JSP 2.0 related changes were not in the
+        release yet.)</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_159"></a>Changes on the Java side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>JSP support improvement: <a href="http://sourceforge.net/tracker/?func=detail&amp;atid=100794&amp;aid=1326058&amp;group_id=794">[1326058]</a>
+              Added support for <tt style="color: #A03D10">DynamicAttributes</tt> (new in
+              JSP 2.0)</p>
+            </li>
+
+            <li>
+              <p>JSP support improvement: Added support for
+              <tt style="color: #A03D10">pushBody()</tt>/<tt style="color: #A03D10">popBody()</tt> in
+              <tt style="color: #A03D10">FreemarkerPageContext</tt></p>
+            </li>
+
+            <li>
+              <p>JSP support improvement: Added support for
+              <tt style="color: #A03D10">getVariableResolver()</tt> (new in JSP
+              2.0).</p>
+            </li>
+
+            <li>
+              <p>JSP support improvement: Added support for
+              <tt style="color: #A03D10">include(String, boolean)</tt> (new in JSP
+              2.0).</p>
+            </li>
+
+            <li>
+              <p>JSP support improvement: Added support for
+              <tt style="color: #A03D10">getExpressionEvaluator()</tt> (new in JSP 2.0).
+              However, it will need Apache commons-el in the class path, or
+              else this method will not work (it's optional). Note that EL
+              support is not needed in principle, since FreeMarker has it's
+              own expression language. But some custom JSP 2 tags may still
+              want to use this method, after all it's in the JSP 2 API.</p>
+            </li>
+          </ul>    </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_7.html"><span class="hideA">Next page: </span>2.3.7</a></div><div class="pagerButton"><a href="versions_2_3_9.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.8
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

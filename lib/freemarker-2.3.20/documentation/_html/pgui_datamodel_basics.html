@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Basics
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_datamodel.html">The Data Model</a>
+            <b>></b>
+          Basics
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_datamodel_scalar.html"><span class="hideA">Next page: </span>Scalars</a></div><div class="pagerButton"><a href="pgui_datamodel.html">Previous page</a></div><div class="pagerButton"><a href="pgui_datamodel.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_datamodel_basics"></a>Basics  </h1>
+    
+    
+<p>You have seen how to build a data-model in the <a href="pgui_quickstart.html">Getting Started</a> using the standard
+        Java classes (<tt style="color: #A03D10">Map</tt>, <tt style="color: #A03D10">String</tt>,
+        etc.). Internally, the variables available in the template are java
+        objects that implement the
+        <tt style="color: #A03D10">freemarker.template.TemplateModel</tt> interface. But
+        you could use standard java collections as variables in your
+        data-model, because these were replaced with the appropriate
+        <tt style="color: #A03D10">TemplateModel</tt> instances behind the scenes. This
+        facility is called <b>object wrapping</b>.
+        The object wrapping facility can convert <i>any</i> kind
+        of object transparently to the instances of classes that implement
+        <tt style="color: #A03D10">TemplateModel</tt> interface. This makes it possible,
+        for example, to access <tt style="color: #A03D10">java.sql.ResultSet</tt> as
+        sequence variable in templates, or to access
+        <tt style="color: #A03D10">javax.servlet.ServletRequest</tt> objects as a hash
+        variable that contains the request attributes, or even to traverse XML
+        documents as FTL variables (<a href="xgui.html">see here</a>). To
+        wrap (convert) these objects, however, you need to plug the proper, so
+        called, object wrapper implementation (possibly your custom
+        implementation); this will be discussed <a href="pgui_datamodel_objectWrapper.html">later</a>. The meat for now
+        is that any object that you want to access from the templates, sooner
+        or later must be converted to an object that implements
+        <tt style="color: #A03D10">TemplateModel</tt> interface. So first you should
+        familiarize yourself with writing of <tt style="color: #A03D10">TemplateModel</tt>
+        implementations.</p><p>There is roughly one
+        <tt style="color: #A03D10">freemarker.template.TemplateModel</tt> descendant
+        interface corresponding to each basic type of variable
+        (<tt style="color: #A03D10">TemplateHashModel</tt> for hashes,
+        <tt style="color: #A03D10">TemplateSequenceModel</tt> sequences,
+        <tt style="color: #A03D10">TemplateNumberModel</tt> for numbers, etc.). For
+        example, if you want to expose a <tt style="color: #A03D10">java.sql.ResultSet</tt>
+        as a sequence for the templates, then you have to write a
+        <tt style="color: #A03D10">TemplateSequenceModel</tt> implementation that can read
+        <tt style="color: #A03D10">java.sql.ResultSet</tt>-s. We used to say on this, that
+        you <i>wrap</i> the
+        <tt style="color: #A03D10">java.sql.ResultSet</tt> with your
+        <tt style="color: #A03D10">TemplateModel</tt> implementation, as basically you just
+        encapsulate the <tt style="color: #A03D10">java.sql.ResultSet</tt> to provide
+        access to it with the common <tt style="color: #A03D10">TemplateSequenceModel</tt>
+        interface. Note that a class can implement multiple
+        <tt style="color: #A03D10">TemplateModel</tt> interfaces; this is why FTL variables
+        can have multiple types (see: <a href="dgui_datamodel_basics.html">Template Author's Guide/Values, Types/Basics</a>)</p><p>Note that a trivial implementation of these interfaces is
+        provided with the <tt style="color: #A03D10">freemarker.template</tt> package. For
+        example, to convert a <tt style="color: #A03D10">String</tt> to FTL string
+        variable, you can use <tt style="color: #A03D10">SimpleScalar</tt>, to convert a
+        <tt style="color: #A03D10">java.util.Map</tt> to FTL hash variable, you can use
+        <tt style="color: #A03D10">SimpleHash</tt>, etc.</p><p>An easy way to try your own <tt style="color: #A03D10">TemplateModel</tt>
+        implementation, is to create an instance of that, and drop it directly
+        into the data-model (as <tt style="color: #A03D10">put</tt> it into the root hash).
+        The object wrapper will expose it untouched for the template, as it
+        already implements <tt style="color: #A03D10">TemplateModel</tt>, so no conversion
+        (wrapping) needed. (This trick is also useful in cases when you do not
+        want the object wrapper to try to wrap (convert) a certain
+        object.)</p>  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_datamodel_scalar.html"><span class="hideA">Next page: </span>Scalars</a></div><div class="pagerButton"><a href="pgui_datamodel.html">Previous page</a></div><div class="pagerButton"><a href="pgui_datamodel.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_datamodel.html">The Data Model</a>
+            <b>></b>
+          Basics
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

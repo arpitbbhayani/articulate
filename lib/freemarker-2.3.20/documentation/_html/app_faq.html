@@ -1,0 +1,1898 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - FAQ
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          FAQ
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <span class="disabledBookmark">FAQ</span>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="app_install.html"><span class="hideA">Next page: </span>Installing FreeMarker</a></div><div class="pagerButton"><a href="app.html">Previous page</a></div><div class="pagerButton"><a href="app.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_chapter"
+        id="pageTopTitle">
+<a name="app_faq"></a>Appendix A   FAQ  </h1>
+    
+    
+<p>Translations: Chinese in the <a href="https://sourceforge.net/projects/freemarker/files/chinese-manual/FreeMarker_Manual_zh_CN.pdf/download">Chinese
+      translation of the Manual (PDF)</a>, <a href="http://science.webhostinggeeks.com/dodatak-faq">Serbo-Croatian
+      (based on FreeMarker 2.3.19)</a></p>  <div class="qandaset">
+  <table border=0 cellpadding=0 cellspacing=4>
+    <tr align="left" valign="top">
+      <td>1.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_jsp_vs_freemarker">
+
+            JSP versus FreeMarker?
+
+            
+                </a><br>
+    <tr align="left" valign="top">
+      <td>2.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_picky_about_missing_vars">
+
+            Why is FreeMarker so picky about <tt style="color: #A03D10">null</tt>-s
+            and missing variables, and what to do with it?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>3.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_check_version">
+
+            The documentation writes about feature
+            <i>X</i>, but it seems that FreeMarker doesn't
+            know that, or it behaves in a different way as documented, or a
+            bug that was supposedly fixed is still present.
+                </a><br>
+    <tr align="left" valign="top">
+      <td>4.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_number_grouping">
+
+            Why does FreeMarker print the numbers with strange
+            formatting (as 1,000,000 or 1 000 000 instead of 1000000)?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>5.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_number_decimal_point">
+
+            Why does FreeMarker print bad decimal and/or grouping
+            separator symbol (as 3.14 instead of 3,14)?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>6.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_number_boolean_formatting">
+
+            Why does FreeMarker give an error when I try to print a
+            boolean like <tt style="color: #A03D10">${aBoolean}</tt>, and how to fix
+            it?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>7.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_alternative_syntax">
+
+            The <tt style="color: #A03D10">&lt;</tt> and <tt style="color: #A03D10">&gt;</tt> of
+            FreeMarker tags confuses my editor or the XML parser. What to
+            do?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>8.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_legal_variable_names">
+
+            What are the legal variable names?
+
+            
+                </a><br>
+    <tr align="left" valign="top">
+      <td>9.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_strange_variable_name">
+
+            How can I use variable (macro) names that contain space,
+            dash or other special characters?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>10.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_jsp_custom_tag_syntax">
+
+            Why do I get &quot;java.lang.IllegalArgumentException: argument
+            type mismatch&quot; when I try to use <i>X</i> JSP
+            custom tag?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>11.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_servlet_include">
+
+            How to include other resources in a way as
+            <tt style="color: #A03D10">jsp:include</tt> does it?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>12.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_parameter_unwrapping">
+
+            How can I get the parameters to my
+            plain-Java-method/<tt style="color: #A03D10">TemplateMethodModelEx</tt>/<tt style="color: #A03D10">TemplateTransformModel</tt>/<tt style="color: #A03D10">TemplateDirectiveModel</tt>
+            implementation as plain
+            <tt style="color: #A03D10">java.lang.*</tt>/<tt style="color: #A03D10">java.util.*</tt>
+            objects?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>13.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_nonstring_keys">
+
+            Why I can't use non-string key in the
+            <tt style="color: #A03D10">myMap[myKey]</tt> expression? And what to do
+            now?
+
+            
+                </a><br>
+    <tr align="left" valign="top">
+      <td>14.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_simple_map">
+
+            When I list the contents of a map (a hash) with
+            <tt style="color: #A03D10">?keys</tt>/<tt style="color: #A03D10">?values</tt>, I get the
+            <tt style="color: #A03D10">java.util.Map</tt> methods mixed with the real map
+            entries. Of course, I only want to get the map entries.
+                </a><br>
+    <tr align="left" valign="top">
+      <td>15.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_modify_seq_and_map">
+
+            How can I modify sequences (lists) and hashes (maps) in
+            FreeMarker templates?
+
+            
+
+            
+
+            
+
+            
+                </a><br>
+    <tr align="left" valign="top">
+      <td>16.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_null">
+
+            What about <tt style="color: #A03D10">null</tt> and the FreeMarker
+            template language? 
+                </a><br>
+    <tr align="left" valign="top">
+      <td>17.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_capture">
+
+            How can I use the output of a directive (macro) in
+            expressions (as a parameter to another directive)?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>18.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_questionmark">
+
+            Why do I have ``?''-s in the output instead of character
+            <i>X</i>?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>19.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_retrieve_calculated_values">
+
+            How to retrieve values calculated in templates after
+            template execution done?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>20.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_template_uploading_security">
+
+            
+
+            Can I allow users to upload templates and what are the
+            security implications?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>21.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_implement_function_or_macro_in_java">
+
+            How to implement a function or macro in Java Language
+            instead of in the template language?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>22.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_logging_suppressed">
+
+            Why is FreeMarker logging suppressed for my
+            application?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>23.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_nice_error_page">
+
+             In my Servlet
+            based application, how do I show a nice error page instead of a
+            stack trace when error occurs during template processing?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>24.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_html_editor_mangles">
+
+            I'm using a visual HTML editor that mangles template tags.
+            Will you change the template language syntax to accommodate my
+            editor?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>25.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_speed">
+
+            How fast is FreeMarker? Is it true that 2.x is slower than
+            1.x (FreeMarker classic)?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>26.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_list_variables_used">
+
+            How can my Java classes ask a template for information about
+            its structure (e.g. a list of all the variables)?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>27.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_compatibility">
+
+            Will you ever provide backward compatibility?
+                </a><br>
+    <tr align="left" valign="top">
+      <td>28.&nbsp;&nbsp;
+      <td>
+      <a href="#faq_licence">
+
+            If we distribute FreeMarker with our product, do we have to
+            release the source code for our product?
+                </a><br>
+  </table>
+
+        
+            <div class="question">
+    <a name="faq_jsp_vs_freemarker"></a><a name="faq_question_1"></a>
+    1.&nbsp; 
+            JSP versus FreeMarker?
+
+            
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>Note: JSP 1.x was really bad as an MVC template engine
+            because it was not made for that, so I don't deal with that here.
+            We compare FreeMarker with the JSP 2.0 + JSTL combo.</p>
+
+            <p>FreeMarker Pros:</p>
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>FreeMarker is not tied to Servlets, networking or the
+                Web; it is just a class library to generate text output by
+                merging a template with Java objects (the data-model). You can
+                execute templates anywhere and anytime; no HTTP request
+                forwarding or similar tricks needed, no Servlet environment
+                needed at all. Because of this you can easily integrate it
+                into any system.</p>
+              </li>
+
+              <li>
+                <p>No servlet specific scopes and other highly technical
+                things in templates. It was made for MVC from the beginning,
+                it focuses only on the presentation.</p>
+              </li>
+
+              <li>
+                <p>You can load the templates from anywhere; from the class
+                path, from a data-base, etc.</p>
+              </li>
+
+              <li>
+                <p>Locale-sensitive number and date formatting by default.
+                Since we mostly output for a human audience all you need to do
+                is just write <tt style="color: #A03D10">${x}</tt> rather than
+                <tt style="color: #A03D10">&lt;fmt:formatNumber value=&quot;${x}&quot; /&gt;</tt>.
+                You can easily switch this behavior and output non-localized
+                numbers by default.</p>
+              </li>
+
+              <li>
+                <p>Much easier to define ad-hoc macros and
+                functions.</p>
+              </li>
+
+              <li>
+                <p>No sweeping errors under the carpet. Missing variables
+                will cause an error by default, and not silently default to
+                arbitrary values. Also, <tt style="color: #A03D10">null</tt>-s are not
+                treated silently as 0/false/empty string. <a href="#faq_picky_about_missing_vars">See more about this
+                here...</a></p>
+              </li>
+
+              <li>
+                <p>``Object wrapping''. This lets you show the objects to
+                templates in a customized, presentation oriented way (e.g.
+                <a href="xgui_imperative_learn.html">see here</a> how a
+                W3C DOM nodes can be seen by templates using this
+                technology.)</p>
+              </li>
+
+              <li>
+                <p>Macros and functions are just variables (compare it to
+                how JSP custom tags work), so they can be easily passed around
+                as parameter values, put into the data-model, ...etc, just
+                like any other value.</p>
+              </li>
+
+              <li>
+                <p>Easier to read, more terse syntax. For example:
+                <tt style="color: #A03D10">&lt;#if x&gt;...&lt;/#if&gt;</tt> instead of
+                <tt style="color: #A03D10">&lt;c:if
+                test=&quot;${x}&quot;&gt;...&lt;/c:if&gt;</tt></p>
+              </li>
+
+              <li>
+                <p>Virtually unnoticeable delay when visiting a page for
+                the first time (or after it was changed), because no expensive
+                compilation happens.</p>
+              </li>
+            </ul>    </div>
+
+
+            <p>FreeMarker Cons:</p>
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Not a ``standard''. There are fewer tools and IDE
+                integrations, fewer developers knows it and there's much less
+                industry support in general. (However, JSP tag libraries can
+                work in FreeMarker templates with the proper setup, unless
+                they are using <tt style="color: #A03D10">.tag</tt> files.)</p>
+              </li>
+
+              <li>
+                <p>Since macros and function are just variables, incorrect
+                directive and parameter names and missing required parameters
+                can be detected only on runtime.</p>
+              </li>
+
+              <li>
+                <p>Its syntax doesn't follow the HTML/XML rules apart from
+                some visual similarity, which is confusing for new users.
+                (It's the price of the terseness...)</p>
+              </li>
+
+              <li>
+                <p>Doesn't work with JSF. (It could work technically, but
+                nobody has implemented that yet.)</p>
+              </li>
+            </ul>    </div>
+
+
+            <p>You may read this if you are considering replacing JSP with
+            FreeMarker: <a href="pgui_misc_servlet.html#pgui_misc_servlet_model2">Programmer's Guide/Miscellaneous/Using FreeMarker with servlets/Using FreeMarker for ``Model 2''</a></p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_picky_about_missing_vars"></a><a name="faq_question_2"></a>
+    2.&nbsp; 
+            Why is FreeMarker so picky about <tt style="color: #A03D10">null</tt>-s
+            and missing variables, and what to do with it?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>To recapitulate what's this entry is about: FreeMarker by
+            default treats an attempt to access a non-existent variable or a
+            <tt style="color: #A03D10">null</tt> value (<a href="#faq_null">this two
+            is the same for FreeMarker</a>) as error, which aborts the
+            template execution.</p>
+
+            <p>First of all, you should understand the reason of being
+            picky. Most scripting languages and template languages are rather
+            forgiving with missing variables (and with
+            <tt style="color: #A03D10">null</tt>-s), and they usually treat them as empty
+            string and/or 0 and/or logical false. This behavior has several
+            problems:</p>
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>It potentially hides accidental mistakes, like a typo in
+                a variable name, or when the template author refers to a
+                variable that the programmer doesn't put into the data-model
+                for that template, or for which the programmer uses a
+                different name. Human beings are prone to do such mistakes,
+                while computers are not, so missing this opportunity that the
+                template engine can show these errors is a bad business. Even
+                if you very carefully check the output of the templates during
+                development, it is easy to look over mistakes like
+                <tt style="color: #A03D10">&lt;#if hasWarnigs&gt;<i style="color: #DD4400">print warnings
+                here...</i>&lt;/#if&gt;</tt>, which would then
+                silently never print the warnings, since you have mistyped the
+                variable name. Also think about maintenance, when you later
+                modify your application; probably you will not re-check
+                templates (many applications has hundreds of them) that
+                carefully each time, for all possible scenarios. Unit tests
+                typically doesn't cover web page content very good either (if
+                you have them at all...); they mostly only checks certain
+                manually set patterns in the web page, so they will often
+                gloss though changes that are actually bugs. But if the page
+                fails with exception, that's something human testers will
+                notice and unit sets will notice, and in production the
+                maintainers will notice (assuming somebody check error
+                logs).</p>
+              </li>
+
+              <li>
+                <p>Makes dangerous assumptions. The script language or
+                template engine knows nothing about the application domain, so
+                when it decides the value of something that it doesn't know to
+                be 0/false, it is a quite irresponsible and arbitrary thing.
+                Just because it's not know what's your current balance at your
+                bank, can we just say it's $0? Just because it is not known if
+                a patient has penicillin allergy, we can just say he/she
+                doesn't have it? Just consider the implications of such
+                mistakes. Showing an error page is often better than showing
+                incorrect information that formally looks good.</p>
+              </li>
+            </ul>    </div>
+
+
+            <p>Being not picky is mostly sweeping under the carpet in this
+            case (not facing with the problems), which of course most people
+            feels more convenient, but still, we believe that in most cases
+            being strict will save your time and increase your software
+            quality on the long run.</p>
+
+            <p>On the other hand, we recognize that there are cases where
+            you don't want FreeMarker to be that picky with good reason, and
+            there is solution for them:</p>
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>It's often normal that your data-model contains
+                <tt style="color: #A03D10">null</tt>-s or have optional variables. In such
+                cases use <a href="dgui_template_exp.html#dgui_template_exp_missing">these
+                operators</a>. If you use them too often, try to rethink
+                your data-model, because depending on them too much won't just
+                make the templates too verbose, but increases the probability
+                of hiding errors and printing arbitrary incorrect output (for
+                the reasons described earlier).</p>
+              </li>
+
+              <li>
+                <p>In some application you may rather want to show an
+                incomplete/damaged page than an error page. In this case you
+                can <a href="pgui_config_errorhandling.html">use another
+                error handler</a> than the default one. A custom error
+                handler can skip the problematic part instead of aborting the
+                whole page rendering. Note, however, that although the error
+                handlers don't give arbitrary default values to variables, for
+                pages that show critical information it's maybe still better
+                to show an error page.</p>
+              </li>
+
+              <li>
+                <p>If the pages contain parts that aren't critically
+                important (like side bars), another feature you may interested
+                in is <a href="ref_directive_attempt.html">the
+                <tt>attempt</tt>/<tt>recover</tt>
+                directives</a>.</p>
+              </li>
+            </ul>    </div>
+
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_check_version"></a><a name="faq_question_3"></a>
+    3.&nbsp; 
+            The documentation writes about feature
+            <i>X</i>, but it seems that FreeMarker doesn't
+            know that, or it behaves in a different way as documented, or a
+            bug that was supposedly fixed is still present.
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>Are you sure that you are using the documentation written
+            for the same version of FreeMarker that you actually use?
+            Especially, note that our online documentation is for the latest
+            usable FreeMarker release. You may use an older release.</p>
+
+            <p>Are you sure that the Java class loader finds the same
+            <tt style="color: #A03D10">freemarker.jar</tt> that you expect to use? Maybe
+            there is an older version of <tt style="color: #A03D10">freemarker.jar</tt>
+            around, which has higher priority. To check this, try to print the
+            version number in a template with <tt style="color: #A03D10">${.version}</tt>.
+            If it dies with ``Unknown built-in variable: version'' error
+            message, then you use a release before 2.3-final or 2.2.8, but you
+            can still try to get the version number in the Java code of your
+            application with
+            <tt style="color: #A03D10">Configuration.getVersionNumber()</tt>. If this
+            method is not present either, then you are using an early
+            2.3-preview, or a version before 2.2.6.</p>
+
+            <p>If you suspect that the problem is that you have multiple
+            <tt style="color: #A03D10">freemarker.jar</tt>-s, the typical culprit is that
+            some module has a Maven dependency with group ID
+            <tt style="color: #A03D10">freemarker</tt>, as opposed to
+            <tt style="color: #A03D10">org.freemarker</tt>, while you have declared a
+            dependency on <tt style="color: #A03D10">org.freemarker</tt>. In this case you
+            will have to exclude the <tt style="color: #A03D10">freemarker</tt>
+            dependency.</p>
+
+            <p>If you think that the documentation or FreeMarker is wrong,
+            please report it using the bug tracker, or the mailing list. Thank
+            you!</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_number_grouping"></a><a name="faq_question_4"></a>
+    4.&nbsp; 
+            Why does FreeMarker print the numbers with strange
+            formatting (as 1,000,000 or 1 000 000 instead of 1000000)?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>FreeMarker uses the locale-sensitive number formatting
+            capability of the Java platform. The default number format for
+            your locale may uses grouping or other unwanted formatting. To
+            prevent this, you have to override the number format suggested by
+            the Java platform with the <tt style="color: #A03D10">number_format</tt> <a href="pgui_config_settings.html">FreeMarker setting</a>. For
+            example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+cfg.setNumberFormat(&quot;0.######&quot;);  // now it will print 1000000
+// where cfg is a freemarker.template.Configuration object&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Note however than humans often find it hard to read big
+            numbers without grouping separator. So in general it is
+            recommended to keep them, and in cases where the numbers are for
+            ''computer audience'' (which is confused on the grouping
+            separators), use the <a href="ref_builtins_number.html#ref_builtin_c"><tt>c</tt> built-in</a>. For
+            example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;a href=&quot;/shop/productdetails?id=${<b>product.id?c</b>}&quot;&gt;Details...&lt;/a&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_number_decimal_point"></a><a name="faq_question_5"></a>
+    5.&nbsp; 
+            Why does FreeMarker print bad decimal and/or grouping
+            separator symbol (as 3.14 instead of 3,14)?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>Different countries use different decimal/grouping separator
+            symbols. If you see incorrect symbols, then probably your locale
+            is not set properly. Set the default locale of the JVM or override
+            the default locale with the <tt style="color: #A03D10">locale</tt> <a href="pgui_config_settings.html">FreeMarker setting</a>. For
+            example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+cfg.setLocale(java.util.Locale.ITALY);
+// where cfg is a freemarker.template.Configuration object&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>However, sometimes you want to output a number not for human
+            audience, but for ``computer audience'' (like you want to print a
+            size in CSS), in which case you must use dot as decimal separator,
+            regardless of the locale (language) of the page. For that use the
+            <a href="ref_builtins_number.html#ref_builtin_c"><tt>c</tt>
+            built-in</a>, for example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+font-size: ${<b>fontSize?c</b>}pt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_number_boolean_formatting"></a><a name="faq_question_6"></a>
+    6.&nbsp; 
+            Why does FreeMarker give an error when I try to print a
+            boolean like <tt style="color: #A03D10">${aBoolean}</tt>, and how to fix
+            it?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>Unlike numbers, booleans has no commonly accepted format,
+            not even a common format within the same page. Like when you show
+            on a HTML page if a product is washable, you will hardly want to
+            show for the visitor &quot;Washable: true&quot;, but rather &quot;Washable: yes&quot;.
+            So we force the template author (by <tt style="color: #A03D10">${washable}</tt>
+            causing error) to find out with his human knowledge how the
+            boolean value should be shown at the given place. The common way
+            of formatting a boolean is like <tt style="color: #A03D10">${washable?string(&quot;yes&quot;,
+            &quot;no&quot;)}</tt>, <tt style="color: #A03D10">${caching?string(&quot;Enabled&quot;,
+            &quot;Disabled&quot;)}</tt>, <tt style="color: #A03D10">${heating?string(&quot;on&quot;,
+            &quot;off&quot;)}</tt>, etc.</p>
+
+            <p>However, there are two cases where this gets
+            impractical:</p>
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>When printing boolean to generate computer language
+                output, and hence you want
+                <tt style="color: #A03D10">true</tt>/<tt style="color: #A03D10">false</tt>, use
+                <tt style="color: #A03D10">${<i style="color: #DD4400">someBoolean</i>?c}</tt>.
+                (This requires at least FreeMarker 2.3.20. Before that, the
+                common practice was writing
+                <tt style="color: #A03D10">${<i style="color: #DD4400">someBoolean</i>?string}</tt>,
+                however that's dangerous because its output depends on the
+                boolean format settings, whose default is
+                <tt style="color: #A03D10">&quot;true&quot;</tt>/<tt style="color: #A03D10">&quot;false&quot;</tt>.)</p>
+              </li>
+
+              <li>
+                <p>When you have format most of the booleans on the same
+                way. In this case you can set the
+                <tt style="color: #A03D10">boolean_format</tt> setting
+                (<tt style="color: #A03D10">Configuration.setBooleanFormat</tt>) to reflect
+                that, and then since FreeMarker 2.3.20 you can just write
+                <tt style="color: #A03D10">${<i style="color: #DD4400">someBoolean</i>}</tt>.</p>
+              </li>
+            </ul>    </div>
+
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_alternative_syntax"></a><a name="faq_question_7"></a>
+    7.&nbsp; 
+            The <tt style="color: #A03D10">&lt;</tt> and <tt style="color: #A03D10">&gt;</tt> of
+            FreeMarker tags confuses my editor or the XML parser. What to
+            do?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>Starting from FreeMarker 2.3.4 you can use
+            <tt style="color: #A03D10">[</tt> and <tt style="color: #A03D10">]</tt> instead of
+            <tt style="color: #A03D10">&lt;</tt> and <tt style="color: #A03D10">&gt;</tt>. For more
+            details <a href="dgui_misc_alternativesyntax.html">read
+            this...</a></p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_legal_variable_names"></a><a name="faq_question_8"></a>
+    8.&nbsp; 
+            What are the legal variable names?
+
+            
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>FreeMarker has no limitations regarding the characters used
+            in variable names, nor regarding the length of the variable names,
+            but for your convenience try to chose variable names that can be
+            used with the simple variable reference expressions (see it <a href="dgui_template_exp.html#dgui_template_exp_var_toplevel">here</a>). If you have
+            to choose a more extreme variable name, that's not a bid problem
+            either: <a href="#faq_strange_variable_name">see
+            here</a>.</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_strange_variable_name"></a><a name="faq_question_9"></a>
+    9.&nbsp; 
+            How can I use variable (macro) names that contain space,
+            dash or other special characters?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>If you have a variable with strange name, such as
+            <tt style="color: #A03D10">foo-bar</tt>, FreeMarker will misinterpret what do
+            you want when you write thing as <tt style="color: #A03D10">${foo-bar}</tt>. In
+            this concrete case, it will believe that you want subtract the
+            value of <tt style="color: #A03D10">bar</tt> from <tt style="color: #A03D10">foo</tt>. This
+            FAQ entry explains how to handle situations like this.</p>
+
+            <p>First of all it should be clean that these are just
+            syntactical problems. FreeMarker has no limitations regarding the
+            characters used in variable names, nor regarding the length of the
+            variable names, but sometimes you need to use syntactical
+            tricks.</p>
+
+            <p>If you want to read the variable: Use the square bracket
+            syntax. An example of square bracket syntax is
+            <tt style="color: #A03D10">baaz[&quot;foo&quot;]</tt>, which is equivalent with
+            <tt style="color: #A03D10">baaz.foo</tt>. As the subvariable name with the
+            square bracket syntax is a string literal (in fact, arbitrary
+            expression), it let you write <tt style="color: #A03D10">baaz[&quot;foo-bar&quot;]</tt>.
+            Now you may say that it can be used for hash subvariables only.
+            Yes, but top-level variables are accessible through special hash
+            variable <tt style="color: #A03D10">.vars</tt>. For example,
+            <tt style="color: #A03D10">foo</tt> is equivalent with
+            <tt style="color: #A03D10">.vars[&quot;foo&quot;]</tt>. So you can also write
+            <tt style="color: #A03D10">.vars[&quot;foo-bar&quot;]</tt>. Naturally, this trick works
+            with macro invocations too:
+            <tt style="color: #A03D10">&lt;@.vars[&quot;foo-bar&quot;]/&gt;</tt></p>
+
+            <p>If you want to create or modify the variable: All directives
+            that let you create or modify a variable (such as
+            <tt style="color: #A03D10">assign</tt>, <tt style="color: #A03D10">local</tt>,
+            <tt style="color: #A03D10">global</tt>, <tt style="color: #A03D10">macro</tt>,
+            <tt style="color: #A03D10">function</tt>, etc.) allows the quotation of the
+            destination variable name. For example, <tt style="color: #A03D10">&lt;#assign foo =
+            1&gt;</tt> is the same as <tt style="color: #A03D10">&lt;#assign &quot;foo&quot; =
+            1&gt;</tt>. So you can write things like <tt style="color: #A03D10">&lt;#assign
+            &quot;foo-bar&quot; = 1&gt;</tt> and <tt style="color: #A03D10">&lt;#macro
+            &quot;foo-bar&quot;&gt;</tt>.</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_jsp_custom_tag_syntax"></a><a name="faq_question_10"></a>
+    10.&nbsp; 
+            Why do I get &quot;java.lang.IllegalArgumentException: argument
+            type mismatch&quot; when I try to use <i>X</i> JSP
+            custom tag?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>On JSP pages you quote all parameter (attribute) values, it
+            does not mater if the type of the parameter is string or boolean
+            or number. But since custom tags are accessible in FTL templates
+            as plain user-defined FTL directives, you have to use the FTL
+            syntax rules inside the custom tags, not the JSP rules. Thus,
+            according to FTL rules, you must not quote boolean and numerical
+            parameter values, or they are interpreted as string values, and
+            this will cause a type mismatch error when FreeMarker tries to
+            pass the value to the custom tag that expects non-string
+            value.</p>
+
+            <p>For example, the <tt style="color: #A03D10">flush</tt> parameter to
+            Struts Tiles <tt style="color: #A03D10">insert</tt> tag is boolean. In JSP the
+            correct syntax was:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;tiles:insert page=&quot;/layout.jsp&quot; <b>flush=&quot;true&quot;</b>/&gt;
+<i>...</i>&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>but in FTL you should write:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;@tiles.insert page=&quot;/layout.ftl&quot; <b>flush=true</b>/&gt;
+<i>...</i>&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Also, for similar reasons, this is wrong:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;tiles:insert page=&quot;/layout.jsp&quot; <b>flush=&quot;${needFlushing}&quot;</b>/&gt;
+<i>...</i>&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>and you should write:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;tiles:insert page=&quot;/layout.jsp&quot; <b>flush=needFlushing</b>/&gt;
+<i>...</i>&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>(Not <tt style="color: #A03D10">flush=${needFlushing}</tt>!)</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_servlet_include"></a><a name="faq_question_11"></a>
+    11.&nbsp; 
+            How to include other resources in a way as
+            <tt style="color: #A03D10">jsp:include</tt> does it?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>Not with <tt style="color: #A03D10">&lt;#include ...&gt;</tt>, as that
+            just includes another FreeMarker template without involving the
+            Servlet container.</p>
+
+            <p>Since the inclusion method you look for is Servlet-related,
+            and pure FreeMarker is unaware of Servlets or even HTTP, it's the
+            Web Application Framework that decides if you can do this and if
+            so how. For example, in Struts 2 you can do this like this:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;@s.include value=&quot;/WEB-INF/just-an-example.jspf&quot; /&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>If the FreeMarker support of the Web Application Framework
+            is based on
+            <tt style="color: #A03D10">freemarker.ext.servlet.FreemarkerServlet</tt>, then
+            you can also do this (since FreeMarker 2.3.15):</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;@include_page path=&quot;/WEB-INF/just-an-example.jspf&quot; /&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>but if the Web Application Framework provides its own
+            solution, then you may prefer that, after all it may does
+            something special.</p>
+
+            <p>For more information about <tt style="color: #A03D10">include_page</tt>
+            <a href="pgui_misc_servlet.html#pgui_misc_servlet_include">read
+            this...</a></p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_parameter_unwrapping"></a><a name="faq_question_12"></a>
+    12.&nbsp; 
+            How can I get the parameters to my
+            plain-Java-method/<tt style="color: #A03D10">TemplateMethodModelEx</tt>/<tt style="color: #A03D10">TemplateTransformModel</tt>/<tt style="color: #A03D10">TemplateDirectiveModel</tt>
+            implementation as plain
+            <tt style="color: #A03D10">java.lang.*</tt>/<tt style="color: #A03D10">java.util.*</tt>
+            objects?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>Unfortunately, there is no simple general-purpose solution
+            for this problem. The problem is that FreeMarker object wrapping
+            is very flexible, which is good when you access variables from
+            templates, but makes unwrapping on the Java side a tricky
+            question. For example, it is possible to wrap a
+            non-<tt style="color: #A03D10">java.util.Map</tt> object as
+            <tt style="color: #A03D10">TemplateHashModel</tt> (FTL hash variable). But
+            then, it can't be unwrapped to <tt style="color: #A03D10">java.util.Map</tt>,
+            since there is no wrapped <tt style="color: #A03D10">java.util.Map</tt> around
+            at all.</p>
+
+            <p>So what to do then? Basically there are two cases:</p>
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Directives and methods that are written for presentation
+                purposes (like kind of ``tools'' for helping FreeMarker
+                templates) should declare their arguments as
+                <tt style="color: #A03D10">TemplateModel</tt>-s and the more specific sub
+                interfaces of that. After all, the object wrapping is about
+                apparently transforming the data-model to something that
+                serves the purpose of the presentation layer, and these
+                methods are part of the presentation layer.</p>
+              </li>
+
+              <li>
+                <p>Methods that are not for presentation related tasks (but
+                for business logic and like) should be implemented as plain
+                Java methods, and should not use any FreeMarker specific
+                classes at all, since according the MVC paradigm they must be
+                independent of the presentation technology (FreeMarker). If
+                such a method is called from a template, then it is the
+                responsibility of the <a href="pgui_datamodel_objectWrapper.html">object wrapper</a>
+                to ensure the conversion of the arguments to the proper type.
+                If you use the <tt style="color: #A03D10">DefaultObjectWrapper</tt> or the
+                <a href="pgui_misc_beanwrapper.html"><tt>BeansWrapper</tt></a>
+                then this will happen automatically (but be sure you are using
+                at least FreeMarker 2.3.3). Furthermore if you use
+                <tt style="color: #A03D10">BeansWrapper</tt>, then the method will surely
+                get exactly the same instance that was earlier wrapped (as far
+                as it was wrapped by the
+                <tt style="color: #A03D10">BeansWrapper</tt>).</p>
+              </li>
+            </ul>    </div>
+
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_nonstring_keys"></a><a name="faq_question_13"></a>
+    13.&nbsp; 
+            Why I can't use non-string key in the
+            <tt style="color: #A03D10">myMap[myKey]</tt> expression? And what to do
+            now?
+
+            
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>The ``hash'' type of the FreeMarker Template Language (FTL)
+            is not the same as Java's <tt style="color: #A03D10">Map</tt>. FTL's hash is an
+            associative array too, but it uses string keys exclusively. This
+            is because it was introduced for subvariables (as
+            <tt style="color: #A03D10">password</tt> in <tt style="color: #A03D10">user.password</tt>,
+            which is the same as <tt style="color: #A03D10">user[&quot;password&quot;]</tt>), and
+            variable names are strings.</p>
+
+            <p>So FTL's hashes are not general purpose associate arrays
+            that could be used for looking up values with keys of arbitrary
+            type. FTL is presentation oriented language, and it has no feature
+            dedicated for that purpose. It has, however, methods. Methods are
+            part of the data-model, and they can do all kind of fancy
+            data-model related calculations, so of course you can add some
+            methods to the data-model for <tt style="color: #A03D10">Map</tt> lookup. The
+            bad news is that the building of the data-model, as it's an
+            application specific issue, is the task of the programmers who use
+            FreeMarker, so it's their task to ensure that such methods are
+            present there to serve the template authors. (However, when
+            template authors need to call methods that are not about
+            presentation, then consider if the data-model is simple enough.
+            Maybe you should push some calculations back to the data-model
+            building phase. Ideally the data-model contains what should be
+            displayed, and not something that serves as the base of further
+            calculations.)</p>
+
+            <p>If you read the programmer's guide, then you know that
+            technically, the data-model is a tree of
+            <tt style="color: #A03D10">freemarker.template.TemplateModel</tt> objects. The
+            building of the data-model usually (but not necessary) happens by
+            automatically wrapping (enclosing) plain Java objects into
+            <tt style="color: #A03D10">TemplateModel</tt> objects. The object that does
+            this wrapping is the object wrapper, and it's specified when you
+            configure FreeMarker. FreeMarker comes with a few object wrapper
+            implementations out-of-the-box, and probably the most widely used
+            of them is <a href="pgui_misc_beanwrapper.html"><tt>freemarker.ext.beans.BeansWrapper</tt></a>.
+            If you use an instance of this as the object wrapper, then
+            <tt style="color: #A03D10">java.util.Map</tt>-s you put into the data-model
+            will also act as a method, so you can write
+            <tt style="color: #A03D10">myMap(myKey)</tt> in the template, that will
+            internally call <tt style="color: #A03D10">Map.get(myKey)</tt>. There will be
+            no restriction regarding the type of <tt style="color: #A03D10">myKey</tt>, as
+            <tt style="color: #A03D10">Map.get(Object key)</tt> has no such restriction. If
+            the value of <tt style="color: #A03D10">myKey</tt> was wrapped with
+            <tt style="color: #A03D10">BeansWrapper</tt> or other object wrapper whose
+            wrapped objects support unwrapping, or it is given as literal in
+            the template, then the value will be automatically unwrapped to
+            plain Java object before the actual invocation of the
+            <tt style="color: #A03D10">Map.get(Object key)</tt> method, so it will not be
+            invoked with <tt style="color: #A03D10">TemplateModel</tt>-s.</p>
+
+            <p>But there still will be a problem. Java's
+            <tt style="color: #A03D10">Map</tt> is particular about the exact class of the
+            key, so for numerical keys calculated inside the templates you
+            will have to cast them to the proper Java type, otherwise the item
+            will not be found. For example if you use
+            <tt style="color: #A03D10">Integer</tt> keys in a Map, then you have to write
+            <tt style="color: #A03D10">${myMap.get(123?int)}</tt>. This is an ugly effect
+            caused by that FTL's deliberately simplified type system just has
+            a single numerical type, while Java distinguishes a lot of
+            numerical types. (Ideally, in the above case, the programmers
+            ensure that the <tt style="color: #A03D10">get</tt> method automatically
+            converts the key to <tt style="color: #A03D10">Integer</tt>, so it's not the
+            problem of the template author. This can be done with wrapper
+            customization, but the wrapper has to know that the particular
+            <tt style="color: #A03D10">Map</tt> object uses <tt style="color: #A03D10">Integer</tt>
+            keys, which assumes application specific knowledge.) Note that the
+            casting is not needed when the key value comes directly from the
+            data-model (i.e. you didn't modified its value with arithmetical
+            caluclations in the template), including the case when it's the
+            return value of a method, and it was of the proper class before
+            wrapping, because then the result of the unwrapping will be of the
+            original type.</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_simple_map"></a><a name="faq_question_14"></a>
+    14.&nbsp; 
+            When I list the contents of a map (a hash) with
+            <tt style="color: #A03D10">?keys</tt>/<tt style="color: #A03D10">?values</tt>, I get the
+            <tt style="color: #A03D10">java.util.Map</tt> methods mixed with the real map
+            entries. Of course, I only want to get the map entries.
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>Certainly you are using <tt style="color: #A03D10">BeansWrapper</tt> as
+            your object wrapper, or a custom subclass of it, and the
+            <tt style="color: #A03D10">simpleMapWrapper</tt> property of that is left to
+            <tt style="color: #A03D10">false</tt>. Unfortunatelly, it's the default (for
+            backward compatibility), so you have to explicitly set it to
+            <tt style="color: #A03D10">true</tt> where you create the object
+            wrapper.</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_modify_seq_and_map"></a><a name="faq_question_15"></a>
+    15.&nbsp; 
+            How can I modify sequences (lists) and hashes (maps) in
+            FreeMarker templates?
+
+            
+
+            
+
+            
+
+            
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>First of all, you may don't want to modify the
+            sequence/hash, just concatenate (add) two or more of them, which
+            results in a new sequence/hash, rather than modifying an existing
+            one. In this case use the <a href="dgui_template_exp.html#dgui_template_exp_sequenceop_cat">sequence
+            concatenation</a> and <a href="dgui_template_exp.html#dgui_template_exp_hashop_cat">hash concatenation
+            operators</a>. Also, you may use the <a href="dgui_template_exp.html#dgui_template_exp_seqenceop_slice">subsequence
+            operator</a> instead of removing sequence items. However, be
+            aware of the performance implications: these operations are fast,
+            but the hashes/sequences that are the result of many subseqent
+            applications of these operations (i.e. when you use the result of
+            the operation as the input of yet another operation, and so on)
+            will be slow to read.</p>
+
+            <p>Now if you still want to modify sequences/hashes, then read
+            on...</p>
+
+            <p>The FreeMarkes Template Language doesn't support the
+            modification of sequences/hashes. It's for displaying already
+            calculated things, not for calculating data. Keep templates
+            simple. But don't give it up, you will see some advices and tricks
+            bellow.</p>
+
+            <p>The best is if you can divide the work between the
+            data-model builder program and the template so that the template
+            doesn't need to modify sequences/hashes. Maybe if you rethink your
+            data-model, you will realize this is possible. But, seldom there
+            are cases where you need to modify sequences/hashes for some
+            complex but purely presentation related algorithms. It seldom
+            happens, so think twice whether that calculation (or parts of it)
+            rather belongs to the data-model domain than to the presentation
+            domain. Let's assume you are sure it belongs to the presentation
+            domain. For example, you want to display a keyword index on some
+            very smart way, whose algorithm need you to create and write some
+            sequence variables. Then you should do something like this (ugly
+            situations has ugly solutions...):</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign caculatedResults =
+    'com.example.foo.SmartKeywordIndexHelper'?new().calculate(keywords)&gt;
+&lt;#-- some simple algorithms comes here, like: --&gt;
+&lt;ul&gt;
+  &lt;#list caculatedResults as kw&gt;
+    &lt;li&gt;&lt;a href=&quot;${kw.link}&quot;&gt;${kw.word}&lt;/a&gt;
+  &lt;/#list&gt;
+&lt;/ul&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>That is, you move out the complex part of the presentation
+            task from the template into Java code. Note that it doesn't affect
+            the data-model, so the presentation is still kept separated from
+            other the other application logic. Of course the drawback is that
+            for this the template author will need the help of a Java
+            programmer, but for complex algorithms that's probably needed
+            anyway.</p>
+
+            <p>Now, if you still say you need to modify sequences/hashes
+            directly with the FreeMarker template, here are two solutions, but
+            please read the warning after them:</p>
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>You can write a <tt style="color: #A03D10">TemplateMethodModelEx</tt>
+                and <tt style="color: #A03D10">TemplateDirectiveModel</tt> implementation
+                that can modify certain types of sequences/hashes. Just
+                certain types, because
+                <tt style="color: #A03D10">TemplateSequenceModel</tt> and
+                <tt style="color: #A03D10">TemplateHashModel</tt> doesn't have methods for
+                modification, so you will need the sequence or hash to
+                implement some additional methods. An example of this solution
+                can be seen in FMPP. It allows you to do things like this
+                (<tt style="color: #A03D10">pp</tt> stores the services provided by FMPP
+                for templates):</p>
+
+                <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign a = pp.newWritableSequence()&gt;
+&lt;@pp.add seq=a value=&quot;red&quot; /&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+                <p>The <tt style="color: #A03D10">pp.add</tt> directive works only with
+                sequences that were created with
+                <tt style="color: #A03D10">pp.newWritableSequence()</tt>. So for example
+                the template author can't modify a sequence that comes from
+                the data-model with this.</p>
+              </li>
+
+              <li>
+                <p>A sequence can have some methods/directives if you use a
+                customized wrapper (so you can <tt style="color: #A03D10">&lt;@myList.append foo
+                /&gt;</tt>). (Also, if you use
+                <tt style="color: #A03D10">BeansWrapper</tt> and configure it so it exposes
+                the public methods, you can use the Java API for variables
+                that are for <tt style="color: #A03D10">java.util.Map</tt>-s and
+                <tt style="color: #A03D10">java.util.List-s</tt>. Just like with Apache
+                Velocity.)</p>
+              </li>
+            </ul>    </div>
+
+
+            <p>But beware, these solutions have a problem: The <a href="dgui_template_exp.html#dgui_template_exp_sequenceop_cat">sequence
+            concatenation</a>, <a href="dgui_template_exp.html#dgui_template_exp_seqenceop_slice">sequence slice</a>
+            operator (like <tt style="color: #A03D10">seq[5..10]</tt>) and
+            <tt style="color: #A03D10">?reverse</tt> do not copy the original sequence,
+            just wraps it (for efficiency), so the resulting sequence will
+            change if the original sequence is changed later (an abnormal
+            aliasing effect). The same problem exists with the result of <a href="dgui_template_exp.html#dgui_template_exp_hashop_cat">hash concatenation</a>;
+            it just wraps the two hashes, so the resulting hash will magically
+            change if you modify the hashes you have added earlier. As a
+            work-around, after you did the above problematic operations,
+            either be sure you will not modify the objects that were used as
+            input, or create a copy of the result with a method provided by
+            the solution described in above two points (e.g. in FMPP you could
+            do <tt style="color: #A03D10">&lt;#assign b =
+            pp.newWritableSequence(a[5..10])&gt;</tt> and
+            <tt style="color: #A03D10">&lt;#assign c = pp.newWritableHash(hashA +
+            hashB)&gt;</tt>). Of course this is easy to miss... so again,
+            rather try to build the data-model so you will not need to modify
+            collections, or use a presentation task helper class as was shown
+            earlier.</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_null"></a><a name="faq_question_16"></a>
+    16.&nbsp; 
+            What about <tt style="color: #A03D10">null</tt> and the FreeMarker
+            template language? 
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>The FreeMarker template language doesn't know the Java
+            language <tt style="color: #A03D10">null</tt> at all. It doesn't have
+            <tt style="color: #A03D10">null</tt> keyword, and it can't test if something is
+            <tt style="color: #A03D10">null</tt> or not. When it technically faces with a
+            <tt style="color: #A03D10">null</tt>, it treats it exactly as a missing
+            variable. For example, both if <tt style="color: #A03D10">x</tt> is
+            <tt style="color: #A03D10">null</tt> in the data-model and if it's not present
+            at all, <tt style="color: #A03D10">${x!'missing'}</tt> will print ``missing'',
+            you can't tell the difference. Also, if for example you want to
+            test if a Java method has returned <tt style="color: #A03D10">null</tt>, just
+            write something like <tt style="color: #A03D10">&lt;#if
+            foo.bar()??&gt;</tt>.</p>
+
+            <p>You may interested in the rationale behind this. From the
+            viewpoint of the presentation layer a <tt style="color: #A03D10">null</tt> and
+            non-existent thing is almost always the same. The difference
+            between this two is usually just a technical detail, which is
+            rather the result of implementation details than of the
+            application logic. That you can't compare something to
+            <tt style="color: #A03D10">null</tt> (unlike in Java); it doesn't make sense to
+            compare something with <tt style="color: #A03D10">null</tt> in a template,
+            since the template language doesn't do identity comparison (like
+            the Java <tt style="color: #A03D10">==</tt> operator when you compare two
+            objects) but the more common sense value comparison (like Java's
+            <tt style="color: #A03D10">Object.equals(Object)</tt>; that doesn't work with
+            <tt style="color: #A03D10">null</tt> either). And how could FreeMarker tell if
+            something concrete equals with something that is missing and thus
+            unknown? Or if two missing (unknown) things are equal? Of course
+            these questions can't be answered.</p>
+
+            <p>There is at least one problem with this
+            <tt style="color: #A03D10">null</tt>-unaware approach. When you call a Java
+            method from a template, you may want to pass a
+            <tt style="color: #A03D10">null</tt> value as argument (since the method was
+            designed to be used in Java language, where the concept of
+            <tt style="color: #A03D10">null</tt> is known). In this case you can exploit a
+            bug of FreeMarker (that we will not fix until we provide a correct
+            solution for passing <tt style="color: #A03D10">null</tt> values to a method):
+            if you specify a missing variable as the argument, then it will
+            not cause an error, but a <tt style="color: #A03D10">null</tt> will be passed
+            to the method instead. Like <tt style="color: #A03D10">foo.bar(nullArg)</tt>
+            will call the <tt style="color: #A03D10">bar</tt> method with
+            <tt style="color: #A03D10">null</tt> as argument, assuming that there is no
+            varaible exists with ``nullArg'' name.</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_capture"></a><a name="faq_question_17"></a>
+    17.&nbsp; 
+            How can I use the output of a directive (macro) in
+            expressions (as a parameter to another directive)?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>Capture the output into a variable with the
+            <tt style="color: #A03D10">assign</tt> or <tt style="color: #A03D10">local</tt> directive.
+            For example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#assign capturedOutput&gt;&lt;@outputSomething /&gt;&lt;/#assign&gt;
+&lt;@otherDirective someParam=capturedOutput /&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_questionmark"></a><a name="faq_question_18"></a>
+    18.&nbsp; 
+            Why do I have ``?''-s in the output instead of character
+            <i>X</i>?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>This is because the character that you want to print can't
+            be represented with the <a href="gloss.html#gloss.charset">charset</a> (encoding) used for the
+            output stream, so the Java platform (not FreeMarker) substitutes
+            the problematic character with question mark. In general you
+            should use the same charset for the output as for the template
+            (use the <tt style="color: #A03D10">getEncoding()</tt> method of the template
+            object), or which is even safer, you should always use UTF-8
+            charset for the output. The charset used for the output stream is
+            not decided by FreeMarker, but by you, when you create the
+            <tt style="color: #A03D10">Writer</tt> that you pass to the
+            <tt style="color: #A03D10">process</tt> method of the template.</p>
+
+            <p>Example: Here I use UTF-8 charset in a servlet:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+...        
+resp.setContentType(&quot;text/html; charset=utf-8&quot;);
+Writer out = resp.getWriter();
+...
+t.process(root, out);
+...&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Note that the question marks (or other substitution
+            characters) may be produced outside FreeMarker, in which case the
+            above obviously will not help. For example a bad/missconfigured
+            database connection or JDBC driver may bring the text already with
+            substitution characters in it. HTML forms are another potential
+            source of encoding problems. It's a good idea to print the
+            numerical code of the characters of the string on various places,
+            to see where the problem occurs first.</p>
+
+            <p>You can read more about charsets and FreeMarker <a href="pgui_misc_charset.html">here...</a></p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_retrieve_calculated_values"></a><a name="faq_question_19"></a>
+    19.&nbsp; 
+            How to retrieve values calculated in templates after
+            template execution done?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>First of all, be sure your application is designed well:
+            templates should display data, and almost never calculate data. If
+            you are still sure you want to do it, read on...</p>
+
+            <p>When you use <tt style="color: #A03D10">&lt;#assign x = &quot;foo&quot;&gt;</tt>,
+            then you do not actually modify the data-model (since that is
+            read-only, see: <a href="pgui_misc_multithreading.html">Programmer's Guide/Miscellaneous/Multithreading</a>), but
+            create the <tt style="color: #A03D10">x</tt> variable in the runtime <a href="gloss.html#gloss.environment">environment</a> of the processing
+            (see <a href="pgui_misc_var.html">Programmer's Guide/Miscellaneous/Variables</a>). The problem is that this
+            runtime environment will be discarded when
+            <tt style="color: #A03D10">Template.process</tt> returns, as it was created for
+            a single <tt style="color: #A03D10">Template.process</tt> call:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+// internally an Environment will be created, and then discarded
+myTemplate.process(root, out);&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>To prevent this, you can do the below, which is equivalent
+            with the above, except that you have chance to return the
+            variables created in the template:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#F8F8F8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+Environment env = myTemplate.createProcessingEnvironment(root, out);
+env.process();  // process the template
+TemplateModel x = env.getVariable(&quot;x&quot;);  // get variable x&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_template_uploading_security"></a><a name="faq_question_20"></a>
+    20.&nbsp; 
+            
+
+            Can I allow users to upload templates and what are the
+            security implications?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>In general you shouldn't allow that, unless those users are
+            system administrators or other trusted personnel. Consider
+            templates as part of the source code just like
+            <tt style="color: #A03D10">*.java</tt> files are. If you still want to allow
+            users to upload templates, here are what to consider:</p>
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Denial-of-Service (DoS) attacks: It's trivial to create
+                templates that run practically forever (with a loop), or
+                exhaust memory (by concatenating to a string in a loop).
+                FreeMarker can't enforce CPU or memory usage limits, so this
+                is something that has no solution on the
+                FreeMarker-level.</p>
+              </li>
+
+              <li>
+                <p>Data-model and wrapping
+                (<tt style="color: #A03D10">Configuration.setObjectWrapper</tt>): By
+                default the data-model gives access to the full public API of
+                the Java objects that you have put into the it (with some
+                exceptions). To avoid that, you have to construct the
+                data-model so that it only exposes the things that are
+                necessary for the template. For that, use
+                <tt style="color: #A03D10">SimpleObjectWrapper</tt> and create the
+                data-model purely from <tt style="color: #A03D10">Map</tt>-s,
+                <tt style="color: #A03D10">List</tt>-s, <tt style="color: #A03D10">Array</tt>-s,
+                <tt style="color: #A03D10">String</tt>-s, <tt style="color: #A03D10">Number</tt>-s,
+                <tt style="color: #A03D10">Boolean</tt>-s and <tt style="color: #A03D10">Date</tt>-s.
+                Or, you can implement your own extremely restrictive
+                <tt style="color: #A03D10">ObjectWrapper</tt>, which for example could
+                expose your POJO-s safely.</p>
+              </li>
+
+              <li>
+                <p>Template-loader
+                (<tt style="color: #A03D10">Configuration.setTemplateLoader</tt>):
+                Templates may load other templates by name (by path), like
+                <tt style="color: #A03D10">&lt;#include &quot;../secret.txt&quot;&gt;</tt>. To avoid
+                loading sensitive data, you have to use a
+                <tt style="color: #A03D10">TemplateLoader</tt> that double-checks that the
+                file to load is something that should be exposed. FreeMarker
+                tries to prevent the loading of files outside the template
+                root directory regardless of template loader, but depending on
+                the underlying storage mechanism, exploits may exist that
+                FreeMarker can't consider (like, just as an example,
+                <tt style="color: #A03D10">~</tt> jumps to the user directory). Note that
+                <tt style="color: #A03D10">freemarker.cache.FileTemplateLoader</tt> checks
+                the canonical paths, so that's maybe a good candidate for this
+                task, yet, adding a file extension check (file must be
+                <tt style="color: #A03D10">*.ftl</tt>) is maybe a good idea.</p>
+              </li>
+
+              <li>
+                <p>The <tt style="color: #A03D10">new</tt> built-in
+                (<tt style="color: #A03D10">Configuration.setNewBuiltinClassResolver</tt>,
+                <tt style="color: #A03D10">Environment.setNewBuiltinClassResolver</tt>):
+                It's used in templates like
+                <tt style="color: #A03D10">&quot;com.example.SomeClass&quot;?new()</tt>, and is
+                important for FTL libraries that are partially implemented in
+                Java, but shouldn't be needed in normal templates. While
+                <tt style="color: #A03D10">new</tt> will not instantiate classes that are
+                not <tt style="color: #A03D10">TemplateModel</tt>-s, FreeMarker contains a
+                <tt style="color: #A03D10">TemplateModel</tt> class that can be used to
+                create arbitrary Java objects. Other &quot;dangerous&quot;
+                <tt style="color: #A03D10">TemplateModel</tt>-s can exist in you
+                class-path. Plus, even if a class doesn't implement
+                <tt style="color: #A03D10">TemplateModel</tt>, its static initialization
+                will be run. To avoid these, you should use a
+                <tt style="color: #A03D10">TemplateClassResolver</tt> that restricts the
+                accessible classes (possibly based on which template asks for
+                them).</p>
+              </li>
+            </ul>    </div>
+
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_implement_function_or_macro_in_java"></a><a name="faq_question_21"></a>
+    21.&nbsp; 
+            How to implement a function or macro in Java Language
+            instead of in the template language?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>It's not possible (yet), but something very similar is
+            possible if you write a class that implements
+            <tt style="color: #A03D10">freemarker.template.TemplateMethodModelEx</tt> or
+            <tt style="color: #A03D10">freemarker.template.TemplateDirectiveModel</tt>
+            respectively, and then where you were write <tt style="color: #A03D10">&lt;#function
+            my
+            <i style="color: #DD4400">...</i>&gt;<i style="color: #DD4400">...</i>&lt;/#function&gt;</tt>
+            or <tt style="color: #A03D10">&lt;#macro my
+            <i style="color: #DD4400">...</i>&gt;<i style="color: #DD4400">...</i>&lt;/#macro&gt;</tt>
+            you write <tt style="color: #A03D10">&lt;#assign my = &quot;your.package.YourClass
+            &quot;?</tt><a href="ref_builtins_expert.html#ref_builtin_new"><tt>new</tt></a><tt style="color: #A03D10">()&gt;</tt>
+            instead. Note that using the <tt style="color: #A03D10">assign</tt> directive
+            for this works because functions (and methods) and macros are just
+            plain variables in FreeMarker. (For the same reason you could also
+            put <tt style="color: #A03D10">TemplateMethodModelEx</tt> or
+            <tt style="color: #A03D10">TemplateDirectiveModel</tt> instances into the
+            data-model before calling the template, or into the shared
+            variable map (see:
+            <tt style="color: #A03D10">freemarker.template.Configuration.setSharedVariable(String,
+            TemplateModel)</tt>) when you initialize the
+            application.)</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_logging_suppressed"></a><a name="faq_question_22"></a>
+    22.&nbsp; 
+            Why is FreeMarker logging suppressed for my
+            application?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>It's because FreeMarker does not find any logging system. To
+            fix this, you must make available one of the following logging
+            systems for your application: SLF4J (recommended), Apache Commons
+            Logging, Log4J (<tt style="color: #A03D10">org.apache.log4j</tt>), Avalon
+            (<tt style="color: #A03D10">org.apache.log</tt>), or use J2SE 1.4 or later
+            (that contains <tt style="color: #A03D10">java.util.logging</tt>). That is, the
+            class-loader used with your application must find one of the
+            mentioned classes. Until 2.4, if you want to use SLF4J or Commons
+            Logging you need to do some extra steps; <a href="pgui_misc_logging.html">see here...</a></p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_nice_error_page"></a><a name="faq_question_23"></a>
+    23.&nbsp; 
+            <a name="misc.faq.niceErrorPage"></a> In my Servlet
+            based application, how do I show a nice error page instead of a
+            stack trace when error occurs during template processing?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>First of all, use <tt style="color: #A03D10">RETHROW_HANDLER</tt> instead
+            of the default <tt style="color: #A03D10">DEBUG_HANDLER</tt> (for more
+            information about template exception handlers <a href="pgui_config_errorhandling.html">read this...</a>). Now
+            FreeMarker will not print anything to the output when an error
+            occurs, so the control is in your hands. After you have caught the
+            exception of
+            <tt style="color: #A03D10">Template.process(<i style="color: #DD4400">...</i>)</tt>
+            basically you can follow two strategies:</p>
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Call <tt style="color: #A03D10">httpResp.isCommitted()</tt>, and if
+                that returns <tt style="color: #A03D10">false</tt>, then you call
+                <tt style="color: #A03D10">httpResp.reset()</tt> and print a ``nice error
+                page'' for the visitor. If the return value was
+                <tt style="color: #A03D10">true</tt>, then try to finish the page be
+                printing something that makes clear for the visitor that the
+                page generation was abruptly interrupted because of an error
+                on the Web server. You may have to print a lot of redundant
+                HTML end-tags and set colors and font size to ensure that the
+                error message will be actually readable in the browser window
+                (check the source code of the
+                <tt style="color: #A03D10">HTML_DEBUG_HANDLER</tt> in
+                <tt style="color: #A03D10">src\freemarker\template\TemplateException.java</tt>
+                to see an example).</p>
+              </li>
+
+              <li>
+                <p>Use full page buffering. This means that the
+                <tt style="color: #A03D10">Writer</tt> doesn't send the output to the
+                client progressively, but buffers the whole page in the
+                memory. Since you provide the <tt style="color: #A03D10">Writer</tt>
+                instance for the
+                <tt style="color: #A03D10">Template.process(<i style="color: #DD4400">...</i>)</tt>
+                method, this is your responsibility, FreeMarker has nothing to
+                do with it. For example, you may use a
+                <tt style="color: #A03D10">StringWriter</tt>, and if
+                <tt style="color: #A03D10">Template.process(<i style="color: #DD4400">...</i>)</tt>
+                returns by throwing an exception, then ignore the content
+                accumulated by the <tt style="color: #A03D10">StringWriter</tt>, and send
+                an error page instead, otherwise you print the content of
+                <tt style="color: #A03D10">StringWriter</tt> to the output. With this
+                method you surely don't have to deal with partially sent
+                pages, but it can have negative performance implications
+                depending on the characteristic of the pages (for example, the
+                user will experience more response delay for a long page that
+                is generated slowly, also the server will consume more RAM).
+                Note that using a <tt style="color: #A03D10">StringWriter</tt> is surely
+                not the most efficient solution, as it often reallocates its
+                buffer as the accumulated content grows.</p>
+              </li>
+            </ul>    </div>
+
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_html_editor_mangles"></a><a name="faq_question_24"></a>
+    24.&nbsp; 
+            I'm using a visual HTML editor that mangles template tags.
+            Will you change the template language syntax to accommodate my
+            editor?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>We won't change the standard version, because a lot of
+            templates depend on it.</p>
+
+            <p>Our view is that the editors that break template code are
+            themselves broken. A good editor should ignore, not mangle, what
+            it doesn't understand.</p>
+
+            <p>You maybe interested in that starting from FreeMarker 2.3.4
+            you can use <tt style="color: #A03D10">[</tt> and <tt style="color: #A03D10">]</tt> instead
+            of <tt style="color: #A03D10">&lt;</tt> and <tt style="color: #A03D10">&gt;</tt>. For more
+            details <a href="dgui_misc_alternativesyntax.html">read
+            this...</a></p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_speed"></a><a name="faq_question_25"></a>
+    25.&nbsp; 
+            How fast is FreeMarker? Is it true that 2.x is slower than
+            1.x (FreeMarker classic)?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>First of all, don't forget that FreeMarker is only the view
+            rendering component in an <a href="gloss.html#gloss.MVC">MVC</a>
+            system. Furthermore MVC templates tend to be simple: many static
+            text with a few interpolations and loops and conditional block. So
+            it is not like PHP or Model 1 JSP; your application performance is
+            not affected that much by the execution time of templates.</p>
+
+            <p>FreeMarker is certainly fast enough that it will only very
+            rarely be a bottleneck in your application. Rather, other factors
+            such as the speed of the data-base operations or network bandwidth
+            will likely dominate. The impact of FreeMarker performance could
+            be noticeable only for really busy sites (say, over 30 hits per
+            second per server), where almost all database data is cached. If
+            you are finding FreeMarker slow, do make sure that the cache of
+            parsed templates works well
+            (<tt style="color: #A03D10">Configuration.getTemplate</tt> be default uses
+            caching). Parsing a template file is a relatively costly step; in
+            most long-running server-side applications, you will want to parse
+            a template once and have it be used many times. (Note that
+            FreeMarker 2.1.4 and earlier versions have bugs that sometimes can
+            ruin caching.)</p>
+
+            <p>FreeMarker 2.1 is slower than 1.7.1. This surely depends on
+            your templates, but it could be slower by a factor of 2 or 3. But
+            again, it does not means that response time will be 2 or 3 times
+            slower; most FreeMarker user simply should not be able to perceive
+            the change in the final response time.</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_list_variables_used"></a><a name="faq_question_26"></a>
+    26.&nbsp; 
+            How can my Java classes ask a template for information about
+            its structure (e.g. a list of all the variables)?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>In FreeMarker 2.2, <tt style="color: #A03D10">Template</tt> has an
+            undocumented method for examining the parsed template:
+            <tt style="color: #A03D10">getRootTreeNode</tt>.</p>
+
+            <p>But listing all accessed variables is not possible, because
+            variable names can be dynamically generated from data. However,
+            there's a more important reason why FreeMarker doesn't support
+            this. The design of FreeMarker is based on the idea of a
+            separation between business objects and presentation objects. This
+            separation takes two forms:</p>
+
+            <div class="orderedlist"><ol type="1">
+              <li>
+                <p>The templates know what data to expect, but they don't
+                know how it's generated.</p>
+              </li>
+
+              <li>
+                <p>The business objects know what data to produce, but they
+                don't know how it's going to be displayed. Therefore, they
+                don't know anything about templates.</p>
+              </li>
+            </ol></div>
+
+            <p>Since the business objects don't rely on the templates, if
+            you need to use them with some other presentation system, you
+            won't have to rewrite your application.</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_compatibility"></a><a name="faq_question_27"></a>
+    27.&nbsp; 
+            Will you ever provide backward compatibility?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>FreeMarker 2.0 was a complete rewrite of FreeMarker 1.x, by
+            a new author. The 1.x series continues as separated project:
+            FreeMarker Classic. Since 2.x follows different philosophy than
+            1.x, 2.0x releases were immature despite the high major version
+            number. This caused further radical changes between 2.01 and 2.1.
+            As of 2.1 things were much more matured, and 2.2 is almost
+            backward compatible with 2.1. We hope that this tendency
+            continues.</p>
+
+            <p>Currently, the rule is that releases with different second
+            version number (as 2.1.x and 2.2.x) are not (fully) compatible.
+            Releases where only the third version number differs (as 2.2.1 and
+            2.2.6) are compatible.</p>
+
+            <p>We always provide backward compatible bugfix releases for
+            the released versions. So basically, you don't
+            <i>have</i> to switch to a new, non-backward
+            compatible release in an already written product. It's a something
+            for something situation... FreeMarker recovers faster from design
+            mistakes than many other projects, but the price of this is that
+            major releases are not backward compatible. This is admittedly not
+            optimal, it would be better if there are fewer design mistakes...
+            but, well, it is the reality.</p>
+          </div>
+
+        
+
+        
+            <div class="question">
+    <a name="faq_licence"></a><a name="faq_question_28"></a>
+    28.&nbsp; 
+            If we distribute FreeMarker with our product, do we have to
+            release the source code for our product?
+          
+  </div>
+
+
+          <div class="answer">
+
+            <p>No. As of 2.0, FreeMarker is released under a BSD-style
+            license. This means that source or binary distributions may be
+            made freely, and can be included in other products, whether
+            commercial or open source.</p>
+
+            <p>The only restrictions apply to the copyright of FreeMarker
+            itself, and the use of FreeMarker or its contributors as
+            endorsements of your own product. See the <a href="app_license.html">LICENSE</a> for further details.</p>
+
+            <p>If you use FreeMarker, we hope you'll send us a link to some
+            information about your product, but that's optional as
+            well.</p>
+          </div>
+
+        
+          
+  </div>
+  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="app_install.html"><span class="hideA">Next page: </span>Installing FreeMarker</a></div><div class="pagerButton"><a href="app.html">Previous page</a></div><div class="pagerButton"><a href="app.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          FAQ
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

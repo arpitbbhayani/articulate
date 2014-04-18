@@ -1,0 +1,1936 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="preface.html"><span class="hideA">Next page: </span>Preface</a></div><div class="pagerButton"><span class="disabledPager">Previous page</span></div><div class="pagerButton"><span class="disabledPager">Parent page</span></div><div class="pagerButton"><span class="disabledPager">Contents</span></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+    <div class="toc">
+      <p>
+        <b>
+            Detailed Table of Contents
+        </b>
+&nbsp;&nbsp;<font size="-1">[<a href="index.html">Show simplified...</a>]</font>      </p>
+      
+  <ul class="noMargin">
+      <li>
+        <a href="preface.html">Preface</a>
+  <ul >
+      <li>
+        <a href="preface.html#autoid_2">What is FreeMarker?</a>
+      </li>
+      <li>
+        <a href="preface.html#autoid_3">What should I read?</a>
+      </li>
+      <li>
+        <a href="preface.html#autoid_4">Document conventions</a>
+      </li>
+      <li>
+        <a href="preface.html#autoid_5">Contact</a>
+      </li>
+      <li>
+        <a href="preface.html#autoid_6">About this document</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        I   <a href="dgui.html">Template Author's Guide</a>
+  <ul >
+      <li>
+        1   <a href="dgui_quickstart.html">Getting Started</a>
+  <ul >
+      <li>
+        <a href="dgui_quickstart_basics.html">Template + data-model = output</a>
+      </li>
+      <li>
+        <a href="dgui_quickstart_datamodel.html">The data-model at a glance</a>
+      </li>
+      <li>
+        <a href="dgui_quickstart_template.html">The template at a glance</a>
+  <ul >
+      <li>
+        <a href="dgui_quickstart_template.html#autoid_7">Examples of directives</a>
+  <ul >
+      <li>
+        <a href="dgui_quickstart_template.html#autoid_8">The if directive</a>
+      </li>
+      <li>
+        <a href="dgui_quickstart_template.html#autoid_9">The list directive</a>
+      </li>
+      <li>
+        <a href="dgui_quickstart_template.html#autoid_10">The include directive</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_quickstart_template.html#autoid_11">Using directives together</a>
+      </li>
+      <li>
+        <a href="dgui_quickstart_template.html#autoid_12">Dealing with missing variables</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        2   <a href="dgui_datamodel.html">Values, Types</a>
+  <ul >
+      <li>
+        <a href="dgui_datamodel_basics.html">Basics</a>
+  <ul >
+      <li>
+        <a href="dgui_datamodel_basics.html#topic.value">What is a value?</a>
+      </li>
+      <li>
+        <a href="dgui_datamodel_basics.html#autoid_13">What is type?</a>
+      </li>
+      <li>
+        <a href="dgui_datamodel_basics.html#autoid_14">The data-model is a hash</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_datamodel_types.html">The types</a>
+  <ul >
+      <li>
+        <a href="dgui_datamodel_types.html#dgui_datamodel_scalar">Scalars</a>
+      </li>
+      <li>
+        <a href="dgui_datamodel_types.html#dgui_datamodel_container">Containers</a>
+      </li>
+      <li>
+        <a href="dgui_datamodel_types.html#autoid_15">Subroutines</a>
+  <ul >
+      <li>
+        <a href="dgui_datamodel_types.html#dgui_datamodel_method">Methods and functions</a>
+      </li>
+      <li>
+        <a href="dgui_datamodel_types.html#dgui_datamodel_userdefdir">User-defined directives</a>
+      </li>
+      <li>
+        <a href="dgui_datamodel_types.html#autoid_16">Function/method versus user-defined directive</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_datamodel_types.html#autoid_17">Miscellaneous</a>
+  <ul >
+      <li>
+        <a href="dgui_datamodel_types.html#dgui_datamodel_node">Nodes</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        3   <a href="dgui_template.html">The Template</a>
+  <ul >
+      <li>
+        <a href="dgui_template_overallstructure.html">Overall structure</a>
+      </li>
+      <li>
+        <a href="dgui_template_directives.html">Directives</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html">Expressions</a>
+  <ul >
+      <li>
+        <a href="dgui_template_exp.html#exp_cheatsheet">Quick overview (cheat sheet)</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_direct">Specify values directly</a>
+  <ul >
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_direct_string">Strings</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_direct_number">Numbers</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_direct_boolean">Booleans</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_direct_seuqence">Sequences</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_direct_hash">Hashes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_var">Retrieving variables</a>
+  <ul >
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_var_toplevel">Top-level variables</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_var_hash">Retrieving data from a hash</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_var_sequence">Retrieving data from a sequence</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_var_special">Special variables</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_stringop">String operations</a>
+  <ul >
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_stringop_interpolation">Interpolation (or concatenation)</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_get_character">Getting a character</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_sequenceop">Sequence operations</a>
+  <ul >
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_sequenceop_cat">Concatenation</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_seqenceop_slice">Sequence slice</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_hashop">Hash operations</a>
+  <ul >
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_hashop_cat">Concatenation</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_arit">Arithmetical calculations</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_comparison">Comparison</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_logicalop">Logical operations</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_builtin">Built-ins</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_methodcall">Method call</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_missing">Handling missing values</a>
+  <ul >
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_missing_default">Default value operator</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_missing_test">Missing value test operator</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_parentheses">Parentheses</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_whitespace">White-space in expressions</a>
+      </li>
+      <li>
+        <a href="dgui_template_exp.html#dgui_template_exp_precedence">Operator precedence</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_template_valueinsertion.html">Interpolations</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        4   <a href="dgui_misc.html">Miscellaneous</a>
+  <ul >
+      <li>
+        <a href="dgui_misc_userdefdir.html">Defining your own directives</a>
+  <ul >
+      <li>
+        <a href="dgui_misc_userdefdir.html#autoid_22">Basics</a>
+      </li>
+      <li>
+        <a href="dgui_misc_userdefdir.html#autoid_23">Parameters</a>
+      </li>
+      <li>
+        <a href="dgui_misc_userdefdir.html#autoid_24">Nested content</a>
+      </li>
+      <li>
+        <a href="dgui_misc_userdefdir.html#dgui_misc_userdefdir_loopvar">Macros with loop variables</a>
+      </li>
+      <li>
+        <a href="dgui_misc_userdefdir.html#autoid_25">More about user-defined directives and macros</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_misc_var.html">Defining variables in the template</a>
+      </li>
+      <li>
+        <a href="dgui_misc_namespace.html">Namespaces</a>
+  <ul >
+      <li>
+        <a href="dgui_misc_namespace.html#autoid_26">Creating a library</a>
+      </li>
+      <li>
+        <a href="dgui_misc_namespace.html#autoid_27">Writing the variables of imported namespaces</a>
+      </li>
+      <li>
+        <a href="dgui_misc_namespace.html#autoid_28">Namespaces and data-model</a>
+      </li>
+      <li>
+        <a href="dgui_misc_namespace.html#autoid_29">The life-cycle of namespaces</a>
+      </li>
+      <li>
+        <a href="dgui_misc_namespace.html#autoid_30">Writing libraries for other people</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_misc_whitespace.html">White-space handling</a>
+  <ul >
+      <li>
+        <a href="dgui_misc_whitespace.html#dgui_misc_whitespace_stripping">White-space stripping</a>
+      </li>
+      <li>
+        <a href="dgui_misc_whitespace.html#autoid_31">Using compress directive</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="dgui_misc_alternativesyntax.html">Alternative (square bracket) syntax</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        II   <a href="pgui.html">Programmer's Guide</a>
+  <ul >
+      <li>
+        1   <a href="pgui_quickstart.html">Getting Started</a>
+  <ul >
+      <li>
+        <a href="pgui_quickstart_createconfiguration.html">Create a configuration instance</a>
+      </li>
+      <li>
+        <a href="pgui_quickstart_createdatamodel.html">Create a data-model</a>
+      </li>
+      <li>
+        <a href="pgui_quickstart_gettemplate.html">Get the template</a>
+      </li>
+      <li>
+        <a href="pgui_quickstart_merge.html">Merging the template with the data-model</a>
+      </li>
+      <li>
+        <a href="pgui_quickstart_all.html">Putting all together</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        2   <a href="pgui_datamodel.html">The Data Model</a>
+  <ul >
+      <li>
+        <a href="pgui_datamodel_basics.html">Basics</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_scalar.html">Scalars</a>
+  <ul >
+      <li>
+        <a href="pgui_datamodel_scalar.html#autoid_32">Difficulties with the date type</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="pgui_datamodel_parent.html">Containers</a>
+  <ul >
+      <li>
+        <a href="pgui_datamodel_parent.html#autoid_33">Hashes</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_parent.html#autoid_34">Sequences</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_parent.html#autoid_35">Collections</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="pgui_datamodel_method.html">Methods</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_directive.html">Directives</a>
+  <ul >
+      <li>
+        <a href="pgui_datamodel_directive.html#autoid_36">Example 1</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_directive.html#autoid_37">Example 2</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_directive.html#autoid_38">Notices</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="pgui_datamodel_node.html">Node variables</a>
+      </li>
+      <li>
+        <a href="pgui_datamodel_objectWrapper.html">Object wrappers</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        3   <a href="pgui_config.html">The Configuration</a>
+  <ul >
+      <li>
+        <a href="pgui_config_basics.html">Basics</a>
+      </li>
+      <li>
+        <a href="pgui_config_sharedvariables.html">Shared variables</a>
+      </li>
+      <li>
+        <a href="pgui_config_settings.html">Settings</a>
+      </li>
+      <li>
+        <a href="pgui_config_templateloading.html">Template loading</a>
+  <ul >
+      <li>
+        <a href="pgui_config_templateloading.html#autoid_39">Template loaders</a>
+  <ul >
+      <li>
+        <a href="pgui_config_templateloading.html#autoid_40">Built-in template loaders</a>
+      </li>
+      <li>
+        <a href="pgui_config_templateloading.html#autoid_41">Loading templates from multiple locations</a>
+      </li>
+      <li>
+        <a href="pgui_config_templateloading.html#autoid_42">Loading templates from other sources</a>
+      </li>
+      <li>
+        <a href="pgui_config_templateloading.html#autoid_43">The template path</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="pgui_config_templateloading.html#pgui_config_templateloading_caching">Template caching</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="pgui_config_errorhandling.html">Error handling</a>
+  <ul >
+      <li>
+        <a href="pgui_config_errorhandling.html#autoid_44">The possible exceptions</a>
+      </li>
+      <li>
+        <a href="pgui_config_errorhandling.html#autoid_45">Customizing the behavior regarding TemplatException-s</a>
+      </li>
+      <li>
+        <a href="pgui_config_errorhandling.html#autoid_46">Explicit error handling in templates</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        4   <a href="pgui_misc.html">Miscellaneous</a>
+  <ul >
+      <li>
+        <a href="pgui_misc_var.html">Variables</a>
+      </li>
+      <li>
+        <a href="pgui_misc_charset.html">Charset issues</a>
+  <ul >
+      <li>
+        <a href="pgui_misc_charset.html#autoid_47">The charset of the input</a>
+      </li>
+      <li>
+        <a href="pgui_misc_charset.html#autoid_48">The charset of the output</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="pgui_misc_multithreading.html">Multithreading</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html">Bean wrapper</a>
+  <ul >
+      <li>
+        <a href="pgui_misc_beanwrapper.html#beanswrapper_hash">TemplateHashModel functionality</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html#autoid_49">A word on security</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html#autoid_50">TemplateScalarModel functionality</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html#autoid_51">TemplateNumberModel functionality</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html#autoid_52">TemplateCollectionModel functionality</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html#autoid_53">TemplateSequenceModel functionality</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html#beanswrapper_method">TemplateMethodModel functionality</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html#autoid_54">Unwrapping rules</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html#autoid_55">Accessing static methods</a>
+      </li>
+      <li>
+        <a href="pgui_misc_beanwrapper.html#jdk_15_enums">Accessing enums</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="pgui_misc_logging.html">Logging</a>
+      </li>
+      <li>
+        <a href="pgui_misc_servlet.html">Using FreeMarker with servlets</a>
+  <ul >
+      <li>
+        <a href="pgui_misc_servlet.html#pgui_misc_servlet_model2">Using FreeMarker for ``Model 2''</a>
+      </li>
+      <li>
+        <a href="pgui_misc_servlet.html#pgui_misc_servlet_include">Including content from other web application
+          resources</a>
+      </li>
+      <li>
+        <a href="pgui_misc_servlet.html#autoid_56">Using JSP custom tags in FTL</a>
+      </li>
+      <li>
+        <a href="pgui_misc_servlet.html#autoid_57">Embed FTL into JSP pages</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="pgui_misc_secureenv.html">Configuring security policy for FreeMarker</a>
+      </li>
+      <li>
+        <a href="pgui_misc_xml_legacy.html">Legacy XML wrapper implementation</a>
+  <ul >
+      <li>
+        <a href="pgui_misc_xml_legacy.html#autoid_58">TemplateScalarModel</a>
+      </li>
+      <li>
+        <a href="pgui_misc_xml_legacy.html#autoid_59">TemplateCollectionModel</a>
+      </li>
+      <li>
+        <a href="pgui_misc_xml_legacy.html#autoid_60">TemplateSequenceModel</a>
+      </li>
+      <li>
+        <a href="pgui_misc_xml_legacy.html#autoid_61">TemplateHashModel</a>
+      </li>
+      <li>
+        <a href="pgui_misc_xml_legacy.html#autoid_62">TemplateMethodModel</a>
+      </li>
+      <li>
+        <a href="pgui_misc_xml_legacy.html#autoid_63">Namespace handling</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="pgui_misc_ant.html">Using FreeMarker with Ant</a>
+      </li>
+      <li>
+        <a href="pgui_misc_jythonwrapper.html">Jython wrapper</a>
+  <ul >
+      <li>
+        <a href="pgui_misc_jythonwrapper.html#autoid_64">TemplateHashModel functionality</a>
+      </li>
+      <li>
+        <a href="pgui_misc_jythonwrapper.html#autoid_65">TemplateScalarModel functionality</a>
+      </li>
+      <li>
+        <a href="pgui_misc_jythonwrapper.html#autoid_66">TemplateBooleanModel functionality</a>
+      </li>
+      <li>
+        <a href="pgui_misc_jythonwrapper.html#autoid_67">TemplateNumberModel functionality</a>
+      </li>
+      <li>
+        <a href="pgui_misc_jythonwrapper.html#autoid_68">TemplateSequenceModel functionality</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        III   <a href="xgui.html">XML Processing Guide</a>
+  <ul >
+      <li>
+        <a href="xgui_preface.html">Preface</a>
+      </li>
+      <li>
+        1   <a href="xgui_expose.html">Exposing XML documents</a>
+  <ul >
+      <li>
+        <a href="xgui_expose_dom.html">The DOM tree</a>
+      </li>
+      <li>
+        <a href="xgui_expose_put.html">Putting the XML into the data-model</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        2   <a href="xgui_imperative.html">Imperative XML processing</a>
+  <ul >
+      <li>
+        <a href="xgui_imperative_learn.html">Learning by example</a>
+  <ul >
+      <li>
+        <a href="xgui_imperative_learn.html#autoid_69">Accessing elements by name</a>
+      </li>
+      <li>
+        <a href="xgui_imperative_learn.html#autoid_70">Accessing attributes</a>
+      </li>
+      <li>
+        <a href="xgui_imperative_learn.html#autoid_71">Exploring the tree</a>
+      </li>
+      <li>
+        <a href="xgui_imperative_learn.html#autoid_72">Using XPath expressions</a>
+      </li>
+      <li>
+        <a href="xgui_imperative_learn.html#autoid_73">XML namespaces</a>
+      </li>
+      <li>
+        <a href="xgui_imperative_learn.html#autoid_74">Don't forget escaping!</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="xgui_imperative_formal.html">Formal description</a>
+  <ul >
+      <li>
+        <a href="xgui_imperative_formal.html#autoid_75">Node sequences</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        3   <a href="xgui_declarative.html">Declarative XML Processing</a>
+  <ul >
+      <li>
+        <a href="xgui_declarative_basics.html">Basics</a>
+      </li>
+      <li>
+        <a href="xgui_declarative_details.html">Details</a>
+  <ul >
+      <li>
+        <a href="xgui_declarative_details.html#autoid_76">Default handlers</a>
+      </li>
+      <li>
+        <a href="xgui_declarative_details.html#autoid_77">Visiting a single node</a>
+      </li>
+      <li>
+        <a href="xgui_declarative_details.html#autoid_78">XML namespaces</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        IV   <a href="ref.html">Reference</a>
+  <ul >
+      <li>
+        1   <a href="ref_builtins.html">Built-in Reference</a>
+  <ul >
+      <li>
+        <a href="ref_builtins_alphaidx.html">Alphabetical index</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html">Built-ins for strings</a>
+  <ul >
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_substring">substring</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_cap_first">cap_first</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_uncap_first">uncap_first</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_capitalize">capitalize</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_chop_linebreak">chop_linebreak</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_string_date">date, time, datetime</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_ends_with">ends_with</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_html">html</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_groups">groups</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_index_of">index_of</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_j_string">j_string</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_js_string">js_string</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_json_string">json_string</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_last_index_of">last_index_of</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_length">length</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_lower_case">lower_case</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_left_pad">left_pad</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_right_pad">right_pad</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_contains">contains</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_matches">matches</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_number">number</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_replace">replace</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_rtf">rtf</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_url">url</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_split">split</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_starts_with">starts_with</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_string_for_string">string (when used with a string value)</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_trim">trim</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_upper_case">upper_case</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_word_list">word_list</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_xhtml">xhtml</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_xml">xml</a>
+      </li>
+      <li>
+        <a href="ref_builtins_string.html#ref_builtin_string_flags">Common flags</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_builtins_number.html">Built-ins for numbers</a>
+  <ul >
+      <li>
+        <a href="ref_builtins_number.html#ref_builtin_abs">abs</a>
+      </li>
+      <li>
+        <a href="ref_builtins_number.html#ref_builtin_c">c (when used with numerical value)</a>
+      </li>
+      <li>
+        <a href="ref_builtins_number.html#ref_builtin_string_for_number">string (when used with a numerical value)</a>
+      </li>
+      <li>
+        <a href="ref_builtins_number.html#ref_builtin_is_infinite">is_infinite</a>
+      </li>
+      <li>
+        <a href="ref_builtins_number.html#ref_builtin_is_nan">is_nan</a>
+      </li>
+      <li>
+        <a href="ref_builtins_number.html#ref_builtin_rounding">round, floor, ceiling</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_builtins_date.html">Built-ins for dates</a>
+  <ul >
+      <li>
+        <a href="ref_builtins_date.html#ref_builtin_string_for_date">string (when used with a date value)</a>
+      </li>
+      <li>
+        <a href="ref_builtins_date.html#ref_builtin_date_datetype">date, time, datetime (when used with a date value)</a>
+      </li>
+      <li>
+        <a href="ref_builtins_date.html#ref_builtin_date_iso">iso_...</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_builtins_boolean.html">Built-ins for booleans</a>
+  <ul >
+      <li>
+        <a href="ref_builtins_boolean.html#ref_builtin_c_boolean">c (when used with boolean)</a>
+      </li>
+      <li>
+        <a href="ref_builtins_boolean.html#ref_builtin_string_for_boolean">string (when used with a boolean value)</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html">Built-ins for sequences</a>
+  <ul >
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_first">first</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_join">join</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_last">last</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_seq_contains">seq_contains</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_seq_index_of">seq_index_of</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_seq_last_index_of">seq_last_index_of</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_reverse">reverse</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_size">size</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_sort">sort</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_sort_by">sort_by</a>
+      </li>
+      <li>
+        <a href="ref_builtins_sequence.html#ref_builtin_chunk">chunk</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_builtins_hash.html">Built-ins for hashes</a>
+  <ul >
+      <li>
+        <a href="ref_builtins_hash.html#ref_builtin_keys">keys</a>
+      </li>
+      <li>
+        <a href="ref_builtins_hash.html#ref_builtin_values">values</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_builtins_node.html">Built-ins for nodes (for XML)</a>
+  <ul >
+      <li>
+        <a href="ref_builtins_node.html#ref_builtin_children">children</a>
+      </li>
+      <li>
+        <a href="ref_builtins_node.html#ref_builtin_parent">parent</a>
+      </li>
+      <li>
+        <a href="ref_builtins_node.html#ref_builtin_root">root</a>
+      </li>
+      <li>
+        <a href="ref_builtins_node.html#ref_builtin_ancestors">ancestors</a>
+      </li>
+      <li>
+        <a href="ref_builtins_node.html#ref_builtin_node_name">node_name</a>
+      </li>
+      <li>
+        <a href="ref_builtins_node.html#ref_builtin_node_type">node_type</a>
+      </li>
+      <li>
+        <a href="ref_builtins_node.html#ref_builtin_node_namespace">node_namespace</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_builtins_expert.html">Seldom used and expert built-ins</a>
+  <ul >
+      <li>
+        <a href="ref_builtins_expert.html#ref_builtin_numType">byte, double, float, int, long, short</a>
+      </li>
+      <li>
+        <a href="ref_builtins_expert.html#ref_builtin_numToDate">number_to_date, number_to_time, number_to_datetime</a>
+      </li>
+      <li>
+        <a href="ref_builtins_expert.html#ref_builtin_eval">eval</a>
+      </li>
+      <li>
+        <a href="ref_builtins_expert.html#ref_builtin_has_content">has_content</a>
+      </li>
+      <li>
+        <a href="ref_builtins_expert.html#ref_builtin_interpret">interpret</a>
+      </li>
+      <li>
+        <a href="ref_builtins_expert.html#ref_builtin_isType">is_...</a>
+      </li>
+      <li>
+        <a href="ref_builtins_expert.html#ref_builtin_namespace">namespace</a>
+      </li>
+      <li>
+        <a href="ref_builtins_expert.html#ref_builtin_new">new</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        2   <a href="ref_directives.html">Directive Reference</a>
+  <ul >
+      <li>
+        <a href="ref_directive_alphaidx.html">Alphabetical index</a>
+      </li>
+      <li>
+        <a href="ref_directive_if.html">if, else, elseif</a>
+  <ul >
+      <li>
+        <a href="ref_directive_if.html#autoid_79">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_if.html#autoid_80">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_switch.html">switch, case, default, break</a>
+  <ul >
+      <li>
+        <a href="ref_directive_switch.html#autoid_81">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_switch.html#autoid_82">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_list.html">list, break</a>
+  <ul >
+      <li>
+        <a href="ref_directive_list.html#autoid_83">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_list.html#autoid_84">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_include.html">include</a>
+  <ul >
+      <li>
+        <a href="ref_directive_include.html#autoid_85">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_include.html#autoid_86">Description</a>
+  <ul >
+      <li>
+        <a href="ref_directive_include.html#ref_directive_include_acquisition">Using acquisition</a>
+      </li>
+      <li>
+        <a href="ref_directive_include.html#ref_directive_include_localized">Localized lookup</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_import.html">import</a>
+  <ul >
+      <li>
+        <a href="ref_directive_import.html#autoid_87">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_import.html#autoid_88">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_noparse.html">noparse</a>
+  <ul >
+      <li>
+        <a href="ref_directive_noparse.html#autoid_89">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_noparse.html#autoid_90">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_compress.html">compress</a>
+  <ul >
+      <li>
+        <a href="ref_directive_compress.html#autoid_91">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_compress.html#autoid_92">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_escape.html">escape, noescape</a>
+  <ul >
+      <li>
+        <a href="ref_directive_escape.html#autoid_93">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_escape.html#autoid_94">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_assign.html">assign</a>
+  <ul >
+      <li>
+        <a href="ref_directive_assign.html#autoid_95">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_assign.html#autoid_96">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_global.html">global</a>
+  <ul >
+      <li>
+        <a href="ref_directive_global.html#autoid_97">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_global.html#autoid_98">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_local.html">local</a>
+  <ul >
+      <li>
+        <a href="ref_directive_local.html#autoid_99">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_local.html#autoid_100">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_setting.html">setting</a>
+  <ul >
+      <li>
+        <a href="ref_directive_setting.html#autoid_101">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_setting.html#autoid_102">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_userDefined.html">User-defined directive (&lt;@...&gt;)</a>
+  <ul >
+      <li>
+        <a href="ref_directive_userDefined.html#autoid_103">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_userDefined.html#autoid_104">Description</a>
+  <ul >
+      <li>
+        <a href="ref_directive_userDefined.html#ref_directive_userDefined_entTag">End-tag</a>
+      </li>
+      <li>
+        <a href="ref_directive_userDefined.html#ref_directive_userDefined_loopVar">Loop variables</a>
+      </li>
+      <li>
+        <a href="ref_directive_userDefined.html#ref_directive_userDefined_positionalParam">Positional parameter passing</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_macro.html">macro, nested, return</a>
+  <ul >
+      <li>
+        <a href="ref_directive_macro.html#autoid_105">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_macro.html#autoid_106">Description</a>
+  <ul >
+      <li>
+        <a href="ref_directive_macro.html#autoid_107">nested</a>
+      </li>
+      <li>
+        <a href="ref_directive_macro.html#autoid_108">return</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_function.html">function, return</a>
+  <ul >
+      <li>
+        <a href="ref_directive_function.html#autoid_109">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_function.html#autoid_110">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_flush.html">flush</a>
+  <ul >
+      <li>
+        <a href="ref_directive_flush.html#autoid_111">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_flush.html#autoid_112">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_stop.html">stop</a>
+  <ul >
+      <li>
+        <a href="ref_directive_stop.html#autoid_113">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_stop.html#autoid_114">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_ftl.html">ftl</a>
+  <ul >
+      <li>
+        <a href="ref_directive_ftl.html#autoid_115">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_ftl.html#autoid_116">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_t.html">t, lt, rt</a>
+  <ul >
+      <li>
+        <a href="ref_directive_t.html#autoid_117">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_t.html#autoid_118">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_nt.html">nt</a>
+  <ul >
+      <li>
+        <a href="ref_directive_nt.html#autoid_119">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_nt.html#autoid_120">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_attempt.html">attempt, recover</a>
+  <ul >
+      <li>
+        <a href="ref_directive_attempt.html#autoid_121">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_attempt.html#autoid_122">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_directive_visit.html">visit, recurse, fallback</a>
+  <ul >
+      <li>
+        <a href="ref_directive_visit.html#autoid_123">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_directive_visit.html#autoid_124">Description</a>
+  <ul >
+      <li>
+        <a href="ref_directive_visit.html#autoid_125">Visit</a>
+      </li>
+      <li>
+        <a href="ref_directive_visit.html#autoid_126">Recurse</a>
+      </li>
+      <li>
+        <a href="ref_directive_visit.html#autoid_127">Fallback</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        3   <a href="ref_specvar.html">Special Variable Reference</a>
+      </li>
+      <li>
+        4   <a href="ref_reservednames.html">Reserved names in FTL</a>
+      </li>
+      <li>
+        5   <a href="ref_deprecated.html">Deprecated FTL constructs</a>
+  <ul >
+      <li>
+        <a href="ref_depr_directive.html">List of deprecated directives</a>
+      </li>
+      <li>
+        <a href="ref_depr_builtin.html">List of deprecated built-ins</a>
+      </li>
+      <li>
+        <a href="ref_depr_oldmacro.html">Old-style macro and call directives</a>
+  <ul >
+      <li>
+        <a href="ref_depr_oldmacro.html#autoid_128">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_depr_oldmacro.html#autoid_129">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_depr_transform.html">Transform directive</a>
+  <ul >
+      <li>
+        <a href="ref_depr_transform.html#autoid_130">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_depr_transform.html#autoid_131">Description</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="ref_depr_oldsyntax.html">Old FTL syntax</a>
+      </li>
+      <li>
+        <a href="ref_depr_numerical_interpolation.html">#{...}: Numerical interpolation</a>
+  <ul >
+      <li>
+        <a href="ref_depr_numerical_interpolation.html#autoid_132">Synopsis</a>
+      </li>
+      <li>
+        <a href="ref_depr_numerical_interpolation.html#autoid_133">Description</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        V   <a href="app.html">Appendixes</a>
+  <ul >
+      <li>
+        A   <a href="app_faq.html">FAQ</a>
+      </li>
+      <li>
+        B   <a href="app_install.html">Installing FreeMarker</a>
+      </li>
+      <li>
+        C   <a href="app_build.html">Building FreeMarker</a>
+      </li>
+      <li>
+        D   <a href="app_versions.html">Versions</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_20.html">2.3.20</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_20.html#autoid_134">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_20.html#autoid_135">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_20.html#autoid_136">Other changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_19.html">2.3.19</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_19.html#autoid_137">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_19.html#autoid_138">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_18.html">2.3.18</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_18.html#autoid_139">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_18.html#autoid_140">Other changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_17.html">2.3.17</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_17.html#autoid_141">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_17.html#autoid_142">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_17.html#autoid_143">Other changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_16.html">2.3.16</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_16.html#autoid_144">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_16.html#autoid_145">Changes on the FTL side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_15.html">2.3.15</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_15.html#autoid_146">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_15.html#autoid_147">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_14.html">2.3.14</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_14.html#autoid_148">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_14.html#autoid_149">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_13.html">2.3.13</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_13.html#autoid_150">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_13.html#autoid_151">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_12.html">2.3.12</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_12.html#autoid_152">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_11.html">2.3.11</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_11.html#autoid_153">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_11.html#autoid_154">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_11.html#autoid_155">Documentation changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_10.html">2.3.10</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_10.html#autoid_156">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_10.html#autoid_157">Changes on the FTL side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_9.html">2.3.9</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_9.html#autoid_158">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_8.html">2.3.8</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_8.html#autoid_159">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_7.html">2.3.7</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_7.html#autoid_160">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_7.html#autoid_161">Changes on the FTL side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_7rc1.html">2.3.7 RC1</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_7rc1.html#autoid_162">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_7rc1.html#autoid_163">Changes on the FTL side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_6.html">2.3.6</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_6.html#autoid_164">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_5.html">2.3.5</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_5.html#autoid_165">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_5.html#autoid_166">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_4.html">2.3.4</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_4.html#autoid_167">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_4.html#autoid_168">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_4.html#autoid_169">Other changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_3.html">2.3.3</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_3.html#autoid_170">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_3.html#autoid_171">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_3.html#autoid_172">Other changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_2.html">2.3.2</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_2.html#autoid_173">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3_1.html">2.3.1</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_1.html#autoid_174">Possible backward compatibility issue</a>
+      </li>
+      <li>
+        <a href="versions_2_3_1.html#autoid_175">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_1.html#autoid_176">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3_1.html#autoid_177">Other changes</a>
+      </li>
+      <li>
+        <a href="versions_2_3_1.html#autoid_178">The history of the releases before the final version</a>
+  <ul >
+      <li>
+        <a href="versions_2_3_1.html#autoid_179">Differences between the preview release and final
+            release</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_3.html">2.3</a>
+  <ul >
+      <li>
+        <a href="versions_2_3.html#autoid_180">Non backward-compatible changes!</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_181">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_182">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_183">Other changes</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_184">The history of the releases before the final version</a>
+  <ul >
+      <li>
+        <a href="versions_2_3.html#autoid_185">Differences between the final release and Release Candidate
+            4</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_186">Differences between the Release Candidate 4 and Release
+            Candidate 3</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_187">Differences between the Release Candidate 3 and Release
+            Candidate 2</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_188">Differences between the Release Candidate 2 and Release
+            Candidate 1</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_189">Differences between the Release Candidate 1 and Preview 16
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_190">Differences between the Preview 16 and Preview 15
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_191">Differences between the Preview 15 and Preview 14
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_192">Differences between the Preview 14 and Preview 13
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_193">Differences between the Preview 13 and Preview 12
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_194">Differences between the Preview 12 and Preview 11
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_195">Differences between the Preview 11 and Preview 10
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_196">Differences between the Preview 10 and Preview 9
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_197">Differences between the Preview 9 and Preview 8
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_198">Differences between the Preview 8 and Preview 7
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_199">Differences between the Preview 7 and Preview 6
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_200">Differences between the Preview 6 and Preview 5
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_201">Differences between the Preview 5 and Preview 4
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_202">Differences between the Preview 4 and Preview 3
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_203">Differences between the Preview 3 and Preview 2
+            releases</a>
+      </li>
+      <li>
+        <a href="versions_2_3.html#autoid_204">Differences between the Preview 2 and Preview 1
+            releases</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_2_8.html">2.2.8</a>
+  <ul >
+      <li>
+        <a href="versions_2_2_8.html#autoid_205">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_2_8.html#autoid_206">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_2_8.html#autoid_207">Other changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_2_7.html">2.2.7</a>
+  <ul >
+      <li>
+        <a href="versions_2_2_7.html#autoid_208">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_2_6.html">2.2.6</a>
+  <ul >
+      <li>
+        <a href="versions_2_2_6.html#autoid_209">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_2_6.html#autoid_210">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_2_6.html#autoid_211">Other changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_2_5.html">2.2.5</a>
+  <ul >
+      <li>
+        <a href="versions_2_2_5.html#autoid_212">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_2_4.html">2.2.4</a>
+  <ul >
+      <li>
+        <a href="versions_2_2_4.html#autoid_213">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_2_4.html#autoid_214">Other changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_2_3.html">2.2.3</a>
+  <ul >
+      <li>
+        <a href="versions_2_2_3.html#autoid_215">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_2_3.html#autoid_216">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_2_2.html">2.2.2</a>
+  <ul >
+      <li>
+        <a href="versions_2_2_2.html#autoid_217">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_2_1.html">2.2.1</a>
+  <ul >
+      <li>
+        <a href="versions_2_2_1.html#autoid_218">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_2_1.html#autoid_219">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_2.html">2.2</a>
+  <ul >
+      <li>
+        <a href="versions_2_2.html#autoid_220">Non backward-compatible changes!</a>
+      </li>
+      <li>
+        <a href="versions_2_2.html#autoid_221">Changes in FTL (FreeMarker Template Language)</a>
+      </li>
+      <li>
+        <a href="versions_2_2.html#autoid_222">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_2.html#autoid_223">Other changes</a>
+      </li>
+      <li>
+        <a href="versions_2_2.html#autoid_224">The history of the releases before the final version</a>
+  <ul >
+      <li>
+        <a href="versions_2_2.html#autoid_225">Differences between the final and RC2 releases</a>
+      </li>
+      <li>
+        <a href="versions_2_2.html#autoid_226">Differences between the RC2 and RC1 releases</a>
+      </li>
+      <li>
+        <a href="versions_2_2.html#autoid_227">Differences between the Preview 2 and RC1 releases</a>
+      </li>
+      <li>
+        <a href="versions_2_2.html#autoid_228">Differences between the Preview 1 and Preview 2
+            releases</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_1_5.html">2.1.5</a>
+  <ul >
+      <li>
+        <a href="versions_2_1_5.html#autoid_229">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_1_4.html">2.1.4</a>
+  <ul >
+      <li>
+        <a href="versions_2_1_4.html#autoid_230">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_1_3.html">2.1.3</a>
+  <ul >
+      <li>
+        <a href="versions_2_1_3.html#autoid_231">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="versions_2_1_3.html#autoid_232">Other changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_1_2.html">2.1.2</a>
+  <ul >
+      <li>
+        <a href="versions_2_1_2.html#autoid_233">Changes in FTL (FreeMarker Template Language)</a>
+      </li>
+      <li>
+        <a href="versions_2_1_2.html#autoid_234">Other changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_1_1.html">2.1.1</a>
+  <ul >
+      <li>
+        <a href="versions_2_1_1.html#autoid_235">Changes in FTL (FreeMarker Template Language)</a>
+      </li>
+      <li>
+        <a href="versions_2_1_1.html#autoid_236">Changes on the Java side</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_1.html">2.1</a>
+  <ul >
+      <li>
+        <a href="versions_2_1.html#autoid_237">Changes in FTL (FreeMarker Template Language)</a>
+      </li>
+      <li>
+        <a href="versions_2_1.html#autoid_238">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="versions_2_1.html#autoid_239">Other changes</a>
+      </li>
+      <li>
+        <a href="versions_2_1.html#autoid_240">Differences between the RC1 and final release</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_01.html">2.01</a>
+      </li>
+      <li>
+        <a href="versions_2_0.html">2.0</a>
+  <ul >
+      <li>
+        <a href="versions_2_0.html#autoid_241">Bugfixes</a>
+      </li>
+      <li>
+        <a href="versions_2_0.html#autoid_242">Changes to the Template language</a>
+      </li>
+      <li>
+        <a href="versions_2_0.html#autoid_243">Changes to the API</a>
+      </li>
+      <li>
+        <a href="versions_2_0.html#autoid_244">Miscellany</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_0RC3.html">2.0 RC3</a>
+  <ul >
+      <li>
+        <a href="versions_2_0RC3.html#autoid_245">Bug Fixes</a>
+      </li>
+      <li>
+        <a href="versions_2_0RC3.html#autoid_246">Changes to the Template Language</a>
+      </li>
+      <li>
+        <a href="versions_2_0RC3.html#autoid_247">API changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_0RC2.html">2.0 RC2</a>
+  <ul >
+      <li>
+        <a href="versions_2_0RC2.html#autoid_248">Changes to Template Language</a>
+      </li>
+      <li>
+        <a href="versions_2_0RC2.html#autoid_249">API Changes</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="versions_2_0RC1.html">2.0 RC1</a>
+  <ul >
+      <li>
+        <a href="versions_2_0RC1.html#autoid_250">Support for Numerical operations, both arithmetic and
+          boolean, as well as numerical ranges.</a>
+      </li>
+      <li>
+        <a href="versions_2_0RC1.html#autoid_251">API Changes</a>
+      </li>
+      <li>
+        <a href="versions_2_0RC1.html#autoid_252">Syntactical Miscellany</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+      </li>
+      <li>
+        E   <a href="app_license.html">License</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="gloss.html">Glossary</a>
+      </li>
+      <li>
+        <a href="alphaidx.html">Alphabetical Index</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="preface.html"><span class="hideA">Next page: </span>Preface</a></div><div class="pagerButton"><span class="disabledPager">Previous page</span></div><div class="pagerButton"><span class="disabledPager">Parent page</span></div><div class="pagerButton"><span class="disabledPager">Contents</span></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

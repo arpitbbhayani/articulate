@@ -1,0 +1,534 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - The template at a glance
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_quickstart.html">Getting Started</a>
+            <b>></b>
+          The template at a glance
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_datamodel.html"><span class="hideA">Next page: </span>Values, Types</a></div><div class="pagerButton"><a href="dgui_quickstart_datamodel.html">Previous page</a></div><div class="pagerButton"><a href="dgui_quickstart.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="dgui_quickstart_template"></a>The template at a glance  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_7">Examples of directives</a>
+  <ul >
+      <li>
+        <a href="#autoid_8">The if directive</a>
+      </li>
+      <li>
+        <a href="#autoid_9">The list directive</a>
+      </li>
+      <li>
+        <a href="#autoid_10">The include directive</a>
+      </li>
+  </ul>
+      </li>
+      <li>
+        <a href="#autoid_11">Using directives together</a>
+      </li>
+      <li>
+        <a href="#autoid_12">Dealing with missing variables</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>The simplest template is a plain HTML file (or whatever text
+        file -- FreeMarker is not confined to HTML). When the client visits
+        that page, FreeMarker will send that HTML to the client as is. However
+        if you want that page to be more dynamic then you begin to put special
+        parts into the HTML which will be understood by FreeMarker:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p><tt style="color: #A03D10">${<i style="color: #DD4400">...</i>}</tt>:
+            FreeMarker will replace it in the output with the actual value of
+            the thing inside the curly brackets. They are called <b>interpolation</b>s. As an example see <a href="dgui_quickstart_basics.html#example.first">the very first example</a>.</p>
+          </li>
+
+          <li>
+            <p><b>FTL tags</b> (for FreeMarker
+            Template Language tags): FTL tags are a bit similar to HTML tags,
+            but they are instructions to FreeMarker and will not be printed to
+            the output. The name of these tags start with
+            <tt style="color: #A03D10">#</tt>. (User-defined FTL tags use
+            <tt style="color: #A03D10">@</tt> instead of <tt style="color: #A03D10">#</tt>, but they are
+            an advanced topic.)</p>
+          </li>
+
+          <li>
+            <p><b>Comments:</b> Comments are
+            similar to HTML comments, but they are delimited by
+            <tt style="color: #A03D10">&lt;#--</tt> and <tt style="color: #A03D10">--&gt;</tt>. Anything
+            between these delimiters and the delimiter itself will be ignored
+            by FreeMarker, and will not be written to the output.</p>
+          </li>
+        </ul>    </div>
+<p>Anything not an FTL tag or an interpolation or comment is
+        considered as static text, and will not be interpreted by FreeMarker;
+        it is just printed to the output as is.</p><p>With FTL tags you refer to so-called <b>directives</b>. This is the same kind of
+        relationship as between HTML tags (e.g.:
+        <tt style="color: #A03D10">&lt;table&gt;</tt> and
+        <tt style="color: #A03D10">&lt;/table&gt;</tt>) and HTML elements (e.g., the
+        <tt style="color: #A03D10">table</tt> element) to which you refer to with the HTML
+        tags. (If you don't feel this difference then just take &quot;FTL tag&quot; and
+        &quot;directive&quot; as synonyms.)</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_7"></a>Examples of directives  </h2>
+
+
+          <p>Though FreeMarker has far more directives, in this quick
+          overview we will only look at three of the most commonly used
+          ones.</p>
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_8"></a>The if directive  </h3>
+
+
+            <p>With the <tt style="color: #A03D10">if</tt> directive you can
+            conditionally skip a section of the template. For example, assume
+            that in the <a href="dgui_quickstart_basics.html#example.first">very first
+            example</a> you want to greet your boss, Big Joe, differently
+            from other users:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Welcome!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;
+    Welcome ${user}<b>&lt;#if user == &quot;Big Joe&quot;&gt;</b>, our beloved leader<b>&lt;/#if&gt;</b>!
+  &lt;/h1&gt;
+  &lt;p&gt;Our latest product:
+  &lt;a href=&quot;${latestProduct.url}&quot;&gt;${latestProduct.name}&lt;/a&gt;!
+&lt;/body&gt;
+&lt;/html&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Here you have told FreeMarker that the '', our beloved
+            leader'' should be there only if the value of the variable
+            <tt style="color: #A03D10">user</tt> is equal to the string <tt style="color: #A03D10">&quot;Big
+            Joe&quot;</tt>. In general, things between <tt style="color: #A03D10">&lt;#if
+            <i style="color: #DD4400">condition</i>&gt;</tt> and
+            <tt style="color: #A03D10">&lt;/#if&gt;</tt> tags are skipped if
+            <tt style="color: #A03D10"><i style="color: #DD4400">condition</i></tt> is false
+            (the boolean value).</p>
+
+            <p>Let's detail the
+            <tt style="color: #A03D10"><i style="color: #DD4400">condition</i></tt> used here:
+            The <tt style="color: #A03D10">==</tt> is an operator that tests if the values
+            at its left and right side are equivalent, and the results is a
+            boolean value, true or false accordingly. On the left side of
+            <tt style="color: #A03D10">==</tt> I have <a href="dgui_quickstart_datamodel.html#topic.qStart.accessVariables">referenced a
+            variable</a> with the syntax that should be already familiar;
+            this will be replaced with the value of the variable. In general,
+            unquoted words inside directives or interpolations are treated as
+            references to variables. On the right side I have specified a
+            literal string. Literal strings in templates must
+            <i>always</i> be put inside quotation marks.</p>
+
+            <p>This will print &quot;Pythons are free today!&quot; if their price is
+            0:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if animals.python.price == <b>0</b>&gt;
+  Pythons are free today!
+&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Similarly as earlier when a string was specified directly,
+            here a number is specified directly (<tt style="color: #A03D10">0</tt>). Note
+            that the number is <i>not</i> quoted. If you quoted
+            it (<tt style="color: #A03D10">&quot;0&quot;</tt>), FreeMarker were misinterpret it as a
+            string literal.</p>
+
+            <p>This will print &quot;Pythons are not free today!&quot; if their price
+            is not 0:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if animals.python.price <b>!=</b> 0&gt;
+  Pythons are not free today!
+&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>As you may have guessed, <tt style="color: #A03D10">!=</tt> means not
+            equivalent.</p>
+
+            <p>You can write things like this too (using <a href="dgui_quickstart_datamodel.html#example.qStart.dataModelWithHashes">the data-model used
+            to demonstrate hashes</a>):</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if <b>animals.python.price &lt; animals.elephant.price</b>&gt;
+  Pythons are cheaper than elephants today.
+&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>With the <tt style="color: #A03D10">&lt;#else&gt;</tt> tag you can
+            specify what to do if the condition is false. For example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if animals.python.price &lt; animals.elephant.price&gt;
+  Pythons are cheaper than elephants today.
+<b>&lt;#else&gt;</b>
+  Pythons are not cheaper than elephants today.
+&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>This prints ''Pythons are cheaper than elephants today.'' if
+            the price of python is less than the price of elephant, or else it
+            prints ''Pythons are not cheaper than elephants today.''</p>
+
+            <p>If you have a variable with boolean value (a true/false
+            thing) then you can use it directly as the
+            <tt style="color: #A03D10"><i style="color: #DD4400">condition</i></tt> of
+            <tt style="color: #A03D10">if</tt>:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if animals.python.protected&gt;
+  Warning! Pythons are protected animals!
+&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_9"></a>The list directive  </h3>
+
+
+            <p>This is useful when you want to list something. For example
+            if you merge this template with the <a href="dgui_quickstart_datamodel.html#example.qStart.dataModelWithSequences">data-model I used
+            earlier to demonstrate sequences</a>:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;p&gt;We have these animals:
+&lt;table border=1&gt;
+  &lt;tr&gt;&lt;th&gt;Name&lt;th&gt;Price
+  <b>&lt;#list animals as being&gt;</b>
+  &lt;tr&gt;&lt;td&gt;${<b>being</b>.name}&lt;td&gt;${<b>being</b>.price} Euros
+  <b>&lt;/#list&gt;</b>
+&lt;/table&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>then the output will be:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;p&gt;We have these animals:
+&lt;table border=1&gt;
+  &lt;tr&gt;&lt;th&gt;Name&lt;th&gt;Price
+  <b>&lt;tr&gt;&lt;td&gt;mouse&lt;td&gt;50 Euros
+  &lt;tr&gt;&lt;td&gt;elephant&lt;td&gt;5000 Euros
+  &lt;tr&gt;&lt;td&gt;python&lt;td&gt;4999 Euros</b>
+&lt;/table&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>The generic format of the <tt style="color: #A03D10">list</tt> directive
+            is:</p>
+
+            <p><tt style="color: #A03D10">&lt;#list <i style="color: #DD4400">sequence</i> as
+            <i style="color: #DD4400">loopVariable</i>&gt;<i style="color: #DD4400">repeatThis</i>&lt;/#list&gt;</tt></p>
+
+            <p>The <tt style="color: #A03D10"><i style="color: #DD4400">repeatThis</i></tt>
+            part will be repeated for each item in the sequence that you have
+            given with <tt style="color: #A03D10"><i style="color: #DD4400">sequence</i></tt>,
+            one after the other, starting from the first item. In all
+            repetitions
+            <tt style="color: #A03D10"><i style="color: #DD4400">loopVariable</i></tt> will
+            hold the value of the current item. This variable exists only
+            between the <tt style="color: #A03D10">&lt;#list ...&gt;</tt> and
+            <tt style="color: #A03D10">&lt;/#list&gt;</tt> tags.</p>
+
+            <p>As another example, we list the fruits of that example data
+            model:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;p&gt;And BTW we have these fruits:
+&lt;ul&gt;
+<b>&lt;#list whatnot.fruits as fruit&gt;</b>
+ &lt;li&gt;${fruit}
+<b>&lt;/#list&gt;</b>
+&lt;ul&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>The <tt style="color: #A03D10">whatnot.fruits</tt> expression should be
+            familiar to you; it <a href="dgui_quickstart_datamodel.html#topic.qStart.accessVariables">references a variable in
+            the data-model</a>.</p>
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_10"></a>The include directive  </h3>
+
+
+            <p>With the <tt style="color: #A03D10">include</tt> directive you can insert
+            the content of another file into the template.</p>
+
+            <p>Suppose you have to show the same copyright notice on
+            several pages. You can create a file that contains the copyright
+            notice only, and insert that file everywhere where you need that
+            copyright notice. Say, you store this copyright notice in
+            <tt style="color: #A03D10">copyright_footer.html</tt>:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;hr&gt;
+&lt;i&gt;
+Copyright (c) 2000 &lt;a href=&quot;http://www.acmee.com&quot;&gt;Acmee Inc&lt;/a&gt;,
+&lt;br&gt;
+All Rights Reserved.
+&lt;/i&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>Whenever you need that file you simply insert it with the
+            <tt style="color: #A03D10">include</tt> directive:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Test page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Test page&lt;/h1&gt;
+  &lt;p&gt;Blah blah...
+<b>&lt;#include &quot;/copyright_footer.html&quot;&gt;</b>
+&lt;/body&gt;
+&lt;/html&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>and the output will be:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Test page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Test page&lt;/h1&gt;
+  &lt;p&gt;Blah blah...
+<b>&lt;hr&gt;
+&lt;i&gt;
+Copyright (c) 2000 &lt;a href=&quot;http://www.acmee.com&quot;&gt;Acmee Inc&lt;/a&gt;,
+&lt;br&gt;
+All Rights Reserved.
+&lt;/i&gt;</b>
+&lt;/body&gt;
+&lt;/html&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+            <p>If you change the <tt style="color: #A03D10">copyright_footer.html</tt>,
+            then the visitor will see the new copyright notice on all
+            pages.</p>
+          
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_11"></a>Using directives together  </h2>
+
+
+          <p>You can use directives as many times on a page as you want,
+          and you can nest directives into each other similarly as you can
+          nest HTML elements into each other. For example this will list the
+          animals and print the name of large animals with bigger font:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;p&gt;We have these animals:
+&lt;table border=1&gt;
+  &lt;tr&gt;&lt;th&gt;Name&lt;th&gt;Price
+  <b>&lt;#list animals as being&gt;</b>
+  &lt;tr&gt;
+    &lt;td&gt;
+      <b>&lt;#if being.size == &quot;large&quot;&gt;</b>&lt;font size=&quot;+1&quot;&gt;<b>&lt;/#if&gt;</b>
+      ${being.name}
+      <b>&lt;#if being.size == &quot;large&quot;&gt;</b>&lt;/font&gt;<b>&lt;/#if&gt;</b>
+    &lt;td&gt;${being.price} Euros
+  <b>&lt;/#list&gt;</b>
+&lt;/table&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Note that since FreeMarker does not interpret text outside FTL
+          tags, interpolations and comments, it doesn't see the above
+          <tt style="color: #A03D10">font</tt> tags as badly nested ones.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_12"></a>Dealing with missing variables  </h2>
+
+
+          <p>In practice the data-model often has variables that are
+          optional (i.e., sometimes missing). To spot some typical human
+          mistakes, FreeMarker doesn't tolerate the referring to missing
+          variables unless you tell them explicitly what to do if the variable
+          is missing. Here we will show the two most typical ways of doing
+          that.</p>
+
+          <p><span style="color:#333399; font-style:italic">Note for programmers: A
+          non-existent variable and a variable with <tt style="color: #A03D10">null</tt>
+          value is the same for FreeMarker, so the &quot;missing&quot; term used here
+          covers both cases.</span></p>
+
+          <p>Wherever you refer to a variable, you can specify a default
+          value for the case the variable is missing, by following the
+          variable name with a <tt style="color: #A03D10">!</tt> and the default value.
+          Like in the following example, when <tt style="color: #A03D10">user</tt> is
+          missing from data model, the template will behave like if
+          <tt style="color: #A03D10">user</tt>'s value were the string
+          <tt style="color: #A03D10">&quot;Anonymous&quot;</tt>. (When <tt style="color: #A03D10">user</tt> isn't
+          missing, this template behaves exactly like if
+          <tt style="color: #A03D10">!&quot;Anonymous&quot;</tt> were not there):</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;h1&gt;Welcome ${user<b>!&quot;Anonymous&quot;</b>}!&lt;/h1&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>You can ask whether a variable isn't missing by putting
+          <tt style="color: #A03D10">??</tt> after its name. Combining this with the
+          already introduced <tt style="color: #A03D10">if</tt> directive you can skip the
+          whole greeting if the <tt style="color: #A03D10">user</tt> variable is
+          missing:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;#if <b>user??</b>&gt;&lt;h1&gt;Welcome ${user}!&lt;/h1&gt;&lt;/#if&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>Regarding variable accessing with multiple steps, like
+          <tt style="color: #A03D10">animals.python.price</tt>, writing
+          <tt style="color: #A03D10">animals.python.price!0</tt> is correct only if
+          <tt style="color: #A03D10">animals.python</tt> is never missing and only the last
+          subvariable, <tt style="color: #A03D10">price</tt>, is possibly missing (in which
+          case here we assume it's <tt style="color: #A03D10">0</tt>). If
+          <tt style="color: #A03D10">animals</tt> or <tt style="color: #A03D10">python</tt> is missing,
+          the template processing will stop with an &quot;undefined variable&quot;
+          error. To prevent that, you have to write
+          <tt style="color: #A03D10">(animals.python.price)!0</tt>. In that case the
+          expression will be <tt style="color: #A03D10">0</tt> even if
+          <tt style="color: #A03D10">animals</tt> or <tt style="color: #A03D10">python</tt> is missing.
+          Same logic goes for <tt style="color: #A03D10">??</tt>;
+          <tt style="color: #A03D10">animals.python.price??</tt> versus
+          <tt style="color: #A03D10">(animals.python.price)??</tt>.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_datamodel.html"><span class="hideA">Next page: </span>Values, Types</a></div><div class="pagerButton"><a href="dgui_quickstart_datamodel.html">Previous page</a></div><div class="pagerButton"><a href="dgui_quickstart.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_quickstart.html">Getting Started</a>
+            <b>></b>
+          The template at a glance
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

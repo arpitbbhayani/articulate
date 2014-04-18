@@ -1,0 +1,618 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.1
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.1
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_01.html"><span class="hideA">Next page: </span>2.01</a></div><div class="pagerButton"><a href="versions_2_1_1.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_1"></a>2.1  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_237">Changes in FTL (FreeMarker Template Language)</a>
+      </li>
+      <li>
+        <a href="#autoid_238">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="#autoid_239">Other changes</a>
+      </li>
+      <li>
+        <a href="#autoid_240">Differences between the RC1 and final release</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Date of release: 2002-10-17</p><p>Templates and the Java API are <i>not</i> fully
+        compatible with 2.0 releases. You will need to revisit existing code
+        and templates, or use 2.1 for new projects only. Sorry for this
+        inconvenience; FreeMarker has undergone some revolutionary changes
+        since the 1.x series. We hope things will soon be sufficiently mature
+        for us to offer (almost) backward-compatible releases. Note that there
+        is a backward-compatibility flag that can be set via
+        <tt style="color: #A03D10">Configuration.setClassicCompatible(true)</tt> that
+        causes the new FreeMarker to emulate most of FreeMarker 1.x's
+        quirks.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_237"></a>Changes in FTL (FreeMarker Template Language)  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>More strict, reveals accidental mistakes in the templates,
+              prevents showing incorrect information when something went
+              wrong:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>An attempt to access an undefined variable causes an
+                  error and aborts template processing (by default at least;
+                  see later). In earlier versions undefined variables were
+                  silently treated as empty (zero-length) strings. However,
+                  you can handle undefined variables in the template with some
+                  new built-ins. For example,
+                  <tt style="color: #A03D10">${foo?if_exists}</tt> is equivalent with the
+                  <tt style="color: #A03D10">${foo}</tt> of earlier versions. Another way
+                  of looking at this is that null values no longer exist from
+                  the viewpoint of a template designer. Anything referenced
+                  must be a defined variable.</p>
+
+                  <p>Note however that the programmer can configure
+                  FreeMarker so that it ignores certain errors (say, undefined
+                  variables), and continues template processing by skipping
+                  the problematic part. This ``loose'' policy should be used
+                  only for sites that don't show critical information.</p>
+                </li>
+
+                <li>
+                  <p>New variable type: <a href="gloss.html#gloss.boolean">boolean</a>. Conditions in
+                  <tt style="color: #A03D10">if</tt>/<tt style="color: #A03D10">elseif</tt> and operands
+                  of logical operators (<tt style="color: #A03D10">&amp;&amp;</tt>,
+                  <tt style="color: #A03D10">||</tt>, <tt style="color: #A03D10">!</tt>) must be
+                  booleans. Empty strings are no longer treated as a logical
+                  false.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Local and global variables. More info: <a href="dgui_misc_var.html">Template Author's Guide/Miscellaneous/Defining variables in the template</a></p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>Local variables for macros. You can create/replace
+                  local variables in macro definition bodies with the <a href="ref_directive_local.html#ref.directive.local"><tt>local</tt>
+                  directive</a></p>
+                </li>
+
+                <li>
+                  <p>You can create/replace global (non-local) variables
+                  with the <a href="ref_directive_global.html#ref.directive.global"><tt>global</tt>
+                  directive</a></p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>The <a href="ref_directive_include.html#ref.directive.include"><tt>include</tt></a>
+              directive now by default treats the passed filename as being
+              relative to the including template's path. To specify absolute
+              template paths, you now have to prepend them with a
+              slash.</p>
+            </li>
+
+            <li>
+              <p>The <a href="ref_directive_include.html#ref.directive.include"><tt>include</tt></a>
+              directive can now use the <i>acquisition
+              algorithm</i> (familiar from the Zope system) to look up
+              the template to include. Basically, if a template is not found
+              where it is looked up first, it is looked up in parent
+              directories. This is however not a default behavior, rather it
+              is triggered by a new syntactic element.</p>
+            </li>
+
+            <li>
+              <p>Strict syntax mode: Allows you to generate arbitrary SGML
+              (XML) without worrying about clashes with FreeMarker directives.
+              For more information read: <a href="ref_depr_oldsyntax.html">Reference/Deprecated FTL constructs/Old FTL syntax</a></p>
+            </li>
+
+            <li>
+              <p>Terse comments: you can use <tt style="color: #A03D10">&lt;#--
+              <i style="color: #DD4400">...</i> --&gt;</tt> instead of
+              <tt style="color: #A03D10">&lt;comment&gt;<i style="color: #DD4400">...</i>&lt;/comment&gt;</tt></p>
+            </li>
+
+            <li>
+              <p>Directive that you can use to change the locale (and other
+              settings) inside the template: <a href="ref_directive_setting.html#ref.directive.setting"><tt>setting</tt></a></p>
+            </li>
+
+            <li>
+              <p>Directive to explicitly flush the output buffer: <a href="ref_directive_flush.html#ref.directive.flush"><tt>flush</tt></a></p>
+            </li>
+
+            <li>
+              <p>The top-level (root) hash is available via the variable
+              <tt style="color: #A03D10">root</tt>, which is now a reserved name.</p>
+            </li>
+
+            <li>
+              <p>The misnamed <tt style="color: #A03D10">function</tt> directive has
+              been renamed to <tt style="color: #A03D10">macro</tt>.</p>
+            </li>
+
+            <li>
+              <p>String literals support various new <a href="dgui_template_exp.html#topic.escapeSequence">escape sequences</a>,
+              including UNICODE escapes
+              (<tt style="color: #A03D10">\x<i style="color: #DD4400">CODE</i></tt>)</p>
+            </li>
+
+            <li>
+              <p>The <a href="ref_directive_compress.html#ref.directive.compress"><tt>compress</tt></a>
+              directive is now more conservative in removing line
+              breaks.</p>
+            </li>
+
+            <li>
+              <p>Built-in to capitalize the first word: <a href="ref_builtins_string.html#ref_builtin_cap_first"><tt>cap_first</tt></a></p>
+            </li>
+
+            <li>
+              <p>Built-in to generate on-the-fly templates: <a href="ref_builtins_expert.html#ref_builtin_interpret"><tt>interpret</tt></a></p>
+            </li>
+
+            <li>
+              <p><a href="ref_directive_stop.html#ref.directive.stop"><tt>stop</tt></a>
+              directive has an optional parameter to describe the reason of
+              termination</p>
+            </li>
+
+            <li>
+              <p>Better error messages.</p>
+            </li>
+
+            <li>
+              <p>New variable type: date. <i>Date support is
+              experimental. It can change substantially in the future. Keep
+              this in mind if you use it.</i></p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_238"></a>Changes on the Java side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><tt style="color: #A03D10">ObjectWrapper</tt>: You can put
+              non-<tt style="color: #A03D10">TemplateModel</tt> objects directly into
+              hashes, sequences and collections, and they will be
+              automatically wrapped with the appropriate
+              <tt style="color: #A03D10">TemplateModel</tt> implementation. The API of
+              objects that are exposed to templates
+              (<tt style="color: #A03D10">Simple<i style="color: #DD4400">XXX</i></tt>) has
+              been changed according to this, for example in
+              <tt style="color: #A03D10">SimpleHash</tt> the old <tt style="color: #A03D10">put(String key,
+              TemplateModel value)</tt> is now <tt style="color: #A03D10">put(String key,
+              Object object)</tt>. Also, you can pass any kind of object
+              as data-model to <tt style="color: #A03D10">Template.process</tt>. The
+              alternative reflection based <tt style="color: #A03D10">ObjectWrapper</tt>
+              can expose the members of any Java object automatically for the
+              designer. More information: <a href="pgui_datamodel_objectWrapper.html">Object wrapping</a>,
+              <a href="pgui_misc_beanwrapper.html">Bean wrapper</a>, <a href="pgui_misc_jythonwrapper.html">Jython wrapper</a>.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">Configuration</tt> object was introduced
+              as a central point to hold all your FreeMarker-related global
+              settings, as well as commonly used variables that you want to
+              have available from any template. Also it encapsulates the
+              template cache and can be used to load templates. For more
+              information read <a href="pgui_config.html">Programmer's Guide/The Configuration</a>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">TemplateLoader</tt>: pluggable template
+              loader, separates caching from template loading</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">TemplateNumberModel</tt>-s do not control
+              their formatting anymore. They just store the data (i.e. a
+              number). Number formatting is done by the FreeMarker core based
+              on the <tt style="color: #A03D10">locale</tt> and
+              <tt style="color: #A03D10">number_format</tt> settings. This logic applies to
+              the new experimental date type as well.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">TemplateBooleanModel</tt> introduced: Only
+              objects that implements this interface can be used as a boolean
+              in true/false conditions. More info: <a href="pgui_datamodel_scalar.html">Programmer's Guide/The Data Model/Scalars</a></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">TemplateDateModel</tt> introduced: objects
+              that implements this interface are recognized as dates and can
+              be locale-sensitively formatted. <i>Date support is
+              experimental in FreeMarker 2.1. It can change substantially in
+              the future. Keep this in mind if you use it.</i></p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">TemplateModelRoot</tt> interface was
+              deprecated. As of FreeMarker 2.1, you can simply use any
+              instance of <tt style="color: #A03D10">TemplateHashModel</tt> instead. This
+              actually is due to a significant architectural change. Variables
+              set or defined in a template are stored in a separate
+              <tt style="color: #A03D10">Environment</tt> object that only exists while the
+              template is being rendered. Thus, the template doesn't modify
+              the root hash.</p>
+            </li>
+
+            <li>
+              <p>Changes to transformations</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>Completely rewritten
+                  <tt style="color: #A03D10">TemplateTransformModel</tt> interface. More
+                  flexible, and does not impose output holding. More
+                  information: <a href="pgui_datamodel_directive.html">Programmer's Guide/The Data Model/Directives</a></p>
+                </li>
+
+                <li>
+                  <p>The <tt style="color: #A03D10">transform</tt> directive now takes
+                  an optional set of key/value pairs. <tt style="color: #A03D10">&lt;transform
+                  myTransform;
+                  <i style="color: #DD4400">key1</i>=<i style="color: #DD4400">value1</i>,
+                  <i style="color: #DD4400">key2</i>=<i style="color: #DD4400">value2</i>
+                  <i style="color: #DD4400">...</i>&gt;</tt>. More
+                  information: <a href="ref_depr_transform.html#ref.directive.transform"><tt>transform</tt>
+                  directive</a></p>
+                </li>
+
+                <li>
+                  <p>The transforms that ship with the FreeMarker core are
+                  now available by default to all templates - i.e.
+                  <tt style="color: #A03D10">&lt;transform html_escape&gt;</tt> will invoke
+                  the
+                  <tt style="color: #A03D10">freemarker.template.utility.HtmlEscape</tt>
+                  transform. More information: <a href="pgui_config_sharedvariables.html">Programmer's Guide/The Configuration/Shared variables</a></p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>User-defined <tt style="color: #A03D10">TemplateModel</tt> objects now
+              can access the runtime environment (read and set variables, get
+              the current locale, etc.) using an
+              <tt style="color: #A03D10">Environment</tt> instance, which can be obtained
+              by the static
+              <tt style="color: #A03D10">Environment.getCurrentEnvironment()</tt> method.
+              As a result, <tt style="color: #A03D10">TemplateScalarModel.getAsString</tt>
+              has been changed: it has no locale parameter.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">TemplateExceptionHandler</tt>-s make it
+              possible to define your own rules on what to do when a runtime
+              error occurs (e.g. accessing a non existing variable) during
+              template processing. For example, you can abort template
+              processing (recommended for most sites), or skip the problematic
+              statement and continue template processing (similar to old
+              behavior). DebugMode has been removed, use
+              <tt style="color: #A03D10">TemplateExceptionHandler.DEBUG_HANDLER</tt> or
+              <tt style="color: #A03D10">HTML_DEBUG_HANDLER</tt> instead.</p>
+            </li>
+
+            <li>
+              <p>Logging: FreeMarker logs certain events (runtime errors
+              for example). For more information read <a href="pgui_misc_logging.html">Programmer's Guide/Miscellaneous/Logging</a>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">SimpleIterator</tt> was removed, but we
+              provide a <tt style="color: #A03D10">TemplateCollectionModel</tt>
+              implementation: <tt style="color: #A03D10">SimpleCollection</tt>.</p>
+            </li>
+
+            <li>
+              <p>Arithmetic engine is pluggable
+              (<tt style="color: #A03D10">Configuration.setArithmeticEngine</tt>). The core
+              distribution comes with two engines:
+              <tt style="color: #A03D10">ArithmeticEngine.BIGDECIMAL_ENGINE</tt> (the
+              default) that converts all numbers to
+              <tt style="color: #A03D10">BigDecimal</tt> and then operates on them, and
+              <tt style="color: #A03D10">ArithmeticEngine.CONSERVATIVE_ENGINE</tt> that
+              uses (more-or-less) the widening conversions of Java language,
+              instead of converting everything to
+              <tt style="color: #A03D10">BigDecimal</tt>.</p>
+            </li>
+
+            <li>
+              <p>Changes to <tt style="color: #A03D10">freemarker.ext.beans</tt>
+              package: The JavaBeans adapter layer has suffered several major
+              changes. First, <tt style="color: #A03D10">BeansWrapper</tt> is no longer a
+              static utility class - you can now create instances of it, and
+              every instance can have its own instance caching policy and
+              security settings. These security settings are also new - you
+              can now create JavaBeans wrappers that hide methods that are
+              considered unsafe or inappropriate in a templating environment.
+              By default, you can no longer call methods like
+              <tt style="color: #A03D10">System.exit()</tt> from the template (although you
+              can manually turn off these safeguards). The
+              <tt style="color: #A03D10">StaticModel</tt> and
+              <tt style="color: #A03D10">StaticModels</tt> classes are gone; their
+              functionality is now replaced with the
+              <tt style="color: #A03D10">BeansWrapper.getStaticModels()</tt> method.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">freemarker.ext.jython</tt> package:
+              FreeMarker can now directly use Jython objects as data-models
+              using the <a href="pgui_misc_jythonwrapper.html">Jython
+              wrapper</a>.</p>
+            </li>
+
+            <li>
+              <p>Changes to <tt style="color: #A03D10">freemarker.ext.jdom</tt> package:
+              The package now uses the <i>Jaxen</i> package
+              instead of its predecessor, the
+              <i>werken.xpath</i> package to evaluate XPath
+              expressions. Since <i>Jaxen</i> is a successor to
+              <i>werken.xpath</i>, this can be considered to be
+              an upgrade. As a consequence, namespace prefixes are now
+              recognized in XPath expressions and the overall XPath
+              conformance is better.</p>
+            </li>
+
+            <li>
+              <p>Better error reporting: If the processing of a template is
+              aborted by a <tt style="color: #A03D10">TemplateException</tt> being thrown,
+              or using a <tt style="color: #A03D10">&lt;#stop&gt;</tt> directive,
+              FreeMarker will now output an execution trace with line and
+              column numbers relative to the template source.</p>
+            </li>
+
+            <li>
+              <p>The output is written to a simple
+              <tt style="color: #A03D10">Writer</tt>; no more
+              <tt style="color: #A03D10">PrintWriter</tt>. This redesign causes FreeMarker
+              to no longer swallow <tt style="color: #A03D10">IOException</tt>s during
+              template processing.</p>
+            </li>
+
+            <li>
+              <p>Various API cleanups, primarily the removing of
+              superfluous constructor and method overloads.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_239"></a>Other changes  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Documentation has been rewritten from scratch</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_240"></a>Differences between the RC1 and final release  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Added the support for date models and locale-sensitive
+              date formatting. <i>Date support is experimental in
+              FreeMarker 2.1. It can change substantially in the future. Keep
+              this in mind if you use it.</i></p>
+            </li>
+
+            <li>
+              <p>Added the <tt style="color: #A03D10">default</tt> built-in which makes
+              it possible to specify default values for undefined
+              expressions.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">SimpleIterator</tt> has been removed,
+              <tt style="color: #A03D10">SimpleCollection</tt> has been introduced</p>
+            </li>
+
+            <li>
+              <p>Arithmetic engine is pluggable. The core now contains two
+              arithmetic engines:
+              <tt style="color: #A03D10">ArithmeticEngine.BIGDECIMAL_ENGINE</tt> and
+              <tt style="color: #A03D10">ArithmeticEngine.CONSERVATIVE_ENGINE</tt>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">BeansWrapper</tt> supports a new exposure
+              level: <tt style="color: #A03D10">EXPOSE_NOTHING</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">Constants</tt> interface was removed.
+              <tt style="color: #A03D10"><i style="color: #DD4400">...</i>_WRAPPER</tt>
+              constants have been moved from <tt style="color: #A03D10">Constants</tt> to
+              <tt style="color: #A03D10">ObjectWrapper</tt>,
+              <tt style="color: #A03D10">EMPTY_STRING</tt> constant was moved to
+              <tt style="color: #A03D10">TemplateScalarModel</tt>,
+              <tt style="color: #A03D10">NOTHING</tt> constant was moved to
+              <tt style="color: #A03D10">TemplateModel</tt>, <tt style="color: #A03D10">TRUE</tt> and
+              <tt style="color: #A03D10">FALSE</tt> constants were moved to
+              <tt style="color: #A03D10">TemplateBooleanModel</tt>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">JAVABEANS_WRAPPER</tt> was renamed to
+              <tt style="color: #A03D10">BEANS_WRAPPER</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">Configuration.get</tt> and
+              <tt style="color: #A03D10">put</tt>, <tt style="color: #A03D10">putAll</tt> were renamed
+              to <tt style="color: #A03D10">getSharedVariable</tt> and
+              <tt style="color: #A03D10">setSharedVariable</tt>,
+              <tt style="color: #A03D10">setAllSharedVariables</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">Configuration.getClassicCompatibility</tt>,
+              <tt style="color: #A03D10">setClassicCompatibility</tt> were renamed to
+              <tt style="color: #A03D10">isClassicCompatible</tt>,
+              <tt style="color: #A03D10">setClassicCompatible</tt></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">Template.process</tt> method overloads with
+              <tt style="color: #A03D10">useReflection</tt> parameter was removed. But now
+              we have <tt style="color: #A03D10">setObjectWrapper</tt> method in the
+              <tt style="color: #A03D10">Configuration</tt>, so you can set the preferred
+              root-object wrapper there.</p>
+            </li>
+
+            <li>
+              <p>Some superfluous method overloads were removed; these
+              changes are backward compatible with RC1</p>
+            </li>
+
+            <li>
+              <p>Various minor JavaDoc and Manual improvements</p>
+            </li>
+
+            <li>
+              <p>Bugfix: <tt style="color: #A03D10">include</tt> directive has
+              calculated the base path of relative paths wrongly</p>
+            </li>
+
+            <li>
+              <p>Bugfix: We have accidentally used a J2SE 1.3 class, but
+              FreeMarker 2.1 must able to run on J2SE 1.2</p>
+            </li>
+          </ul>    </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_01.html"><span class="hideA">Next page: </span>2.01</a></div><div class="pagerButton"><a href="versions_2_1_1.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.1
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

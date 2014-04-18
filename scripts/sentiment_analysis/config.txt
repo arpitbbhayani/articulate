@@ -1,0 +1,17 @@
+FGIUBtP3z9kfVtxFSDYjA
+ZzR1wNc2kCBoQqEukTDmHH9bcOLpolwxIa7fDA
+376861690-4p1bLylUNXJ46NXP745OjNcUNNK36GFIETJoc9km
+X7u73ofDsqEKgF0LHG1pw5rEEOqYRT92VScMlBEsfUg9g
+/home/devilo/workspace/Articulate/files/articles
+30
+
+
+The structure file should as follows(line by line) : 
+ 	1. consumer_key
+	2. consumer_secret
+	3. access_token
+	4. access_token_secret
+	5. folder path of article-entities
+	6. time for stream of each entity (in seconds)
+Rest of the file is trivial.
+

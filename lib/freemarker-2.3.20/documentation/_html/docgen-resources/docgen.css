@@ -1,0 +1,147 @@
+body {
+  background-color: #FFFFFF; color: #000000;
+  font-family: Arial, sans-serif;
+  padding: 0.5em; margin: 0
+}
+ 
+#mainContent {width: 43em; margin: 0; padding: 0 0 1.5em 2em}
+
+/* Overwiriting the browser defaults: */
+
+p  {margin-top: 1em; margin-bottom: 1em}
+ul, ol  {margin-top: 1em; margin-bottom: 1em}
+ul ul, ul ol, ol ul, ol ol  {margin-top: 0; margin-bottom: 0}
+img {border: 0}
+a {color: #0000CC; text-decoration:none}
+a:hover {text-decoration: underline}
+a:visited {color: #800080}
+
+/* pre and tt font issues: */
+
+pre {font-size: 90%; font-family: "Courier New", monospace}
+pre.metaTemplate {font-size: 100%}
+/* Some browsers chose smaller font than for normal text otherwise: */
+tt {font-size: 100%; font-family: "Courier New", monospace}
+
+/* Table-based DocBook elements: */
+
+div.programlisting, div.informaltable, div.table {
+  margin: 1em 0 1em 0
+}
+
+/* ToC: */
+
+div.toc {
+  border: 1px #000000 solid;
+  padding: 0.5em;
+  background-color: #F0F0F0;
+  width: 90%;
+  margin: 1em 0 1em 0
+}
+.toc ul.noMargin {margin-left: 0}
+.toc ul {list-style-type: none; margin-left: 2.5em; padding-left: 0; margin-bottom: 0}
+.toc li {list-style-type: none; margin-left: 0; padding-left: 0; margin-bottom: 0}
+.toc p {margin: 0}
+
+/* FAQ: */
+
+.question {color:#0050B2; margin-top: 2em; margin-bottom: 1em}
+
+/* Footnote: */
+
+#footnotes {
+  font-size: 75%;
+  margin-top: 3em;
+  padding-top: 0.5em;
+  border-top: 1px solid #E0E0E0;
+}
+
+/* Title-s: */
+
+.rank_book,
+.rank_part,
+.rank_chapter,
+.rank_section1,
+.rank_section2,
+.rank_section3,
+.rank_simplesect,
+.rank_note,
+.indexLabel {
+    font-family: Arial, sans-serif; font-weight: bold; color:#0050B2
+}
+.rank_book {font-size: 230%; padding: 0; margin: 2em 0 1.5em 0;}
+.rank_part {font-size: 220%; padding: 0; margin: 2em 0 1.5em 0}
+.rank_chapter {font-size: 200%; padding: 0; margin: 2em 0 1.5em 0}
+.rank_section1 {  font-size: 150%; padding: 0; margin: 1.5em 0 1.0em 0;}
+.rank_section2 {  font-size: 112%; padding: 0; margin: 1.5em 0 1.0em 0;}
+.rank_section3 {  font-size: 95%; padding: 0; margin: 1.5em 0 1.0em 0;}
+.rank_simplesect {font-size: 100%; padding: 0; margin: 1.5em 0 1.0em 0;
+    font-weight: normal; font-style: italic
+}
+.indexLabel {font-size: 108%; padding: 0; margin: 1.0em 0 1.0em 0;}
+
+.rank_note {font-size: 100%; color: black; padding: 0; margin: 1em 0 0.5em 0;}
+
+#pageTopTitle {margin-top: 1em; margin-bottom: 1em; border: none;}
+
+/* Footer: */
+
+.footer {font-size: 83%; color: #A0A0A0; font-style: italic}
+.smallFooter {font-size: 63%; color: #A0A0A0; font-style: italic}
+
+/* Nav. bar: */
+
+div.navigation {
+  background-image: url(img/navigation-gradient.gif);
+  background-repeat: repeat-y;
+  background-position: left;
+  background-color: #F0F0F0;
+  border-top: solid black 1px;
+  border-bottom: solid black 1px;
+  width: 100%; /* IE6 Peekaboo bug workaround */
+}
+
+div.missingNavigationFooterLine {
+  height: 1px;
+  border-bottom: solid black 1px;
+}
+
+div.bookmarks {
+  padding: 0.2em 0.3em 0.2em 0.3em;
+}
+span.bookmarks {
+}
+.disabledBookmark {color: #808080}
+
+/*
+Because the buttons are floating div-s, this panel uses
+two div.pagersVerticalSpacer-s inserad padding.
+*/
+div.pagers {
+  padding: 0 0.3em;
+}
+div.pagersVerticalSpacer {
+  clear: both;
+  height: 0.2em;
+}
+.disabledPager {color: #808080}
+
+div.pagerButton {
+  float: left;
+  margin-right: 0.5em;
+  padding: 0.1em 0.3em;
+  border-width: 0.15em;
+  border-style: solid;
+  border-color: #FFFFFF #A0A0A0 #A0A0A0 #F0F0F0;
+  background: #E0E0E0;
+}
+
+.hideA {color: #000000;}
+
+div.breadcrumb {
+  padding: 0.2em 0.3em 0.2em 0.3em;
+}
+
+span.breadcrumb {
+  font-size: 80%; /* Don't use 0.8em due to MSIE6 bug */
+}

@@ -1,0 +1,3 @@
+"bash run.py" to run the code, output will be names of all entities and final score of article based on the formula written in paper
+
+entities to be defined in the file articles/entity.txt, we can add any number of entites in this file and then run bash run.py. The final score is displayed based on entities provided in the input file(articles/entity.txt). Also currently this code works for only 1 worded entities since twitter stream is defined like that. However we can extend it to multiworded entites by taking some kind of intersection of tweets as well. Currently try to test this code on documents from which only single worded entities are retrieved and put into file articles/entity.txt

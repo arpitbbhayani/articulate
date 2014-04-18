@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Preface
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="xgui.html">XML Processing Guide</a>
+            <b>></b>
+          Preface
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="xgui_expose.html"><span class="hideA">Next page: </span>Exposing XML documents</a></div><div class="pagerButton"><a href="xgui.html">Previous page</a></div><div class="pagerButton"><a href="xgui.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_chapter"
+        id="pageTopTitle">
+<a name="xgui_preface"></a>Preface  </h1>
+    
+    
+<p>Although FreeMarker was originally designed as a web page template
+      engine, as of version 2.3 it also targets another application domain:
+      transforming XML into arbitrary textual output (e.g. HTML files). Thus,
+      in many cases, FreeMarker is an XSLT alternative.</p><p>Technically, there is nothing special in transforming XML
+      documents. It's just like when you do anything else with FreeMarker: you
+      drop the XML document into the data-model (and possibly other
+      variables), and then you merge the data-model with the FTL template(s)
+      that generate the output text. The extra features introduced for better
+      XML processing are the node FTL variable type (symbolizes a node in
+      generic tree structures, usable not only for XML) and the built-ins and
+      directives dealing with them, and the XML wrapper you get out-of-the-box
+      that exposes XML documents as FTL variables for the templates.</p><p>What's the difference between using FreeMarker or XSLT? The FTL
+      language has the usual imperative/procedural logic. On the other hand,
+      XSLT is a language with declarative style, designed by &quot;too clever&quot;
+      people, so it's not easy to adopt its logic, nor to use it in many
+      cases. Also its syntax is terribly verbose. However, XSLT's
+      &quot;apply-templates&quot; method can be very handy when you process XML
+      documents, thus FreeMarker supports something similar called the
+      ``visitor pattern''. So in many applications, it is much easier to write
+      FTL stylesheets than XSLT style-sheets. Another fundamental difference
+      is that FTL &quot;transforms&quot; the node tree to text, while XSLT transforms
+      the tree to another tree. So you cannot always use FreeMarker where you
+      can use XSLT.</p>  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="xgui_expose.html"><span class="hideA">Next page: </span>Exposing XML documents</a></div><div class="pagerButton"><a href="xgui.html">Previous page</a></div><div class="pagerButton"><a href="xgui.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="xgui.html">XML Processing Guide</a>
+            <b>></b>
+          Preface
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

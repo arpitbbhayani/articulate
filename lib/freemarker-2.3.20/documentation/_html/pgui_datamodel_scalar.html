@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Scalars
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_datamodel.html">The Data Model</a>
+            <b>></b>
+          Scalars
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_datamodel_parent.html"><span class="hideA">Next page: </span>Containers</a></div><div class="pagerButton"><a href="pgui_datamodel_basics.html">Previous page</a></div><div class="pagerButton"><a href="pgui_datamodel.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="pgui_datamodel_scalar"></a>Scalars  </h1>
+    
+    
+<p>There are 4 scalar types:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            Boolean
+          </li>
+
+          <li>
+            Number
+          </li>
+
+          <li>
+            String
+          </li>
+
+          <li>
+            Date
+          </li>
+        </ul>    </div>
+<p>For each scalar type is a
+        <tt style="color: #A03D10">Template<i style="color: #DD4400">Type</i>Model</tt>
+        interface, where <tt style="color: #A03D10"><i style="color: #DD4400">Type</i></tt> is
+        the name of the type. These interfaces define only one method:
+        <tt style="color: #A03D10"><i style="color: #DD4400">type</i>
+        getAs<i style="color: #DD4400">Type</i>();</tt>. This returns the
+        value of the variable with the Java type (<tt style="color: #A03D10">boolean</tt>,
+        <tt style="color: #A03D10">Number</tt>, <tt style="color: #A03D10">String</tt> and
+        <tt style="color: #A03D10">Date</tt> respectively).</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+          <p>For historical reasons the interface for string scalars is
+          called <tt style="color: #A03D10">TemplateScalarModel</tt>, not
+          <tt style="color: #A03D10">TemplateStringModel</tt>.</p>
+        </div>
+<p>A trivial implementation of these interfaces are available in
+        <tt style="color: #A03D10">freemarker.template</tt> package with
+        <tt style="color: #A03D10">Simple<i style="color: #DD4400">Type</i></tt> class name.
+        However, there is no <tt style="color: #A03D10">SimpleBooleanModel</tt>; to
+        represent the boolean values you can use the
+        <tt style="color: #A03D10">TemplateBooleanModel.TRUE</tt> and
+        <tt style="color: #A03D10">TemplateBooleanModel.FALSE</tt> singletons.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+   <p class="rank_note">Note</p>
+
+          <p>For historical reasons the class for string scalars is called
+          <tt style="color: #A03D10">SimpleScalar</tt>, not
+          <tt style="color: #A03D10">SimpleString</tt>.</p>
+        </div>
+<p>Scalars are immutable within FTL. When you set the value of a
+        variable in a template, then you replace the
+        <tt style="color: #A03D10">Template<i style="color: #DD4400">Type</i>Model</tt>
+        instance with another instance, and don't change the value stored in
+        the original instance.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_32"></a>Difficulties with the date type  </h2>
+
+
+          
+
+          
+
+          <p>There is a complication around date types, because Java API
+          usually does not differentiate <tt style="color: #A03D10">java.util.Date</tt>-s
+          that store only the date part (April 4, 2003), only the time part
+          (10:19:18 PM), or both (April 4, 2003 10:19:18 PM). To display a
+          date variable as text correctly, FreeMarker must know what parts of
+          the <tt style="color: #A03D10">java.util.Date</tt> stores meaningful information,
+          and what parts are unused. Unfortunately, the only place where the
+          Java API cleanly tells this, is with database handling (SQL),
+          because databases typically has separated date, time and timestamp
+          (aka date-time) types, and <tt style="color: #A03D10">java.sql</tt> has 3
+          corresponding <tt style="color: #A03D10">java.util.Date</tt> subclasses for
+          them.</p>
+
+          <p><tt style="color: #A03D10">TemplateDateModel</tt> interface has two
+          methods: <tt style="color: #A03D10">java.util.Date getAsDate()</tt> and
+          <tt style="color: #A03D10">int getDateType()</tt>. A typical implementation of
+          this interface, stores a <tt style="color: #A03D10">java.util.Date</tt> object,
+          plus an integer that tells the &quot;database style type&quot;. The value of
+          this integer must be a constant from the
+          <tt style="color: #A03D10">TemplateDateModel</tt> interface:
+          <tt style="color: #A03D10">DATE</tt>, <tt style="color: #A03D10">TIME</tt>,
+          <tt style="color: #A03D10">DATETIME</tt> and <tt style="color: #A03D10">UNKNOWN</tt>.</p>
+
+          <p>What is <tt style="color: #A03D10">UNKNOWN</tt>? As we told earlier,
+          <tt style="color: #A03D10">java.lang</tt> and <tt style="color: #A03D10">java.util</tt>
+          classes are usually converted automatically into
+          <tt style="color: #A03D10">TemplateModel</tt> implementations, be so called
+          object wrappers. If the object wrapper faces a
+          <tt style="color: #A03D10">java.util.Date</tt>, that is not an instance of a
+          <tt style="color: #A03D10">java.sql</tt> date class, it can't decide what the
+          &quot;database style type&quot; is, so it uses <tt style="color: #A03D10">UNKNOWN</tt>.
+          Later, if the template has to use this variable, and the &quot;database
+          style type&quot; is needed for the operation, it will stop with error. To
+          prevent this, for the problematic variables the template author must
+          help FreeMarker to decide the &quot;database style type&quot;, by using the
+          <a href="ref_builtins_date.html#ref_builtin_date_datetype"><tt>date</tt>,
+          <tt>time</tt> or <tt>datetime</tt>
+          built-ins</a>. Note that if you use <tt style="color: #A03D10">string</tt>
+          built-in with format parameter, as
+          <tt style="color: #A03D10">foo?string(&quot;MM/dd/yyyy&quot;)</tt>, then FreeMarker don't
+          need to know the &quot;database style type&quot;.</p>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="pgui_datamodel_parent.html"><span class="hideA">Next page: </span>Containers</a></div><div class="pagerButton"><a href="pgui_datamodel_basics.html">Previous page</a></div><div class="pagerButton"><a href="pgui_datamodel.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="pgui.html">Programmer's Guide</a>
+            <b>></b>
+          <a href="pgui_datamodel.html">The Data Model</a>
+            <b>></b>
+          Scalars
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

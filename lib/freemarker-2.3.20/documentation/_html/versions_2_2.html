@@ -1,0 +1,1221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.2
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.2
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_1_5.html"><span class="hideA">Next page: </span>2.1.5</a></div><div class="pagerButton"><a href="versions_2_2_1.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_2"></a>2.2  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_220">Non backward-compatible changes!</a>
+      </li>
+      <li>
+        <a href="#autoid_221">Changes in FTL (FreeMarker Template Language)</a>
+      </li>
+      <li>
+        <a href="#autoid_222">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="#autoid_223">Other changes</a>
+      </li>
+      <li>
+        <a href="#autoid_224">The history of the releases before the final version</a>
+  <ul >
+      <li>
+        <a href="#autoid_225">Differences between the final and RC2 releases</a>
+      </li>
+      <li>
+        <a href="#autoid_226">Differences between the RC2 and RC1 releases</a>
+      </li>
+      <li>
+        <a href="#autoid_227">Differences between the Preview 2 and RC1 releases</a>
+      </li>
+      <li>
+        <a href="#autoid_228">Differences between the Preview 1 and Preview 2
+            releases</a>
+      </li>
+  </ul>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Date of release: 2003-03-27</p><p>This release introduces some really important new features.
+        Unfortunately, evolution was painful again; we have a few non-backward
+        compatible changes (see below). Also, for those of you awaiting
+        desired native date/time type, sorry, it is still not here (because of
+        some internal chaos in the team... stand by, it's coming).</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_220"></a>Non backward-compatible changes!  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Macros are now plain variables. This means that if you are
+              unlucky and you have both a macro and another variable with the
+              same name, now the variable will overwrite the macro, so your
+              old template will malfunction. If you have a collection of
+              common macros, you should use the new <a href="dgui_misc_namespace.html">namespace feature</a> to
+              prevent accidental clashes with the variables used in the
+              templates.</p>
+            </li>
+
+            <li>
+              <p>With the introduction of the new <a href="dgui_misc_namespace.html">namespace support</a>,
+              <tt style="color: #A03D10">global</tt> and <tt style="color: #A03D10">assign</tt>
+              directives are no longer synonyms. <tt style="color: #A03D10">assign</tt>
+              creates a variable in the current <tt style="color: #A03D10">namespace</tt>,
+              while <tt style="color: #A03D10">global</tt> creates variable that is visible
+              from all namespaces (as if the variable would be in the
+              data-model). Thus, the variable created with
+              <tt style="color: #A03D10">assign</tt> is more specific, and hides the
+              variable of the same name created with
+              <tt style="color: #A03D10">global</tt>. As a result, if you use both
+              <tt style="color: #A03D10">global</tt> and <tt style="color: #A03D10">assign</tt> mixed
+              for the same variable in your templates, now they will
+              malfunction. The solution is to search-and-replace all
+              <tt style="color: #A03D10">global</tt>s in your old templates with
+              <tt style="color: #A03D10">assign</tt>.</p>
+            </li>
+
+            <li>
+              <p>The reserved hash <tt style="color: #A03D10">root</tt> no longer exists
+              as a predefined variable (we no longer have reserved variables).
+              Use <a href="dgui_template_exp.html#dgui_template_exp_var_special">special
+              variable expressions</a> to achieve similar effects. However,
+              we have no equivalent replacement for <tt style="color: #A03D10">root</tt>
+              because of the changes in the variable scopes caused by the
+              introduction of namespaces. You may should use
+              <tt style="color: #A03D10">.globals</tt> or
+              <tt style="color: #A03D10">.namespace</tt>.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">BeansWrapper</tt> no longer exposes
+              native Java arrays, booleans, numbers, enumerations, iterators,
+              and resource bundles as <tt style="color: #A03D10">TemplateScalarModel</tt>.
+              This way, number objects wrapped through
+              <tt style="color: #A03D10">BeansWrapper</tt> are subject to FreeMarker's
+              number formatting machinery. Also, booleans can be formatted
+              using the <tt style="color: #A03D10">?string</tt> built-in.</p>
+            </li>
+
+            <li>
+              <p>The signature of
+              <tt style="color: #A03D10">Configuration.setServletContextForTemplateLoading</tt>
+              has been changed: the first parameter is now
+              <tt style="color: #A03D10">Object</tt> instead of
+              <tt style="color: #A03D10">javax.servlet.ServletContext</tt>. Thus, you have
+              to recompile your classes that call this method. The change was
+              required to prevent class-loading failure when
+              <tt style="color: #A03D10">javax.servlet</tt> classes are not available and
+              you would not call this method.</p>
+            </li>
+
+            <li>
+              <p>This release introduces a <a href="dgui_misc_whitespace.html">parse-time white-space
+              remover</a> that strips some of the typical superfluous
+              white-space around FreeMarker tags and comments. <i>This
+              feature is on by default!</i> Most probably this will not
+              cause problems if you generate white-space neutral output like
+              HTML. But if it does cause undesirable reformatting in output
+              you generate, you can disable it with
+              <tt style="color: #A03D10">config.setWhitespaceStripping(false)</tt>. Also,
+              you can enable/disable it on a per-template basis with the new
+              <a href="ref_directive_ftl.html#ref.directive.ftl"><tt>ftl</tt></a>
+              directive.</p>
+            </li>
+
+            <li>
+              <p>Some new directives were introduced:
+              <tt style="color: #A03D10">nested</tt>, <tt style="color: #A03D10">import</tt>,
+              <tt style="color: #A03D10">escape</tt>, <tt style="color: #A03D10">noescape</tt>,
+              <tt style="color: #A03D10">t</tt>, <tt style="color: #A03D10">rt</tt>,
+              <tt style="color: #A03D10">lt</tt>. This means that if you are unlucky and
+              the text of your template contains something like
+              <tt style="color: #A03D10">&lt;nested&gt;</tt>, then that will be
+              misinterpreted as a directive. To prevent this kind of problem
+              in the future, we recommend everybody to switch from the old
+              syntax to the new syntax (``strict syntax''). The strict syntax
+              will be the the default syntax starting from some of the later
+              releases anyway. We plan to release a conversion tool for
+              converting old templates. For more information please read:
+              <a href="ref_depr_oldsyntax.html">Reference/Deprecated FTL constructs/Old FTL syntax</a></p>
+            </li>
+
+            <li>
+              <p>The data-model created by the
+              <tt style="color: #A03D10">FreemarkerServlet</tt> now uses automatic scope
+              discovery, so writing
+              <tt style="color: #A03D10">Application.<i style="color: #DD4400">attrName</i></tt>,
+              <tt style="color: #A03D10">Session.<i style="color: #DD4400">attrName</i></tt>,
+              <tt style="color: #A03D10">Request.<i style="color: #DD4400">attrName</i></tt>
+              is no longer mandatory; it's enough to write
+              <tt style="color: #A03D10"><i style="color: #DD4400">attrName</i></tt> (for more
+              information <a href="pgui_misc_servlet.html#topic.servlet.scopeAttr">read
+              this</a>). This may break an old template if that rely on the
+              non-existence of certain top-level variables.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">FreemarkerServlet</tt> now uses the encoding
+              of the template file for the output, unless you specify the
+              encoding in the <tt style="color: #A03D10">ContentType</tt> init-param, such
+              as <tt style="color: #A03D10">text/html; charset=UTF-8</tt>.</p>
+            </li>
+
+            <li>
+              <p>The format of template paths is now more restricted than
+              before. The path must not use <tt style="color: #A03D10">/</tt>,
+              <tt style="color: #A03D10">./</tt> and <tt style="color: #A03D10">../</tt> and
+              <tt style="color: #A03D10">://</tt> with other meaning as they have in URL
+              paths (or in UN*X paths). The characters <tt style="color: #A03D10">*</tt>
+              and <tt style="color: #A03D10">?</tt> are reserved. Also, the template loader
+              must not want paths starting with <tt style="color: #A03D10">/</tt>. For more
+              information please read: <a href="pgui_config_templateloading.html">Programmer's Guide/The Configuration/Template loading</a></p>
+            </li>
+
+            <li>
+              <p>Till now
+              <tt style="color: #A03D10">TemplateTransformModel.getWriter</tt> has received
+              null as parameter map if the transform was called without
+              parameters. From now, it will receive an empty Map instead. Note
+              that the previous API documentation didn't state that it always
+              receives null if there are no parameters, so hopelessly only
+              very few classes exploit this design mistake.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_221"></a>Changes in FTL (FreeMarker Template Language)  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>User-defined directives: Transform and macro call syntax
+              has been unified; they can be called in the same way, as
+              user-defined directives. This also means that macros support
+              named parameters and nested content (like the -- now deprecated
+              -- <tt style="color: #A03D10">transform</tt> directive did). For example, if
+              you have a macro called <tt style="color: #A03D10">sect</tt>, you may call it
+              via <tt style="color: #A03D10">&lt;@sect title=&quot;Blah&quot; style=&quot;modern&quot;&gt;Blah
+              blah...&lt;/@sect&gt;</tt>. For more information read:
+              <a href="dgui_misc_userdefdir.html">Template Author's Guide/Miscellaneous/Defining your own directives</a></p>
+            </li>
+
+            <li>
+              <p>Macros are now plain variables. This significantly
+              simplifies FreeMarker semantics, while providing more
+              flexibility; for example you can pass macros as parameters to
+              other macros and transforms. As for the problem of clashing
+              commonly-used-macro and variable names, we provide a more
+              powerful solution: namespaces.</p>
+            </li>
+
+            <li>
+              <p>Namespaces: Names-spaces are invaluable if you want to
+              assemble collections (``libraries'') of macros and transforms
+              (and other variables), and then use them in any template without
+              worrying about accidental name clashes with the application
+              specific and temporary variables, or with the variables of other
+              collections you want to use in the same template. This is
+              extremely important if FreeMarker users want to share their
+              macro/transform collections. For more information read: <a href="dgui_misc_namespace.html">Template Author's Guide/Miscellaneous/Namespaces</a></p>
+            </li>
+
+            <li>
+              <p>With the introduction of namespaces our variable related
+              terminology changed. As a result, <tt style="color: #A03D10">assign</tt> is
+              no longer synonymous with <tt style="color: #A03D10">global</tt>. The
+              <tt style="color: #A03D10">assign</tt> directive has been undeprecated, and
+              should be used instead of <tt style="color: #A03D10">global</tt> almost
+              everywhere. In the new approach <tt style="color: #A03D10">assign</tt>
+              creates variables in the current namespace, while
+              <tt style="color: #A03D10">global</tt> creates a variable that is visible
+              from all namespaces (as if the variable were in the root of the
+              data-model). A variable created with <tt style="color: #A03D10">assign</tt>
+              in the current namespace hides the variable of the same name
+              that was created with <tt style="color: #A03D10">global</tt>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">ftl</tt> directive: With this directive you
+              can give information about the template for FreeMarker, like the
+              encoding (charset) of the template, the used FTL syntax variant,
+              etc. Also, this directive helps you to write templates that are
+              less dependent on FreeMarker configuration settings, also it
+              helps third-party tools to identify and correctly parse
+              FreeMarker templates. For more information see: <a href="ref_directive_ftl.html#ref.directive.ftl"><tt>ftl</tt>
+              directive</a></p>
+            </li>
+
+            <li>
+              <p>White-space stripping: FreeMarker now automatically
+              removes some of the typical superfluous white-spaces around
+              FreeMarker tags and comments, like the indentation spaces
+              before- and line-break after <tt style="color: #A03D10">&lt;#if ...&gt;</tt>
+              tags. For more information read: <a href="dgui_misc_whitespace.html#dgui_misc_whitespace_stripping">Template Author's Guide/Miscellaneous/White-space handling/White-space stripping</a></p>
+            </li>
+
+            <li>
+              <p>New directive to apply a common (&quot;escaping&quot;) expression to
+              all interpolations in a block: <a href="ref_directive_escape.html#ref.directive.escape"><tt>escape</tt></a>.
+              The name comes from the common usage of this directive for
+              automatic HTML-escaping of interpolations.</p>
+            </li>
+
+            <li>
+              <p>The new and preferred way of number formatting with
+              <tt style="color: #A03D10">string</tt> built-in is
+              <tt style="color: #A03D10">foo?string(format)</tt>, instead of the less
+              natural <tt style="color: #A03D10">foo?string[format]</tt>.</p>
+            </li>
+
+            <li>
+              <p>The <tt style="color: #A03D10">string</tt> built-in works for boolean
+              values. For example: <tt style="color: #A03D10">${spamFilter?string(&quot;enabled&quot;,
+              &quot;disabled&quot;)}</tt>. For more information <a href="ref_builtins_boolean.html#ref_builtin_string_for_boolean">read the
+              reference</a>.</p>
+            </li>
+
+            <li>
+              <p>The default strings for outputting boolean value using the
+              <tt style="color: #A03D10">string</tt> built-in can be set using the
+              <tt style="color: #A03D10">boolean_format</tt> setting.</p>
+            </li>
+
+            <li>
+              <p>Comments can be placed inside FTL tags and interpolations.
+              For example: <tt style="color: #A03D10">&lt;#assign &lt;#-- a comment --&gt; x =
+              3&gt;</tt></p>
+            </li>
+
+            <li>
+              <p>All letters and numbers are enabled in variable names,
+              also <tt style="color: #A03D10">$</tt> is allowed (as in Java programming
+              language). Thus you can use accents, Arabic letters, Chinese
+              letters, etc.</p>
+            </li>
+
+            <li>
+              <p>String literals can be quoted with apostrophe-quote.
+              <tt style="color: #A03D10">&quot;foo&quot;</tt> and <tt style="color: #A03D10">'foo'</tt> are
+              equivalent.</p>
+            </li>
+
+            <li>
+              <p>New <a href="ref_builtins_string.html">string
+              built-ins</a>: <tt style="color: #A03D10">index_of</tt>,
+              <tt style="color: #A03D10">last_index_of</tt>,
+              <tt style="color: #A03D10">starts_with</tt>, <tt style="color: #A03D10">ends_with</tt>,
+              <tt style="color: #A03D10">replace</tt>, <tt style="color: #A03D10">split</tt>,
+              <tt style="color: #A03D10">chop_linebreak</tt>,
+              <tt style="color: #A03D10">uncap_first</tt>.</p>
+            </li>
+
+            <li>
+              <p>New <a href="ref_builtins_sequence.html">sequence
+              built-ins</a>: <tt style="color: #A03D10">sort</tt>,
+              <tt style="color: #A03D10">sort_by</tt>.</p>
+            </li>
+
+            <li>
+              <p>New built-ins for experts to check the type of a variable.
+              See: <a href="ref_builtins_expert.html#ref_builtin_isType"><tt>is_<i>...</i></tt>
+              built-ins</a></p>
+            </li>
+
+            <li>
+              <p>New built-in for experts to create a variable of certain
+              Java <tt style="color: #A03D10">TemplateModel</tt> implementation. See: <a href="ref_builtins_expert.html#ref_builtin_new"><tt>new</tt>
+              built-in</a></p>
+            </li>
+
+            <li>
+              <p>New built-in, <a href="ref_builtins_expert.html#ref_builtin_namespace"><tt>namespace</tt></a>,
+              to get the namespace of a macro.</p>
+            </li>
+
+            <li>
+              <p>New expression type: special variable expression. To
+              prevent backward compatibility problems when we introduce new
+              predefined variables, from now <a href="dgui_template_exp.html#dgui_template_exp_var_special">special variable
+              expressions</a> are used to access them.</p>
+            </li>
+
+            <li>
+              <p>New directives: <tt style="color: #A03D10">t</tt>,
+              <tt style="color: #A03D10">rt</tt> and <tt style="color: #A03D10">lt</tt> directives allow
+              you to do explicit white-space removal in extreme FTL
+              applications. For more information read <a href="ref_directive_t.html#ref.directive.t">the reference</a>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">assign</tt>, <tt style="color: #A03D10">local</tt> and
+              <tt style="color: #A03D10">global</tt> now can capture the output generated
+              be the nested template fragment into the variable. This
+              deprecates <tt style="color: #A03D10">capture_output</tt> transform. More
+              information: <a href="ref_directive_assign.html#ref.directive.assign">assign
+              directive reference</a></p>
+            </li>
+
+            <li>
+              <p>Bulk assignments (as <tt style="color: #A03D10">&lt;#assign x=1, y=2,
+              z=3&gt;</tt>) no longer need colon to separate the
+              assignments (as <tt style="color: #A03D10">&lt;#assign x=1 y=2 z=3&gt;</tt>),
+              although it is still allowed to preserve backward
+              compatibility.</p>
+            </li>
+
+            <li>
+              <p>Path that contains <tt style="color: #A03D10">//:</tt> is considered as
+              absolute path.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">include</tt> and
+              <tt style="color: #A03D10">transform</tt> directives no longer need a
+              semicolon to separate the template or transform name from the
+              parameter list, although it is still allowed to preserve
+              backward compatibility.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">#</tt>-less tag syntax is deprecated (but
+              still working). That is, you should write
+              <tt style="color: #A03D10">&lt;#<i style="color: #DD4400">directive
+              ...</i>&gt;</tt> instead of
+              <tt style="color: #A03D10">&lt;<i style="color: #DD4400">directive
+              ...</i>&gt;</tt>, and
+              <tt style="color: #A03D10">&lt;/#<i style="color: #DD4400">directive
+              ...</i>&gt;</tt> instead of
+              <tt style="color: #A03D10">&lt;/<i style="color: #DD4400">directive
+              ...</i>&gt;</tt>. For more info read: <a href="ref_depr_oldsyntax.html">Reference/Deprecated FTL constructs/Old FTL syntax</a></p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">foreach</tt> is depreciated (but still
+              working). Use <a href="ref_directive_list.html#ref.directive.list"><tt>list</tt></a>
+              instead.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: Undefined variables in hash and sequence
+              constructors (as <tt style="color: #A03D10">[a, b, c]</tt>) didn't caused
+              errors.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: String concatenation had performance problem if
+              there was multiple concatenations chained, as:
+              <tt style="color: #A03D10">&quot;a&quot;+x+&quot;a&quot;+x+&quot;a&quot;+x+&quot;a&quot;+x+&quot;a&quot;+x</tt>.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_222"></a>Changes on the Java side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Arbitrary JSP custom tags can be used as FreeMarker
+              transforms in <tt style="color: #A03D10">FreemarkerServlet</tt>-driven
+              templates. More information: <a href="pgui_misc_servlet.html">Programmer's Guide/Miscellaneous/Using FreeMarker with servlets</a></p>
+            </li>
+
+            <li>
+              <p>Various improvements for
+              <tt style="color: #A03D10">BeansWrapper</tt>:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>The <tt style="color: #A03D10">BeansWrapper</tt> no longer exposes
+                  arbitrary objects as
+                  <tt style="color: #A03D10">TemplateScalarModel</tt>s, only
+                  <tt style="color: #A03D10">java.lang.String</tt> and
+                  <tt style="color: #A03D10">Character</tt> objects. This way, number
+                  objects wrapped through <tt style="color: #A03D10">BeansWrapper</tt> are
+                  subject to FreeMarker's number formatting machinery. As a
+                  side effect, non-string and non-number objects that were
+                  previously accepted in equality and inequality operations
+                  (because they had a string representation) will now cause
+                  the engine to throw exception on comparison attempt.</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">java.lang.Character</tt> objects are
+                  exposed as scalars through
+                  <tt style="color: #A03D10">BeansWrapper</tt>.</p>
+                </li>
+
+                <li>
+                  <p>Experimental feature: With the
+                  <tt style="color: #A03D10">setSimpleMapWrapper</tt> method of
+                  <tt style="color: #A03D10">BeansWrapper</tt> you can configure it to wrap
+                  <tt style="color: #A03D10">java.util.Map</tt>-s as
+                  <tt style="color: #A03D10">TemplateHashModelEx</tt>-s, and do not expose
+                  the methods of the object.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">TransformControl</tt> interface (was
+              experimental earlier): If the <tt style="color: #A03D10">Writer</tt> returned
+              by <tt style="color: #A03D10">TemplateTransformModel.getWriter</tt>
+              implements this interface, it can instruct the engine to skip or
+              to repeat evaluation of the nested content, and gets notified
+              about exceptions that are thrown during the nested content
+              evaluation. Note that the <tt style="color: #A03D10">onStart</tt> and
+              <tt style="color: #A03D10">afterBody</tt> methods now are allowed to throw
+              <tt style="color: #A03D10">IOException</tt>. For more information please read
+              the API documentation.</p>
+            </li>
+
+            <li>
+              <p>Localized lookup can be disabled with the new
+              <tt style="color: #A03D10">Configuration</tt> methods:
+              <tt style="color: #A03D10">set/getLocalizedLookup</tt>,
+              <tt style="color: #A03D10">clearTemplateCache</tt></p>
+            </li>
+
+            <li>
+              <p>The new interface
+              <tt style="color: #A03D10">freemarker.cache.CacheStorage</tt> allows users to
+              plug custom template caching strategies with the
+              <tt style="color: #A03D10">cache_storage</tt> setting. The core package now
+              ships with two implementations:
+              <tt style="color: #A03D10">SoftCacheStorage</tt> and
+              <tt style="color: #A03D10">StrongCacheStorage</tt>. For more information
+              read: <a href="pgui_config_templateloading.html">Programmer's Guide/The Configuration/Template loading</a></p>
+            </li>
+
+            <li>
+              <p>You can set settings with string name and string value
+              with the new <tt style="color: #A03D10">setSetting(String key, String
+              value)</tt> method of <tt style="color: #A03D10">Configurable</tt>
+              super-classes (as <tt style="color: #A03D10">Configuration</tt>). Also you
+              can load settings from <tt style="color: #A03D10">.properties</tt> file with
+              the <tt style="color: #A03D10">setSettings</tt> method.</p>
+            </li>
+
+            <li>
+              <p>Other new <tt style="color: #A03D10">Configuration</tt> methods:
+              <tt style="color: #A03D10">clearTemplateCache</tt>,
+              <tt style="color: #A03D10">clearSharedVariables</tt>,
+              <tt style="color: #A03D10">getTemplateLoader</tt>, and
+              <tt style="color: #A03D10">clone</tt>.</p>
+            </li>
+
+            <li>
+              <p>Changes to <tt style="color: #A03D10">TemplateTransformModel</tt>
+              interface: <tt style="color: #A03D10">getWriter</tt> can throw
+              <tt style="color: #A03D10">IOException</tt>, and can return
+              <tt style="color: #A03D10">null</tt> if the transform does not support body
+              content.</p>
+            </li>
+
+            <li>
+              <p>Till now
+              <tt style="color: #A03D10">TemplateTransformModel.getWriter</tt> has received
+              null as parameter map if the transform was called without
+              parameters. From now, it will receive an empty Map instead. Note
+              that the previous API documentation didn't state that it always
+              receives null if there are no parameters, so hopelessly only
+              very few classes exploit this design mistake.</p>
+            </li>
+
+            <li>
+              <p>Various improvements for
+              <tt style="color: #A03D10">FreemarkerServlet</tt>:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>The data-model now uses automatic scope discovery, so
+                  writing
+                  <tt style="color: #A03D10">Application.<i style="color: #DD4400">attrName</i></tt>,
+                  <tt style="color: #A03D10">Session.<i style="color: #DD4400">attrName</i></tt>,
+                  <tt style="color: #A03D10">Request.<i style="color: #DD4400">attrName</i></tt>
+                  is no longer mandatory; it's enough to write
+                  <tt style="color: #A03D10"><i style="color: #DD4400">attrName</i></tt>. For
+                  more information <a href="pgui_misc_servlet.html#topic.servlet.scopeAttr">read this</a>.</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">FreemarkerServlet</tt> now uses the
+                  encoding of the template file for the output, unless you
+                  specify the encoding in the <tt style="color: #A03D10">ContentType</tt>
+                  init-param, such as <tt style="color: #A03D10">text/html;
+                  charset=UTF-8</tt>.</p>
+                </li>
+
+                <li>
+                  <p>All <tt style="color: #A03D10">Configuration</tt> level settings
+                  can by set with Servlet init-params
+                  (<tt style="color: #A03D10">template_exception_handler</tt>,
+                  <tt style="color: #A03D10">locale</tt>, <tt style="color: #A03D10">number_format</tt>,
+                  etc.).</p>
+                </li>
+
+                <li>
+                  <p>The object wrapper the servlet internally uses is now
+                  set as the default object wrapper for its
+                  <tt style="color: #A03D10">Configuration</tt> instance.</p>
+                </li>
+
+                <li>
+                  <p>It no longer forces session creation for requests that
+                  don't belong to an existing session, improving
+                  scalability.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>JDOM independent XML-wrapping:
+              <tt style="color: #A03D10">freemarker.ext.xml.NodeListModel</tt> is a
+              re-implementation of
+              <tt style="color: #A03D10">freemarker.ext.jdom.NodeListModel</tt> that does
+              not rely on JDOM; you don't need JDOM .jar anymore. The new
+              <tt style="color: #A03D10">NodeListModel</tt> automatically uses W3C DOM,
+              dom4j, or JDOM, depending on which library is available (that
+              is, depending on what object do you pass to its
+              constructor).</p>
+            </li>
+
+            <li>
+              <p>Bugfix: <tt style="color: #A03D10">WebappTemplateLoader</tt>: Template
+              updating didn't worked correctly with Tomcat due the caching of
+              resources. Now <tt style="color: #A03D10">WebappTemplateLoader</tt> tries to
+              access the resources directly as <tt style="color: #A03D10">File</tt>, if it
+              is possible, thus bypasses the caching.</p>
+            </li>
+
+            <li>
+              <p>Various bug-fixes for
+              <tt style="color: #A03D10">FreemarkerServlet</tt>:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>The servlet now loads the correct template if it was
+                  called through
+                  <tt style="color: #A03D10">RequestDispatcher.include</tt>.</p>
+                </li>
+
+                <li>
+                  <p>The caching of <tt style="color: #A03D10">HttpServletRequest</tt>
+                  objects is now compliant with the servlet
+                  specification.</p>
+                </li>
+
+                <li>
+                  <p><tt style="color: #A03D10">TemplateException</tt>s was suppressed
+                  in certain situations resulting in half-rendered pages
+                  without error message.</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>Bugfix: FreeMarker didn't work if the
+              <tt style="color: #A03D10">javax.servlet</tt> classes was not available,
+              because <tt style="color: #A03D10">Configuration</tt> explicitly referred to
+              <tt style="color: #A03D10">javax.servlet.ServletContext</tt>.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: classes may were not found if they was available
+              only in the <tt style="color: #A03D10">WEB-INF</tt>, and FreeMarker tried to
+              load the class dynamically.</p>
+            </li>
+
+            <li>
+              <p>Bugfix: the <tt style="color: #A03D10">Template</tt> constructor (and
+              thus <tt style="color: #A03D10">Configuration.getTemplate</tt>) sometimes
+              threw <tt style="color: #A03D10">TokenMgrError</tt> (a non-checked exception)
+              instead of <tt style="color: #A03D10">ParseException</tt>.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_223"></a>Other changes  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>The Web application related examples has been
+              replaced.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_224"></a>The history of the releases before the final version  </h2>
+
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_225"></a>Differences between the final and RC2 releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>You can load settings from
+                <tt style="color: #A03D10">.properties</tt> file with the
+                <tt style="color: #A03D10">setSettings</tt> method of
+                <tt style="color: #A03D10">Configuration</tt> and other
+                <tt style="color: #A03D10">Configurable</tt> subclasses.</p>
+              </li>
+
+              <li>
+                <p>New string built-in:
+                <tt style="color: #A03D10">uncap_first</tt></p>
+              </li>
+
+              <li>
+                <p>Bugfix: When exposing an XML document to a template and
+                accessing it with XPath using Jaxen a
+                <tt style="color: #A03D10">ClassCastException</tt> has occurred.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: The template cache has loaded templates with bad
+                <tt style="color: #A03D10">Configuration</tt> instance in certain
+                situations if you use not the static default
+                <tt style="color: #A03D10">Configuration</tt> instance.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_226"></a>Differences between the RC2 and RC1 releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>Non backward compatible change!:
+                <tt style="color: #A03D10">FreemarkerServlet</tt> now uses the encoding of
+                the template file for the output, unless you specify the
+                encoding in the <tt style="color: #A03D10">ContentType</tt> init-param,
+                such as <tt style="color: #A03D10">text/html; charset=UTF-8</tt>.</p>
+              </li>
+
+              <li>
+                <p>Non backward compatible change compared to RC1!: The
+                <tt style="color: #A03D10">capture_output</tt> transform creates variable
+                in the current namespace (as <tt style="color: #A03D10">assign</tt>
+                directive) with the <tt style="color: #A03D10">var</tt> parameter, not a
+                global variable.</p>
+              </li>
+
+              <li>
+                <p>The new and preferred way of number formatting with
+                <tt style="color: #A03D10">string</tt> built-in is
+                <tt style="color: #A03D10">foo?string(format)</tt>, instead of the less
+                natural <tt style="color: #A03D10">foo?string[format]</tt>.</p>
+              </li>
+
+              <li>
+                <p>The <tt style="color: #A03D10">string</tt> built-in works for boolean
+                values. For example: <tt style="color: #A03D10">${spamFilter?string(&quot;enabled&quot;,
+                &quot;disabled&quot;)}</tt>. For more information <a href="ref_builtins_boolean.html#ref_builtin_string_for_boolean">read the
+                reference</a>.</p>
+              </li>
+
+              <li>
+                <p>The default strings for outputting boolean value using
+                the <tt style="color: #A03D10">string</tt> built-in can be set using the
+                <tt style="color: #A03D10">boolean_format</tt> setting.</p>
+              </li>
+
+              <li>
+                <p>String literals can be quoted with apostrophe-quote.
+                <tt style="color: #A03D10">&quot;foo&quot;</tt> and <tt style="color: #A03D10">'foo'</tt> are
+                equivalent.</p>
+              </li>
+
+              <li>
+                <p>The new interface
+                <tt style="color: #A03D10">freemarker.cache.CacheStorage</tt> allows users
+                to plug custom template caching strategies with the
+                <tt style="color: #A03D10">cache_storage</tt> setting. The core package now
+                ships with two implementations:
+                <tt style="color: #A03D10">SoftCacheStorage</tt> and
+                <tt style="color: #A03D10">StrongCacheStorage</tt>. For more information
+                read: <a href="pgui_config_templateloading.html">Programmer's Guide/The Configuration/Template loading</a></p>
+              </li>
+
+              <li>
+                <p>You can set settings with string name and string value
+                with the new <tt style="color: #A03D10">setSetting(String key, String
+                value)</tt> method of <tt style="color: #A03D10">Configurable</tt>
+                super-classes (as <tt style="color: #A03D10">Configuration</tt>).</p>
+              </li>
+
+              <li>
+                <p>Other new <tt style="color: #A03D10">Configuration</tt> methods:
+                <tt style="color: #A03D10">getTemplateLoader</tt>,
+                <tt style="color: #A03D10">clone</tt>.</p>
+              </li>
+
+              <li>
+                <p><tt style="color: #A03D10">assign</tt>, <tt style="color: #A03D10">local</tt> and
+                <tt style="color: #A03D10">global</tt> now can capture the output generated
+                be the nested template fragment into the variable. This
+                deprecates <tt style="color: #A03D10">capture_output</tt> transform. More
+                information: <a href="ref_directive_assign.html#ref.directive.assign">assign
+                directive reference</a></p>
+              </li>
+
+              <li>
+                <p>Other new <tt style="color: #A03D10">Configuration</tt> methods:
+                <tt style="color: #A03D10">getTemplateLoader</tt>,
+                <tt style="color: #A03D10">clone</tt>.</p>
+              </li>
+
+              <li>
+                <p>Changes to <tt style="color: #A03D10">TemplateTransformModel</tt>
+                interface: <tt style="color: #A03D10">getWriter</tt> can throw
+                <tt style="color: #A03D10">IOException</tt>, and can return
+                <tt style="color: #A03D10">null</tt> if the transform does not support body
+                content.</p>
+              </li>
+
+              <li>
+                <p>Till now
+                <tt style="color: #A03D10">TemplateTransformModel.getWriter</tt> has
+                received null as parameter map if the transform was called
+                without parameters. From now, it will receive an empty Map
+                instead. Note that the previous API documentation didn't state
+                that it always receives null if there are no parameters, so
+                hopelessly only very few classes exploit this design
+                mistake.</p>
+              </li>
+
+              <li>
+                <p>Changes to <tt style="color: #A03D10">TemplateControl</tt> interface:
+                <tt style="color: #A03D10">onStart</tt> and <tt style="color: #A03D10">afterBody</tt>
+                methods are now allowed to throw
+                <tt style="color: #A03D10">IOException</tt>.</p>
+              </li>
+
+              <li>
+                <p>Path that contains <tt style="color: #A03D10">//:</tt> is considered
+                as absolute path.</p>
+              </li>
+
+              <li>
+                <p>New <a href="ref_builtins_string.html">string
+                built-ins</a>: <tt style="color: #A03D10">index_of</tt>,
+                <tt style="color: #A03D10">last_index_of</tt>,
+                <tt style="color: #A03D10">starts_with</tt>, <tt style="color: #A03D10">ends_with</tt>,
+                <tt style="color: #A03D10">replace</tt>, <tt style="color: #A03D10">split</tt>,
+                <tt style="color: #A03D10">chop_linebreak</tt>.</p>
+              </li>
+
+              <li>
+                <p>New <a href="ref_builtins_sequence.html">sequence
+                built-ins</a>: <tt style="color: #A03D10">sort</tt>,
+                <tt style="color: #A03D10">sort_by</tt>.</p>
+              </li>
+
+              <li>
+                <p>All <tt style="color: #A03D10">Configuration</tt> level settings can
+                by set with Servlet init-params
+                (<tt style="color: #A03D10">template_exception_handler</tt>,
+                <tt style="color: #A03D10">locale</tt>, <tt style="color: #A03D10">number_format</tt>,
+                etc.).</p>
+              </li>
+
+              <li>
+                <p>Bugfix: classes may were not found if they was available
+                only in the <tt style="color: #A03D10">WEB-INF</tt>, and FreeMarker tried
+                to load the class dynamically.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: <tt style="color: #A03D10">setLocalizedLookup(false)</tt> of
+                <tt style="color: #A03D10">Configuration</tt> was overridden when you have
+                called <tt style="color: #A03D10">setTemplateLoader</tt>.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: String concatenation had performance problem if
+                there was multiple concatenations chained, as:
+                <tt style="color: #A03D10">&quot;a&quot;+x+&quot;a&quot;+x+&quot;a&quot;+x+&quot;a&quot;+x+&quot;a&quot;+x</tt>.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: white-space stripping was not worked with tags
+                spanning over multiple lines.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: Removing several dependencies on JDK 1.3, so
+                FreeMarker can be build for JDK 1.2.2.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_227"></a>Differences between the Preview 2 and RC1 releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p><tt style="color: #A03D10">ftl</tt> is now stricter, and does not
+                allow custom parameters. To associate custom attributes to
+                templates, we may add a new directive later, if there is a
+                demand for it.</p>
+              </li>
+
+              <li>
+                <p><tt style="color: #A03D10">escape</tt> directive does not affect
+                numerical interpolations
+                (<tt style="color: #A03D10">#{<i style="color: #DD4400">...</i>}</tt>)
+                anymore, as it has caused errors with string escapes as
+                <tt style="color: #A03D10">?html</tt>.</p>
+              </li>
+
+              <li>
+                <p>The <tt style="color: #A03D10">normalizeName</tt> method of
+                <tt style="color: #A03D10">freemarker.cache.TemplateLoader</tt> has been
+                removed, because it has caused too many complications.
+                Instead, normalization happens on a single point in the
+                <tt style="color: #A03D10">TempateCache</tt>. In consequence, FreeMarker is
+                now stricter about the format of template paths, as things
+                like <tt style="color: #A03D10">/../</tt> are interpreted by the
+                core.</p>
+              </li>
+
+              <li>
+                <p>Experimental feature: With the
+                <tt style="color: #A03D10">setSimpleMapWrapper</tt> method of
+                <tt style="color: #A03D10">BeansWrapper</tt> you can configure it to wrap
+                <tt style="color: #A03D10">java.util.Map</tt>-s as
+                <tt style="color: #A03D10">TemplateHashModelEx</tt>-s, and do not expose
+                the methods of the object.</p>
+              </li>
+
+              <li>
+                <p>New <tt style="color: #A03D10">Configuration</tt> methods:
+                <tt style="color: #A03D10">set/getLocalizedLookup</tt>,
+                <tt style="color: #A03D10">clearTemplateCache</tt>,
+                <tt style="color: #A03D10">clearSharedVariables</tt>.</p>
+              </li>
+
+              <li>
+                <p>More cleanups in the <tt style="color: #A03D10">Environment</tt>
+                API.</p>
+              </li>
+
+              <li>
+                <p>Better JSP standard compliance: JSP page-scope variables
+                are the global variables that were created in the template
+                (not the variables of the data-model).</p>
+              </li>
+
+              <li>
+                <p>JDOM independent XML-wrapping:
+                <tt style="color: #A03D10">freemarker.ext.xml.NodeListModel</tt> is a
+                re-implementation of
+                <tt style="color: #A03D10">freemarker.ext.jdom.NodeListModel</tt> that does
+                not rely on JDOM; you don't need JDOM .jar anymore. The new
+                <tt style="color: #A03D10">NodeListModel</tt> automatically uses W3C DOM,
+                dom4j, or JDOM, depending on which library is available (that
+                is, depending on what object do you pass to its
+                constructor).</p>
+              </li>
+
+              <li>
+                <p>Bugfix: <tt style="color: #A03D10">WebappTemplateLoader</tt>:
+                Template updating didn't worked correctly with Tomcat due the
+                caching of resources. Now
+                <tt style="color: #A03D10">WebappTemplateLoader</tt> tries to access the
+                resources directly as <tt style="color: #A03D10">File</tt>, if it is
+                possible, thus bypasses the caching.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: Templates loaded with
+                <tt style="color: #A03D10">MultiTemplateLoader</tt> subclasses was removed
+                from the template cache after the template update delay has
+                elapsed (5 seconds by default) even if the template file was
+                unchanged. This can cause lot of extra load for a high-traffic
+                server if you have many templates or if the template update
+                delay was set to 0 second.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: Undefined variables in hash and sequence
+                constructors (as <tt style="color: #A03D10">[a, b, c]</tt>) didn't caused
+                errors.</p>
+              </li>
+            </ul>    </div>
+
+          
+
+          
+              
+  
+  
+  
+  <h3 class="rank_section3"
+        >
+<a name="autoid_228"></a>Differences between the Preview 1 and Preview 2
+            releases  </h3>
+
+
+                <div class="itemizedlist">
+<ul>
+              <li>
+                <p>All 16-bit Unicode letters and numbers are allowed in
+                identifiers, as well as the <tt style="color: #A03D10">$</tt> character (as
+                in Java programming language). Thus you can use accented
+                letters, Arabic letters, Chinese letters, etc. as identifiers
+                in templates</p>
+              </li>
+
+              <li>
+                <p>Macros now can create loop variables for the nested
+                content. For more information <a href="dgui_misc_userdefdir.html#dgui_misc_userdefdir_loopvar">read
+                this</a>.</p>
+              </li>
+
+              <li>
+                <p>New directives: <tt style="color: #A03D10">t</tt>,
+                <tt style="color: #A03D10">rt</tt> and <tt style="color: #A03D10">lt</tt> directives
+                allow you to do explicit white-space removal in extreme FTL
+                applications. For more information read <a href="ref_directive_t.html#ref.directive.t">the reference</a>.</p>
+              </li>
+
+              <li>
+                <p>The syntax of assignment-with-namespace has changed from
+                <tt style="color: #A03D10">&lt;#assign foo=123 namespace=myLib&gt;</tt>) to
+                <tt style="color: #A03D10">&lt;#assign foo=123 in myLib&gt;</tt>, since the
+                previous syntax was confusing because its similarity to a
+                bulk-assignment.</p>
+              </li>
+
+              <li>
+                <p>Bulk assignments (as <tt style="color: #A03D10">&lt;#assign x=1, y=2,
+                z=3&gt;</tt>) no longer need colon to separate the
+                assignments (as <tt style="color: #A03D10">&lt;#assign x=1 y=2
+                z=3&gt;</tt>), although it is still allowed to preserve
+                backward compatibility.</p>
+              </li>
+
+              <li>
+                <p>Positional parameter passing is supported for macro
+                calls as shorthand form of normal named parameter passing. For
+                more details read <a href="ref_directive_userDefined.html#ref_directive_userDefined_positionalParam">read the
+                reference</a>.</p>
+              </li>
+
+              <li>
+                <p>New built-in, <tt style="color: #A03D10">namespace</tt>, to get the
+                namespace of the currently executing macro.</p>
+              </li>
+
+              <li>
+                <p><tt style="color: #A03D10">TransformControl</tt> interface (was
+                experimental earlier): If the <tt style="color: #A03D10">Writer</tt>
+                returned by
+                <tt style="color: #A03D10">TemplateTransformModel.getWriter</tt> implements
+                this interface, it can instruct the engine to skip or to
+                repeat evaluation of the nested content, and gets notified
+                about exceptions that are thrown during the nested content
+                evaluation. For more information please read the API
+                documentation.</p>
+              </li>
+
+              <li>
+                <p>Jython wrapper can now wrap arbitrary Java objects, not
+                only <tt style="color: #A03D10">PyObject</tt>-s. If an object is passed to
+                the wrapper that is neither a
+                <tt style="color: #A03D10">TemplateModel</tt>, nor a
+                <tt style="color: #A03D10">PyObject</tt>, it is first coerced into a
+                <tt style="color: #A03D10">PyObject</tt> using Jython's own wrapping
+                machinery, and then wrapped into a
+                <tt style="color: #A03D10">TemplateModel</tt> as any other
+                <tt style="color: #A03D10">PyObject</tt>.</p>
+              </li>
+
+              <li>
+                <p>Some cleanups in the <tt style="color: #A03D10">Environment</tt>
+                API.</p>
+              </li>
+
+              <li>
+                <p>The Web application related examples has been
+                replaced.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: Templates loaded with
+                <tt style="color: #A03D10">URLTemplateLoader</tt> subclasses was removed
+                from the template cache after the template update delay has
+                elapsed (5 seconds by default) even if the template file was
+                unchanged. This can cause lot of extra load for a high-traffic
+                server if you have many templates or if the template update
+                delay was set to 0 second.</p>
+              </li>
+
+              <li>
+                <p>Bugfix: <tt style="color: #A03D10">FreeMarkerServlet</tt> has thrown
+                <tt style="color: #A03D10">ServletException</tt> even if a debug
+                <tt style="color: #A03D10">TemplateException</tt> handler was in use (so
+                you may got Error 500 page instead of debug
+                information).</p>
+              </li>
+            </ul>    </div>
+
+          
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_1_5.html"><span class="hideA">Next page: </span>2.1.5</a></div><div class="pagerButton"><a href="versions_2_2_1.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.2
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

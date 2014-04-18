@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - The data-model at a glance
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_quickstart.html">Getting Started</a>
+            <b>></b>
+          The data-model at a glance
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_quickstart_template.html"><span class="hideA">Next page: </span>The template at a glance</a></div><div class="pagerButton"><a href="dgui_quickstart_basics.html">Previous page</a></div><div class="pagerButton"><a href="dgui_quickstart.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="dgui_quickstart_datamodel"></a>The data-model at a glance  </h1>
+    
+    
+<p>As you have seen, the data-model is basically a tree. This tree
+        can be arbitrarily complicated and deep, for example:</p><a name="example.qStart.dataModelWithHashes"></a><div align="left" class="programlisting"><table bgcolor="#99CCFF" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#99CCFF" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+(root)
+  |
+  +- animals
+  |   |
+  |   +- mouse
+  |   |   |   
+  |   |   +- size = &quot;small&quot;
+  |   |   |   
+  |   |   +- price = 50
+  |   |
+  |   +- elephant
+  |   |   |   
+  |   |   +- size = &quot;large&quot;
+  |   |   |   
+  |   |   +- price = 5000
+  |   |
+  |   +- python
+  |       |   
+  |       +- size = &quot;medium&quot;
+  |       |   
+  |       +- price = 4999
+  |
+  +- test = &quot;It is a test&quot;
+  |
+  +- whatnot
+      |
+      +- because = &quot;don't know&quot;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>The variables that act as directories (the root,
+        <tt style="color: #A03D10">animals</tt>, <tt style="color: #A03D10">mouse</tt>,
+        <tt style="color: #A03D10">elephant</tt>, <tt style="color: #A03D10">python</tt>,
+        <tt style="color: #A03D10">whatnot</tt>) are called <b>hashes</b>. Hashes store other variables (the so
+        called <a name="topic.dataModel.subVar"></a><i>subvariables</i>) by
+        a lookup name (e.g., &quot;animals&quot;, &quot;mouse&quot; or &quot;price&quot;).</p><p>The variables that store a single value
+        (<tt style="color: #A03D10">size</tt>, <tt style="color: #A03D10">price</tt>,
+        <tt style="color: #A03D10">test</tt> and <tt style="color: #A03D10">because</tt>) are called
+        <b>scalars</b>.</p><p><a name="topic.qStart.accessVariables"></a>When you want to
+        use a subvariable in a template, you specify its path from the root,
+        and separate the steps with dots. To access the
+        <tt style="color: #A03D10">price</tt> of a <tt style="color: #A03D10">mouse</tt>, you start from
+        the root and go into <tt style="color: #A03D10">animals</tt>, and then go into
+        <tt style="color: #A03D10">mouse</tt> then go into <tt style="color: #A03D10">price</tt>. So you
+        write <tt style="color: #A03D10">animals.mouse.price</tt>. When you put the special
+        <tt style="color: #A03D10">${<i style="color: #DD4400">...</i>}</tt> codes around an
+        expression like this, you are telling FreeMarker to output the
+        corresponding text at that point.</p><p>There is one more important kind of variable: <b>sequences</b>. They are similar to hashes, but they
+        don't store names for the variables they contain. Instead, they store
+        the subvariables sequentially, and you can access them with a
+        numerical index. For example, in this data-model,
+        <tt style="color: #A03D10">animals</tt> and <tt style="color: #A03D10">whatnot.fruits</tt> are
+        sequences:</p><a name="example.qStart.dataModelWithSequences"></a><div align="left" class="programlisting"><table bgcolor="#99CCFF" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#99CCFF" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+(root)
+  |
+  +- animals
+  |   |
+  |   +- (1st)
+  |   |   |
+  |   |   +- name = &quot;mouse&quot;
+  |   |   |
+  |   |   +- size = &quot;small&quot;
+  |   |   |
+  |   |   +- price = 50
+  |   |
+  |   +- (2nd)
+  |   |   |
+  |   |   +- name = &quot;elephant&quot;
+  |   |   |
+  |   |   +- size = &quot;large&quot;
+  |   |   |
+  |   |   +- price = 5000
+  |   |
+  |   +- (3rd)
+  |       |
+  |       +- name = &quot;python&quot;
+  |       |
+  |       +- size = &quot;medium&quot;
+  |       |
+  |       +- price = 4999
+  |
+  +- whatnot
+      |
+      +- fruits
+          |
+          +- (1st) = &quot;orange&quot;
+          |
+          +- (2nd) = &quot;banana&quot;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>To access a subvariable of a sequence you use a numerical index
+        in square brackets. Indexes start from 0 (it's a programmer tradition
+        to start with 0), thus the index of the first item is 0, the index of
+        the second item is 1, and so on. So to get the name of the first
+        animal you write <tt style="color: #A03D10">animals[0].name</tt>. To get the second
+        item in <tt style="color: #A03D10">whatnot.fruits</tt> (which is the string
+        <tt style="color: #A03D10">&quot;banana&quot;</tt>) you write
+        <tt style="color: #A03D10">whatnot.fruits[1]</tt>.</p><p>Scalars can be further divided into these categories:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p>String: Text, that is, an arbitrary sequence of characters
+            such as ''m'', ''o'', ''u'', ''s'', ''e'' above. For example the
+            <tt style="color: #A03D10">name</tt>-s and <tt style="color: #A03D10">size</tt>-s are
+            strings above.</p>
+          </li>
+
+          <li>
+            <p>Number: It's a numerical value, like the
+            <tt style="color: #A03D10">price</tt>-s above. The string
+            <tt style="color: #A03D10">&quot;50&quot;</tt> and the number <tt style="color: #A03D10">50</tt> are
+            two totally different things in FreeMarker. The former is just a
+            sequence of two characters (which happens to be readable as a
+            number for humans), while the latter is a numerical value that you
+            can use, say, in arithmetical calculations.</p>
+          </li>
+
+          <li>
+            <p>Date/time: A date or time. Like the date an animal were
+            captured, or the time the shop opens.</p>
+          </li>
+
+          <li>
+            <p>Boolean: A true/false (yes/no, on/off, etc.) thing. Like
+            animals could have a <tt style="color: #A03D10">protected</tt> subvariable,
+            which store if the animal is protected or not.</p>
+          </li>
+        </ul>    </div>
+<p>Summary:</p>    <div class="itemizedlist">
+<ul>
+          <li>
+            <p>The data-model can be visualized as a tree.</p>
+          </li>
+
+          <li>
+            <p>Scalars store a single value. The value can be a string or a
+            number or a date/time or a boolean.</p>
+          </li>
+
+          <li>
+            <p>Hashes are containers that store other variables and
+            associate them with a unique lookup name.</p>
+          </li>
+
+          <li>
+            <p>Sequences are containers that store other variables in an
+            ordered sequence. The stored variables can be retrieved via their
+            numerical index, starting from 0.</p>
+          </li>
+        </ul>    </div>
+  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_quickstart_template.html"><span class="hideA">Next page: </span>The template at a glance</a></div><div class="pagerButton"><a href="dgui_quickstart_basics.html">Previous page</a></div><div class="pagerButton"><a href="dgui_quickstart.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_quickstart.html">Getting Started</a>
+            <b>></b>
+          The data-model at a glance
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

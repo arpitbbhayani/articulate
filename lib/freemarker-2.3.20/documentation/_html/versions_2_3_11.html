@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.3.11
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.11
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_10.html"><span class="hideA">Next page: </span>2.3.10</a></div><div class="pagerButton"><a href="versions_2_3_12.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_3_11"></a>2.3.11  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_153">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="#autoid_154">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="#autoid_155">Documentation changes</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Date of release: 2007-12-04</p><p>This release contains several performance and usability
+        improvements.</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_153"></a>Changes on the FTL side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Bug fixed: <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1687248&amp;group_id=794&amp;atid=100794">[1687248]</a>
+              <b>Warning! This bugfix may breaks some
+              templates!</b> Fixed the bugs of the <a href="ref_builtins_number.html#ref_builtin_c"><tt>c</tt> built-in</a>
+              (<tt style="color: #A03D10">?c</tt>) that sometimes caused whole numbers to
+              be formatted with ``.0'' at the end (like: 1.0), and caused
+              numbers sometimes formatted to exponential form (like 4E-20).
+              From now whole numbers will never use decimal dot (not even if
+              the wrapped number is a <tt style="color: #A03D10">double</tt>; remember, the
+              template language knows only a single numerical type), and
+              exponential form will never be used either. Also, the maximum
+              number of digits after the decimal dot was limited to 16, so
+              numbers smaller than 1E-16 will be shown as 0.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_154"></a>Changes on the Java side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>FreeMarker now has much better JSP 2.0 and JSP 2.1
+              compliance. Most notably, the JSP 2.0
+              <tt style="color: #A03D10">SimpleTag</tt> interface is now supported.
+              Additionally, even when run in an environment that doesn't have
+              its own JSP implementation, the FreeMarker JSP runtime will make
+              available its own implementation of
+              <tt style="color: #A03D10">JspFactory</tt> and
+              <tt style="color: #A03D10">JspEngineInfo</tt> to tags when JSP 2.0 API JAR is
+              available in classpath, as well as an implementation of
+              <tt style="color: #A03D10">JspApplicationContext</tt> when JSP 2.1 API JAR is
+              available in classpath.</p>
+            </li>
+
+            <li>
+              <p>A new model interface,
+              <tt style="color: #A03D10">TemplateDirectiveModel</tt> provides an easier
+              paradigm for implementing user-defined directives than
+              <tt style="color: #A03D10">TemplateTransformModel</tt> did previously.
+              <tt style="color: #A03D10">TemplateTransformModel</tt> will be
+              deprecated.</p>
+            </li>
+
+            <li>
+              <p>FreeMarker now finds the Xalan-based XPath support
+              included in Sun JRE/JDK 5 and 6, so no separate Xalan jar is
+              required for the XPath support to work. (However, we recommend
+              Jaxen over Xalan, as the FreeMarker XPath support is more
+              complete with that. Of course for that the Jaxen jar is still
+              needed.)</p>
+            </li>
+
+            <li>
+              <p>Wrapping performance of <tt style="color: #A03D10">BeansWrapper</tt>
+              has been significantly improved by eliminating repetitive
+              execution of various class tests.</p>
+
+              <p><b>Note for
+              <tt style="color: #A03D10">BeansWrapper</tt> customizers:</b>
+              subclasses of <tt style="color: #A03D10">BeansWrapper</tt> that previously
+              overrode <tt style="color: #A03D10">getInstance(Object, ModelFactory)</tt>
+              method should now instead override
+              <tt style="color: #A03D10">getModelFactory(Class)</tt> to take advantage of
+              this improvement. Overriding the old method still works, but it
+              will not take advantage of the performance improvement.</p>
+            </li>
+
+            <li>
+              <p>Memory footprint of a wrapper created by
+              <tt style="color: #A03D10">BeansWrapper</tt> has been reduced (by a size of
+              one default-sized <tt style="color: #A03D10">HashMap</tt>) until methods or
+              indexed properties are accessed on it (simple properties can be
+              accessed without increasing memory footprint).</p>
+            </li>
+
+            <li>
+              <p>Rhino objects can be used in templates as scalars,
+              numbers, and booleans, following the JavaScript conversion
+              semantics for these types.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">.data_model</tt> is now a
+              <tt style="color: #A03D10">TemplatHashModelEx</tt> when possible. This means
+              that the list of the data-model variable names usually can be
+              get with <tt style="color: #A03D10">.data_model?keys</tt>.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">FileTemplateLoader</tt> can now optionally
+              allow following symlinks that point out of the base directory.
+              It is disabled by default for backward compatibility.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1670887&amp;group_id=794&amp;atid=100794">[1670887]</a>
+              <tt style="color: #A03D10">TaglibFactory</tt> taglib matching did not follow
+              JSP 1.2 FCS.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1754320&amp;group_id=794&amp;atid=100794">[1754320]</a>
+              Bug in <tt style="color: #A03D10">setXPathSupportClass</tt> prevented
+              plugging in a user-supplied <tt style="color: #A03D10">XPathSupport</tt>
+              implementation.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1803298&amp;group_id=794&amp;atid=100794">[1803298]</a>
+              Parser error while parsing macro with loop variables</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1824122&amp;group_id=794&amp;atid=100794">[1824122]</a>
+              Loading templates from JAR files could lead to leaking of file
+              handles (due to a bug in the Java API implementation of
+              Sun).</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: Cached template is now removed from the cache
+              if the re-loading of the modified template file fails, so no
+              staled template is served.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_155"></a>Documentation changes  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>Substantial reworkings in the Template Authors's Guide
+              (which was previously called Designer's Guide), especially in
+              the Getting Started section.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">#{...}</tt> is documented as deprected
+              construct from now.</p>
+            </li>
+
+            <li>
+              <p>The &quot;transform&quot; term is now removed from the
+              documentation. Instead the more general &quot;user-defined directive&quot;
+              term is used, which encompasses macros,
+              <tt style="color: #A03D10">TemplateTransformModel</tt>-s and the new
+              <tt style="color: #A03D10">TemplateDirectiveModel</tt>-s, which are just
+              different ways of implementing user-defined directives.</p>
+            </li>
+
+            <li>
+              <p>Some more minor improvements in the Manual.</p>
+            </li>
+          </ul>    </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_10.html"><span class="hideA">Next page: </span>2.3.10</a></div><div class="pagerButton"><a href="versions_2_3_12.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.11
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

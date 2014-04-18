@@ -1,0 +1,400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - 2.3.17
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.17
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_16.html"><span class="hideA">Next page: </span>2.3.16</a></div><div class="pagerButton"><a href="versions_2_3_18.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="versions_2_3_17"></a>2.3.17  </h1>
+    
+    <div class="toc">
+      <p>
+        <b>
+            Page Contents
+        </b>
+      </p>
+      
+  <ul class="noMargin">
+      <li style="padding-bottom: 0.5em"><i><a href="#docgen_afterTheTOC">Intro.</a></i></li>
+      <li>
+        <a href="#autoid_141">Changes on the FTL side</a>
+      </li>
+      <li>
+        <a href="#autoid_142">Changes on the Java side</a>
+      </li>
+      <li>
+        <a href="#autoid_143">Other changes</a>
+      </li>
+  </ul>
+    </div>
+    <a name="docgen_afterTheTOC"></a>
+    
+<p>Date of release: 2011-05-17</p><p>It's possibly urgent to update to this version because of a
+        <a href="#v2317secfix">security fix</a>!</p>
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_141"></a>Changes on the FTL side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><tt style="color: #A03D10">?seq_index_of</tt> and
+              <tt style="color: #A03D10">?seq_last_index_of</tt> now works on collections
+              (<tt style="color: #A03D10">freemarker.template.TemplateCollectionModel</tt>-s)
+              too, not only on sequences
+              (<tt style="color: #A03D10">freemarker.template.TemplateSequenceModel</tt>-s).</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">?long</tt> now works for date, date-time or
+              time values, and returns the milliseconds since the epoch (as
+              <tt style="color: #A03D10">java.util.Date.getTime()</tt>).</p>
+            </li>
+
+            <li>
+              <p>To convert numbers (usually Java
+              <tt style="color: #A03D10">long</tt>-s) to date or date-time and time values,
+              <tt style="color: #A03D10">?number_to_date</tt>,
+              <tt style="color: #A03D10">?number_to_time</tt>,
+              <tt style="color: #A03D10">?number_to_datetime</tt> was added. <a href="ref_builtins_expert.html#ref_builtin_numToDate">See more here...</a>
+              (Unfortunately, <tt style="color: #A03D10">?date</tt> and like can't be
+              extended to support this due to backward compatibility
+              issues.)</p>
+            </li>
+
+            <li>
+              <p>New built-ins to format numbers with ISO 8601 &quot;extended&quot;
+              format regardless of the current date/time formatting settings,
+              and even regardless of the current time zone setting. For
+              example <tt style="color: #A03D10">${myTimeStamp?iso_utc}</tt> will print
+              something like <tt style="color: #A03D10">2010-05-16T23:05:45Z</tt>. <a href="ref_builtins_date.html#ref_builtin_date_iso">See more here...</a></p>
+            </li>
+
+            <li>
+              <p>New <a href="ref_specvar.html">special variable</a>,
+              <tt style="color: #A03D10">now</tt>. This returns the current date-time.
+              Usage examples: &quot;<tt style="color: #A03D10">Page generated: ${.now}</tt>&quot;,
+              &quot;<tt style="color: #A03D10">Today is ${.now?date}</tt>&quot;, &quot;<tt style="color: #A03D10">The
+              current time is ${.now?time}</tt>&quot;.</p>
+            </li>
+
+            <li>
+              <p><tt style="color: #A03D10">?sort</tt> and <tt style="color: #A03D10">?sort_by</tt>
+              now supports sorting boolean values.</p>
+            </li>
+
+            <li>
+              <p>When using unsupported or unknown <a href="ref_builtins_string.html#ref_builtin_string_flags">string built-in flags</a>,
+              FreeMarker will now <a href="pgui_misc_logging.html">log</a>
+              warnings (maximum 25 times per class-loader, to prevent flooding
+              the log). It's certain that starting from FreeMarker 2.4 these
+              will count as errors.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed <a href="http://sourceforge.net/tracker/?func=detail&amp;atid=100794&amp;aid=3047201&amp;group_id=794">[3047201]</a>:
+              Using regular expressions (like with <tt style="color: #A03D10">?match</tt>)
+              could cause lockup in multi-threaded environment, also memory
+              leakage when using dynamically generated regular
+              expressions.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: <tt style="color: #A03D10">?seq_contains</tt>,
+              <tt style="color: #A03D10">?seq_index_of</tt> and
+              <tt style="color: #A03D10">?seq_last_index_of</tt> has failed with
+              non-<tt style="color: #A03D10">java.util.List</tt>
+              <tt style="color: #A03D10">java.util.Collection</tt>-s that are wrapped with
+              pure <tt style="color: #A03D10">BeansWrapper</tt> (not the
+              <tt style="color: #A03D10">DefaultObjectWrapper</tt>) as
+              <tt style="color: #A03D10">TemplateSequenceModel</tt>. (See also:
+              <tt style="color: #A03D10">getSupportsIndexedAccess()</tt> below)</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_142"></a>Changes on the Java side  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p><a name="v2317secfix"></a><i>Security fix</i>:
+              Using carefully crafted template names (template paths) that
+              contain code point 0 (<tt style="color: #A03D10">'\u0000'</tt>), it was
+              possible to load files from outside the template root directory
+              like if they were FreeMarker templates. The root of the problem
+              is that the underlying native C/C++ part (which belongs to the
+              Java platform or to the OS) interprets the 0 as the end of the
+              string, while Java (and hence FreeMarker and the Servlet
+              container) doesn't. Thus a path that looked safe for FreeMarker
+              become unsafe on the lower level. The problem is present with
+              all ways of loading templates by name
+              (<tt style="color: #A03D10">Configuration.getTemplate(<i style="color: #DD4400">...</i>)</tt>,
+              <tt style="color: #A03D10">&lt;#include
+              <i style="color: #DD4400">...</i>&gt;</tt>,
+              <tt style="color: #A03D10">&lt;#import
+              <i style="color: #DD4400">...</i>&gt;</tt>).</p>
+
+              <p>You are not effected if you don't allow users to upload
+              templates and also at least one of these stands:</p>
+
+                  <div class="itemizedlist">
+<ul>
+                <li>
+                  <p>In your system users can't provide arbitrary strings
+                  as template names (template paths). For example, if users
+                  are only allowed to visit the URL-s that belong to the MVC
+                  Controller (like they can't visit <tt style="color: #A03D10">*.ftl</tt>)
+                  then they can't suggest arbitrary template names.</p>
+                </li>
+
+                <li>
+                  <p>The template names are part of the path in the Web
+                  page URL, and your webserver or Servlet container disallows
+                  URL-s that contain <tt style="color: #A03D10">%00</tt>, or terminate the
+                  URL at it before passing it to the servlets.</p>
+                </li>
+
+                <li>
+                  <p>You are using <tt style="color: #A03D10">FileTemplateLoader</tt>
+                  and linking is not allowed in it (by default it isn't
+                  allowed).</p>
+                </li>
+              </ul>    </div>
+
+            </li>
+
+            <li>
+              <p>FreeMarker now can log its messages directly using SLF4J
+              or Apache Commons Logging. However, it will not use these logger
+              libraries automatically, until 2.4; <a href="pgui_misc_logging.html">see more here...</a> But it's
+              recommended to switch to SLF4J now.</p>
+            </li>
+
+            <li>
+              <p>New setting: <tt style="color: #A03D10">&quot;auto_flush&quot;</tt>,
+              <tt style="color: #A03D10">Configurable.setAutoFlush(boolean)</tt>. Sets
+              whether the output <tt style="color: #A03D10">Writer</tt> is automatically
+              flushed at the end of <tt style="color: #A03D10">Template.process(Object,
+              Writer)</tt> (and its overloads). The default is
+              <tt style="color: #A03D10">true</tt>, which corresponds to the earlier
+              behavior. Using <tt style="color: #A03D10">false</tt> is needed for example
+              when a Web page is composed from several boxes (like portlets,
+              GUI panels, etc.) that aren't inserted with
+              <tt style="color: #A03D10">#include</tt> (or with similar directives) into a
+              master FreeMarker template, rather they are all processed with a
+              separate
+              <tt style="color: #A03D10">Template.process(<i style="color: #DD4400">...</i>)</tt>
+              call. In a such scenario the automatic flushes would commit the
+              HTTP response after each box, hence interfering with full-page
+              buffering, and also possibly decreasing performance with too
+              frequent and too early response buffer flushes.</p>
+            </li>
+
+            <li>
+              <p>Added new setting:
+              <tt style="color: #A03D10">Configuration.setNewBuiltinClassResolver(TemplateClassResolver)</tt>,
+              or <tt style="color: #A03D10">new_builtin_class_resolver</tt> property. This
+              allows you to specify how the <a href="ref_builtins_expert.html#ref_builtin_new"><tt>new</tt> built-in</a>
+              (like in <tt style="color: #A03D10">&quot;com.example.SomeClass&quot;?new()</tt>)
+              resolves classes and which classes are accessible at all. If you
+              are allowing not-so-much-trusted users to upload templates, you
+              should be definitely interested; see the Java API docs of
+              <tt style="color: #A03D10">freemarker.core.Configurable.setSetting</tt> and
+              <tt style="color: #A03D10">freemareker.template.Configuration.setNewBuiltinClassResolver</tt>.
+              Otherwise it's still recommended to set this to
+              <tt style="color: #A03D10">TemplateClassResolver.SAFER_RESOLVER</tt> (or
+              <tt style="color: #A03D10">safer</tt> if you are using properties), although
+              that's not 100% backward compatible (see Java API docs) .</p>
+            </li>
+
+            <li>
+              <p>Added
+              <tt style="color: #A03D10">freemarker.cache.NullCacheStorage</tt>: Setting
+              this as the cache storage in <tt style="color: #A03D10">Configuration</tt>
+              disables caching.</p>
+            </li>
+
+            <li>
+              <p>Added <tt style="color: #A03D10">getSupportsIndexedAccess()</tt> to
+              <tt style="color: #A03D10">freemarker.ext.beans.CollectionModel</tt>, so one
+              can check if <tt style="color: #A03D10">TemplateSequenceModel.get(int)</tt>
+              will work with a particular <tt style="color: #A03D10">CollectionModel</tt>
+              instance or not.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2992265&amp;group_id=794&amp;atid=100794">[2992265]</a>:
+              JSP <tt style="color: #A03D10">FreeMarkerPageContext.include</tt> behaved
+              incorrectly.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: When using FreeMarker's JSP support with JSP
+              tags that use
+              <tt style="color: #A03D10">javax.servlet.jsp.PageContext.pushBody</tt> (like
+              some Stripes tags), <tt style="color: #A03D10">&quot;ArrayIndexOutOfBoundsException:
+              -1&quot;</tt> occurred inside
+              <tt style="color: #A03D10">freemarker.ext.jsp.FreeMarkerPageContext.popWriter</tt>.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed <a href="http://sourceforge.net/tracker/?func=detail&amp;atid=100794&amp;aid=3033015&amp;group_id=794">[3033015]</a>:
+              <tt style="color: #A03D10">AllHttpScopesHashModel</tt> used
+              <tt style="color: #A03D10">WrappingTemplateModel.getDefaultObjectWrapper()</tt>
+              for wrapping variables in the page scope, while used the
+              user-specified <tt style="color: #A03D10">ObjectWrapper</tt> for all other
+              scopes (request, session, etc.). Now it uses the user-specified
+              wrapper in the page scope as well.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3128073&amp;group_id=794&amp;atid=100794">[3128073]</a>:
+              <tt style="color: #A03D10">HashAdapther.containsKey(...)</tt> returned
+              <tt style="color: #A03D10">true</tt> for a key that doesn't exist when
+              unwrapping the key has failed. As a side effect of the fix,
+              <tt style="color: #A03D10">BeansWrapper.CAN_NOT_UNWRAP</tt> is now private;
+              earlier it was public by mistake.</p>
+            </li>
+
+            <li>
+              <p>Big fixed <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3151085&amp;group_id=794&amp;atid=100794">[3151085]</a>:
+              <tt style="color: #A03D10">freemarker.jsp.TaglibFactory</tt> didn't locate
+              tld files properly. This fix gives better compliance with JSP
+              specification for resolving and loading tld files.</p>
+            </li>
+
+            <li>
+              <p>Bug fixed: Unwrapping <tt style="color: #A03D10">null</tt> with a
+              <tt style="color: #A03D10">BeansWrapper</tt> that had a custom null-model
+              didn't result in <tt style="color: #A03D10">null</tt>. Now both unwrapping
+              <tt style="color: #A03D10">null</tt> and the custom null-model gives
+              <tt style="color: #A03D10">null</tt>.</p>
+            </li>
+
+            <li>
+              <p>Log messages doesn't contain line-breaks (CR or LF)
+              anymore and quote paths and other arbitrary text with Java
+              string literal syntax that also escapes <tt style="color: #A03D10">&lt;</tt>
+              characters as <tt style="color: #A03D10">\u003C</tt>. These address security
+              concerns related to poor quality log appenders and buggy log
+              readers. This change is mostly noticeable on template processing
+              error entries, which will now quote the exception message. Note
+              that how stack traces (the <tt style="color: #A03D10">Throwable</tt> objects)
+              are logged is still up to the logging framework you are
+              using.</p>
+            </li>
+          </ul>    </div>
+
+        
+            
+  
+  
+  
+  <h2 class="rank_section2"
+        >
+<a name="autoid_143"></a>Other changes  </h2>
+
+
+              <div class="itemizedlist">
+<ul>
+            <li>
+              <p>The DTD-s and XSD-s that are included in
+              <tt style="color: #A03D10">freemarker.jar</tt> under
+              <tt style="color: #A03D10">freemarker/ext/jsp</tt> are now under Apache
+              Software License, Version 2. This is also clarified in the
+              <tt style="color: #A03D10">LICENSE.txt</tt>. Earlier these files had no clear
+              license terms.</p>
+            </li>
+          </ul>    </div>
+
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="versions_2_3_16.html"><span class="hideA">Next page: </span>2.3.16</a></div><div class="pagerButton"><a href="versions_2_3_18.html">Previous page</a></div><div class="pagerButton"><a href="app_versions.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="app.html">Appendixes</a>
+            <b>></b>
+          <a href="app_versions.html">Versions</a>
+            <b>></b>
+          2.3.17
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

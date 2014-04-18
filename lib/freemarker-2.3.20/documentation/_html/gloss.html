@@ -1,0 +1,745 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Glossary
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          Glossary
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <span class="disabledBookmark">Glossary</span>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="alphaidx.html"><span class="hideA">Next page: </span>Alphabetical Index</a></div><div class="pagerButton"><a href="app_license.html">Previous page</a></div><div class="pagerButton"><a href="index.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_part"
+        id="pageTopTitle">
+<a name="gloss"></a>Glossary  </h1>
+
+  <p>
+<a href="#gloss.attribute">A</a>&nbsp;| <a href="#gloss.boolean">B</a>&nbsp;| <a href="#gloss.character">C</a>&nbsp;| <a href="#gloss.dataModel">D</a>&nbsp;| <a href="#gloss.element">E</a>&nbsp;| <a href="#gloss.FTL">F</a>&nbsp;| <a href="#gloss.hashVariable">H</a>&nbsp;| <a href="#gloss.lineBreak">L</a>&nbsp;| <a href="#gloss.macroDefinitionBody">M</a>&nbsp;| <a href="#gloss.outputEncoding">O</a>&nbsp;| <a href="#gloss.predefinedDirective">P</a>&nbsp;| <a href="#gloss.regularExpression">R</a>&nbsp;| <a href="#gloss.scalarVariable">S</a>&nbsp;| <a href="#gloss.tag">T</a>&nbsp;| <a href="#gloss.UCS">U</a>&nbsp;| <a href="#gloss.whiteSpace">W</a>&nbsp;| <a href="#autoid_255">X</a>  </p>
+
+  <dl>
+
+        <dt><a name="gloss.attribute"></a>Attribute</dt>
+
+
+         <dd>
+        <p>In connection with <a href="#gloss.XML">XML</a> or HTML
+        (or <a href="#gloss.SGML">SGML</a> in general), attributes are
+        the named values associated with elements. For example, in
+        <tt style="color: #A03D10">&lt;body bgcolor=black
+        text=green&gt;<i style="color: #DD4400">...</i>&lt;/body&gt;</tt>,
+        the attributes are <tt style="color: #A03D10">bgcolor=black</tt> and
+        <tt style="color: #A03D10">text=green</tt>. On the left side of
+        <tt style="color: #A03D10">=</tt> is the name of the attribute, while on the right
+        side is the value of the attribute. Note that in XML, the values must
+        be quoted (for example: <tt style="color: #A03D10">&lt;body bgcolor=&quot;black&quot;
+        text='green'&gt;</tt>), while in HTML it is optional for certain
+        values.</p>
+
+        
+      
+    <p>See Also
+       <a href="#gloss.startTag">Start-tag</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="gloss.boolean"></a>Boolean</dt>
+
+
+         <dd>
+        <p>This is a variable type. A boolean variable represents a logical
+        true or false (yes or no). For example, if the visitor has been logged
+        in or not. There are only two possible boolean values:
+        <tt style="color: #A03D10">true</tt> and <tt style="color: #A03D10">false</tt>. Typically, you
+        will use booleans with an <tt style="color: #A03D10">&lt;#if
+        <i style="color: #DD4400">...</i>&gt;</tt> directive when you want
+        to display text based on some condition, say, you show a certain part
+        of the page only for visitors who has logged in.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.character"></a>Character</dt>
+
+
+         <dd>
+        <p>A symbol that people use in writing. Examples of characters:
+        Latin capital letter A (``A''), Latin small letter A (``a''), digit
+        four (``4''), number sign (``#''), colon (``:'')</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.charset"></a>Charset</dt>
+
+
+         <dd>
+        <p>A charset is a rule (algorithm) for transforming a sequence of
+        <a href="#gloss.character">characters</a> (text) to a sequence
+        of bits (or in practice, to a sequence of bytes). Whenever a character
+        sequence is stored on a digital media, or sent through a digital
+        channel (network), a charset must be applied. Examples of charsets are
+        ISO-8859-1, ISO-8859-6, Shift_JIS , UTF-8.</p>
+
+        <p>The capabilities of different charsers are different, that is,
+        not all charsets can be used for all languages. For example ISO-8859-1
+        can't represent Arabic letters, but ISO-8859-6 can, however it can't
+        represent the accented letters that that ISO-8859-1 can. Most charsets
+        are highly restrictive regarding the allowed characters. UTF-8 allows
+        virtually all possible characters, but most text editors can't handle
+        it yet (2004).</p>
+
+        <p>When different software components exchange text (as the HTTP
+        server and the browser, or the text editor you use for saving
+        templates and FreeMarker who loads them), it's very important that
+        they agree in the charset used for the binary encoding of the text. If
+        they don't, then the binary data will be misinterpreted by the
+        receiver (loader) component, which usually results in the distortion
+        of the non-English letters.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.collectionVariable"></a>Collection</dt>
+
+
+         <dd>
+        <p>A variable that (in conjunction with the <tt style="color: #A03D10">list</tt>
+        directive) can spit out a series of variables.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.dataModel"></a>Data-model</dt>
+
+
+         <dd>
+        <p>Something that holds the information the template has to show
+        (or use in some other ways) when the template processor assembles the
+        output (e.g. a Web page). In FreeMarker this is best visualized as a
+        tree.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.directive"></a>Directive</dt>
+
+
+         <dd>
+        <p>Instructions to FreeMarker used in <a href="#gloss.FTL">FTL</a> <a href="#gloss.template">templates</a>. They are invoked by <a href="#gloss.FTLTag">FTL tags</a>.</p>
+
+        
+
+        
+      
+    <p>See Also
+       <a href="#gloss.predefinedDirective">Predefined directive</a>, 
+       <a href="#gloss.userDefinedDirective">User-defined directive</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="gloss.element"></a>Element</dt>
+
+
+         <dd>
+        <p>Elements are the most fundamental building pieces of <a href="#gloss.SGML">SGML</a> documents; an SGML document is
+        basically a tree of elements. Example of elements used in HTML: body,
+        head, title, p, h1, h2.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.endTag"></a>End-tag</dt>
+
+
+         <dd>
+        <p><a href="#gloss.tag">Tag</a>, which indicates that the
+        following content is not under the element. Example:
+        <tt style="color: #A03D10">&lt;/body&gt;</tt>.</p>
+
+        
+      
+    <p>See Also
+       <a href="#gloss.startTag">Start-tag</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="gloss.environment"></a>Environment</dt>
+
+
+         <dd>
+        <p>An <tt style="color: #A03D10">Environment</tt> object stores the runtime
+        state of a single template <a href="#gloss.templateProcessingJob">template processing job</a>.
+        That is, for each
+        <tt style="color: #A03D10">Template.process(<i style="color: #DD4400">...</i>)</tt>
+        call, an <tt style="color: #A03D10">Environment</tt> instance will be created, and
+        then discarded when <tt style="color: #A03D10">process</tt> returns. This object
+        stores the set of temporary variables created by the template, the
+        value of settings set by the template, the reference to the data-model
+        root, etc. Everything that is needed to fulfill the template
+        processing job.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.XML"></a>Extensible Markup Language</dt>
+
+
+         <dd>
+        <p>A subset (restricted version) of <a href="#gloss.SGML">SGML</a>. This is less powerful than SGML, but
+        it easier to learn and much easier to process with programs. If you
+        are an HTML author: XML documents are similar to HTML documents, but
+        the XML standard doesn't specify the usable elements. XML is a much
+        more general-purpose thing than HTML. For example you can use XML to
+        describe Web pages (like HTML) or to describe non-visual information
+        like a phone book database.</p>
+
+        
+      
+    <p>See Also
+       <a href="#gloss.SGML">Standard Generalized Markup Language</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="gloss.FTL"></a>FreeMarker Template Language</dt>
+
+
+         <dd>
+        <p>Simple programming language designed to write text file
+        templates, especially HTML templates.</p>
+      
+   </dd>
+
+    
+        <dt><a name="autoid_253"></a>FTL</dt>
+
+
+          <dd><p>See
+       <a href="#gloss.FTL">FreeMarker Template Language</a>
+    </p></dd>
+
+    
+        <dt><a name="gloss.FTLTag"></a>FTL tag</dt>
+
+
+         <dd>
+        <p><a href="#gloss.tag">Tag</a>-like text fragment used to
+        invoke FreeMarker <a href="#gloss.directive">directives</a> in
+        <a href="#gloss.FTL">FTL</a> <a href="#gloss.template">templates</a>. These are similar to HTML
+        or XML tags at the first glance. The most prominent difference is that
+        the tag name is started with <tt style="color: #A03D10">#</tt> or
+        <tt style="color: #A03D10">@</tt>. Another important difference is that FTL tags do
+        not use <a href="#gloss.attribute">attributes</a>, but a
+        substantially different syntax to specify parameters. Examples of FTL
+        tags: <tt style="color: #A03D10">&lt;#if newUser&gt;</tt>,
+        <tt style="color: #A03D10">&lt;/#if&gt;</tt>, <tt style="color: #A03D10">&lt;@menuitem
+        title=&quot;Projects&quot; link=&quot;projects.html&quot;/&gt;</tt></p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.fullQualifiedName"></a>Full-qualified name</dt>
+
+
+         <dd>
+        <p>... of nodes (XML node or other FTL node variable): The
+        full-qualified name of a node specifies not only the node name
+        (<tt style="color: #A03D10"><i style="color: #DD4400">node</i>?node_name</tt>), but
+        also the node namespace
+        (<tt style="color: #A03D10"><i style="color: #DD4400">node</i>?node_namespace</tt>),
+        this way it unambiguously identify a certain kind of node. The format
+        of the full-qualified name is
+        <tt style="color: #A03D10"><i style="color: #DD4400">nodeName</i></tt> or
+        <tt style="color: #A03D10"><i style="color: #DD4400">prefix</i>:<i style="color: #DD4400">nodeName</i></tt>.
+        The prefix is shorthand to identify the node namespace (the a node
+        namespace is usually specified with a long ugly URI). In FTL, prefixes
+        are associated with the node namespaces with the
+        <tt style="color: #A03D10">ns_prefixes</tt> parameter of <a href="ref_directive_ftl.html#ref.directive.ftl">the <tt>ftl</tt>
+        directive</a>. In XML files, prefixes are associated with the node
+        namespaces with the
+        <tt style="color: #A03D10">xmlns:<i style="color: #DD4400">prefix</i></tt> attributes.
+        The lack of the prefix means that the node uses the default node
+        namespace, if a default node namespace is defined; otherwise it means
+        that the node does not belong to any node namespace. The default node
+        namespace is defined in FTL by registering reserved prefix
+        <tt style="color: #A03D10">D</tt> with the <tt style="color: #A03D10">ns_prefixes</tt> parameter
+        of the <tt style="color: #A03D10">ftl</tt> directive. In XML files it is defined
+        with attribute <tt style="color: #A03D10">xmlns</tt>.</p>
+
+        <p>... of Java classes: The full-qualified name of a Java class
+        contains both the class name and the name of the package the class
+        belongs to. This way it unambiguously specifies the class, regardless
+        of the context. An example of full-qualifed class name:
+        <tt style="color: #A03D10">java.util.Map</tt> (as opposed to
+        <tt style="color: #A03D10">Map</tt>).</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.hashVariable"></a>Hash</dt>
+
+
+         <dd>
+        <p>A variable that acts as a container that stores subvariables
+        that can be retrieved via a string that is a lookup name.</p>
+
+        
+      
+    <p>See Also
+       <a href="#gloss.sequenceVariable">Sequence</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="gloss.lineBreak"></a>Line break</dt>
+
+
+         <dd>
+        <p>Line break is a special character (or a sequence of special
+        characters) that causes a line breaking when you see the text as plain
+        text (say, when you read the text with Windows notepad). Typically you
+        type this character by hitting ENTER or RETURN key. The line break is
+        represented with different characters on different platforms (to cause
+        incompatibility and confusion...): ``line feed'' character on UNIX-es,
+        ``carriage return'' character on Macintosh, ``carriage return''+``line
+        feed'' (two characters!) on Windows and DOS. Note that line breaks in
+        HTML do not have a visual effect when viewed in a browser; you must
+        use markup such as <tt style="color: #A03D10">&lt;BR&gt;</tt> for that. This manual
+        never means <tt style="color: #A03D10">&lt;BR&gt;</tt> when it says
+        ``line-break''.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.macroDefinitionBody"></a>Macro definition body</dt>
+
+
+         <dd>
+        <p>The template fragment between the <tt style="color: #A03D10">&lt;#macro
+        <i style="color: #DD4400">...</i>&gt;</tt> and
+        <tt style="color: #A03D10">&lt;/#macro&gt;</tt>. This template fragment will be
+        executed when you call the macro (for example as
+        <tt style="color: #A03D10">&lt;@myMacro/&gt;</tt>).</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.methodVariable"></a>Method</dt>
+
+
+         <dd>
+        <p>A variable that calculates something based on parameters you
+        give, and returns the result.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.MVC"></a>MVC pattern</dt>
+
+
+         <dd>
+        <p>MVC stands for Model View Controller. It's a design pattern
+        started his life in the 70's as a framework developer by Trygve
+        Reenskaug for Smalltalk, and was used primary for for UI-s (user
+        interfaces). MVC considers three roles:</p>
+
+            <div class="itemizedlist">
+<ul>
+          <li>
+            Model: Model represents application (domain) specific
+            information in a non-visual way. For example, an array of product
+            objects in the memory of your computer is the part of the
+            model.
+          </li>
+
+          <li>
+            View: View displays the model and provides UI. For example,
+            it's the task of the view component to render the array of product
+            objects to a HTML page.
+          </li>
+
+          <li>
+            Controller: The controller handles user input, modifies the
+            model, and ensures that the view is updated when needed. For
+            example it is the task of controller to take the incoming HTTP
+            requests, parse the received parameters (forms), dispatch the
+            requests to the proper business logic object, and chose the right
+            template for the HTTP response.
+          </li>
+        </ul>    </div>
+
+
+        <p>The most important thing for us when applying MVC for Web
+        applications is the separation of View from the other two roles. This
+        allows the separation of designers (HTML authors) from programmers.
+        Designers deal with the visual aspects, programmers deal with the
+        application logic and other technical issues; everybody works on what
+        he is good at. Designers and programmers are less dependent on each
+        other. Designers can change the appearance without programmers having
+        to change or recompile the program.</p>
+
+        <p>For more information I recommend reading <a href="http://java.sun.com/blueprints/guidelines/designing_enterprise_applications_2e/web-tier/web-tier5.html">chapter
+        4.4</a> of Designing Enterprise Applications with the J2EE Platform
+        blueprint.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.outputEncoding"></a>Output encoding</dt>
+
+
+         <dd>
+        <p>Means output <a href="#gloss.charset">charset</a>. In
+        the Java world the term ``encoding'' is commonly (mis)used as a
+        synonym to ``charset''.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.predefinedDirective"></a>Predefined directive</dt>
+
+
+         <dd>
+        <p>Directive what is defined by FreeMarker, thus always available.
+        Example of predefined directives: <tt style="color: #A03D10">if</tt>,
+        <tt style="color: #A03D10">list</tt>, <tt style="color: #A03D10">include</tt></p>
+
+        
+      
+    <p>See Also
+       <a href="#gloss.userDefinedDirective">User-defined directive</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="gloss.regularExpression"></a>Regular expression</dt>
+
+
+         <dd>
+        <p>A regular expression is a string that specifies a set of strings
+        that matches it. For example, the regular expression
+        <tt style="color: #A03D10">&quot;fo*&quot;</tt> matches <tt style="color: #A03D10">&quot;f&quot;</tt>,
+        <tt style="color: #A03D10">&quot;fo&quot;</tt>, <tt style="color: #A03D10">&quot;foo&quot;</tt>, etc. Regular
+        expressions are used in several languages and other tools. In
+        FreeMarker, the usage of them is a ``power user'' option. So if you
+        have never used them before, there is no need to worry about not being
+        familiar with them. But if you are interested in regular expressions,
+        you can find several Web pages and books about them. FreeMarker uses
+        the variation of regular expressions described at: <a href="http://java.sun.com/j2se/1.4.1/docs/api/java/util/regex/Pattern.html">http://java.sun.com/j2se/1.4.1/docs/api/java/util/regex/Pattern.html</a></p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.scalarVariable"></a>Scalar</dt>
+
+
+         <dd>
+        <p>A scalar variable stores a single value. A scalar is either a
+        string or a number or a date/time or a <a href="#gloss.boolean">boolean</a>.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.sequenceVariable"></a>Sequence</dt>
+
+
+         <dd>
+        <p>A sequence is a variable that contains a sequence of
+        subvariables. The sequence's subvariables are accessible via numerical
+        index, where the index of the very first object is 0, the index of the
+        second objects is 1, the index of the third object is 2, etc.</p>
+
+        
+      
+    <p>See Also
+       <a href="#gloss.hashVariable">Hash</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="autoid_254"></a>SGML</dt>
+
+
+          <dd><p>See
+       <a href="#gloss.SGML">Standard Generalized Markup Language</a>
+    </p></dd>
+
+    
+        <dt><a name="gloss.SGML"></a>Standard Generalized Markup Language</dt>
+
+
+         <dd>
+        <p>This is an international standard (ISO 8879) that specifies the
+        rules for the creation of platform-independent markup languages. HTML
+        is a markup language created with SGML. <a href="#gloss.XML">XML</a> is a subset (restricted version) of
+        SGML.</p>
+
+        
+      
+    <p>See Also
+       <a href="#gloss.XML">Extensible Markup Language</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="gloss.startTag"></a>Start-tag</dt>
+
+
+         <dd>
+        <p><a href="#gloss.tag">Tag</a>, which indicates that the
+        following content is under the element, up to the <a href="#gloss.endTag">end-tag</a>. The start-tag may also
+        specifies <a href="#gloss.attribute">attributes</a> for the
+        element. An example of a start-tag: <tt style="color: #A03D10">&lt;body
+        bgcolor=black&gt;</tt></p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.string"></a>String</dt>
+
+
+         <dd>
+        <p>A sequence of <a href="#gloss.character">characters</a>
+        such as ``m'', ``o'', ``u'', ``s'', ``e''.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.tag"></a>Tag</dt>
+
+
+         <dd>
+        <p>Text fragment indicating the usage of an element in SGML.
+        Examples of tags: <tt style="color: #A03D10">&lt;body bgcolor=black&gt;</tt>,
+        <tt style="color: #A03D10">&lt;/body&gt;</tt></p>
+
+        
+
+        
+      
+    <p>See Also
+       <a href="#gloss.startTag">Start-tag</a>, 
+       <a href="#gloss.endTag">End-tag</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="gloss.template"></a>Template</dt>
+
+
+         <dd>
+        <p>A template is a text file with some special character sequences
+        embedded into it. A template processor (e.g. FreeMarker) will
+        interpret special character sequences and it outputs a more or less
+        different text from the original text file, where the differences are
+        often based on a <a href="#gloss.dataModel">data-model</a>.
+        Thus, the original text acts as a template of the possible
+        outputs.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.templateEncoding"></a>Template encoding</dt>
+
+
+         <dd>
+        <p>Means template <a href="#gloss.charset">charset</a>. In
+        the Java world the term ``encoding'' is commonly (mis)used as a
+        synonym to ``charset''.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.templateProcessingJob"></a>Template processing job</dt>
+
+
+         <dd>
+        <p>A template processing job is the act when FreeMarker merges a
+        template with a data-model to produce the output for a visitor. Note
+        that this may includes the execution of multiple template files
+        because the template file used for the Web page may invokes other
+        templates with <tt style="color: #A03D10">include</tt> and
+        <tt style="color: #A03D10">import</tt> directives. Each template-processing job is
+        a separated cosmos that exists only for the short period of time while
+        the given page is being rendered for the visitor, and then it vanishes
+        with all the variables created in the templates (for example,
+        variables created with <tt style="color: #A03D10">assign</tt>,
+        <tt style="color: #A03D10">macro</tt> or <tt style="color: #A03D10">global</tt>
+        directives).</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.threadSafe"></a>Thread-safe</dt>
+
+
+         <dd>
+        <p>An object is thread-safe if it is safe to call its methods from
+        multiple threads, even in parallel (i.e. multiple threads execute the
+        methods of the object at the same time). Non-thread-safe objects may
+        behave unpredictably in this situation, and generate wrong results,
+        corrupt internal data structures, etc. Thread-safety is typically
+        achieved in two ways with Java: with the usage
+        <tt style="color: #A03D10">synchronized</tt> statement (or
+        <tt style="color: #A03D10">synchronized</tt> methods), and with the immutability of
+        encapsulated data (i.e. you can't modify the field after you have
+        created the object).</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.transformVariable"></a>Transform</dt>
+
+
+         <dd>
+        <p>This term refers to user-defined directives that are implemetned
+        with the now obsolete <tt style="color: #A03D10">TemplateTransformModel</tt> Java
+        interface. The feature was originally made for implementing output
+        filters, hence the name.</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.UCS"></a>UCS</dt>
+
+
+         <dd>
+        <p>This is international standard (ISO-10646) that defines a huge
+        set of <a href="#gloss.character">characters</a> and assigns a
+        unique number for each character (``!'' is 33, ..., ``A'' is 61, ``B''
+        is 62, ..., Arabic letter hamza is 1569... etc.). This character set
+        (not charset) contains almost all characters used today (Latin
+        alphabet, Cyrillic alphabet, Chinese letters, etc.). The idea behind
+        UCS is that we can specify any character with a unique number, not
+        mater what the platform or the language is.</p>
+
+        
+      
+    <p>See Also
+       <a href="#gloss.unicode">Unicode</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="gloss.unicode"></a>Unicode</dt>
+
+
+         <dd>
+        <p>De-facto standard developed by Unicode organization. It deals
+        with the classification of the characters in <a href="#gloss.UCS">UCS</a> (which is letter, which is digit, which
+        is uppercase, which is lowercase, etc.), and with other problems of
+        processing text made from the characters of UCS (e.g.
+        normalization).</p>
+      
+   </dd>
+
+    
+        <dt><a name="gloss.userDefinedDirective"></a>User-defined directive</dt>
+
+
+         <dd>
+        <p>Directive that is not defined by the FreeMarker core, but by the
+        user. These are typically application domain specific directives, like
+        pull-down menu generation directives, HTML form handling
+        directives.</p>
+
+        
+      
+    <p>See Also
+       <a href="#gloss.predefinedDirective">Predefined directive</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="gloss.whiteSpace"></a>White-space</dt>
+
+
+         <dd>
+        <p>Characters that are totally transparent but have impact on the
+        visual appearance of the text. Examples of white-space characters:
+        space, tab (horizontal and vertical), line breaks (CR and LF), form
+        feed.</p>
+
+        
+      
+    <p>See Also
+       <a href="#gloss.lineBreak">Line break</a> 
+    </p>
+   </dd>
+
+    
+        <dt><a name="autoid_255"></a>XML</dt>
+
+
+          <dd><p>See
+       <a href="#gloss.XML">Extensible Markup Language</a>
+    </p></dd>
+
+      </dl>
+  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="alphaidx.html"><span class="hideA">Next page: </span>Alphabetical Index</a></div><div class="pagerButton"><a href="app_license.html">Previous page</a></div><div class="pagerButton"><a href="index.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          Glossary
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

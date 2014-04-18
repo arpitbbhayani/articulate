@@ -1,0 +1,12 @@
+1. fileNames -> names of articles
+2. articles  -> list of (list of entities of those articles)
+3. tweetList -> list of tweets we get finally
+
+
+note:
+1. you may have to normalize the number of tweets ( maybe just add 1 if some article gets 0 tweets). 
+2. when finding score of an entity, divide by total number of classified tweets ( many tweets will be neither +ve nor -ve). you will  have to check for division by 0 also.
+3. While final scoring, do divide the number of tweets of each article by the numner of entities of that article, coz some articles may have large/small number of entities.
+4. config file has all inputs
+5. I think multiwords are also works, but not accurate( you can check variable 'filterStr')
+

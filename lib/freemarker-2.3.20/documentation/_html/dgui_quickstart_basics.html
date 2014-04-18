@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Template + data-model = output
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_quickstart.html">Getting Started</a>
+            <b>></b>
+          Template + data-model = output
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_quickstart_datamodel.html"><span class="hideA">Next page: </span>The data-model at a glance</a></div><div class="pagerButton"><a href="dgui_quickstart.html">Previous page</a></div><div class="pagerButton"><a href="dgui_quickstart.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="dgui_quickstart_basics"></a>Template + data-model = output  </h1>
+    
+    
+<p>Assume you need a HTML page in an e-shop application, similar to
+        this:</p><div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Welcome!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome <b>Big Joe</b>!&lt;/h1&gt;
+  &lt;p&gt;Our latest product:
+  &lt;a href=&quot;<b>products/greenmouse.html</b>&quot;&gt;<b>green mouse</b>&lt;/a&gt;!
+&lt;/body&gt;
+&lt;/html&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>Let's say that the user name (&quot;Big Joe&quot; above) should depend on
+        who the logged in Web page visitor is, and the latest product should
+        come from a database and thus it potentially changes at any moment. In
+        this situation you can't just enter the user name nor the URL and name
+        of the latest product into the HTML, you can't use static HTML.</p><p>FreeMarker's solution for this problem is using a <b>template</b> instead of the static HTML. The
+        template is the same as the static HTML, except that it contains some
+        instructions to FreeMarker that makes it dynamic:</p><a name="example.first"></a><div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Welcome!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome <b>${user}</b>!&lt;/h1&gt;
+  &lt;p&gt;Our latest product:
+  &lt;a href=&quot;<b>${latestProduct.url}</b>&quot;&gt;<b>${latestProduct.name}</b>&lt;/a&gt;!
+&lt;/body&gt;
+&lt;/html&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>The template is stored on the Web server, usually just like the
+        static HTML page would be. But whenever someone visits this page,
+        FreeMarker will step in and transform the template on-the-fly to plain
+        HTML by replacing the
+        <tt style="color: #A03D10">${<i style="color: #DD4400">...</i>}</tt>-s with up-to-date
+        content (e.g., replacing <tt style="color: #A03D10">${user}</tt> with Big Joe or
+        whoever the visitor is) and send the result to the visitor's Web
+        browser. So the visitor's Web browser will receive something like the
+        first example HTML (i.e., plain HTML without FreeMarker instructions),
+        and it will not perceive that FreeMarker is used on the server. The
+        template file itself (which is, again, stored on the Web server) is
+        not changed during this, so the transformation will happen again and
+        again for each visiting. This ensures that the displayed information
+        is always up-to-date.</p><p>Now, you already may have noticed that the template contains no
+        instructions regarding how to find out who the current visitor is, or
+        how to query the database to find out what the latest product is. It
+        seems it just already know these values. And indeed that's the case.
+        An important idea behind FreeMarker (actually, behind Web MVC) is that
+        presentation logic and &quot;business logic&quot; should be separated. In the
+        template you only deal with presentation issues, that is, visual
+        design issues, formatting issues. The data that will be displayed
+        (such as the user name and so on) is prepared outside FreeMarker,
+        usually by routines written in Java language or other general purpose
+        language. So the template author doesn't have to know how these values
+        are calculated. In fact, the way these values are calculated can be
+        completely changed while the templates can remain the same, and also,
+        the look of the page can be completely changed without touching
+        anything but the template. This separation can be especially useful
+        when the template authors (designers) and the programmers are
+        different individuals.</p><p>While for FreeMarker (and for the template author) it's
+        not interesting <i>how</i> the data was calculated,
+        FreeMarker still have to know <i>what</i> the actual
+        data is. All the data that the template can use is packed into the so
+        called <b>data-model</b>. It's created by
+        the already mentioned routines that calculate the data. As far as the
+        template author is concerned, the data-model is a tree-like structure
+        (like folders and files on your hard disk), that in this case could be
+        visualized as:</p><div align="left" class="programlisting"><table bgcolor="#99CCFF" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#99CCFF" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+(root)
+  |
+  +- <b>user</b> = &quot;Big Joe&quot;
+  |
+  +- <b>latestProduct</b>
+      |
+      +- <b>url</b> = &quot;products/greenmouse.html&quot;
+      |
+      +- <b>name</b> = &quot;green mouse&quot;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+<p>(To prevent misunderstandings: The data-model is not a text
+        file, the above is just a visualization of a data-model for you. It's
+        from Java objects, but let that be the problem of the Java
+        programmers.)</p><p>Compare this with what you saw in the template earlier:
+        <tt style="color: #A03D10">${user}</tt> and
+        <tt style="color: #A03D10">${latestProduct.name}</tt>. As an analogy, the data
+        model is something like the file system of computers: the root and
+        <tt style="color: #A03D10">latestProduct</tt> correspond to directories (folders)
+        and the <tt style="color: #A03D10">user</tt>, <tt style="color: #A03D10">url</tt> and
+        <tt style="color: #A03D10">name</tt> correspond to files. <tt style="color: #A03D10">url</tt>
+        and <tt style="color: #A03D10">name</tt> are in the
+        <tt style="color: #A03D10">latestProduct</tt> directory. So
+        <tt style="color: #A03D10">latestProduct.name</tt> is like saying
+        <tt style="color: #A03D10">name</tt> in the <tt style="color: #A03D10">latestProduct</tt>
+        directory. But as I said, it was just a simile; there are no files or
+        directories here.</p><p>To recapitulate, a template and a data-model is needed for
+        FreeMarker to generate the output (like the HTML shown first):</p><p><span style="background-color:#D8D8D8">Template</span> + <span style="background-color:#99CCFF">data-model</span> = <span style="background-color:#CCFFCC">output</span></p>  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_quickstart_datamodel.html"><span class="hideA">Next page: </span>The data-model at a glance</a></div><div class="pagerButton"><a href="dgui_quickstart.html">Previous page</a></div><div class="pagerButton"><a href="dgui_quickstart.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_quickstart.html">Getting Started</a>
+            <b>></b>
+          Template + data-model = output
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,379 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Interpolations
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_template.html">The Template</a>
+            <b>></b>
+          Interpolations
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <a href="ref_specvar.html">.spec_vars</a>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_misc.html"><span class="hideA">Next page: </span>Miscellaneous</a></div><div class="pagerButton"><a href="dgui_template_exp.html">Previous page</a></div><div class="pagerButton"><a href="dgui_template.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_section1"
+        id="pageTopTitle">
+<a name="dgui_template_valueinsertion"></a>Interpolations  </h1>
+    
+    
+<p>The format of interpolations is
+        <tt style="color: #A03D10">${<i style="color: #DD4400">expression</i>}</tt>, where
+        <tt style="color: #A03D10"><i style="color: #DD4400">expression</i></tt> can be all
+        kind of expression (e.g. <tt style="color: #A03D10">${100 + x}</tt>).</p><p>The interpolation is used to insert the value of the
+        <tt style="color: #A03D10"><i style="color: #DD4400">expression</i></tt> converted to
+        text (to string). Interpolations can be used only on two places: in
+        <a href="dgui_template_overallstructure.html"><span style="background-color:#8acbfa">text</span> sections</a> (e.g.,
+        <tt style="color: #A03D10">&lt;h1&gt;Hello ${name}!&lt;/h1&gt;</tt>) and <a href="dgui_template_exp.html#dgui_template_exp_stringop_interpolation">in string literal
+        expressions</a> (e.g., <tt style="color: #A03D10">&lt;#include
+        &quot;/footer/${company}.html&quot;&gt;</tt>).</p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+  <p class="rank_note">Warning!</p>
+
+          <p>A frequent mistake is the usage of interpolations in places
+          where it shouldn't/can't be used. A typical bad usage is
+          <tt style="color: #A03D10">&lt;#if ${isBig}&gt;Wow!&lt;/#if&gt;</tt>, which is
+          syntactically <i>WRONG</i>. You should simply write
+          <tt style="color: #A03D10">&lt;#if isBig&gt;Wow!&lt;/#if&gt;</tt>. Also,
+          <tt style="color: #A03D10">&lt;#if &quot;${isBig}&quot;&gt;Wow!&lt;/#if&gt;</tt> is
+          <i>WRONG</i>, since the parameter value will be a
+          string, and the <tt style="color: #A03D10">if</tt> directive wants a boolean
+          value, so it will cause a runtime error.</p>
+        </div>            
+<p>The result of the expression must be a string, number or date
+        value. This is because only numbers and dates will be converted to
+        string by the interpolation automatically, other types of values (such
+        as booleans, sequences) must be converted to string &quot;manually&quot; somehow
+        (see some advices later), or an error will stop the template
+        processing.</p>
+            
+  
+  
+  
+  <h2 class="rank_simplesect"
+        >
+<a name="autoid_18"></a>Guide for inserting strings; don't forget escaping!  </h2>
+
+
+          <p>If the interpolation is in a <a href="dgui_template_overallstructure.html"><span style="background-color:#8acbfa">text</span> section</a> (i.e., not in a <a href="dgui_template_exp.html#dgui_template_exp_stringop_interpolation">string literal
+          expression</a>), the string that it will insert will be
+          automatically escaped if an <a href="ref_directive_escape.html#ref.directive.escape"><tt>escape</tt>
+          directive</a> is in effect. If you are generating HTML it's
+          strongly recommended to utilize this to prevent cross-site-scripting
+          attacks and not-well-formed HTML pages. Here's a quick
+          example:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+<b>&lt;#escape x as x?html&gt;</b>
+  ...
+  &lt;p&gt;Title: <b>${</b>book.title<b>}</b>&lt;/p&gt;
+  &lt;p&gt;Description: <b>&lt;#noescape&gt;${</b>book.description<b>}&lt;/#noescape&gt;</b>&lt;/p&gt;
+  &lt;h2&gt;Comments:&lt;/h2&gt;
+  &lt;#list comments as comment&gt;
+    &lt;div class=&quot;comment&quot;&gt;
+      <b>${</b>comment<b>}</b>
+    &lt;/div&gt;
+  &lt;/#list&gt;
+  ...
+<b>&lt;/#escape&gt;</b>&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This example shows that when generating HTML you better put
+          the whole template inside the <tt style="color: #A03D10">escape</tt> directive.
+          Thus, if the <tt style="color: #A03D10">book.title</tt> contains
+          <tt style="color: #A03D10">&amp;</tt>, it will be replaced with
+          <tt style="color: #A03D10">&amp;amp;</tt> in the output so the page remains
+          well-formed HTML. If a user comment contains tags like
+          <tt style="color: #A03D10">&lt;iframe&gt;</tt> (or any other element), they will
+          become to <tt style="color: #A03D10">&amp;lt;iframe&amp;gt;</tt> and like,
+          rendering them harmless. But sometimes you really have HTML in the
+          data-model, like let's assume <tt style="color: #A03D10">book.description</tt>
+          above is stored as HTML in the database, in which case you have to
+          neutralize the enclosing <tt style="color: #A03D10">escape</tt> with a
+          <tt style="color: #A03D10">noescape</tt>. Without the enclosing
+          <tt style="color: #A03D10">escape</tt>, the template would look like:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+  ...
+  &lt;p&gt;Title: ${book.title?html}&lt;/p&gt;
+  &lt;p&gt;Description: ${book.description}&lt;/p&gt;
+  &lt;h2&gt;Comments:&lt;/h2&gt;
+  &lt;#list comments as comment&gt;
+    &lt;div class=&quot;comment&quot;&gt;
+      ${comment?html}
+    &lt;/div&gt;
+  &lt;/#list&gt;
+  ...&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>This does the same as the earlier example, but here you may
+          forget some <tt style="color: #A03D10">?html</tt>-s, which is a security risk. In
+          the earlier example you may forget some
+          <tt style="color: #A03D10">noescape</tt>-s, which gives bad output too, but it's
+          at least no a security risk.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_simplesect"
+        >
+<a name="autoid_19"></a>Guide for inserting numerical values  </h2>
+
+
+          <p>If the expression evaluates to a number then the numerical
+          value will be converted to string according the default number
+          format. This may includes the maximum number of decimals, grouping,
+          and like. Usually the programmer should set the default number
+          format; the template author don't have to deal with it (but he can
+          with the <tt style="color: #A03D10">number_format</tt> setting; see in the <a href="ref_directive_setting.html">documentation of
+          <tt>setting</tt> directive</a>). You can override the
+          default number format for a single interpolation with the <a href="ref_builtins_number.html#ref_builtin_string_for_number"><tt>string</tt>
+          built-in</a>.</p>
+
+          <p>The decimal separator used (and other such symbols, like the
+          group separator) depends on the current locale (language, country),
+          that also should be set by the programmer. For example, this
+          template:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+${1.5}&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>will print something like this if the current locale is
+          English:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+1.5&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>but if the current locale is Hungarian then it will print
+          something like:</p>
+
+          <div align="left" class="programlisting"><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#CCFFCC" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+1,5&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+
+          <p>since Hungarian people use comma as decimal separator.</p>
+
+          <p>You can modify the formatting for a single interpolation with
+          the <a href="ref_builtins_number.html#ref_builtin_string_for_number"><tt>string</tt>
+          built-in</a>.</p>
+
+          <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+  <p class="rank_note">Warning!</p>
+
+            <p>As you can see, interpolations print for human audience (by
+            default at least), as opposed to ''computer audience''. In some
+            cases this is not good, like when you print a database record ID-s
+            as the part of an URL or as an invisible field value in a HTML
+            form, or when you print CSS/JavaScript numerical literals, because
+            these printed values will be read by computer programs and not by
+            humans. Most computer programs are very particular about the
+            format of the numbers, and understand only a kind of simple US
+            number formatting. For that, use the <a href="ref_builtins_number.html#ref_builtin_c"><tt>c</tt></a> (stands for
+            ''computer audience'') built-in, for example:</p>
+
+            <div align="left" class="programlisting"><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="0" border="0"><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td><table bgcolor="#D8D8D8" cellspacing="0" cellpadding="4" border="0" width="100%" style="margin: 0px"><tr><td><pre style="margin: 0px">
+&lt;a href=&quot;/shop/productdetails?id=${product.id?c}&quot;&gt;Details...&lt;/a&gt;&nbsp;<span style="font-size: 1pt"> </span></pre></td></tr></table></td><td width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td></tr><tr valign="top"><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td><td height="1" width="1" bgcolor="black"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></td>      </tr>
+</table>  </div>
+
+          </div>            
+
+        
+            
+  
+  
+  
+  <h2 class="rank_simplesect"
+        >
+<a name="dgui_template_valueinserion_universal_date"></a>Guide for inserting date/time values  </h2>
+
+
+          <p>If the expression evaluates to a date then the date value will
+          be transformed to a text according to a default format. Usually the
+          programmer should set the default format; you don't have to deal
+          with it (but if you care, see the <tt style="color: #A03D10">date_format</tt>,
+          <tt style="color: #A03D10">time_format</tt> and
+          <tt style="color: #A03D10">datetime_format</tt> settings in the <a href="ref_directive_setting.html">documentation of the
+          <tt>setting</tt> directive</a>).</p>
+
+          <p>You can override the default formatting for a single
+          interpolation with the <a href="ref_builtins_date.html#ref_builtin_string_for_date"><tt>string</tt>
+          built-in</a>.</p>
+
+          <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+  <p class="rank_note">Warning!</p>
+
+            <p>To display a date as text, FreeMarker must know which parts
+            of the date are in use, that is, if only the date part (year,
+            month, day), or only the time part (hour, minute, second,
+            millisecond), or both. Unfortunately, because of the technical
+            limitations of Java platform, for some variables it is not
+            possible to detect this automatically; ask the programmer if the
+            data-model contains such problematic variables. If it is not
+            possible to find out which parts of the date are in use, then you
+            must help FreeMarker with the <a href="ref_builtins_date.html#ref_builtin_date_datetype"><tt>date</tt>,
+            <tt>time</tt> and <tt>datetime</tt></a>
+            built-ins, or it will stop with error.</p>
+          </div>            
+
+        
+            
+  
+  
+  
+  <h2 class="rank_simplesect"
+        >
+<a name="autoid_20"></a>Guide for inserting boolean values  </h2>
+
+
+          <p>An attempt to print boolean values with interpolation causes
+          an error and aborts template processing. For example this will cause
+          an error: <tt style="color: #A03D10">${a == 2}</tt> and will not print ''true''
+          or something like that.</p>
+
+          <p>However, you can convert booleans to strings with the <a href="ref_builtins_boolean.html#ref_builtin_string_for_boolean"><tt>?string</tt>
+          built-in</a>. For example, to print the value of the &quot;married&quot;
+          variable (assuming it's a boolean), you could write
+          <tt style="color: #A03D10">${married?string(&quot;yes&quot;, &quot;no&quot;)}</tt>.</p>
+        
+            
+  
+  
+  
+  <h2 class="rank_simplesect"
+        >
+<a name="autoid_21"></a>The exact conversion rules  </h2>
+
+
+          <p>For those who are interested, the exact rules of conversion
+          from the expression value to string (which is then still subject to
+          escaping) are these, in this order:</p>
+
+          <div class="orderedlist"><ol type="1">
+            <li>
+              <p>If the value is a number, then it is converted to string
+              in the format specified with the
+              <tt style="color: #A03D10">number_format</tt> setting. So this usually
+              formats for human audience, as opposed to computer
+              audience.</p>
+            </li>
+
+            <li>
+              <p>Else if the value is whatever kind of date, time or
+              date-time, then it is converted to string in the format
+              specified with the <tt style="color: #A03D10">time_format</tt>,
+              <tt style="color: #A03D10">date_format</tt>, or
+              <tt style="color: #A03D10">datetime_format</tt> setting, depending on whether
+              the date information is time-only, date-only, or a date-time. If
+              it can't be detected what kind of date it is (date vs time vs
+              date-time), an error will occur.</p>
+            </li>
+
+            <li>
+              <p>Else if the value is a string, then there is no
+              conversion.</p>
+            </li>
+
+            <li>
+              <p>Else if the engine is in classic compatibility
+              mode:</p>
+
+              <div class="orderedlist"><ol type="1">
+                <li>
+                  <p>If the value is a boolean, true values are converted
+                  to &quot;true&quot;, false values are converted to an empty
+                  string.</p>
+                </li>
+
+                <li>
+                  <p>If the expression is undefined
+                  (<tt style="color: #A03D10">null</tt> or a variable is undefined), it is
+                  converted to an empty string.</p>
+                </li>
+
+                <li>
+                  <p>Else an error will abort the template
+                  processing.</p>
+                </li>
+              </ol></div>
+            </li>
+
+            <li>
+              <p>Else an error will abort the template processing.</p>
+            </li>
+          </ol></div>
+          
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="dgui_misc.html"><span class="hideA">Next page: </span>Miscellaneous</a></div><div class="pagerButton"><a href="dgui_template_exp.html">Previous page</a></div><div class="pagerButton"><a href="dgui_template.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="dgui.html">Template Author's Guide</a>
+            <b>></b>
+          <a href="dgui_template.html">The Template</a>
+            <b>></b>
+          Interpolations
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+

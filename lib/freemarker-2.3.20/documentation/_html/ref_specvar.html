@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="docgen-resources/docgen.css" type="text/css">
+  <meta name="generator" content="FreeMarker Docgen (DocBook 5)">
+  <title>
+    FreeMarker Manual - Special Variable Reference
+  </title>
+    <script type="text/javascript" src="docgen-resources/jquery.js"></script>
+    <script type="text/javascript" src="docgen-resources/linktargetmarker.js"></script>
+</head>
+<body>
+
+    <div class="navigation">
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          Special Variable Reference
+</span>    </div>
+    <div class="bookmarks">
+<span class="bookmarks">Bookmarks:
+<a href="alphaidx.html">Alpha. index</a>, <a href="gloss.html">Glossary</a>, <a href="dgui_template_exp.html#exp_cheatsheet">Expressions</a>, <a href="ref_builtins_alphaidx.html">?builtins</a>, <a href="ref_directive_alphaidx.html">#directives</a>, <span class="disabledBookmark">.spec_vars</span>, <a href="app_faq.html">FAQ</a>, <a href="api/index.html">API</a>, <a href="../index.html">Home</a></span>    </div>
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_reservednames.html"><span class="hideA">Next page: </span>Reserved names in FTL</a></div><div class="pagerButton"><a href="ref_directive_visit.html">Previous page</a></div><div class="pagerButton"><a href="ref.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    </div>
+
+<div id="mainContent">
+
+  
+  
+  
+  
+  <h1 class="rank_chapter"
+        id="pageTopTitle">
+<a name="ref_specvar"></a>Chapter 3   Special Variable Reference  </h1>
+    
+    
+<p>Special variables are variables defined by the FreeMarker engine
+      itself. To access them, you use the
+      <tt style="color: #A03D10">.<i style="color: #DD4400">variable_name</i></tt> syntax. For
+      example, you can't write simply <tt style="color: #A03D10">version</tt>; you have to
+      write <tt style="color: #A03D10">.version</tt>.</p><p>The supported special variables are:</p>    <div class="itemizedlist">
+<ul>
+        <li>
+          <tt style="color: #A03D10">data_model</tt>: A hash that you can use to
+          access the data-model directly. That is, variables you did with
+          <tt style="color: #A03D10">global</tt> directive are not visible here.
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">error</tt> (available since FreeMarker
+          2.3.1): This variable accessible in the body of the <a href="ref_directive_attempt.html#ref.directive.attempt"><tt>recover</tt>
+          directive</a>, where it stores the error message of the error we
+          recover from.
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">globals</tt>: A hash that you can use to access
+          the globally accessible variables: the data-model and the variables
+          created with <tt style="color: #A03D10">global</tt> directive. Note that
+          variables created with <tt style="color: #A03D10">assign</tt> or
+          <tt style="color: #A03D10">macro</tt> are not globals, thus they never hide the
+          variables when you use <tt style="color: #A03D10">globals</tt>.
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">lang</tt>: Returns the language part of
+          the current value of the locale setting. For example if
+          <tt style="color: #A03D10">.locale</tt> is <tt style="color: #A03D10">en_US</tt>, then
+          <tt style="color: #A03D10">.lang</tt> is <tt style="color: #A03D10">en</tt>.
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">locale</tt>: Returns the current value
+          of the locale setting. This is a string, for example
+          <tt style="color: #A03D10">en_US</tt>. For more information about locale strings
+          <a href="ref_directive_setting.html#ref.directive.setting">see the
+          <tt>setting</tt> directive</a>.
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">locals</tt>: A hash that you can use to access
+          the local variables (the variables created with the
+          <tt style="color: #A03D10">local</tt> directive, and the parameters of
+          macro).
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">main</tt>: A hash that you can use to access the
+          main <a href="dgui_misc_namespace.html">namespace</a>. Note that
+          global variables like the variables of data-model are
+          <i>not</i> visible through this hash.
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">namespace</tt>: A hash that you can use to
+          access the current <a href="dgui_misc_namespace.html">namespace</a>. Note that global
+          variables like the variables of data-model are
+          <i>not</i> visible through this hash.
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">node</tt> (alias <tt style="color: #A03D10">current_node</tt>
+          for historical reasons): The node you are currently processing with
+          the visitor pattern (i.e. with the <a href="ref_directive_visit.html"><tt>visit</tt>,
+          <tt>recurse</tt>, ...etc. directives</a>). Also, it
+          initially stores the root node when you use the <a href="pgui_misc_ant.html">FreeMarker XML Ant task</a>.
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">now</tt>: Returns the current date-time.
+          Usage examples: &quot;<tt style="color: #A03D10">Page generated: ${.now}</tt>&quot;,
+          &quot;<tt style="color: #A03D10">Today is ${.now?date}</tt>&quot;, &quot;<tt style="color: #A03D10">The current
+          time is ${.now?time}</tt>&quot;.
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">output_encoding</tt> (available since
+          FreeMarker 2.3.1): Returns the name of the current output charset.
+          This special variable is not existent if the framework that
+          encapsulates FreeMarker doesn't specify the output charset for
+          FreeMarker. <span style="color:#333399; font-style:italic">(Programmers can read more
+          about charset issues <a href="pgui_misc_charset.html">here...</a>)</span>
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">template_name</tt>: The name of the current
+          template (available since FreeMarker 2.3.14).
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">url_escaping_charset</tt> (available
+          since FreeMarker 2.3.1): If exists, it stores the name of the
+          charset that should be used for URL escaping. If this variable
+          doesn't exist that means that nobody has specified what charset
+          should be used for URL encoding yet. In this case the <a href="ref_builtins_string.html#ref_builtin_url"><tt>url</tt> built-in</a>
+          uses the charset specified by the <tt style="color: #A03D10">output_encoding</tt>
+          special variable for URL encoding; custom mechanism may follow the
+          same logic. <span style="color:#333399; font-style:italic">(Programmers can read more
+          about charset issues <a href="pgui_misc_charset.html">here...</a>)</span>
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">vars</tt>: Expression
+          <tt style="color: #A03D10">.vars.foo</tt> returns the same variable as expression
+          <tt style="color: #A03D10">foo</tt>. It's useful if for some reasons you have to
+          use square bracket syntax, since that works only for hash
+          subvariables, so you need an artificial parent hash. For example, to
+          read a top-level variable that has a strange name that would confuse
+          FreeMarker, you can write
+          <tt style="color: #A03D10">.vars[&quot;A strange name!&quot;]</tt>. Or, to access a
+          top-level variable with dynamic name given with variable
+          <tt style="color: #A03D10">varName</tt> you can write
+          <tt style="color: #A03D10">.vars[varName]</tt>. Note that the hash returned by
+          <tt style="color: #A03D10">.vars</tt> does not support <tt style="color: #A03D10">?keys</tt>
+          and <tt style="color: #A03D10">?values</tt>.
+        </li>
+
+        <li>
+          <tt style="color: #A03D10">version</tt>: Returns the FreeMarker
+          version number as string, for example <tt style="color: #A03D10">2.2.8</tt>. This
+          can be used to check which FreeMarker version does your application
+          use, but note that this special variable does not exist prior to the
+          2.3-final or 2.2.8 versions. The version number of non-final
+          releases contain abbreviation ``pre'' for ``preview'' (e.g.
+          <tt style="color: #A03D10">2.3pre6</tt>), or abbrevation ``rc'' for ``release
+          candidate''.
+        </li>
+      </ul>    </div>
+  
+</div>
+
+    <div class="navigation">
+    <div class="pagers">
+      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+<div class="pagerButton"><a href="ref_reservednames.html"><span class="hideA">Next page: </span>Reserved names in FTL</a></div><div class="pagerButton"><a href="ref_directive_visit.html">Previous page</a></div><div class="pagerButton"><a href="ref.html">Parent page</a></div><div class="pagerButton"><a href="index.html">Contents</a></div>      <div class="pagersVerticalSpacer"><img src="docgen-resources/img/none.gif" width="1" height="1" alt="" hspace="0" vspace="0" border="0"/></div>
+    </div>
+    <div class="breadcrumb">
+<span class="breadcrumb">        You are here:
+          <a href="index.html">Book</a>
+            <b>></b>
+          <a href="ref.html">Reference</a>
+            <b>></b>
+          Special Variable Reference
+</span>    </div>
+    </div>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+      <td colspan=2><img src="docgen-resources/img/none.gif" width=1 height=8 alt=""></td>
+    <tr>
+      <td align="left" valign="top"><span class="smallFooter">
+            FreeMarker Manual -- For FreeMarker 2.3.20
+            <br>
+          HTML generated: 2013-06-27 20:54:33 GMT
+      </span></td>
+      <td align="right" valign="top"><span class="smallFooter">
+          <a href="http://www.xmlmind.com/xmleditor/">
+            <img src="docgen-resources/img/xxe.gif" alt="Edited with XMLMind XML Editor">
+          </a>
+      </span></td>
+    </tr>
+</table>
+  <!-- Put pre-loaded images here: -->
+  <div style="display: none">
+    <img src="docgen-resources/img/linktargetmarker.gif" alt="Here!" />
+  </div>
+</body>
+</html>
+
