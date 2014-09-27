@@ -1,6 +1,7 @@
 package com.articulate.util;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -22,9 +23,15 @@ public class ArticulateNER {
     public void init() {
         DictionaryIO dictionaryIO = new DictionaryIO(nounDictionaryTrie, otherDictionaryTrie);
         dictionaryIO.createTrie(NOUN_DICTIONARY_PATH, OTHER_DICTIONARY_PATH);
+
+        finalMap = new HashMap<String, String>();
     }
 
+    private HashMap<String,String> finalMap = null;
+
     public LinkedHashMap<String , LinkedHashMap<String, Integer>> processSingleArticle(Article article, int index) {
+
+        finalMap.put("output_ner" + index , article.getTitle());
 
         TreeMap<String, Integer> termFrequency = new TreeMap<String, Integer>();
         /**
@@ -95,7 +102,7 @@ public class ArticulateNER {
         }
 
         try {
-            System.out.println("scripts/ner.sh files/candidate_ner"+ index +"files/articles/output_ner" + index);
+            System.out.println("scripts/ner.sh files/candidate_ner"+ index +" files/articles/output_ner" + index);
             Process execProcess = Runtime.getRuntime().exec("scripts/ner.sh files/candidate_ner" + index + " files/articles/output_ner" + index);
             execProcess.waitFor();
 
@@ -139,7 +146,8 @@ public class ArticulateNER {
             String line;
 
             while ( (line = bufferedReader.readLine()) != null ) {
-                results.put(line , new LinkedHashMap<String, Integer>());
+                String[] tempArray = line.split(" ");
+                results.put(finalMap.get(tempArray[0]) + " - Interestingness Score :  " + tempArray[1] , new LinkedHashMap<String, Integer>());
             }
 
         } catch (Exception e) {

@@ -3,7 +3,7 @@ ZzR1wNc2kCBoQqEukTDmHH9bcOLpolwxIa7fDA
 376861690-4p1bLylUNXJ46NXP745OjNcUNNK36GFIETJoc9km
 X7u73ofDsqEKgF0LHG1pw5rEEOqYRT92VScMlBEsfUg9g
 /home/devilo/workspace/Articulate/files/articles
-30
+15
 
 
 The structure file should as follows(line by line) : 

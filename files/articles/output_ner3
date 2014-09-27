@@ -1,16 +1,15 @@
-anonymity #state# 1
-death #event# 1
-department #social group# 1
-friday #fundamental quantity# 1
-hundreds #definite quantity# 1
-island #land# 2
-korea #land# 1
-news #message# 1
-officials #living thing# 1
-passengers #living thing# 2
-rescuers #living thing# 1
-seoul #location# 1
-surname #part# 1
-vice #quality# 2
-wednesday #fundamental quantity# 1
-wednesday #fundamental quantity# 1
+accident #event# 2
+afp #substance# 1
+areas #location# 1
+casualty #living thing# 1
+children #living thing# 1
+driver #operator# 2
+karachi #location# 3
+pakistan sunday #entity# 1
+province #location# 1
+town #location# 1
+tractor #artifact# 1
+transportation #artifact# 1
+trolley #artifact# 1
+women #living thing# 1
+women #living thing# 1
